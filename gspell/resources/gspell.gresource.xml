@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/gspell">
-    <file preprocess="xml-stripblanks">menu.ui</file>
+    <file preprocess="xml-stripblanks">checker-dialog.ui</file>
+    <file preprocess="xml-stripblanks">language-dialog.ui</file>
   </gresource>
 </gresources>
