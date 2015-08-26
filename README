@@ -1,0 +1,11 @@
+gspell
+======
+
+A spell-checking library for GTK+.
+
+Dependencies
+------------
+
+- GTK+
+- GtkSourceView
+- libxml2
