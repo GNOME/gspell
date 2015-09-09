@@ -1,9 +1,8 @@
 /*
- * gedit-spell-utils.c
- * This file is part of gedit
+ * This file is part of gspell.
  *
- * Copyright (C) 2010 - Jesse van den Kieboom
- * Copyright (C) 2015 - Sébastien Wilmet
+ * Copyright 2010 - Jesse van den Kieboom
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,9 +1,8 @@
 /*
- * gedit-automatic-spell-checker.c
- * This file is part of gedit
+ * This file is part of gspell.
  *
- * Copyright (C) 2002 Paolo Maggi
- * Copyright (C) 2015 Sébastien Wilmet
+ * Copyright 2002 - Paolo Maggi
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +18,8 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-/* This is a modified version of GtkSpell 2.0.5 (gtkspell.sf.net) */
-/* GtkSpell - a spell-checking addon for GTK's TextView widget
- * Copyright (C) 2002 Evan Martin.
+/* This is a modified version of GtkSpell 2.0.5 (gtkspell.sf.net)
+ * Copyright 2002 - Evan Martin
  */
 
 #include "gedit-automatic-spell-checker.h"

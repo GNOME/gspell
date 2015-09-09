@@ -1,7 +1,7 @@
 /*
- * This file is part of gspell
+ * This file is part of gspell.
  *
- * Copyright (C) 2011, 2014 - Jesse van den Kieboom
+ * Copyright 2011, 2014 - Jesse van den Kieboom
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

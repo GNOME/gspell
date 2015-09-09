@@ -1,8 +1,7 @@
 /*
- * gedit-spell-checker-language.c
- * This file is part of gedit
+ * This file is part of gspell.
  *
- * Copyright (C) 2006 Paolo Maggi
+ * Copyright 2006 - Paolo Maggi
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +17,8 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Part of the code taked from Epiphany.
- *
- * Copyright (C) 2003, 2004 Christian Persch
+/* Part of the code taken from Epiphany.
+ * Copyright 2003, 2004 - Christian Persch
  */
 
 #include "config.h"

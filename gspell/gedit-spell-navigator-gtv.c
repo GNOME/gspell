@@ -1,8 +1,7 @@
 /*
- * gedit-spell-navigator-gtv.c
- * This file is part of gedit
+ * This file is part of gspell.
  *
- * Copyright (C) 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
