@@ -143,3 +143,10 @@ AC_CONFIG_FILES([
 ])
 
 AC_OUTPUT
+
+echo "
+Configuration:
+
+	Source code location:	${srcdir}
+	Compiler:		${CC}
+"
