@@ -8,6 +8,7 @@ AC_INIT([gspell],
 	[gspell],
 	[])
 
+AX_REQUIRE_DEFINED([AX_IS_RELEASE])
 AX_IS_RELEASE([git-directory])
 
 # Dependencies
@@ -29,6 +30,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 # Check for programs
 AC_PROG_CC
 AC_PROG_INSTALL
+AX_REQUIRE_DEFINED([PKG_PROG_PKG_CONFIG])
 PKG_PROG_PKG_CONFIG
 # needed on osx
 AC_PROG_OBJC
@@ -41,19 +43,17 @@ LT_INIT([disable-static])
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
 # Compile warnings
+AX_REQUIRE_DEFINED([AX_COMPILER_FLAGS])
 AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS])
 
 # pkg-config
-PKG_CHECK_MODULES(DEP, [
-	enchant >= $enchant_req
-	glib-2.0 >= $glib_req
-	gio-2.0 >= $glib_req
-	gtk+-3.0 >= $gtk_req
-	gtksourceview-3.0 >= $gtksourceview_req
-	libxml-2.0 >= $libxml_req
-])
+AX_REQUIRE_DEFINED([AX_PKG_CHECK_MODULES])
+AX_PKG_CHECK_MODULES([DEP],
+		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req  gtksourceview-3.0 >= $gtksourceview_req],
+		     [enchant >= $enchant_req  libxml-2.0 >= $libxml_req])
 
 # iso-codes
+AX_REQUIRE_DEFINED([PKG_CHECK_EXISTS])
 PKG_CHECK_EXISTS([iso-codes >= $iso_codes_req],
 		 [have_iso_codes=yes],
 		 [have_iso_codes=no])
@@ -126,7 +126,9 @@ AM_CONDITIONAL(OS_OSX, test "$os_osx" = "yes")
 if test "$os_osx" = "yes"; then
 	AC_DEFINE([OS_OSX], [1], [Defined if OS is Mac OSX])
 
-	PKG_CHECK_MODULES(GTK_MAC, gtk-mac-integration-gtk3 >= 2.0.8)
+	AX_PKG_CHECK_MODULES([GTK_MAC],
+			     [],
+			     [gtk-mac-integration-gtk3 >= 2.0.8])
 
 	AC_SUBST(GTK_MAC_CFLAGS)
 	AC_SUBST(GTK_MAC_LIBS)
