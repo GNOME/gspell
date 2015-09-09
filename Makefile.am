@@ -1,4 +1,4 @@
-SUBDIRS = gspell po
+SUBDIRS = gspell po tests
 
 MAINTAINERCLEANFILES = \
 	ABOUT-NLS \
