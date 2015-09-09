@@ -14,6 +14,7 @@ BUILT_SOURCES =			\
 	gspell-resources.c
 
 gspell_public_headers =				\
+	gspell.h				\
 	gedit-automatic-spell-checker.h		\
 	gedit-spell-checker.h			\
 	gedit-spell-checker-dialog.h		\
