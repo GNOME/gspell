@@ -188,13 +188,13 @@ gedit_spell_language_dialog_new (GtkWindow                       *parent,
 }
 
 /**
- * gedit_spell_language_get_selected_language:
+ * gedit_spell_language_dialog_get_selected_language:
  * @dialog: a #GeditSpellLanguageDialog.
  *
  * Returns: the currently selected language.
  */
 const GeditSpellCheckerLanguage *
-gedit_spell_language_get_selected_language (GeditSpellLanguageDialog *dialog)
+gedit_spell_language_dialog_get_selected_language (GeditSpellLanguageDialog *dialog)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;

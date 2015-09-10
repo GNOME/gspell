@@ -99,7 +99,7 @@ language_button_clicked_cb (GtkButton *language_button,
 	response = gtk_dialog_run (GTK_DIALOG (language_dialog));
 	if (response == GTK_RESPONSE_OK)
 	{
-		language = gedit_spell_language_get_selected_language (GEDIT_SPELL_LANGUAGE_DIALOG (language_dialog));
+		language = gedit_spell_language_dialog_get_selected_language (GEDIT_SPELL_LANGUAGE_DIALOG (language_dialog));
 		gedit_spell_checker_set_language (spell->checker, language);
 	}
 

@@ -30,11 +30,11 @@ G_DECLARE_FINAL_TYPE (GeditSpellLanguageDialog, gedit_spell_language_dialog,
 		      GEDIT, SPELL_LANGUAGE_DIALOG,
 		      GtkDialog)
 
-GtkWidget *	gedit_spell_language_dialog_new			(GtkWindow			 *parent,
-								 const GeditSpellCheckerLanguage *cur_lang);
+GtkWidget *	gedit_spell_language_dialog_new				(GtkWindow			 *parent,
+									 const GeditSpellCheckerLanguage *cur_lang);
 
 const GeditSpellCheckerLanguage *
-		gedit_spell_language_get_selected_language	(GeditSpellLanguageDialog *dialog);
+		gedit_spell_language_dialog_get_selected_language	(GeditSpellLanguageDialog *dialog);
 
 G_END_DECLS
 
