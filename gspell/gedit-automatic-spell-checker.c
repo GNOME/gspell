@@ -174,7 +174,7 @@ check_subregion (GeditAutomaticSpellChecker *spell,
 
 	word_start = start_adjusted;
 
-	while (gedit_spell_utils_skip_no_spell_check (&word_start, &end_adjusted) &&
+	while (_gedit_spell_utils_skip_no_spell_check (&word_start, &end_adjusted) &&
 	       gtk_text_iter_compare (&word_start, &end_adjusted) < 0)
 	{
 		GtkTextIter word_end;

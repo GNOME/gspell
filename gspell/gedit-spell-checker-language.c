@@ -64,7 +64,7 @@ get_iso_codes_locale_dir (void)
 				       NULL);
 #else
 #ifdef OS_OSX
-	gchar *res_dir = gedit_spell_osx_get_resource_path ();
+	gchar *res_dir = _gedit_spell_osx_get_resource_path ();
 
 	if (res_dir != NULL)
 	{
@@ -101,7 +101,7 @@ get_iso_codes_xml_name (gint iso)
 				      NULL);
 #else
 #ifdef OS_OSX
-	gchar *res_dir = gedit_spell_osx_get_resource_path ();
+	gchar *res_dir = _gedit_spell_osx_get_resource_path ();
 
 	if (res_dir != NULL)
 	{

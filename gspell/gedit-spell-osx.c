@@ -22,7 +22,7 @@
 #import <Cocoa/Cocoa.h>
 
 gchar *
-gedit_spell_osx_get_resource_path (void)
+_gedit_spell_osx_get_resource_path (void)
 {
 	gchar *id;
 	gchar *ret = NULL;
@@ -39,7 +39,7 @@ gedit_spell_osx_get_resource_path (void)
 }
 
 gchar *
-gedit_spell_osx_get_preferred_spell_language ()
+_gedit_spell_osx_get_preferred_spell_language ()
 {
 	gchar *ret = NULL;
 	NSAutoreleasePool *pool;

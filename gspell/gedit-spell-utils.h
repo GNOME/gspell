@@ -24,9 +24,11 @@
 
 G_BEGIN_DECLS
 
-gboolean	gedit_spell_utils_is_digit		(const gchar *text);
+G_GNUC_INTERNAL
+gboolean	_gedit_spell_utils_is_digit		(const gchar *text);
 
-gboolean	gedit_spell_utils_skip_no_spell_check	(GtkTextIter       *start,
+G_GNUC_INTERNAL
+gboolean	_gedit_spell_utils_skip_no_spell_check	(GtkTextIter       *start,
 							 const GtkTextIter *end);
 
 G_END_DECLS

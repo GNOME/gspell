@@ -368,7 +368,7 @@ gedit_spell_navigator_gtv_goto_next (GeditSpellNavigator  *navigator,
 			gtk_text_iter_backward_word_start (&word_start);
 		}
 
-		if (!gedit_spell_utils_skip_no_spell_check (&word_start, &end))
+		if (!_gedit_spell_utils_skip_no_spell_check (&word_start, &end))
 		{
 			return FALSE;
 		}

@@ -24,8 +24,11 @@
 
 G_BEGIN_DECLS
 
-gchar *gedit_spell_osx_get_preferred_spell_language (void);
-gchar *gedit_spell_osx_get_resource_path (void);
+G_GNUC_INTERNAL
+gchar *	_gedit_spell_osx_get_preferred_spell_language	(void);
+
+G_GNUC_INTERNAL
+gchar *	_gedit_spell_osx_get_resource_path		(void);
 
 G_END_DECLS
 

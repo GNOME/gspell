@@ -292,7 +292,7 @@ get_default_language (void)
 	/* Another try specific to Mac OS X */
 #ifdef OS_OSX
 	{
-		gchar *key = gedit_spell_osx_get_preferred_spell_language ();
+		gchar *key = _gedit_spell_osx_get_preferred_spell_language ();
 
 		if (key != NULL)
 		{
@@ -446,7 +446,7 @@ gedit_spell_checker_check_word (GeditSpellChecker  *checker,
 
 	priv = gedit_spell_checker_get_instance_private (checker);
 
-	if (gedit_spell_utils_is_digit (word))
+	if (_gedit_spell_utils_is_digit (word))
 	{
 		return TRUE;
 	}
