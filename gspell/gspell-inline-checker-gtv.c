@@ -74,7 +74,7 @@ enum
 #define ENABLE_DEBUG 0
 
 #define INLINE_CHECKER_GTV_KEY	"GspellInlineCheckerGtvID"
-#define SUGGESTION_KEY			"GspellAutoSuggestionID"
+#define SUGGESTION_KEY		"GspellInlineSuggestionID"
 
 /* Timeout durations in milliseconds. Writing and deleting text should be smooth
  * and responsive.
