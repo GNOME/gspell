@@ -84,14 +84,14 @@ set_spell_checker (GspellCheckerDialog *dialog,
 	if (g_set_object (&priv->checker, checker))
 	{
 		GtkHeaderBar *header_bar;
-		const GspellCheckerLanguage *lang;
+		const GspellLanguage *lang;
 
 		header_bar = GTK_HEADER_BAR (gtk_dialog_get_header_bar (GTK_DIALOG (dialog)));
 
 		lang = gspell_checker_get_language (checker);
 
 		gtk_header_bar_set_subtitle (header_bar,
-					     gspell_checker_language_to_string (lang));
+					     gspell_language_to_string (lang));
 	}
 }
 

@@ -35,7 +35,7 @@
  * SECTION:spell-checker
  * @Short_description: Spell checker
  * @Title: GspellChecker
- * @See_also: #GspellCheckerLanguage
+ * @See_also: #GspellLanguage
  *
  * #GspellChecker is a spell checker. It is a wrapper around the Enchant
  * library, to have a #GObject-based API.
@@ -51,7 +51,7 @@ struct _GspellCheckerPrivate
 {
 	EnchantBroker *broker;
 	EnchantDict *dict;
-	const GspellCheckerLanguage *active_lang;
+	const GspellLanguage *active_lang;
 };
 
 enum
@@ -180,7 +180,7 @@ gspell_checker_class_init (GspellCheckerClass *klass)
 	/**
 	 * GspellChecker:language:
 	 *
-	 * The #GspellCheckerLanguage used.
+	 * The #GspellLanguage used.
 	 */
 	g_object_class_install_property (object_class,
 					 PROP_LANGUAGE,
@@ -256,22 +256,22 @@ gspell_checker_init (GspellChecker *checker)
 
 /**
  * gspell_checker_new:
- * @language: (nullable): the #GspellCheckerLanguage to use.
+ * @language: (nullable): the #GspellLanguage to use.
  *
  * Returns: a new #GspellChecker object.
  */
 GspellChecker *
-gspell_checker_new (const GspellCheckerLanguage *language)
+gspell_checker_new (const GspellLanguage *language)
 {
 	return g_object_new (GSPELL_TYPE_CHECKER,
 			     "language", language,
 			     NULL);
 }
 
-static const GspellCheckerLanguage *
+static const GspellLanguage *
 get_default_language (void)
 {
-	const GspellCheckerLanguage *lang;
+	const GspellLanguage *lang;
 	const gchar * const *lang_names;
 	const GSList *langs;
 	gint i;
@@ -281,7 +281,7 @@ get_default_language (void)
 
 	for (i = 0; lang_names[i] != NULL; i++)
 	{
-		lang = gspell_checker_language_from_key (lang_names[i]);
+		lang = gspell_language_from_key (lang_names[i]);
 
 		if (lang != NULL)
 		{
@@ -296,7 +296,7 @@ get_default_language (void)
 
 		if (key != NULL)
 		{
-			lang = gspell_checker_language_from_key (key);
+			lang = gspell_language_from_key (key);
 			g_free (key);
 			return lang;
 		}
@@ -304,7 +304,7 @@ get_default_language (void)
 #endif
 
 	/* Try English */
-	lang = gspell_checker_language_from_key ("en_US");
+	lang = gspell_language_from_key ("en_US");
 	if (lang != NULL)
 	{
 		return lang;
@@ -344,7 +344,7 @@ init_dictionary (GspellChecker *checker)
 	{
 		const gchar *key;
 
-		key = gspell_checker_language_to_key (priv->active_lang);
+		key = gspell_language_to_key (priv->active_lang);
 
 		priv->dict = enchant_broker_request_dict (priv->broker, key);
 	}
@@ -364,7 +364,7 @@ init_dictionary (GspellChecker *checker)
 /**
  * gspell_checker_set_language:
  * @checker: a #GspellChecker.
- * @language: (nullable): the #GspellCheckerLanguage to use, or %NULL.
+ * @language: (nullable): the #GspellLanguage to use, or %NULL.
  *
  * Sets the language to use for the spell checking. If @language is %NULL, finds
  * the best available language based on the current locale.
@@ -373,7 +373,7 @@ init_dictionary (GspellChecker *checker)
  */
 gboolean
 gspell_checker_set_language (GspellChecker               *checker,
-			     const GspellCheckerLanguage *language)
+			     const GspellLanguage *language)
 {
 	GspellCheckerPrivate *priv;
 	gboolean success;
@@ -405,10 +405,10 @@ gspell_checker_set_language (GspellChecker               *checker,
  * gspell_checker_get_language:
  * @checker: a #GspellChecker.
  *
- * Returns: (nullable): the #GspellCheckerLanguage currently used, or %NULL
+ * Returns: (nullable): the #GspellLanguage currently used, or %NULL
  * if no dictionaries are available.
  */
-const GspellCheckerLanguage *
+const GspellLanguage *
 gspell_checker_get_language (GspellChecker *checker)
 {
 	GspellCheckerPrivate *priv;

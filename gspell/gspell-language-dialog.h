@@ -21,7 +21,7 @@
 #define __GSPELL_LANGUAGE_DIALOG_H__
 
 #include <gtk/gtk.h>
-#include "gspell-checker-language.h"
+#include "gspell-language.h"
 
 G_BEGIN_DECLS
 
@@ -31,9 +31,9 @@ G_DECLARE_FINAL_TYPE (GspellLanguageDialog, gspell_language_dialog,
 		      GtkDialog)
 
 GtkWidget *	gspell_language_dialog_new				(GtkWindow			 *parent,
-									  const GspellCheckerLanguage *cur_lang);
+									  const GspellLanguage *cur_lang);
 
-const GspellCheckerLanguage *
+const GspellLanguage *
 		gspell_language_dialog_get_selected_language	(GspellLanguageDialog *dialog);
 
 G_END_DECLS

@@ -21,7 +21,7 @@
 #define __GSPELL_CHECKER_H__
 
 #include <glib-object.h>
-#include "gspell-checker-language.h"
+#include "gspell-language.h"
 
 G_BEGIN_DECLS
 
@@ -69,12 +69,12 @@ struct _GspellCheckerClass
 GQuark		gspell_checker_error_quark			(void);
 
 GspellChecker *
-		gspell_checker_new				(const GspellCheckerLanguage *language);
+		gspell_checker_new				(const GspellLanguage *language);
 
 gboolean	gspell_checker_set_language		(GspellChecker               *checker,
-								  const GspellCheckerLanguage *language);
+								  const GspellLanguage *language);
 
-const GspellCheckerLanguage *
+const GspellLanguage *
 		gspell_checker_get_language		(GspellChecker *checker);
 
 gboolean	gspell_checker_check_word			(GspellChecker  *checker,

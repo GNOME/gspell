@@ -24,10 +24,10 @@
  * SECTION:spell-language-dialog
  * @Short_description: Dialog to choose a spell language.
  * @Title: GspellLanguageDialog
- * @See_also: #GspellCheckerLanguage.
+ * @See_also: #GspellLanguage.
  *
  * #GspellLanguageDialog is a #GtkDialog to choose an available
- * #GspellCheckerLanguage.
+ * #GspellLanguage.
  */
 
 enum
@@ -128,7 +128,7 @@ gspell_language_dialog_init (GspellLanguageDialog *dialog)
 
 static void
 populate_language_list (GspellLanguageDialog        *dialog,
-			const GspellCheckerLanguage *cur_lang)
+			const GspellLanguage *cur_lang)
 {
 	GtkListStore *store;
 	const GSList *available_langs;
@@ -140,11 +140,11 @@ populate_language_list (GspellLanguageDialog        *dialog,
 
 	for (l = available_langs; l != NULL; l = l->next)
 	{
-		const GspellCheckerLanguage *lang = l->data;
+		const GspellLanguage *lang = l->data;
 		const gchar *name;
 		GtkTreeIter iter;
 
-		name = gspell_checker_language_to_string (lang);
+		name = gspell_language_to_string (lang);
 
 		gtk_list_store_append (store, &iter);
 		gtk_list_store_set (store, &iter,
@@ -166,13 +166,13 @@ populate_language_list (GspellLanguageDialog        *dialog,
 /**
  * gspell_language_dialog_new:
  * @parent: transient parent of the dialog.
- * @cur_lang: the #GspellCheckerLanguage to select initially.
+ * @cur_lang: the #GspellLanguage to select initially.
  *
  * Returns: a new #GspellLanguageDialog widget.
  */
 GtkWidget *
 gspell_language_dialog_new (GtkWindow                       *parent,
-			    const GspellCheckerLanguage *cur_lang)
+			    const GspellLanguage *cur_lang)
 {
 	GspellLanguageDialog *dialog;
 
@@ -193,13 +193,13 @@ gspell_language_dialog_new (GtkWindow                       *parent,
  *
  * Returns: the currently selected language.
  */
-const GspellCheckerLanguage *
+const GspellLanguage *
 gspell_language_dialog_get_selected_language (GspellLanguageDialog *dialog)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	const GspellCheckerLanguage *lang;
+	const GspellLanguage *lang;
 
 	selection = gtk_tree_view_get_selection (dialog->treeview);
 

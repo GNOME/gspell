@@ -17,8 +17,8 @@ gspell_public_headers =				\
 	gspell.h				\
 	gspell-checker.h			\
 	gspell-checker-dialog.h			\
-	gspell-checker-language.h		\
 	gspell-inline-checker-gtv.h		\
+	gspell-language.h			\
 	gspell-language-dialog.h		\
 	gspell-navigator.h			\
 	gspell-navigator-gtv.h
@@ -26,8 +26,8 @@ gspell_public_headers =				\
 gspell_public_c_files =				\
 	gspell-checker.c			\
 	gspell-checker-dialog.c			\
-	gspell-checker-language.c		\
 	gspell-inline-checker-gtv.c		\
+	gspell-language.c			\
 	gspell-language-dialog.c		\
 	gspell-navigator.c			\
 	gspell-navigator-gtv.c

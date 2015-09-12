@@ -82,7 +82,7 @@ language_button_clicked_cb (GtkButton *language_button,
 			    TestSpell *spell)
 {
 	GtkWidget *window;
-	const GspellCheckerLanguage *language;
+	const GspellLanguage *language;
 	GtkWidget *language_dialog;
 	gint response;
 

@@ -22,7 +22,7 @@
  */
 
 #include "config.h"
-#include "gspell-checker-language.h"
+#include "gspell-language.h"
 
 #ifdef OS_OSX
 #include "gspell-osx.h"
@@ -36,7 +36,7 @@
 #define ISO_639_DOMAIN	"iso_639"
 #define ISO_3166_DOMAIN	"iso_3166"
 
-struct _GspellCheckerLanguage
+struct _GspellLanguage
 {
 	gchar *abrev;
 	gchar *name;
@@ -401,8 +401,8 @@ key_cmp (gconstpointer a, gconstpointer b, gpointer user_data)
 }
 
 static gint
-lang_cmp (const GspellCheckerLanguage *a,
-          const GspellCheckerLanguage *b)
+lang_cmp (const GspellLanguage *a,
+          const GspellLanguage *b)
 {
 	return g_utf8_collate (a->name, b->name);
 }
@@ -412,7 +412,7 @@ build_langs_list (const gchar *key,
 		  const gchar *value,
 		  gpointer     data)
 {
-	GspellCheckerLanguage *lang = g_new (GspellCheckerLanguage, 1);
+	GspellLanguage *lang = g_new (GspellLanguage, 1);
 
 	lang->abrev = g_strdup (key);
 	lang->name = g_strdup (value);
@@ -467,7 +467,7 @@ gspell_checker_get_available_languages (void)
 }
 
 const gchar *
-gspell_checker_language_to_string (const GspellCheckerLanguage *lang)
+gspell_language_to_string (const GspellLanguage *lang)
 {
 	if (lang == NULL)
 		/* Translators: this refers the Default language used by the
@@ -479,15 +479,15 @@ gspell_checker_language_to_string (const GspellCheckerLanguage *lang)
 }
 
 const gchar *
-gspell_checker_language_to_key (const GspellCheckerLanguage *lang)
+gspell_language_to_key (const GspellLanguage *lang)
 {
 	g_return_val_if_fail (lang != NULL, NULL);
 
 	return lang->abrev;
 }
 
-const GspellCheckerLanguage *
-gspell_checker_language_from_key (const gchar *key)
+const GspellLanguage *
+gspell_language_from_key (const gchar *key)
 {
 	const GSList *langs;
 
@@ -497,7 +497,7 @@ gspell_checker_language_from_key (const gchar *key)
 
 	while (langs != NULL)
 	{
-		const GspellCheckerLanguage *l = (const GspellCheckerLanguage *)langs->data;
+		const GspellLanguage *l = (const GspellLanguage *)langs->data;
 
 		if (g_ascii_strcasecmp (key, l->abrev) == 0)
 			return l;

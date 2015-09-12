@@ -19,8 +19,8 @@
 
 #include <gspell/gspell-checker.h>
 #include <gspell/gspell-checker-dialog.h>
-#include <gspell/gspell-checker-language.h>
 #include <gspell/gspell-inline-checker-gtv.h>
+#include <gspell/gspell-language.h>
 #include <gspell/gspell-language-dialog.h>
 #include <gspell/gspell-navigator.h>
 #include <gspell/gspell-navigator-gtv.h>
