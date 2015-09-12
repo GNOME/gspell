@@ -22,27 +22,27 @@
  * Copyright 2002 - Evan Martin
  */
 
-#ifndef __GSPELL_AUTOMATIC_SPELL_CHECKER_H__
-#define __GSPELL_AUTOMATIC_SPELL_CHECKER_H__
+#ifndef __GSPELL_INLINE_CHECKER_GTV_H__
+#define __GSPELL_INLINE_CHECKER_GTV_H__
 
 #include <gtksourceview/gtksource.h>
 #include "gspell-checker.h"
 
-#define GSPELL_TYPE_AUTOMATIC_SPELL_CHECKER (gspell_automatic_spell_checker_get_type ())
-G_DECLARE_FINAL_TYPE (GspellAutomaticSpellChecker, gspell_automatic_spell_checker,
-		      GSPELL, AUTOMATIC_SPELL_CHECKER,
+#define GSPELL_TYPE_INLINE_CHECKER_GTV (gspell_inline_checker_gtv_get_type ())
+G_DECLARE_FINAL_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv,
+		      GSPELL, INLINE_CHECKER_GTV,
 		      GObject)
 
-GspellAutomaticSpellChecker *
-	gspell_automatic_spell_checker_new		(GtkSourceBuffer   *buffer,
+GspellInlineCheckerGtv *
+	gspell_inline_checker_gtv_new		(GtkSourceBuffer   *buffer,
 							  GspellChecker *checker);
 
-void	gspell_automatic_spell_checker_attach_view	(GspellAutomaticSpellChecker *spell,
+void	gspell_inline_checker_gtv_attach_view	(GspellInlineCheckerGtv *spell,
 							  GtkTextView                *view);
 
-void	gspell_automatic_spell_checker_detach_view	(GspellAutomaticSpellChecker *spell,
+void	gspell_inline_checker_gtv_detach_view	(GspellInlineCheckerGtv *spell,
 							  GtkTextView                *view);
 
-#endif  /* __GSPELL_AUTOMATIC_SPELL_CHECKER_H__ */
+#endif  /* __GSPELL_INLINE_CHECKER_GTV_H__ */
 
 /* ex:set ts=8 noet: */

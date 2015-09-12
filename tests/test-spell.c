@@ -30,7 +30,7 @@ struct _TestSpell
 
 	GtkSourceView *view;
 	GspellChecker *checker;
-	GspellAutomaticSpellChecker *inline_spell;
+	GspellInlineCheckerGtv *inline_spell;
 };
 
 G_DEFINE_TYPE (TestSpell, test_spell, GTK_TYPE_GRID)
@@ -118,10 +118,10 @@ highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 
 		buffer = GTK_SOURCE_BUFFER (gtk_text_view_get_buffer (GTK_TEXT_VIEW (spell->view)));
 
-		spell->inline_spell = gspell_automatic_spell_checker_new (buffer, spell->checker);
+		spell->inline_spell = gspell_inline_checker_gtv_new (buffer, spell->checker);
 
-		gspell_automatic_spell_checker_attach_view (spell->inline_spell,
-							    GTK_TEXT_VIEW (spell->view));
+		gspell_inline_checker_gtv_attach_view (spell->inline_spell,
+						       GTK_TEXT_VIEW (spell->view));
 	}
 	else
 	{

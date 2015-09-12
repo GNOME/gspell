@@ -22,7 +22,7 @@
  * Copyright 2002 - Evan Martin
  */
 
-#include "gspell-automatic-spell-checker.h"
+#include "gspell-inline-checker-gtv.h"
 #include <string.h>
 #include <glib/gi18n.h>
 #include "gspell-utils.h"
@@ -31,10 +31,10 @@
 /**
  * SECTION:automatic-spell-checker
  * @Short_description: Inline spell checker for GtkTextView
- * @Title: GspellAutomaticSpellChecker
+ * @Title: GspellInlineCheckerGtv
  * @See_also: #GspellChecker
  *
- * The #GspellAutomaticSpellChecker is an inline spell checker for the
+ * The #GspellInlineCheckerGtv is an inline spell checker for the
  * #GtkTextView widget. Misspelled words are highlighted with a
  * %PANGO_UNDERLINE_ERROR, usually a red wavy underline. Right-clicking a
  * misspelled word pops up a context menu of suggested replacements. The context
@@ -46,7 +46,7 @@
  * #GtkTextView's.
  */
 
-struct _GspellAutomaticSpellChecker
+struct _GspellInlineCheckerGtv
 {
 	GObject parent;
 
@@ -73,7 +73,7 @@ enum
 
 #define ENABLE_DEBUG 0
 
-#define AUTOMATIC_SPELL_CHECKER_KEY	"GspellAutomaticSpellCheckerID"
+#define INLINE_CHECKER_GTV_KEY	"GspellInlineCheckerGtvID"
 #define SUGGESTION_KEY			"GspellAutoSuggestionID"
 
 /* Timeout durations in milliseconds. Writing and deleting text should be smooth
@@ -82,10 +82,10 @@ enum
 #define TIMEOUT_DURATION_BUFFER_MODIFIED 400
 #define TIMEOUT_DURATION_DRAWING 20
 
-G_DEFINE_TYPE (GspellAutomaticSpellChecker, gspell_automatic_spell_checker, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv, G_TYPE_OBJECT)
 
 static void
-check_word (GspellAutomaticSpellChecker *spell,
+check_word (GspellInlineCheckerGtv *spell,
 	    const GtkTextIter          *start,
 	    const GtkTextIter          *end)
 {
@@ -155,7 +155,7 @@ adjust_iters_at_word_boundaries (GtkTextIter *start,
 }
 
 static void
-check_subregion (GspellAutomaticSpellChecker *spell,
+check_subregion (GspellInlineCheckerGtv *spell,
 		 const GtkTextIter          *start,
 		 const GtkTextIter          *end)
 {
@@ -206,7 +206,7 @@ check_subregion (GspellAutomaticSpellChecker *spell,
 }
 
 static void
-check_region (GspellAutomaticSpellChecker *spell,
+check_region (GspellInlineCheckerGtv *spell,
 	      GtkTextRegion              *region)
 {
 	GtkTextRegionIterator region_iter;
@@ -299,7 +299,7 @@ is_text_region_empty (GtkTextRegion *region)
 }
 
 static void
-check_visible_region_in_view (GspellAutomaticSpellChecker *spell,
+check_visible_region_in_view (GspellInlineCheckerGtv *spell,
 			      GtkTextView                *view)
 {
 	GtkTextIter visible_start;
@@ -337,7 +337,7 @@ check_visible_region_in_view (GspellAutomaticSpellChecker *spell,
 }
 
 static void
-check_visible_region (GspellAutomaticSpellChecker *spell)
+check_visible_region (GspellInlineCheckerGtv *spell)
 {
 	GSList *l;
 #if ENABLE_DEBUG
@@ -369,7 +369,7 @@ check_visible_region (GspellAutomaticSpellChecker *spell)
 }
 
 static gboolean
-timeout_cb (GspellAutomaticSpellChecker *spell)
+timeout_cb (GspellInlineCheckerGtv *spell)
 {
 	check_visible_region (spell);
 
@@ -378,7 +378,7 @@ timeout_cb (GspellAutomaticSpellChecker *spell)
 }
 
 static void
-install_timeout (GspellAutomaticSpellChecker *spell,
+install_timeout (GspellInlineCheckerGtv *spell,
 		 guint                       duration)
 {
 	if (spell->timeout_id != 0)
@@ -392,7 +392,7 @@ install_timeout (GspellAutomaticSpellChecker *spell,
 }
 
 static void
-add_subregion_to_scan (GspellAutomaticSpellChecker *spell,
+add_subregion_to_scan (GspellInlineCheckerGtv *spell,
 		       const GtkTextIter          *start,
 		       const GtkTextIter          *end)
 {
@@ -414,7 +414,7 @@ add_subregion_to_scan (GspellAutomaticSpellChecker *spell,
 }
 
 static void
-recheck_all (GspellAutomaticSpellChecker *spell)
+recheck_all (GspellInlineCheckerGtv *spell)
 {
 	GtkTextIter start;
 	GtkTextIter end;
@@ -430,7 +430,7 @@ insert_text_after_cb (GtkTextBuffer              *buffer,
 		      GtkTextIter                *location,
 		      gchar                      *text,
 		      gint                        length,
-		      GspellAutomaticSpellChecker *spell)
+		      GspellInlineCheckerGtv *spell)
 {
 	GtkTextIter start;
 	GtkTextIter end;
@@ -446,14 +446,14 @@ static void
 delete_range_after_cb (GtkTextBuffer              *buffer,
 		       GtkTextIter                *start,
 		       GtkTextIter                *end,
-		       GspellAutomaticSpellChecker *spell)
+		       GspellInlineCheckerGtv *spell)
 {
 	add_subregion_to_scan (spell, start, end);
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }
 
 static gboolean
-get_word_extents_at_click_position (GspellAutomaticSpellChecker *spell,
+get_word_extents_at_click_position (GspellInlineCheckerGtv *spell,
 				    GtkTextIter                *start,
 				    GtkTextIter                *end)
 {
@@ -484,7 +484,7 @@ get_word_extents_at_click_position (GspellAutomaticSpellChecker *spell,
 
 static void
 add_to_dictionary_cb (GtkWidget                  *menu_item,
-		      GspellAutomaticSpellChecker *spell)
+		      GspellInlineCheckerGtv *spell)
 {
 	GtkTextIter start;
 	GtkTextIter end;
@@ -504,7 +504,7 @@ add_to_dictionary_cb (GtkWidget                  *menu_item,
 
 static void
 ignore_all_cb (GtkWidget                  *menu_item,
-	       GspellAutomaticSpellChecker *spell)
+	       GspellInlineCheckerGtv *spell)
 {
 	GtkTextIter start;
 	GtkTextIter end;
@@ -524,7 +524,7 @@ ignore_all_cb (GtkWidget                  *menu_item,
 
 static void
 replace_word_cb (GtkWidget                  *menu_item,
-		 GspellAutomaticSpellChecker *spell)
+		 GspellInlineCheckerGtv *spell)
 {
 	GtkTextIter start;
 	GtkTextIter end;
@@ -554,7 +554,7 @@ replace_word_cb (GtkWidget                  *menu_item,
 }
 
 static GtkWidget *
-get_suggestion_menu (GspellAutomaticSpellChecker *spell,
+get_suggestion_menu (GspellInlineCheckerGtv *spell,
 		     const gchar                *word)
 {
 	GtkWidget *top_menu;
@@ -654,7 +654,7 @@ get_suggestion_menu (GspellAutomaticSpellChecker *spell,
 static void
 populate_popup_cb (GtkTextView                *view,
 		   GtkMenu                    *menu,
-		   GspellAutomaticSpellChecker *spell)
+		   GspellInlineCheckerGtv *spell)
 {
 	GtkWidget *menu_item;
 	GtkTextIter start;
@@ -691,7 +691,7 @@ populate_popup_cb (GtkTextView                *view,
 static gboolean
 draw_cb (GtkWidget                  *text_view,
 	 cairo_t                    *cr,
-	 GspellAutomaticSpellChecker *spell)
+	 GspellInlineCheckerGtv *spell)
 {
 	install_timeout (spell, TIMEOUT_DURATION_DRAWING);
 
@@ -699,7 +699,7 @@ draw_cb (GtkWidget                  *text_view,
 }
 
 static void
-remove_tag_to_word (GspellAutomaticSpellChecker *spell,
+remove_tag_to_word (GspellInlineCheckerGtv *spell,
 		    const gchar                *word)
 {
 	GtkTextIter iter;
@@ -741,14 +741,14 @@ remove_tag_to_word (GspellAutomaticSpellChecker *spell,
 static void
 add_word_cb (GspellChecker          *checker,
 	     const gchar                *word,
-	     GspellAutomaticSpellChecker *spell)
+	     GspellInlineCheckerGtv *spell)
 {
 	remove_tag_to_word (spell, word);
 }
 
 static void
 clear_session_cb (GspellChecker          *checker,
-		  GspellAutomaticSpellChecker *spell)
+		  GspellInlineCheckerGtv *spell)
 {
 	recheck_all (spell);
 }
@@ -756,7 +756,7 @@ clear_session_cb (GspellChecker          *checker,
 static void
 language_notify_cb (GspellChecker          *checker,
 		    GParamSpec                 *pspec,
-		    GspellAutomaticSpellChecker *spell)
+		    GspellInlineCheckerGtv *spell)
 {
 	recheck_all (spell);
 }
@@ -768,7 +768,7 @@ language_notify_cb (GspellChecker          *checker,
 static gboolean
 button_press_event_cb (GtkTextView                *view,
 		       GdkEventButton             *event,
-		       GspellAutomaticSpellChecker *spell)
+		       GspellInlineCheckerGtv *spell)
 {
 	if (event->button == GDK_BUTTON_SECONDARY)
 	{
@@ -795,7 +795,7 @@ button_press_event_cb (GtkTextView                *view,
  */
 static gboolean
 popup_menu_cb (GtkTextView                *view,
-	       GspellAutomaticSpellChecker *spell)
+	       GspellInlineCheckerGtv *spell)
 {
 	GtkTextIter iter;
 
@@ -807,7 +807,7 @@ popup_menu_cb (GtkTextView                *view,
 }
 
 static void
-update_tag_highlight_priority (GspellAutomaticSpellChecker *spell,
+update_tag_highlight_priority (GspellInlineCheckerGtv *spell,
 			       GtkTextTagTable            *table)
 {
 	g_return_if_fail (spell->tag_highlight != NULL);
@@ -819,7 +819,7 @@ update_tag_highlight_priority (GspellAutomaticSpellChecker *spell,
 static void
 tag_added_cb (GtkTextTagTable            *table,
 	      GtkTextTag                 *tag,
-	      GspellAutomaticSpellChecker *spell)
+	      GspellInlineCheckerGtv *spell)
 {
 	update_tag_highlight_priority (spell, table);
 }
@@ -827,7 +827,7 @@ tag_added_cb (GtkTextTagTable            *table,
 static void
 tag_removed_cb (GtkTextTagTable            *table,
 		GtkTextTag                 *tag,
-		GspellAutomaticSpellChecker *spell)
+		GspellInlineCheckerGtv *spell)
 {
 	if (tag != spell->tag_highlight)
 	{
@@ -839,7 +839,7 @@ static void
 tag_changed_cb (GtkTextTagTable            *table,
 		GtkTextTag                 *tag,
 		gboolean                    size_changed,
-		GspellAutomaticSpellChecker *spell)
+		GspellInlineCheckerGtv *spell)
 {
 	update_tag_highlight_priority (spell, table);
 }
@@ -848,14 +848,14 @@ static void
 highlight_updated_cb (GtkSourceBuffer            *buffer,
 		      GtkTextIter                *start,
 		      GtkTextIter                *end,
-		      GspellAutomaticSpellChecker *spell)
+		      GspellInlineCheckerGtv *spell)
 {
 	add_subregion_to_scan (spell, start, end);
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }
 
 static void
-set_buffer (GspellAutomaticSpellChecker *spell,
+set_buffer (GspellInlineCheckerGtv *spell,
 	    GtkSourceBuffer            *buffer)
 {
 	GtkTextTagTable *tag_table;
@@ -869,7 +869,7 @@ set_buffer (GspellAutomaticSpellChecker *spell,
 	spell->buffer = g_object_ref (buffer);
 
 	g_object_set_data (G_OBJECT (buffer),
-			   AUTOMATIC_SPELL_CHECKER_KEY,
+			   INLINE_CHECKER_GTV_KEY,
 			   spell);
 
 	g_signal_connect_object (buffer,
@@ -927,7 +927,7 @@ set_buffer (GspellAutomaticSpellChecker *spell,
 }
 
 static void
-set_spell_checker (GspellAutomaticSpellChecker *spell,
+set_spell_checker (GspellInlineCheckerGtv *spell,
 		   GspellChecker          *checker)
 {
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
@@ -963,12 +963,12 @@ set_spell_checker (GspellAutomaticSpellChecker *spell,
 }
 
 static void
-gspell_automatic_spell_checker_get_property (GObject    *object,
-					     guint       prop_id,
-					     GValue     *value,
-					     GParamSpec *pspec)
+gspell_inline_checker_gtv_get_property (GObject    *object,
+					guint       prop_id,
+					GValue     *value,
+					GParamSpec *pspec)
 {
-	GspellAutomaticSpellChecker *spell = GSPELL_AUTOMATIC_SPELL_CHECKER (object);
+	GspellInlineCheckerGtv *spell = GSPELL_INLINE_CHECKER_GTV (object);
 
 	switch (prop_id)
 	{
@@ -987,12 +987,12 @@ gspell_automatic_spell_checker_get_property (GObject    *object,
 }
 
 static void
-gspell_automatic_spell_checker_set_property (GObject      *object,
-					     guint         prop_id,
-					     const GValue *value,
-					     GParamSpec   *pspec)
+gspell_inline_checker_gtv_set_property (GObject      *object,
+					guint         prop_id,
+					const GValue *value,
+					GParamSpec   *pspec)
 {
-	GspellAutomaticSpellChecker *spell = GSPELL_AUTOMATIC_SPELL_CHECKER (object);
+	GspellInlineCheckerGtv *spell = GSPELL_INLINE_CHECKER_GTV (object);
 
 	switch (prop_id)
 	{
@@ -1011,9 +1011,9 @@ gspell_automatic_spell_checker_set_property (GObject      *object,
 }
 
 static void
-gspell_automatic_spell_checker_dispose (GObject *object)
+gspell_inline_checker_gtv_dispose (GObject *object)
 {
-	GspellAutomaticSpellChecker *spell = GSPELL_AUTOMATIC_SPELL_CHECKER (object);
+	GspellInlineCheckerGtv *spell = GSPELL_INLINE_CHECKER_GTV (object);
 
 	if (spell->buffer != NULL)
 	{
@@ -1032,7 +1032,7 @@ gspell_automatic_spell_checker_dispose (GObject *object)
 			spell->mark_click = NULL;
 		}
 
-		g_object_set_data (G_OBJECT (spell->buffer), AUTOMATIC_SPELL_CHECKER_KEY, NULL);
+		g_object_set_data (G_OBJECT (spell->buffer), INLINE_CHECKER_GTV_KEY, NULL);
 
 		g_object_unref (spell->buffer);
 		spell->buffer = NULL;
@@ -1058,20 +1058,20 @@ gspell_automatic_spell_checker_dispose (GObject *object)
 		spell->timeout_id = 0;
 	}
 
-	G_OBJECT_CLASS (gspell_automatic_spell_checker_parent_class)->dispose (object);
+	G_OBJECT_CLASS (gspell_inline_checker_gtv_parent_class)->dispose (object);
 }
 
 static void
-gspell_automatic_spell_checker_class_init (GspellAutomaticSpellCheckerClass *klass)
+gspell_inline_checker_gtv_class_init (GspellInlineCheckerGtvClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->get_property = gspell_automatic_spell_checker_get_property;
-	object_class->set_property = gspell_automatic_spell_checker_set_property;
-	object_class->dispose = gspell_automatic_spell_checker_dispose;
+	object_class->get_property = gspell_inline_checker_gtv_get_property;
+	object_class->set_property = gspell_inline_checker_gtv_set_property;
+	object_class->dispose = gspell_inline_checker_gtv_dispose;
 
 	/**
-	 * GspellAutomaticSpellChecker:buffer:
+	 * GspellInlineCheckerGtv:buffer:
 	 *
 	 * The #GtkSourceBuffer. If a same buffer is used for several views, the
 	 * misspelled words are visible in all views, because #GtkTextTag's are
@@ -1088,11 +1088,11 @@ gspell_automatic_spell_checker_class_init (GspellAutomaticSpellCheckerClass *kla
 							      G_PARAM_STATIC_STRINGS));
 
 	/**
-	 * GspellAutomaticSpellChecker:spell-checker:
+	 * GspellInlineCheckerGtv:spell-checker:
 	 *
 	 * The #GspellChecker to use. It cannot be changed afterwards. If
 	 * you want to change the language, you need to create another
-	 * #GspellAutomaticSpellChecker.
+	 * #GspellInlineCheckerGtv.
 	 */
 	g_object_class_install_property (object_class,
 					 PROP_SPELL_CHECKER,
@@ -1106,27 +1106,27 @@ gspell_automatic_spell_checker_class_init (GspellAutomaticSpellCheckerClass *kla
 }
 
 static void
-gspell_automatic_spell_checker_init (GspellAutomaticSpellChecker *spell)
+gspell_inline_checker_gtv_init (GspellInlineCheckerGtv *spell)
 {
 }
 
 /**
- * gspell_automatic_spell_checker_new:
+ * gspell_inline_checker_gtv_new:
  * @buffer: a #GtkSourceBuffer.
  * @checker: a #GspellChecker.
  *
- * Returns: a new #GspellAutomaticSpellChecker object.
+ * Returns: a new #GspellInlineCheckerGtv object.
  */
-GspellAutomaticSpellChecker *
-gspell_automatic_spell_checker_new (GtkSourceBuffer   *buffer,
-				    GspellChecker *checker)
+GspellInlineCheckerGtv *
+gspell_inline_checker_gtv_new (GtkSourceBuffer   *buffer,
+			       GspellChecker *checker)
 {
-	GspellAutomaticSpellChecker *spell;
+	GspellInlineCheckerGtv *spell;
 
 	g_return_val_if_fail (GTK_SOURCE_IS_BUFFER (buffer), NULL);
 	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
 
-	spell = g_object_get_data (G_OBJECT (buffer), AUTOMATIC_SPELL_CHECKER_KEY);
+	spell = g_object_get_data (G_OBJECT (buffer), INLINE_CHECKER_GTV_KEY);
 	if (spell != NULL)
 	{
 		g_object_ref (spell);
@@ -1134,25 +1134,25 @@ gspell_automatic_spell_checker_new (GtkSourceBuffer   *buffer,
 		return spell;
 	}
 
-	return g_object_new (GSPELL_TYPE_AUTOMATIC_SPELL_CHECKER,
+	return g_object_new (GSPELL_TYPE_INLINE_CHECKER_GTV,
 			     "buffer", buffer,
 			     "spell-checker", checker,
 			     NULL);
 }
 
 /**
- * gspell_automatic_spell_checker_attach_view:
- * @spell: a #GspellAutomaticSpellChecker.
+ * gspell_inline_checker_gtv_attach_view:
+ * @spell: a #GspellInlineCheckerGtv.
  * @view: a #GtkTextView.
  *
  * Enables the inline spell checker for @view. @view must have the same buffer as
- * the #GspellAutomaticSpellChecker:buffer property.
+ * the #GspellInlineCheckerGtv:buffer property.
  */
 void
-gspell_automatic_spell_checker_attach_view (GspellAutomaticSpellChecker *spell,
-					    GtkTextView                *view)
+gspell_inline_checker_gtv_attach_view (GspellInlineCheckerGtv *spell,
+				       GtkTextView                *view)
 {
-	g_return_if_fail (GSPELL_IS_AUTOMATIC_SPELL_CHECKER (spell));
+	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_GTV (spell));
 	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
 	g_return_if_fail (gtk_text_view_get_buffer (view) == spell->buffer);
 	g_return_if_fail (g_slist_find (spell->views, view) == NULL);
@@ -1188,17 +1188,17 @@ gspell_automatic_spell_checker_attach_view (GspellAutomaticSpellChecker *spell,
 }
 
 /**
- * gspell_automatic_spell_checker_detach_view:
- * @spell: a #GspellAutomaticSpellChecker.
+ * gspell_inline_checker_gtv_detach_view:
+ * @spell: a #GspellInlineCheckerGtv.
  * @view: a #GtkTextView.
  *
  * Disables the inline spell checker for @view.
  */
 void
-gspell_automatic_spell_checker_detach_view (GspellAutomaticSpellChecker *spell,
-					    GtkTextView                *view)
+gspell_inline_checker_gtv_detach_view (GspellInlineCheckerGtv *spell,
+				       GtkTextView                *view)
 {
-	g_return_if_fail (GSPELL_IS_AUTOMATIC_SPELL_CHECKER (spell));
+	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_GTV (spell));
 	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
 	g_return_if_fail (gtk_text_view_get_buffer (view) == spell->buffer);
 	g_return_if_fail (g_slist_find (spell->views, view) != NULL);
