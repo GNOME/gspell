@@ -105,9 +105,9 @@ gspell_navigator_goto_next (GspellNavigator  *navigator,
 	}
 
 	return GSPELL_NAVIGATOR_GET_IFACE (navigator)->goto_next (navigator,
-								       word,
-								       spell_checker,
-								       error);
+								  word,
+								  spell_checker,
+								  error);
 }
 
 /**
