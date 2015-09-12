@@ -154,8 +154,8 @@ bind_iso_domains (void)
 }
 
 static void
-read_iso_639_entry (xmlTextReaderPtr reader,
-		    GHashTable *table)
+read_iso_639_entry (xmlTextReaderPtr  reader,
+		    GHashTable       *table)
 {
 	xmlChar *code, *name;
 
@@ -182,8 +182,8 @@ read_iso_639_entry (xmlTextReaderPtr reader,
 }
 
 static void
-read_iso_3166_entry (xmlTextReaderPtr reader,
-		     GHashTable *table)
+read_iso_3166_entry (xmlTextReaderPtr  reader,
+		     GHashTable       *table)
 {
 	xmlChar *code, *name;
 
@@ -216,8 +216,8 @@ typedef enum
 } ParserState;
 
 static void
-load_iso_entries (int iso,
-		  GFunc read_entry_func,
+load_iso_entries (int      iso,
+		  GFunc    read_entry_func,
 		  gpointer user_data)
 {
 	xmlTextReaderPtr reader;
@@ -402,7 +402,7 @@ key_cmp (gconstpointer a, gconstpointer b, gpointer user_data)
 
 static gint
 lang_cmp (const GspellLanguage *a,
-          const GspellLanguage *b)
+	  const GspellLanguage *b)
 {
 	return g_utf8_collate (a->name, b->name);
 }

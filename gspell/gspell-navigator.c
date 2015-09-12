@@ -40,24 +40,24 @@ G_DEFINE_INTERFACE (GspellNavigator, gspell_navigator, G_TYPE_OBJECT)
 
 static gboolean
 gspell_navigator_goto_next_default (GspellNavigator  *navigator,
-				    gchar               **word,
+				    gchar           **word,
 				    GspellChecker   **spell_checker,
-				    GError              **error)
+				    GError          **error)
 {
 	return FALSE;
 }
 
 static void
 gspell_navigator_change_default (GspellNavigator *navigator,
-				 const gchar         *word,
-				 const gchar         *change_to)
+				 const gchar     *word,
+				 const gchar     *change_to)
 {
 }
 
 static void
 gspell_navigator_change_all_default (GspellNavigator *navigator,
-				     const gchar         *word,
-				     const gchar         *change_to)
+				     const gchar     *word,
+				     const gchar     *change_to)
 {
 }
 
@@ -87,9 +87,9 @@ gspell_navigator_default_init (GspellNavigatorInterface *iface)
  */
 gboolean
 gspell_navigator_goto_next (GspellNavigator  *navigator,
-			    gchar               **word,
+			    gchar           **word,
 			    GspellChecker   **spell_checker,
-			    GError              **error)
+			    GError          **error)
 {
 	g_return_val_if_fail (GSPELL_IS_NAVIGATOR (navigator), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
@@ -124,8 +124,8 @@ gspell_navigator_goto_next (GspellNavigator  *navigator,
  */
 void
 gspell_navigator_change (GspellNavigator *navigator,
-			 const gchar         *word,
-			 const gchar         *change_to)
+			 const gchar     *word,
+			 const gchar     *change_to)
 {
 	g_return_if_fail (GSPELL_IS_NAVIGATOR (navigator));
 
@@ -145,8 +145,8 @@ gspell_navigator_change (GspellNavigator *navigator,
  */
 void
 gspell_navigator_change_all (GspellNavigator *navigator,
-			     const gchar         *word,
-			     const gchar         *change_to)
+			     const gchar     *word,
+			     const gchar     *change_to)
 {
 	g_return_if_fail (GSPELL_IS_NAVIGATOR (navigator));
 

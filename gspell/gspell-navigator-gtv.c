@@ -109,7 +109,7 @@ init_boundaries (GspellNavigatorGtv *navigator)
 
 static void
 set_view (GspellNavigatorGtv *navigator,
-	  GtkTextView            *view)
+	  GtkTextView        *view)
 {
 	GspellNavigatorGtvPrivate *priv;
 
@@ -305,9 +305,9 @@ select_misspelled_word (GspellNavigatorGtv *navigator)
 
 static gboolean
 gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
-				gchar               **word_p,
+				gchar           **word_p,
 				GspellChecker   **spell_checker_p,
-				GError              **error_p)
+				GError          **error_p)
 {
 	GspellNavigatorGtvPrivate *priv;
 	GtkTextIter word_start;
@@ -428,8 +428,8 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 
 static void
 gspell_navigator_gtv_change (GspellNavigator *navigator,
-			     const gchar         *word,
-			     const gchar         *change_to)
+			     const gchar     *word,
+			     const gchar     *change_to)
 {
 	GspellNavigatorGtvPrivate *priv;
 	GtkTextIter word_start;
@@ -459,8 +459,8 @@ gspell_navigator_gtv_change (GspellNavigator *navigator,
 
 static void
 gspell_navigator_gtv_change_all (GspellNavigator *navigator,
-				 const gchar         *word,
-				 const gchar         *change_to)
+				 const gchar     *word,
+				 const gchar     *change_to)
 {
 	GspellNavigatorGtvPrivate *priv;
 	GtkTextIter iter;
@@ -528,7 +528,7 @@ gspell_navigator_iface_init (gpointer g_iface,
  * Returns: a new #GspellNavigatorGtv object.
  */
 GspellNavigator *
-gspell_navigator_gtv_new (GtkTextView       *view,
+gspell_navigator_gtv_new (GtkTextView   *view,
 			  GspellChecker *spell_checker)
 {
 	g_return_val_if_fail (GTK_IS_TEXT_VIEW (view), NULL);

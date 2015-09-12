@@ -81,9 +81,9 @@ scroll_to_selected (GtkTreeView *tree_view)
 }
 
 static void
-row_activated_cb (GtkTreeView              *tree_view,
-		  GtkTreePath              *path,
-		  GtkTreeViewColumn        *column,
+row_activated_cb (GtkTreeView          *tree_view,
+		  GtkTreePath          *path,
+		  GtkTreeViewColumn    *column,
 		  GspellLanguageDialog *dialog)
 {
 	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
@@ -127,7 +127,7 @@ gspell_language_dialog_init (GspellLanguageDialog *dialog)
 }
 
 static void
-populate_language_list (GspellLanguageDialog        *dialog,
+populate_language_list (GspellLanguageDialog *dialog,
 			const GspellLanguage *cur_lang)
 {
 	GtkListStore *store;
@@ -171,7 +171,7 @@ populate_language_list (GspellLanguageDialog        *dialog,
  * Returns: a new #GspellLanguageDialog widget.
  */
 GtkWidget *
-gspell_language_dialog_new (GtkWindow                       *parent,
+gspell_language_dialog_new (GtkWindow            *parent,
 			    const GspellLanguage *cur_lang)
 {
 	GspellLanguageDialog *dialog;

@@ -372,7 +372,7 @@ init_dictionary (GspellChecker *checker)
  * Returns: whether the operation was successful.
  */
 gboolean
-gspell_checker_set_language (GspellChecker               *checker,
+gspell_checker_set_language (GspellChecker        *checker,
 			     const GspellLanguage *language)
 {
 	GspellCheckerPrivate *priv;
@@ -430,8 +430,8 @@ gspell_checker_get_language (GspellChecker *checker)
  */
 gboolean
 gspell_checker_check_word (GspellChecker  *checker,
-			   const gchar        *word,
-			   GError            **error)
+			   const gchar    *word,
+			   GError        **error)
 {
 	GspellCheckerPrivate *priv;
 	gint enchant_result;
@@ -480,7 +480,7 @@ gspell_checker_check_word (GspellChecker  *checker,
  */
 GSList *
 gspell_checker_get_suggestions (GspellChecker *checker,
-				const gchar       *word)
+				const gchar   *word)
 {
 	GspellCheckerPrivate *priv;
 	gchar **suggestions;
@@ -521,7 +521,7 @@ gspell_checker_get_suggestions (GspellChecker *checker,
  */
 void
 gspell_checker_add_word_to_personal (GspellChecker *checker,
-				     const gchar       *word)
+				     const gchar   *word)
 {
 	GspellCheckerPrivate *priv;
 
@@ -547,7 +547,7 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
  */
 void
 gspell_checker_add_word_to_session (GspellChecker *checker,
-				    const gchar       *word)
+				    const gchar   *word)
 {
 	GspellCheckerPrivate *priv;
 
@@ -598,8 +598,8 @@ gspell_checker_clear_session (GspellChecker *checker)
  */
 void
 gspell_checker_set_correction (GspellChecker *checker,
-			       const gchar       *word,
-			       const gchar       *replacement)
+			       const gchar   *word,
+			       const gchar   *replacement)
 {
 	GspellCheckerPrivate *priv;
 

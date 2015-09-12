@@ -573,8 +573,8 @@ check_iterator (GtkTextRegionIteratorReal *real)
 
 void
 gtk_text_region_get_iterator (GtkTextRegion         *region,
-                              GtkTextRegionIterator *iter,
-                              guint                  start)
+			      GtkTextRegionIterator *iter,
+			      guint                  start)
 {
 	GtkTextRegionIteratorReal *real;
 

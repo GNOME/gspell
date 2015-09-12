@@ -125,7 +125,7 @@ clear_suggestions (GspellCheckerDialog *dialog)
 
 static void
 set_suggestions (GspellCheckerDialog *dialog,
-		 GSList                  *suggestions)
+		 GSList              *suggestions)
 {
 	GspellCheckerDialogPrivate *priv;
 	GtkListStore *store;
@@ -178,7 +178,7 @@ set_suggestions (GspellCheckerDialog *dialog,
 
 static void
 set_misspelled_word (GspellCheckerDialog *dialog,
-		     const gchar             *word)
+		     const gchar         *word)
 {
 	GspellCheckerDialogPrivate *priv;
 	gchar *label;
@@ -226,7 +226,7 @@ set_completed (GspellCheckerDialog *dialog)
 
 static void
 show_error (GspellCheckerDialog *dialog,
-	    GError                  *error)
+	    GError              *error)
 {
 	GspellCheckerDialogPrivate *priv;
 	gchar *label;
@@ -424,7 +424,7 @@ gspell_checker_dialog_class_init (GspellCheckerDialogClass *klass)
 }
 
 static void
-word_entry_changed_handler (GtkEntry                *word_entry,
+word_entry_changed_handler (GtkEntry            *word_entry,
 			    GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -440,7 +440,7 @@ word_entry_changed_handler (GtkEntry                *word_entry,
 }
 
 static void
-suggestions_selection_changed_handler (GtkTreeSelection        *selection,
+suggestions_selection_changed_handler (GtkTreeSelection    *selection,
 				       GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -465,7 +465,7 @@ suggestions_selection_changed_handler (GtkTreeSelection        *selection,
 }
 
 static void
-check_word_button_clicked_handler (GtkButton               *button,
+check_word_button_clicked_handler (GtkButton           *button,
 				   GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -521,7 +521,7 @@ check_word_button_clicked_handler (GtkButton               *button,
 }
 
 static void
-add_word_button_clicked_handler (GtkButton               *button,
+add_word_button_clicked_handler (GtkButton           *button,
 				 GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -536,14 +536,14 @@ add_word_button_clicked_handler (GtkButton               *button,
 }
 
 static void
-ignore_button_clicked_handler (GtkButton               *button,
+ignore_button_clicked_handler (GtkButton           *button,
 			       GspellCheckerDialog *dialog)
 {
 	goto_next (dialog);
 }
 
 static void
-ignore_all_button_clicked_handler (GtkButton               *button,
+ignore_all_button_clicked_handler (GtkButton           *button,
 				   GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -558,7 +558,7 @@ ignore_all_button_clicked_handler (GtkButton               *button,
 }
 
 static void
-change_button_clicked_handler (GtkButton               *button,
+change_button_clicked_handler (GtkButton           *button,
 			       GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -584,9 +584,9 @@ change_button_clicked_handler (GtkButton               *button,
 
 /* double click on one of the suggestions is like clicking on "change" */
 static void
-suggestions_row_activated_handler (GtkTreeView             *view,
-				   GtkTreePath             *path,
-				   GtkTreeViewColumn       *column,
+suggestions_row_activated_handler (GtkTreeView         *view,
+				   GtkTreePath         *path,
+				   GtkTreeViewColumn   *column,
 				   GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -597,7 +597,7 @@ suggestions_row_activated_handler (GtkTreeView             *view,
 }
 
 static void
-change_all_button_clicked_handler (GtkButton               *button,
+change_all_button_clicked_handler (GtkButton           *button,
 				   GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
@@ -711,7 +711,7 @@ gspell_checker_dialog_init (GspellCheckerDialog *dialog)
  * Returns: a new #GspellCheckerDialog widget.
  */
 GtkWidget *
-gspell_checker_dialog_new (GtkWindow           *parent,
+gspell_checker_dialog_new (GtkWindow       *parent,
 			   GspellNavigator *navigator)
 {
 	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
