@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell.
  *
- * Copyright 2010 - Jesse van den Kieboom
+ * Copyright 2011, 2014 - Jesse van den Kieboom
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,22 +17,21 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GEDIT_SPELL_UTILS_H__
-#define __GEDIT_SPELL_UTILS_H__
+#ifndef _GSPELL_SPELL_OSX_H
+#define _GSPELL_SPELL_OSX_H
 
-#include <gtk/gtk.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
-gboolean	_gedit_spell_utils_is_digit		(const gchar *text);
+gchar *	_gspell_spell_osx_get_preferred_spell_language	(void);
 
 G_GNUC_INTERNAL
-gboolean	_gedit_spell_utils_skip_no_spell_check	(GtkTextIter       *start,
-							 const GtkTextIter *end);
+gchar *	_gspell_spell_osx_get_resource_path		(void);
 
 G_END_DECLS
 
-#endif /* __GEDIT_SPELL_UTILS_H__ */
+#endif /* _GSPELL_SPELL_OSX_H */
 
 /* ex:set ts=8 noet: */

@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2010 - Jesse van den Kieboom
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,30 +17,22 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GEDIT_SPELL_NAVIGATOR_GTV_H__
-#define __GEDIT_SPELL_NAVIGATOR_GTV_H__
+#ifndef __GSPELL_SPELL_UTILS_H__
+#define __GSPELL_SPELL_UTILS_H__
 
 #include <gtk/gtk.h>
-#include "gedit-spell-navigator.h"
-#include "gedit-spell-checker.h"
 
 G_BEGIN_DECLS
 
-#define GEDIT_TYPE_SPELL_NAVIGATOR_GTV (gedit_spell_navigator_gtv_get_type ())
-G_DECLARE_DERIVABLE_TYPE (GeditSpellNavigatorGtv, gedit_spell_navigator_gtv,
-			  GEDIT, SPELL_NAVIGATOR_GTV,
-			  GObject)
+G_GNUC_INTERNAL
+gboolean	_gspell_spell_utils_is_digit		(const gchar *text);
 
-struct _GeditSpellNavigatorGtvClass
-{
-	GObjectClass parent_class;
-};
-
-GeditSpellNavigator *	gedit_spell_navigator_gtv_new		(GtkTextView       *view,
-								 GeditSpellChecker *spell_checker);
+G_GNUC_INTERNAL
+gboolean	_gspell_spell_utils_skip_no_spell_check	(GtkTextIter       *start,
+							  const GtkTextIter *end);
 
 G_END_DECLS
 
-#endif /* __GEDIT_SPELL_NAVIGATOR_GTV_H__ */
+#endif /* __GSPELL_SPELL_UTILS_H__ */
 
 /* ex:set ts=8 noet: */

@@ -19,7 +19,7 @@ gtk_req=3.16
 gtksourceview_req=3.16
 libxml_req=2.5.0
 
-AC_CONFIG_SRCDIR([gspell/gedit-spell-checker.c])
+AC_CONFIG_SRCDIR([gspell/gspell-spell-checker.c])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 

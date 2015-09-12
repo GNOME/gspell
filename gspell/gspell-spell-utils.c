@@ -18,12 +18,12 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gedit-spell-utils.h"
+#include "gspell-spell-utils.h"
 #include <string.h>
 #include <gtksourceview/gtksource.h>
 
 gboolean
-_gedit_spell_utils_is_digit (const gchar *text)
+_gspell_spell_utils_is_digit (const gchar *text)
 {
 	const gchar *p;
 	const gchar *end;
@@ -49,8 +49,8 @@ _gedit_spell_utils_is_digit (const gchar *text)
 }
 
 gboolean
-_gedit_spell_utils_skip_no_spell_check (GtkTextIter       *start,
-					const GtkTextIter *end)
+_gspell_spell_utils_skip_no_spell_check (GtkTextIter       *start,
+					 const GtkTextIter *end)
 {
 	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER (gtk_text_iter_get_buffer (start));
 

@@ -15,29 +15,29 @@ BUILT_SOURCES =			\
 
 gspell_public_headers =				\
 	gspell.h				\
-	gedit-automatic-spell-checker.h		\
-	gedit-spell-checker.h			\
-	gedit-spell-checker-dialog.h		\
-	gedit-spell-checker-language.h		\
-	gedit-spell-language-dialog.h		\
-	gedit-spell-navigator.h			\
-	gedit-spell-navigator-gtv.h
+	gspell-automatic-spell-checker.h	\
+	gspell-spell-checker.h			\
+	gspell-spell-checker-dialog.h		\
+	gspell-spell-checker-language.h		\
+	gspell-spell-language-dialog.h		\
+	gspell-spell-navigator.h		\
+	gspell-spell-navigator-gtv.h
 
 gspell_public_c_files =				\
-	gedit-automatic-spell-checker.c		\
-	gedit-spell-checker.c			\
-	gedit-spell-checker-dialog.c		\
-	gedit-spell-checker-language.c		\
-	gedit-spell-language-dialog.c		\
-	gedit-spell-navigator.c			\
-	gedit-spell-navigator-gtv.c
+	gspell-automatic-spell-checker.c	\
+	gspell-spell-checker.c			\
+	gspell-spell-checker-dialog.c		\
+	gspell-spell-checker-language.c		\
+	gspell-spell-language-dialog.c		\
+	gspell-spell-navigator.c		\
+	gspell-spell-navigator-gtv.c
 
 gspell_private_headers =	\
-	gedit-spell-utils.h	\
+	gspell-spell-utils.h	\
 	gtktextregion.h
 
 gspell_private_c_files =	\
-	gedit-spell-utils.c	\
+	gspell-spell-utils.c	\
 	gtktextregion.c
 
 lib_LTLIBRARIES = libgspell-3.0.la
@@ -58,7 +58,7 @@ libgspell_3_0_la_LIBADD =	\
 
 libgspell_3_0_la_LDFLAGS =			\
 	-no-undefined				\
-	-export-symbols-regex "^gedit_.*"
+	-export-symbols-regex "^gspell_.*"
 
 libgspell_3_0_includedir = $(includedir)/gspell-3.0/gspell
 libgspell_3_0_include_HEADERS = $(gspell_public_headers)
@@ -82,8 +82,8 @@ libosx_la_CFLAGS =		\
 	$(GTK_MAC_CFLAGS)
 
 libosx_la_SOURCES =		\
-	gedit-spell-osx.c	\
-	gedit-spell-osx.h
+	gspell-spell-osx.c	\
+	gspell-spell-osx.h
 
 libgspell_3_0_la_LIBADD += libosx.la
 endif # OS_OSX

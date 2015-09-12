@@ -22,27 +22,27 @@
  * Copyright 2002 - Evan Martin
  */
 
-#ifndef __GEDIT_AUTOMATIC_SPELL_CHECKER_H__
-#define __GEDIT_AUTOMATIC_SPELL_CHECKER_H__
+#ifndef __GSPELL_AUTOMATIC_SPELL_CHECKER_H__
+#define __GSPELL_AUTOMATIC_SPELL_CHECKER_H__
 
 #include <gtksourceview/gtksource.h>
-#include "gedit-spell-checker.h"
+#include "gspell-spell-checker.h"
 
-#define GEDIT_TYPE_AUTOMATIC_SPELL_CHECKER (gedit_automatic_spell_checker_get_type ())
-G_DECLARE_FINAL_TYPE (GeditAutomaticSpellChecker, gedit_automatic_spell_checker,
-		      GEDIT, AUTOMATIC_SPELL_CHECKER,
+#define GSPELL_TYPE_AUTOMATIC_SPELL_CHECKER (gspell_automatic_spell_checker_get_type ())
+G_DECLARE_FINAL_TYPE (GspellAutomaticSpellChecker, gspell_automatic_spell_checker,
+		      GSPELL, AUTOMATIC_SPELL_CHECKER,
 		      GObject)
 
-GeditAutomaticSpellChecker *
-	gedit_automatic_spell_checker_new		(GtkSourceBuffer   *buffer,
-							 GeditSpellChecker *checker);
+GspellAutomaticSpellChecker *
+	gspell_automatic_spell_checker_new		(GtkSourceBuffer   *buffer,
+							  GspellSpellChecker *checker);
 
-void	gedit_automatic_spell_checker_attach_view	(GeditAutomaticSpellChecker *spell,
-							 GtkTextView                *view);
+void	gspell_automatic_spell_checker_attach_view	(GspellAutomaticSpellChecker *spell,
+							  GtkTextView                *view);
 
-void	gedit_automatic_spell_checker_detach_view	(GeditAutomaticSpellChecker *spell,
-							 GtkTextView                *view);
+void	gspell_automatic_spell_checker_detach_view	(GspellAutomaticSpellChecker *spell,
+							  GtkTextView                *view);
 
-#endif  /* __GEDIT_AUTOMATIC_SPELL_CHECKER_H__ */
+#endif  /* __GSPELL_AUTOMATIC_SPELL_CHECKER_H__ */
 
 /* ex:set ts=8 noet: */

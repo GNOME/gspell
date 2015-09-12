@@ -17,12 +17,12 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gedit-spell-osx.h"
+#include "gspell-spell-osx.h"
 #include <gtkosxapplication.h>
 #import <Cocoa/Cocoa.h>
 
 gchar *
-_gedit_spell_osx_get_resource_path (void)
+_gspell_spell_osx_get_resource_path (void)
 {
 	gchar *id;
 	gchar *ret = NULL;
@@ -39,7 +39,7 @@ _gedit_spell_osx_get_resource_path (void)
 }
 
 gchar *
-_gedit_spell_osx_get_preferred_spell_language ()
+_gspell_spell_osx_get_preferred_spell_language ()
 {
 	gchar *ret = NULL;
 	NSAutoreleasePool *pool;

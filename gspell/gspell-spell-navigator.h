@@ -17,52 +17,52 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GEDIT_SPELL_NAVIGATOR_H__
-#define __GEDIT_SPELL_NAVIGATOR_H__
+#ifndef __GSPELL_SPELL_NAVIGATOR_H__
+#define __GSPELL_SPELL_NAVIGATOR_H__
 
 #include <glib-object.h>
-#include "gedit-spell-checker.h"
+#include "gspell-spell-checker.h"
 
 G_BEGIN_DECLS
 
-#define GEDIT_TYPE_SPELL_NAVIGATOR (gedit_spell_navigator_get_type ())
-G_DECLARE_INTERFACE (GeditSpellNavigator, gedit_spell_navigator,
-		     GEDIT, SPELL_NAVIGATOR,
+#define GSPELL_TYPE_SPELL_NAVIGATOR (gspell_spell_navigator_get_type ())
+G_DECLARE_INTERFACE (GspellSpellNavigator, gspell_spell_navigator,
+		     GSPELL, SPELL_NAVIGATOR,
 		     GObject)
 
-struct _GeditSpellNavigatorInterface
+struct _GspellSpellNavigatorInterface
 {
 	GTypeInterface parent_interface;
 
-	gboolean	(* goto_next)		(GeditSpellNavigator  *navigator,
+	gboolean	(* goto_next)		(GspellSpellNavigator  *navigator,
 						 gchar               **word,
-						 GeditSpellChecker   **spell_checker,
+						 GspellSpellChecker   **spell_checker,
 						 GError              **error);
 
-	void		(* change)		(GeditSpellNavigator *navigator,
+	void		(* change)		(GspellSpellNavigator *navigator,
 						 const gchar         *word,
 						 const gchar         *change_to);
 
-	void		(* change_all)		(GeditSpellNavigator *navigator,
+	void		(* change_all)		(GspellSpellNavigator *navigator,
 						 const gchar         *word,
 						 const gchar         *change_to);
 };
 
-gboolean	gedit_spell_navigator_goto_next		(GeditSpellNavigator  *navigator,
-							 gchar               **word,
-							 GeditSpellChecker   **spell_checker,
-							 GError              **error);
+gboolean	gspell_spell_navigator_goto_next		(GspellSpellNavigator  *navigator,
+							  gchar               **word,
+							  GspellSpellChecker   **spell_checker,
+							  GError              **error);
 
-void		gedit_spell_navigator_change		(GeditSpellNavigator *navigator,
-							 const gchar         *word,
-							 const gchar         *change_to);
+void		gspell_spell_navigator_change		(GspellSpellNavigator *navigator,
+							  const gchar         *word,
+							  const gchar         *change_to);
 
-void		gedit_spell_navigator_change_all	(GeditSpellNavigator *navigator,
-							 const gchar         *word,
-							 const gchar         *change_to);
+void		gspell_spell_navigator_change_all	(GspellSpellNavigator *navigator,
+							  const gchar         *word,
+							  const gchar         *change_to);
 
 G_END_DECLS
 
-#endif /* __GEDIT_SPELL_NAVIGATOR_H__ */
+#endif /* __GSPELL_SPELL_NAVIGATOR_H__ */
 
 /* ex:set ts=8 noet: */

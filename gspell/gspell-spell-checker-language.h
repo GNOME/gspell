@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell.
  *
- * Copyright 2011, 2014 - Jesse van den Kieboom
+ * Copyright 2006 - Paolo Maggi
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,21 +17,27 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _GEDIT_SPELL_OSX_H
-#define _GEDIT_SPELL_OSX_H
+#ifndef __GSPELL_SPELL_CHECKER_LANGUAGE_H__
+#define __GSPELL_SPELL_CHECKER_LANGUAGE_H__
 
 #include <glib.h>
 
 G_BEGIN_DECLS
 
-G_GNUC_INTERNAL
-gchar *	_gedit_spell_osx_get_preferred_spell_language	(void);
+typedef struct _GspellSpellCheckerLanguage GspellSpellCheckerLanguage;
 
-G_GNUC_INTERNAL
-gchar *	_gedit_spell_osx_get_resource_path		(void);
+const gchar *	gspell_spell_checker_language_to_string		(const GspellSpellCheckerLanguage *lang);
+
+const gchar *	gspell_spell_checker_language_to_key		(const GspellSpellCheckerLanguage *lang);
+
+const GspellSpellCheckerLanguage *
+		gspell_spell_checker_language_from_key		(const gchar *key);
+
+/* GSList contains "GspellSpellCheckerLanguage*" items */
+const GSList *	gspell_spell_checker_get_available_languages	(void);
 
 G_END_DECLS
 
-#endif /* _GEDIT_SPELL_OSX_H */
+#endif /* __GSPELL_SPELL_CHECKER_LANGUAGE_H__ */
 
 /* ex:set ts=8 noet: */

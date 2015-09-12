@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell.
  *
- * Copyright 2006 - Paolo Maggi
+ * Copyright 2002 - Paolo Maggi
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +17,27 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GEDIT_SPELL_CHECKER_LANGUAGE_H__
-#define __GEDIT_SPELL_CHECKER_LANGUAGE_H__
+#ifndef __GSPELL_SPELL_LANGUAGE_DIALOG_H__
+#define __GSPELL_SPELL_LANGUAGE_DIALOG_H__
 
-#include <glib.h>
+#include <gtk/gtk.h>
+#include "gspell-spell-checker-language.h"
 
 G_BEGIN_DECLS
 
-typedef struct _GeditSpellCheckerLanguage GeditSpellCheckerLanguage;
+#define GSPELL_TYPE_SPELL_LANGUAGE_DIALOG (gspell_spell_language_dialog_get_type ())
+G_DECLARE_FINAL_TYPE (GspellSpellLanguageDialog, gspell_spell_language_dialog,
+		      GSPELL, SPELL_LANGUAGE_DIALOG,
+		      GtkDialog)
 
-const gchar *	gedit_spell_checker_language_to_string		(const GeditSpellCheckerLanguage *lang);
+GtkWidget *	gspell_spell_language_dialog_new				(GtkWindow			 *parent,
+									  const GspellSpellCheckerLanguage *cur_lang);
 
-const gchar *	gedit_spell_checker_language_to_key		(const GeditSpellCheckerLanguage *lang);
-
-const GeditSpellCheckerLanguage *
-		gedit_spell_checker_language_from_key		(const gchar *key);
-
-/* GSList contains "GeditSpellCheckerLanguage*" items */
-const GSList *	gedit_spell_checker_get_available_languages	(void);
+const GspellSpellCheckerLanguage *
+		gspell_spell_language_dialog_get_selected_language	(GspellSpellLanguageDialog *dialog);
 
 G_END_DECLS
 
-#endif /* __GEDIT_SPELL_CHECKER_LANGUAGE_H__ */
+#endif  /* __GSPELL_SPELL_LANGUAGE_DIALOG_H__ */
 
 /* ex:set ts=8 noet: */

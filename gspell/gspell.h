@@ -17,12 +17,12 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gspell/gedit-automatic-spell-checker.h>
-#include <gspell/gedit-spell-checker.h>
-#include <gspell/gedit-spell-checker-dialog.h>
-#include <gspell/gedit-spell-checker-language.h>
-#include <gspell/gedit-spell-language-dialog.h>
-#include <gspell/gedit-spell-navigator.h>
-#include <gspell/gedit-spell-navigator-gtv.h>
+#include <gspell/gspell-automatic-spell-checker.h>
+#include <gspell/gspell-spell-checker.h>
+#include <gspell/gspell-spell-checker-dialog.h>
+#include <gspell/gspell-spell-checker-language.h>
+#include <gspell/gspell-spell-language-dialog.h>
+#include <gspell/gspell-spell-navigator.h>
+#include <gspell/gspell-spell-navigator-gtv.h>
 
 /* ex:set ts=8 noet: */

@@ -1,8 +1,7 @@
 /*
  * This file is part of gspell.
  *
- * Copyright 2002 - Paolo Maggi
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,24 +17,30 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GEDIT_SPELL_CHECKER_DIALOG_H__
-#define __GEDIT_SPELL_CHECKER_DIALOG_H__
+#ifndef __GSPELL_SPELL_NAVIGATOR_GTV_H__
+#define __GSPELL_SPELL_NAVIGATOR_GTV_H__
 
 #include <gtk/gtk.h>
-#include "gedit-spell-navigator.h"
+#include "gspell-spell-navigator.h"
+#include "gspell-spell-checker.h"
 
 G_BEGIN_DECLS
 
-#define GEDIT_TYPE_SPELL_CHECKER_DIALOG (gedit_spell_checker_dialog_get_type ())
-G_DECLARE_FINAL_TYPE (GeditSpellCheckerDialog, gedit_spell_checker_dialog,
-		      GEDIT, SPELL_CHECKER_DIALOG,
-		      GtkDialog)
+#define GSPELL_TYPE_SPELL_NAVIGATOR_GTV (gspell_spell_navigator_gtv_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellSpellNavigatorGtv, gspell_spell_navigator_gtv,
+			  GSPELL, SPELL_NAVIGATOR_GTV,
+			  GObject)
 
-GtkWidget *	gedit_spell_checker_dialog_new		(GtkWindow           *parent,
-							 GeditSpellNavigator *navigator);
+struct _GspellSpellNavigatorGtvClass
+{
+	GObjectClass parent_class;
+};
+
+GspellSpellNavigator *	gspell_spell_navigator_gtv_new		(GtkTextView       *view,
+								  GspellSpellChecker *spell_checker);
 
 G_END_DECLS
 
-#endif  /* __GEDIT_SPELL_CHECKER_DIALOG_H__ */
+#endif /* __GSPELL_SPELL_NAVIGATOR_GTV_H__ */
 
 /* ex:set ts=8 noet: */
