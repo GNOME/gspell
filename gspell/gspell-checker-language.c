@@ -36,7 +36,7 @@
 #define ISO_639_DOMAIN	"iso_639"
 #define ISO_3166_DOMAIN	"iso_3166"
 
-struct _GspellSpellCheckerLanguage
+struct _GspellCheckerLanguage
 {
 	gchar *abrev;
 	gchar *name;
@@ -64,7 +64,7 @@ get_iso_codes_locale_dir (void)
 				       NULL);
 #else
 #ifdef OS_OSX
-	gchar *res_dir = _gspell_spell_osx_get_resource_path ();
+	gchar *res_dir = _gspell_osx_get_resource_path ();
 
 	if (res_dir != NULL)
 	{
@@ -101,7 +101,7 @@ get_iso_codes_xml_name (gint iso)
 				      NULL);
 #else
 #ifdef OS_OSX
-	gchar *res_dir = _gspell_spell_osx_get_resource_path ();
+	gchar *res_dir = _gspell_osx_get_resource_path ();
 
 	if (res_dir != NULL)
 	{
@@ -401,8 +401,8 @@ key_cmp (gconstpointer a, gconstpointer b, gpointer user_data)
 }
 
 static gint
-lang_cmp (const GspellSpellCheckerLanguage *a,
-          const GspellSpellCheckerLanguage *b)
+lang_cmp (const GspellCheckerLanguage *a,
+          const GspellCheckerLanguage *b)
 {
 	return g_utf8_collate (a->name, b->name);
 }
@@ -412,7 +412,7 @@ build_langs_list (const gchar *key,
 		  const gchar *value,
 		  gpointer     data)
 {
-	GspellSpellCheckerLanguage *lang = g_new (GspellSpellCheckerLanguage, 1);
+	GspellCheckerLanguage *lang = g_new (GspellCheckerLanguage, 1);
 
 	lang->abrev = g_strdup (key);
 	lang->name = g_strdup (value);
@@ -425,7 +425,7 @@ build_langs_list (const gchar *key,
 }
 
 const GSList *
-gspell_spell_checker_get_available_languages (void)
+gspell_checker_get_available_languages (void)
 {
 	EnchantBroker *broker;
 	GTree *dicts;
@@ -467,7 +467,7 @@ gspell_spell_checker_get_available_languages (void)
 }
 
 const gchar *
-gspell_spell_checker_language_to_string (const GspellSpellCheckerLanguage *lang)
+gspell_checker_language_to_string (const GspellCheckerLanguage *lang)
 {
 	if (lang == NULL)
 		/* Translators: this refers the Default language used by the
@@ -479,25 +479,25 @@ gspell_spell_checker_language_to_string (const GspellSpellCheckerLanguage *lang)
 }
 
 const gchar *
-gspell_spell_checker_language_to_key (const GspellSpellCheckerLanguage *lang)
+gspell_checker_language_to_key (const GspellCheckerLanguage *lang)
 {
 	g_return_val_if_fail (lang != NULL, NULL);
 
 	return lang->abrev;
 }
 
-const GspellSpellCheckerLanguage *
-gspell_spell_checker_language_from_key (const gchar *key)
+const GspellCheckerLanguage *
+gspell_checker_language_from_key (const gchar *key)
 {
 	const GSList *langs;
 
 	g_return_val_if_fail (key != NULL, NULL);
 
-	langs = gspell_spell_checker_get_available_languages ();
+	langs = gspell_checker_get_available_languages ();
 
 	while (langs != NULL)
 	{
-		const GspellSpellCheckerLanguage *l = (const GspellSpellCheckerLanguage *)langs->data;
+		const GspellCheckerLanguage *l = (const GspellCheckerLanguage *)langs->data;
 
 		if (g_ascii_strcasecmp (key, l->abrev) == 0)
 			return l;

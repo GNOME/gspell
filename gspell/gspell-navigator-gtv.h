@@ -17,8 +17,8 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_SPELL_NAVIGATOR_GTV_H__
-#define __GSPELL_SPELL_NAVIGATOR_GTV_H__
+#ifndef __GSPELL_NAVIGATOR_GTV_H__
+#define __GSPELL_NAVIGATOR_GTV_H__
 
 #include <gtk/gtk.h>
 #include "gspell-navigator.h"
@@ -26,21 +26,21 @@
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_SPELL_NAVIGATOR_GTV (gspell_spell_navigator_gtv_get_type ())
-G_DECLARE_DERIVABLE_TYPE (GspellSpellNavigatorGtv, gspell_spell_navigator_gtv,
-			  GSPELL, SPELL_NAVIGATOR_GTV,
+#define GSPELL_TYPE_NAVIGATOR_GTV (gspell_navigator_gtv_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellNavigatorGtv, gspell_navigator_gtv,
+			  GSPELL, NAVIGATOR_GTV,
 			  GObject)
 
-struct _GspellSpellNavigatorGtvClass
+struct _GspellNavigatorGtvClass
 {
 	GObjectClass parent_class;
 };
 
-GspellSpellNavigator *	gspell_spell_navigator_gtv_new		(GtkTextView       *view,
-								  GspellSpellChecker *spell_checker);
+GspellNavigator *	gspell_navigator_gtv_new		(GtkTextView       *view,
+								  GspellChecker *spell_checker);
 
 G_END_DECLS
 
-#endif /* __GSPELL_SPELL_NAVIGATOR_GTV_H__ */
+#endif /* __GSPELL_NAVIGATOR_GTV_H__ */
 
 /* ex:set ts=8 noet: */

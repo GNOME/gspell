@@ -23,11 +23,11 @@
 /**
  * SECTION:spell-language-dialog
  * @Short_description: Dialog to choose a spell language.
- * @Title: GspellSpellLanguageDialog
- * @See_also: #GspellSpellCheckerLanguage.
+ * @Title: GspellLanguageDialog
+ * @See_also: #GspellCheckerLanguage.
  *
- * #GspellSpellLanguageDialog is a #GtkDialog to choose an available
- * #GspellSpellCheckerLanguage.
+ * #GspellLanguageDialog is a #GtkDialog to choose an available
+ * #GspellCheckerLanguage.
  */
 
 enum
@@ -37,23 +37,23 @@ enum
 	N_COLUMNS
 };
 
-struct _GspellSpellLanguageDialog
+struct _GspellLanguageDialog
 {
 	GtkDialog dialog;
 
 	GtkTreeView *treeview;
 };
 
-G_DEFINE_TYPE (GspellSpellLanguageDialog, gspell_spell_language_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE (GspellLanguageDialog, gspell_language_dialog, GTK_TYPE_DIALOG)
 
 static void
-gspell_spell_language_dialog_class_init (GspellSpellLanguageDialogClass *klass)
+gspell_language_dialog_class_init (GspellLanguageDialogClass *klass)
 {
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
 	/* Bind class to template */
 	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/gspell/language-dialog.ui");
-	gtk_widget_class_bind_template_child (widget_class, GspellSpellLanguageDialog, treeview);
+	gtk_widget_class_bind_template_child (widget_class, GspellLanguageDialog, treeview);
 }
 
 static void
@@ -84,13 +84,13 @@ static void
 row_activated_cb (GtkTreeView              *tree_view,
 		  GtkTreePath              *path,
 		  GtkTreeViewColumn        *column,
-		  GspellSpellLanguageDialog *dialog)
+		  GspellLanguageDialog *dialog)
 {
 	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 }
 
 static void
-gspell_spell_language_dialog_init (GspellSpellLanguageDialog *dialog)
+gspell_language_dialog_init (GspellLanguageDialog *dialog)
 {
 	GtkListStore *store;
 	GtkTreeViewColumn *column;
@@ -127,8 +127,8 @@ gspell_spell_language_dialog_init (GspellSpellLanguageDialog *dialog)
 }
 
 static void
-populate_language_list (GspellSpellLanguageDialog        *dialog,
-			const GspellSpellCheckerLanguage *cur_lang)
+populate_language_list (GspellLanguageDialog        *dialog,
+			const GspellCheckerLanguage *cur_lang)
 {
 	GtkListStore *store;
 	const GSList *available_langs;
@@ -136,15 +136,15 @@ populate_language_list (GspellSpellLanguageDialog        *dialog,
 
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (dialog->treeview));
 
-	available_langs = gspell_spell_checker_get_available_languages ();
+	available_langs = gspell_checker_get_available_languages ();
 
 	for (l = available_langs; l != NULL; l = l->next)
 	{
-		const GspellSpellCheckerLanguage *lang = l->data;
+		const GspellCheckerLanguage *lang = l->data;
 		const gchar *name;
 		GtkTreeIter iter;
 
-		name = gspell_spell_checker_language_to_string (lang);
+		name = gspell_checker_language_to_string (lang);
 
 		gtk_list_store_append (store, &iter);
 		gtk_list_store_set (store, &iter,
@@ -164,21 +164,21 @@ populate_language_list (GspellSpellLanguageDialog        *dialog,
 }
 
 /**
- * gspell_spell_language_dialog_new:
+ * gspell_language_dialog_new:
  * @parent: transient parent of the dialog.
- * @cur_lang: the #GspellSpellCheckerLanguage to select initially.
+ * @cur_lang: the #GspellCheckerLanguage to select initially.
  *
- * Returns: a new #GspellSpellLanguageDialog widget.
+ * Returns: a new #GspellLanguageDialog widget.
  */
 GtkWidget *
-gspell_spell_language_dialog_new (GtkWindow                       *parent,
-				  const GspellSpellCheckerLanguage *cur_lang)
+gspell_language_dialog_new (GtkWindow                       *parent,
+			    const GspellCheckerLanguage *cur_lang)
 {
-	GspellSpellLanguageDialog *dialog;
+	GspellLanguageDialog *dialog;
 
 	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
 
-	dialog = g_object_new (GSPELL_TYPE_SPELL_LANGUAGE_DIALOG,
+	dialog = g_object_new (GSPELL_TYPE_LANGUAGE_DIALOG,
 			       "transient-for", parent,
 			       NULL);
 
@@ -188,18 +188,18 @@ gspell_spell_language_dialog_new (GtkWindow                       *parent,
 }
 
 /**
- * gspell_spell_language_dialog_get_selected_language:
- * @dialog: a #GspellSpellLanguageDialog.
+ * gspell_language_dialog_get_selected_language:
+ * @dialog: a #GspellLanguageDialog.
  *
  * Returns: the currently selected language.
  */
-const GspellSpellCheckerLanguage *
-gspell_spell_language_dialog_get_selected_language (GspellSpellLanguageDialog *dialog)
+const GspellCheckerLanguage *
+gspell_language_dialog_get_selected_language (GspellLanguageDialog *dialog)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	const GspellSpellCheckerLanguage *lang;
+	const GspellCheckerLanguage *lang;
 
 	selection = gtk_tree_view_get_selection (dialog->treeview);
 

@@ -35,7 +35,7 @@ G_DECLARE_FINAL_TYPE (GspellAutomaticSpellChecker, gspell_automatic_spell_checke
 
 GspellAutomaticSpellChecker *
 	gspell_automatic_spell_checker_new		(GtkSourceBuffer   *buffer,
-							  GspellSpellChecker *checker);
+							  GspellChecker *checker);
 
 void	gspell_automatic_spell_checker_attach_view	(GspellAutomaticSpellChecker *spell,
 							  GtkTextView                *view);

@@ -17,27 +17,27 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_SPELL_CHECKER_LANGUAGE_H__
-#define __GSPELL_SPELL_CHECKER_LANGUAGE_H__
+#ifndef __GSPELL_CHECKER_LANGUAGE_H__
+#define __GSPELL_CHECKER_LANGUAGE_H__
 
 #include <glib.h>
 
 G_BEGIN_DECLS
 
-typedef struct _GspellSpellCheckerLanguage GspellSpellCheckerLanguage;
+typedef struct _GspellCheckerLanguage GspellCheckerLanguage;
 
-const gchar *	gspell_spell_checker_language_to_string		(const GspellSpellCheckerLanguage *lang);
+const gchar *	gspell_checker_language_to_string		(const GspellCheckerLanguage *lang);
 
-const gchar *	gspell_spell_checker_language_to_key		(const GspellSpellCheckerLanguage *lang);
+const gchar *	gspell_checker_language_to_key		(const GspellCheckerLanguage *lang);
 
-const GspellSpellCheckerLanguage *
-		gspell_spell_checker_language_from_key		(const gchar *key);
+const GspellCheckerLanguage *
+		gspell_checker_language_from_key		(const gchar *key);
 
-/* GSList contains "GspellSpellCheckerLanguage*" items */
-const GSList *	gspell_spell_checker_get_available_languages	(void);
+/* GSList contains "GspellCheckerLanguage*" items */
+const GSList *	gspell_checker_get_available_languages	(void);
 
 G_END_DECLS
 
-#endif /* __GSPELL_SPELL_CHECKER_LANGUAGE_H__ */
+#endif /* __GSPELL_CHECKER_LANGUAGE_H__ */
 
 /* ex:set ts=8 noet: */

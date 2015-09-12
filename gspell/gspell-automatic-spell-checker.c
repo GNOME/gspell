@@ -32,7 +32,7 @@
  * SECTION:automatic-spell-checker
  * @Short_description: Inline spell checker for GtkTextView
  * @Title: GspellAutomaticSpellChecker
- * @See_also: #GspellSpellChecker
+ * @See_also: #GspellChecker
  *
  * The #GspellAutomaticSpellChecker is an inline spell checker for the
  * #GtkTextView widget. Misspelled words are highlighted with a
@@ -51,7 +51,7 @@ struct _GspellAutomaticSpellChecker
 	GObject parent;
 
 	GtkTextBuffer *buffer;
-	GspellSpellChecker *spell_checker;
+	GspellChecker *spell_checker;
 
 	/* List of GtkTextView* */
 	GSList *views;
@@ -102,9 +102,9 @@ check_word (GspellAutomaticSpellChecker *spell,
 
 	word = gtk_text_buffer_get_text (spell->buffer, start, end, FALSE);
 
-	correctly_spelled = gspell_spell_checker_check_word (spell->spell_checker,
-							     word,
-							     &error);
+	correctly_spelled = gspell_checker_check_word (spell->spell_checker,
+						       word,
+						       &error);
 
 	if (error != NULL)
 	{
@@ -174,7 +174,7 @@ check_subregion (GspellAutomaticSpellChecker *spell,
 
 	word_start = start_adjusted;
 
-	while (_gspell_spell_utils_skip_no_spell_check (&word_start, &end_adjusted) &&
+	while (_gspell_utils_skip_no_spell_check (&word_start, &end_adjusted) &&
 	       gtk_text_iter_compare (&word_start, &end_adjusted) < 0)
 	{
 		GtkTextIter word_end;
@@ -497,7 +497,7 @@ add_to_dictionary_cb (GtkWidget                  *menu_item,
 
 	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
 
-	gspell_spell_checker_add_word_to_personal (spell->spell_checker, word);
+	gspell_checker_add_word_to_personal (spell->spell_checker, word);
 
 	g_free (word);
 }
@@ -517,7 +517,7 @@ ignore_all_cb (GtkWidget                  *menu_item,
 
 	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
 
-	gspell_spell_checker_add_word_to_session (spell->spell_checker, word);
+	gspell_checker_add_word_to_session (spell->spell_checker, word);
 
 	g_free (word);
 }
@@ -548,7 +548,7 @@ replace_word_cb (GtkWidget                  *menu_item,
 
 	gtk_text_buffer_end_user_action (spell->buffer);
 
-	gspell_spell_checker_set_correction (spell->spell_checker, old_word, new_word);
+	gspell_checker_set_correction (spell->spell_checker, old_word, new_word);
 
 	g_free (old_word);
 }
@@ -563,7 +563,7 @@ get_suggestion_menu (GspellAutomaticSpellChecker *spell,
 
 	top_menu = gtk_menu_new ();
 
-	suggestions = gspell_spell_checker_get_suggestions (spell->spell_checker, word);
+	suggestions = gspell_checker_get_suggestions (spell->spell_checker, word);
 
 	if (suggestions == NULL)
 	{
@@ -739,7 +739,7 @@ remove_tag_to_word (GspellAutomaticSpellChecker *spell,
 }
 
 static void
-add_word_cb (GspellSpellChecker          *checker,
+add_word_cb (GspellChecker          *checker,
 	     const gchar                *word,
 	     GspellAutomaticSpellChecker *spell)
 {
@@ -747,14 +747,14 @@ add_word_cb (GspellSpellChecker          *checker,
 }
 
 static void
-clear_session_cb (GspellSpellChecker          *checker,
+clear_session_cb (GspellChecker          *checker,
 		  GspellAutomaticSpellChecker *spell)
 {
 	recheck_all (spell);
 }
 
 static void
-language_notify_cb (GspellSpellChecker          *checker,
+language_notify_cb (GspellChecker          *checker,
 		    GParamSpec                 *pspec,
 		    GspellAutomaticSpellChecker *spell)
 {
@@ -928,9 +928,9 @@ set_buffer (GspellAutomaticSpellChecker *spell,
 
 static void
 set_spell_checker (GspellAutomaticSpellChecker *spell,
-		   GspellSpellChecker          *checker)
+		   GspellChecker          *checker)
 {
-	g_return_if_fail (GSPELL_IS_SPELL_CHECKER (checker));
+	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (spell->spell_checker == NULL);
 
 	spell->spell_checker = g_object_ref (checker);
@@ -1090,7 +1090,7 @@ gspell_automatic_spell_checker_class_init (GspellAutomaticSpellCheckerClass *kla
 	/**
 	 * GspellAutomaticSpellChecker:spell-checker:
 	 *
-	 * The #GspellSpellChecker to use. It cannot be changed afterwards. If
+	 * The #GspellChecker to use. It cannot be changed afterwards. If
 	 * you want to change the language, you need to create another
 	 * #GspellAutomaticSpellChecker.
 	 */
@@ -1099,7 +1099,7 @@ gspell_automatic_spell_checker_class_init (GspellAutomaticSpellCheckerClass *kla
 					 g_param_spec_object ("spell-checker",
 							      "Spell Checker",
 							      "",
-							      GSPELL_TYPE_SPELL_CHECKER,
+							      GSPELL_TYPE_CHECKER,
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
 							      G_PARAM_STATIC_STRINGS));
@@ -1113,18 +1113,18 @@ gspell_automatic_spell_checker_init (GspellAutomaticSpellChecker *spell)
 /**
  * gspell_automatic_spell_checker_new:
  * @buffer: a #GtkSourceBuffer.
- * @checker: a #GspellSpellChecker.
+ * @checker: a #GspellChecker.
  *
  * Returns: a new #GspellAutomaticSpellChecker object.
  */
 GspellAutomaticSpellChecker *
 gspell_automatic_spell_checker_new (GtkSourceBuffer   *buffer,
-				    GspellSpellChecker *checker)
+				    GspellChecker *checker)
 {
 	GspellAutomaticSpellChecker *spell;
 
 	g_return_val_if_fail (GTK_SOURCE_IS_BUFFER (buffer), NULL);
-	g_return_val_if_fail (GSPELL_IS_SPELL_CHECKER (checker), NULL);
+	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
 
 	spell = g_object_get_data (G_OBJECT (buffer), AUTOMATIC_SPELL_CHECKER_KEY);
 	if (spell != NULL)

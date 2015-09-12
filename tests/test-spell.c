@@ -29,7 +29,7 @@ struct _TestSpell
 	GtkGrid parent;
 
 	GtkSourceView *view;
-	GspellSpellChecker *checker;
+	GspellChecker *checker;
 	GspellAutomaticSpellChecker *inline_spell;
 };
 
@@ -60,7 +60,7 @@ checker_button_clicked_cb (GtkButton *checker_button,
 {
 	GtkWidget *window;
 	GtkWidget *checker_dialog;
-	GspellSpellNavigator *navigator;
+	GspellNavigator *navigator;
 
 	window = gtk_widget_get_toplevel (GTK_WIDGET (spell));
 	if (!gtk_widget_is_toplevel (window))
@@ -68,10 +68,10 @@ checker_button_clicked_cb (GtkButton *checker_button,
 		g_return_if_reached ();
 	}
 
-	navigator = gspell_spell_navigator_gtv_new (GTK_TEXT_VIEW (spell->view),
-						    spell->checker);
+	navigator = gspell_navigator_gtv_new (GTK_TEXT_VIEW (spell->view),
+					      spell->checker);
 
-	checker_dialog = gspell_spell_checker_dialog_new (GTK_WINDOW (window), navigator);
+	checker_dialog = gspell_checker_dialog_new (GTK_WINDOW (window), navigator);
 
 	gtk_dialog_run (GTK_DIALOG (checker_dialog));
 	gtk_widget_destroy (checker_dialog);
@@ -82,7 +82,7 @@ language_button_clicked_cb (GtkButton *language_button,
 			    TestSpell *spell)
 {
 	GtkWidget *window;
-	const GspellSpellCheckerLanguage *language;
+	const GspellCheckerLanguage *language;
 	GtkWidget *language_dialog;
 	gint response;
 
@@ -92,15 +92,15 @@ language_button_clicked_cb (GtkButton *language_button,
 		g_return_if_reached ();
 	}
 
-	language = gspell_spell_checker_get_language (spell->checker);
+	language = gspell_checker_get_language (spell->checker);
 
-	language_dialog = gspell_spell_language_dialog_new (GTK_WINDOW (window), language);
+	language_dialog = gspell_language_dialog_new (GTK_WINDOW (window), language);
 
 	response = gtk_dialog_run (GTK_DIALOG (language_dialog));
 	if (response == GTK_RESPONSE_OK)
 	{
-		language = gspell_spell_language_dialog_get_selected_language (GSPELL_SPELL_LANGUAGE_DIALOG (language_dialog));
-		gspell_spell_checker_set_language (spell->checker, language);
+		language = gspell_language_dialog_get_selected_language (GSPELL_LANGUAGE_DIALOG (language_dialog));
+		gspell_checker_set_language (spell->checker, language);
 	}
 
 	gtk_widget_destroy (language_dialog);
@@ -189,7 +189,7 @@ test_spell_init (TestSpell *spell)
 	GtkWidget *scrolled_window;
 
 	spell->view = GTK_SOURCE_VIEW (gtk_source_view_new ());
-	spell->checker = gspell_spell_checker_new (NULL);
+	spell->checker = gspell_checker_new (NULL);
 
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (spell),
 					GTK_ORIENTATION_HORIZONTAL);

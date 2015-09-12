@@ -17,21 +17,21 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _GSPELL_SPELL_OSX_H
-#define _GSPELL_SPELL_OSX_H
+#ifndef _GSPELL_OSX_H
+#define _GSPELL_OSX_H
 
 #include <glib.h>
 
 G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
-gchar *	_gspell_spell_osx_get_preferred_spell_language	(void);
+gchar *	_gspell_osx_get_preferred_spell_language	(void);
 
 G_GNUC_INTERNAL
-gchar *	_gspell_spell_osx_get_resource_path		(void);
+gchar *	_gspell_osx_get_resource_path		(void);
 
 G_END_DECLS
 
-#endif /* _GSPELL_SPELL_OSX_H */
+#endif /* _GSPELL_OSX_H */
 
 /* ex:set ts=8 noet: */

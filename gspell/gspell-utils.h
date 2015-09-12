@@ -17,22 +17,22 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_SPELL_UTILS_H__
-#define __GSPELL_SPELL_UTILS_H__
+#ifndef __GSPELL_UTILS_H__
+#define __GSPELL_UTILS_H__
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
-gboolean	_gspell_spell_utils_is_digit		(const gchar *text);
+gboolean	_gspell_utils_is_digit		(const gchar *text);
 
 G_GNUC_INTERNAL
-gboolean	_gspell_spell_utils_skip_no_spell_check	(GtkTextIter       *start,
+gboolean	_gspell_utils_skip_no_spell_check	(GtkTextIter       *start,
 							  const GtkTextIter *end);
 
 G_END_DECLS
 
-#endif /* __GSPELL_SPELL_UTILS_H__ */
+#endif /* __GSPELL_UTILS_H__ */
 
 /* ex:set ts=8 noet: */

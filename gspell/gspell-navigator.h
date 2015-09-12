@@ -17,52 +17,52 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_SPELL_NAVIGATOR_H__
-#define __GSPELL_SPELL_NAVIGATOR_H__
+#ifndef __GSPELL_NAVIGATOR_H__
+#define __GSPELL_NAVIGATOR_H__
 
 #include <glib-object.h>
 #include "gspell-checker.h"
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_SPELL_NAVIGATOR (gspell_spell_navigator_get_type ())
-G_DECLARE_INTERFACE (GspellSpellNavigator, gspell_spell_navigator,
-		     GSPELL, SPELL_NAVIGATOR,
+#define GSPELL_TYPE_NAVIGATOR (gspell_navigator_get_type ())
+G_DECLARE_INTERFACE (GspellNavigator, gspell_navigator,
+		     GSPELL, NAVIGATOR,
 		     GObject)
 
-struct _GspellSpellNavigatorInterface
+struct _GspellNavigatorInterface
 {
 	GTypeInterface parent_interface;
 
-	gboolean	(* goto_next)		(GspellSpellNavigator  *navigator,
+	gboolean	(* goto_next)		(GspellNavigator  *navigator,
 						 gchar               **word,
-						 GspellSpellChecker   **spell_checker,
+						 GspellChecker   **spell_checker,
 						 GError              **error);
 
-	void		(* change)		(GspellSpellNavigator *navigator,
+	void		(* change)		(GspellNavigator *navigator,
 						 const gchar         *word,
 						 const gchar         *change_to);
 
-	void		(* change_all)		(GspellSpellNavigator *navigator,
+	void		(* change_all)		(GspellNavigator *navigator,
 						 const gchar         *word,
 						 const gchar         *change_to);
 };
 
-gboolean	gspell_spell_navigator_goto_next		(GspellSpellNavigator  *navigator,
+gboolean	gspell_navigator_goto_next		(GspellNavigator  *navigator,
 							  gchar               **word,
-							  GspellSpellChecker   **spell_checker,
+							  GspellChecker   **spell_checker,
 							  GError              **error);
 
-void		gspell_spell_navigator_change		(GspellSpellNavigator *navigator,
+void		gspell_navigator_change		(GspellNavigator *navigator,
 							  const gchar         *word,
 							  const gchar         *change_to);
 
-void		gspell_spell_navigator_change_all	(GspellSpellNavigator *navigator,
+void		gspell_navigator_change_all	(GspellNavigator *navigator,
 							  const gchar         *word,
 							  const gchar         *change_to);
 
 G_END_DECLS
 
-#endif /* __GSPELL_SPELL_NAVIGATOR_H__ */
+#endif /* __GSPELL_NAVIGATOR_H__ */
 
 /* ex:set ts=8 noet: */

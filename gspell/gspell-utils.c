@@ -23,7 +23,7 @@
 #include <gtksourceview/gtksource.h>
 
 gboolean
-_gspell_spell_utils_is_digit (const gchar *text)
+_gspell_utils_is_digit (const gchar *text)
 {
 	const gchar *p;
 	const gchar *end;
@@ -49,8 +49,8 @@ _gspell_spell_utils_is_digit (const gchar *text)
 }
 
 gboolean
-_gspell_spell_utils_skip_no_spell_check (GtkTextIter       *start,
-					 const GtkTextIter *end)
+_gspell_utils_skip_no_spell_check (GtkTextIter       *start,
+				   const GtkTextIter *end)
 {
 	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER (gtk_text_iter_get_buffer (start));
 

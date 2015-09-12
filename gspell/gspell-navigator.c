@@ -22,13 +22,13 @@
 /**
  * SECTION:spell-navigator
  * @Short_description: Interface to navigate through misspelled words
- * @Title: GspellSpellNavigator
- * @See_also: #GspellSpellNavigatorGtv, #GspellSpellCheckerDialog
+ * @Title: GspellNavigator
+ * @See_also: #GspellNavigatorGtv, #GspellCheckerDialog
  *
- * #GspellSpellNavigator is an interface to navigate through misspelled words,
+ * #GspellNavigator is an interface to navigate through misspelled words,
  * and correct the mistakes.
  *
- * It is used by widgets like #GspellSpellCheckerDialog. The purpose is to
+ * It is used by widgets like #GspellCheckerDialog. The purpose is to
  * spell check a document one word at a time.
  *
  * It is not mandatory to navigate through all the text. Depending on the
@@ -36,46 +36,46 @@
  * selection, etc.
  */
 
-G_DEFINE_INTERFACE (GspellSpellNavigator, gspell_spell_navigator, G_TYPE_OBJECT)
+G_DEFINE_INTERFACE (GspellNavigator, gspell_navigator, G_TYPE_OBJECT)
 
 static gboolean
-gspell_spell_navigator_goto_next_default (GspellSpellNavigator  *navigator,
-					  gchar               **word,
-					  GspellSpellChecker   **spell_checker,
-					  GError              **error)
+gspell_navigator_goto_next_default (GspellNavigator  *navigator,
+				    gchar               **word,
+				    GspellChecker   **spell_checker,
+				    GError              **error)
 {
 	return FALSE;
 }
 
 static void
-gspell_spell_navigator_change_default (GspellSpellNavigator *navigator,
-				       const gchar         *word,
-				       const gchar         *change_to)
+gspell_navigator_change_default (GspellNavigator *navigator,
+				 const gchar         *word,
+				 const gchar         *change_to)
 {
 }
 
 static void
-gspell_spell_navigator_change_all_default (GspellSpellNavigator *navigator,
-					   const gchar         *word,
-					   const gchar         *change_to)
+gspell_navigator_change_all_default (GspellNavigator *navigator,
+				     const gchar         *word,
+				     const gchar         *change_to)
 {
 }
 
 static void
-gspell_spell_navigator_default_init (GspellSpellNavigatorInterface *iface)
+gspell_navigator_default_init (GspellNavigatorInterface *iface)
 {
-	iface->goto_next = gspell_spell_navigator_goto_next_default;
-	iface->change = gspell_spell_navigator_change_default;
-	iface->change_all = gspell_spell_navigator_change_all_default;
+	iface->goto_next = gspell_navigator_goto_next_default;
+	iface->change = gspell_navigator_change_default;
+	iface->change_all = gspell_navigator_change_all_default;
 }
 
 /**
- * gspell_spell_navigator_goto_next:
- * @navigator: a #GspellSpellNavigator.
+ * gspell_navigator_goto_next:
+ * @navigator: a #GspellNavigator.
  * @word: (out) (optional): a location to store an allocated string, or %NULL.
  *   Use g_free() to free the returned string.
  * @spell_checker: (out) (optional) (transfer full): a location to store the
- *   #GspellSpellChecker used, or %NULL. Use g_object_unref() when no longer
+ *   #GspellChecker used, or %NULL. Use g_object_unref() when no longer
  *   needed.
  * @error: (out) (optional): a location to a %NULL #GError, or %NULL.
  *
@@ -86,12 +86,12 @@ gspell_spell_navigator_default_init (GspellSpellNavigatorInterface *iface)
  * checking is finished or if an error occurred.
  */
 gboolean
-gspell_spell_navigator_goto_next (GspellSpellNavigator  *navigator,
-				  gchar               **word,
-				  GspellSpellChecker   **spell_checker,
-				  GError              **error)
+gspell_navigator_goto_next (GspellNavigator  *navigator,
+			    gchar               **word,
+			    GspellChecker   **spell_checker,
+			    GError              **error)
 {
-	g_return_val_if_fail (GSPELL_IS_SPELL_NAVIGATOR (navigator), FALSE);
+	g_return_val_if_fail (GSPELL_IS_NAVIGATOR (navigator), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	if (word != NULL)
@@ -104,53 +104,53 @@ gspell_spell_navigator_goto_next (GspellSpellNavigator  *navigator,
 		*spell_checker = NULL;
 	}
 
-	return GSPELL_SPELL_NAVIGATOR_GET_IFACE (navigator)->goto_next (navigator,
+	return GSPELL_NAVIGATOR_GET_IFACE (navigator)->goto_next (navigator,
 								       word,
 								       spell_checker,
 								       error);
 }
 
 /**
- * gspell_spell_navigator_change:
- * @navigator: a #GspellSpellNavigator.
+ * gspell_navigator_change:
+ * @navigator: a #GspellNavigator.
  * @word: the word to change.
  * @change_to: the replacement.
  *
  * Changes the current @word by @change_to. @word is the same as returned by the
- * last gspell_spell_navigator_goto_next().
+ * last gspell_navigator_goto_next().
  *
- * gspell_spell_checker_set_correction() has already been called, this function
+ * gspell_checker_set_correction() has already been called, this function
  * is to make the change in the text. Only the current word should be changed.
  */
 void
-gspell_spell_navigator_change (GspellSpellNavigator *navigator,
-			       const gchar         *word,
-			       const gchar         *change_to)
+gspell_navigator_change (GspellNavigator *navigator,
+			 const gchar         *word,
+			 const gchar         *change_to)
 {
-	g_return_if_fail (GSPELL_IS_SPELL_NAVIGATOR (navigator));
+	g_return_if_fail (GSPELL_IS_NAVIGATOR (navigator));
 
-	GSPELL_SPELL_NAVIGATOR_GET_IFACE (navigator)->change (navigator, word, change_to);
+	GSPELL_NAVIGATOR_GET_IFACE (navigator)->change (navigator, word, change_to);
 }
 
 /**
- * gspell_spell_navigator_change_all:
- * @navigator: a #GspellSpellNavigator.
+ * gspell_navigator_change_all:
+ * @navigator: a #GspellNavigator.
  * @word: the word to change.
  * @change_to: the replacement.
  *
  * Changes all occurrences of @word by @change_to.
  *
- * gspell_spell_checker_set_correction() has already been called, this function
+ * gspell_checker_set_correction() has already been called, this function
  * is to make the change in the text.
  */
 void
-gspell_spell_navigator_change_all (GspellSpellNavigator *navigator,
-				   const gchar         *word,
-				   const gchar         *change_to)
+gspell_navigator_change_all (GspellNavigator *navigator,
+			     const gchar         *word,
+			     const gchar         *change_to)
 {
-	g_return_if_fail (GSPELL_IS_SPELL_NAVIGATOR (navigator));
+	g_return_if_fail (GSPELL_IS_NAVIGATOR (navigator));
 
-	GSPELL_SPELL_NAVIGATOR_GET_IFACE (navigator)->change_all (navigator, word, change_to);
+	GSPELL_NAVIGATOR_GET_IFACE (navigator)->change_all (navigator, word, change_to);
 }
 
 /* ex:set ts=8 noet: */

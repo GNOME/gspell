@@ -17,87 +17,87 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_SPELL_CHECKER_H__
-#define __GSPELL_SPELL_CHECKER_H__
+#ifndef __GSPELL_CHECKER_H__
+#define __GSPELL_CHECKER_H__
 
 #include <glib-object.h>
 #include "gspell-checker-language.h"
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_SPELL_CHECKER (gspell_spell_checker_get_type ())
-G_DECLARE_DERIVABLE_TYPE (GspellSpellChecker, gspell_spell_checker,
-			  GSPELL, SPELL_CHECKER,
+#define GSPELL_TYPE_CHECKER (gspell_checker_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellChecker, gspell_checker,
+			  GSPELL, CHECKER,
 			  GObject)
 
 /**
- * GSPELL_SPELL_CHECKER_ERROR:
+ * GSPELL_CHECKER_ERROR:
  *
  * Error domain for the spell checker. Errors in this domain will be from the
- * #GspellSpellCheckerError enumeration. See #GError for more information on
+ * #GspellCheckerError enumeration. See #GError for more information on
  * error domains.
  */
-#define GSPELL_SPELL_CHECKER_ERROR (gspell_spell_checker_error_quark ())
+#define GSPELL_CHECKER_ERROR (gspell_checker_error_quark ())
 
 /**
- * GspellSpellCheckerError:
- * @GSPELL_SPELL_CHECKER_ERROR_DICTIONARY: dictionary error.
+ * GspellCheckerError:
+ * @GSPELL_CHECKER_ERROR_DICTIONARY: dictionary error.
  *
- * An error code used with %GSPELL_SPELL_CHECKER_ERROR in a #GError returned
+ * An error code used with %GSPELL_CHECKER_ERROR in a #GError returned
  * from a spell-checker-related function.
  */
-typedef enum _GspellSpellCheckerError GspellSpellCheckerError;
-enum _GspellSpellCheckerError
+typedef enum _GspellCheckerError GspellCheckerError;
+enum _GspellCheckerError
 {
-	GSPELL_SPELL_CHECKER_ERROR_DICTIONARY,
+	GSPELL_CHECKER_ERROR_DICTIONARY,
 };
 
-struct _GspellSpellCheckerClass
+struct _GspellCheckerClass
 {
 	GObjectClass parent_class;
 
 	/* Signals */
-	void (* add_word_to_personal)	(GspellSpellChecker *checker,
+	void (* add_word_to_personal)	(GspellChecker *checker,
 					 const gchar       *word);
 
-	void (* add_word_to_session)	(GspellSpellChecker *checker,
+	void (* add_word_to_session)	(GspellChecker *checker,
 					 const gchar       *word);
 
-	void (* clear_session)		(GspellSpellChecker *checker);
+	void (* clear_session)		(GspellChecker *checker);
 };
 
-GQuark		gspell_spell_checker_error_quark			(void);
+GQuark		gspell_checker_error_quark			(void);
 
-GspellSpellChecker *
-		gspell_spell_checker_new				(const GspellSpellCheckerLanguage *language);
+GspellChecker *
+		gspell_checker_new				(const GspellCheckerLanguage *language);
 
-gboolean	gspell_spell_checker_set_language		(GspellSpellChecker               *checker,
-								  const GspellSpellCheckerLanguage *language);
+gboolean	gspell_checker_set_language		(GspellChecker               *checker,
+								  const GspellCheckerLanguage *language);
 
-const GspellSpellCheckerLanguage *
-		gspell_spell_checker_get_language		(GspellSpellChecker *checker);
+const GspellCheckerLanguage *
+		gspell_checker_get_language		(GspellChecker *checker);
 
-gboolean	gspell_spell_checker_check_word			(GspellSpellChecker  *checker,
+gboolean	gspell_checker_check_word			(GspellChecker  *checker,
 								  const gchar        *word,
 								  GError            **error);
 
-GSList *	gspell_spell_checker_get_suggestions		(GspellSpellChecker *checker,
+GSList *	gspell_checker_get_suggestions		(GspellChecker *checker,
 								  const gchar       *word);
 
-void		gspell_spell_checker_add_word_to_personal	(GspellSpellChecker *checker,
+void		gspell_checker_add_word_to_personal	(GspellChecker *checker,
 								  const gchar       *word);
 
-void		gspell_spell_checker_add_word_to_session		(GspellSpellChecker *checker,
+void		gspell_checker_add_word_to_session		(GspellChecker *checker,
 								  const gchar       *word);
 
-void		gspell_spell_checker_clear_session		(GspellSpellChecker *checker);
+void		gspell_checker_clear_session		(GspellChecker *checker);
 
-void		gspell_spell_checker_set_correction		(GspellSpellChecker *checker,
+void		gspell_checker_set_correction		(GspellChecker *checker,
 								  const gchar       *word,
 								  const gchar       *replacement);
 
 G_END_DECLS
 
-#endif  /* __GSPELL_SPELL_CHECKER_H__ */
+#endif  /* __GSPELL_CHECKER_H__ */
 
 /* ex:set ts=8 noet: */
