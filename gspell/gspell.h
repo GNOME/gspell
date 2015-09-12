@@ -18,11 +18,11 @@
  */
 
 #include <gspell/gspell-automatic-spell-checker.h>
-#include <gspell/gspell-spell-checker.h>
-#include <gspell/gspell-spell-checker-dialog.h>
-#include <gspell/gspell-spell-checker-language.h>
-#include <gspell/gspell-spell-language-dialog.h>
-#include <gspell/gspell-spell-navigator.h>
-#include <gspell/gspell-spell-navigator-gtv.h>
+#include <gspell/gspell-checker.h>
+#include <gspell/gspell-checker-dialog.h>
+#include <gspell/gspell-checker-language.h>
+#include <gspell/gspell-language-dialog.h>
+#include <gspell/gspell-navigator.h>
+#include <gspell/gspell-navigator-gtv.h>
 
 /* ex:set ts=8 noet: */

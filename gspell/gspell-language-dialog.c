@@ -18,7 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gspell-spell-language-dialog.h"
+#include "gspell-language-dialog.h"
 
 /**
  * SECTION:spell-language-dialog

@@ -17,7 +17,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gspell-spell-osx.h"
+#include "gspell-osx.h"
 #include <gtkosxapplication.h>
 #import <Cocoa/Cocoa.h>
 

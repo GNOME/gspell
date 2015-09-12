@@ -16,28 +16,28 @@ BUILT_SOURCES =			\
 gspell_public_headers =				\
 	gspell.h				\
 	gspell-automatic-spell-checker.h	\
-	gspell-spell-checker.h			\
-	gspell-spell-checker-dialog.h		\
-	gspell-spell-checker-language.h		\
-	gspell-spell-language-dialog.h		\
-	gspell-spell-navigator.h		\
-	gspell-spell-navigator-gtv.h
+	gspell-checker.h			\
+	gspell-checker-dialog.h			\
+	gspell-checker-language.h		\
+	gspell-language-dialog.h		\
+	gspell-navigator.h			\
+	gspell-navigator-gtv.h
 
 gspell_public_c_files =				\
 	gspell-automatic-spell-checker.c	\
-	gspell-spell-checker.c			\
-	gspell-spell-checker-dialog.c		\
-	gspell-spell-checker-language.c		\
-	gspell-spell-language-dialog.c		\
-	gspell-spell-navigator.c		\
-	gspell-spell-navigator-gtv.c
+	gspell-checker.c			\
+	gspell-checker-dialog.c			\
+	gspell-checker-language.c		\
+	gspell-language-dialog.c		\
+	gspell-navigator.c			\
+	gspell-navigator-gtv.c
 
 gspell_private_headers =	\
-	gspell-spell-utils.h	\
+	gspell-utils.h		\
 	gtktextregion.h
 
 gspell_private_c_files =	\
-	gspell-spell-utils.c	\
+	gspell-utils.c		\
 	gtktextregion.c
 
 lib_LTLIBRARIES = libgspell-3.0.la
@@ -81,9 +81,9 @@ libosx_la_CFLAGS =		\
 	-xobjective-c		\
 	$(GTK_MAC_CFLAGS)
 
-libosx_la_SOURCES =		\
-	gspell-spell-osx.c	\
-	gspell-spell-osx.h
+libosx_la_SOURCES =	\
+	gspell-osx.c	\
+	gspell-osx.h
 
 libgspell_3_0_la_LIBADD += libosx.la
 endif # OS_OSX

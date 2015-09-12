@@ -26,7 +26,7 @@
 #define __GSPELL_AUTOMATIC_SPELL_CHECKER_H__
 
 #include <gtksourceview/gtksource.h>
-#include "gspell-spell-checker.h"
+#include "gspell-checker.h"
 
 #define GSPELL_TYPE_AUTOMATIC_SPELL_CHECKER (gspell_automatic_spell_checker_get_type ())
 G_DECLARE_FINAL_TYPE (GspellAutomaticSpellChecker, gspell_automatic_spell_checker,

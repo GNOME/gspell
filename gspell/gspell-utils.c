@@ -18,7 +18,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gspell-spell-utils.h"
+#include "gspell-utils.h"
 #include <string.h>
 #include <gtksourceview/gtksource.h>
 

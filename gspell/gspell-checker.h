@@ -21,7 +21,7 @@
 #define __GSPELL_SPELL_CHECKER_H__
 
 #include <glib-object.h>
-#include "gspell-spell-checker-language.h"
+#include "gspell-checker-language.h"
 
 G_BEGIN_DECLS
 

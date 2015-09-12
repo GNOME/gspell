@@ -25,7 +25,7 @@
 #include "gspell-automatic-spell-checker.h"
 #include <string.h>
 #include <glib/gi18n.h>
-#include "gspell-spell-utils.h"
+#include "gspell-utils.h"
 #include "gtktextregion.h"
 
 /**

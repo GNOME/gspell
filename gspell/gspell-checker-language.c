@@ -22,10 +22,10 @@
  */
 
 #include "config.h"
-#include "gspell-spell-checker-language.h"
+#include "gspell-checker-language.h"
 
 #ifdef OS_OSX
-#include "gspell-spell-osx.h"
+#include "gspell-osx.h"
 #endif
 
 #include <string.h>

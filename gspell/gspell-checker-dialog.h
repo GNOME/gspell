@@ -2,6 +2,7 @@
  * This file is part of gspell.
  *
  * Copyright 2002 - Paolo Maggi
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +18,24 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_SPELL_LANGUAGE_DIALOG_H__
-#define __GSPELL_SPELL_LANGUAGE_DIALOG_H__
+#ifndef __GSPELL_SPELL_CHECKER_DIALOG_H__
+#define __GSPELL_SPELL_CHECKER_DIALOG_H__
 
 #include <gtk/gtk.h>
-#include "gspell-spell-checker-language.h"
+#include "gspell-navigator.h"
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_SPELL_LANGUAGE_DIALOG (gspell_spell_language_dialog_get_type ())
-G_DECLARE_FINAL_TYPE (GspellSpellLanguageDialog, gspell_spell_language_dialog,
-		      GSPELL, SPELL_LANGUAGE_DIALOG,
+#define GSPELL_TYPE_SPELL_CHECKER_DIALOG (gspell_spell_checker_dialog_get_type ())
+G_DECLARE_FINAL_TYPE (GspellSpellCheckerDialog, gspell_spell_checker_dialog,
+		      GSPELL, SPELL_CHECKER_DIALOG,
 		      GtkDialog)
 
-GtkWidget *	gspell_spell_language_dialog_new				(GtkWindow			 *parent,
-									  const GspellSpellCheckerLanguage *cur_lang);
-
-const GspellSpellCheckerLanguage *
-		gspell_spell_language_dialog_get_selected_language	(GspellSpellLanguageDialog *dialog);
+GtkWidget *	gspell_spell_checker_dialog_new		(GtkWindow           *parent,
+							  GspellSpellNavigator *navigator);
 
 G_END_DECLS
 
-#endif  /* __GSPELL_SPELL_LANGUAGE_DIALOG_H__ */
+#endif  /* __GSPELL_SPELL_CHECKER_DIALOG_H__ */
 
 /* ex:set ts=8 noet: */

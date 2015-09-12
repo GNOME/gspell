@@ -22,13 +22,13 @@
 #include <config.h>
 #endif
 
-#include "gspell-spell-checker.h"
+#include "gspell-checker.h"
 #include <enchant.h>
 #include <glib/gi18n.h>
-#include "gspell-spell-utils.h"
+#include "gspell-utils.h"
 
 #ifdef OS_OSX
-#include "gspell-spell-osx.h"
+#include "gspell-osx.h"
 #endif
 
 /**
@@ -79,7 +79,7 @@ gspell_spell_checker_error_quark (void)
 
 	if (G_UNLIKELY (quark == 0))
 	{
-		quark = g_quark_from_static_string ("gspell-spell-checker-error-quark");
+		quark = g_quark_from_static_string ("gspell-checker-error-quark");
 	}
 
 	return quark;

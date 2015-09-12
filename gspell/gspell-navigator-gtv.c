@@ -17,8 +17,8 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gspell-spell-navigator-gtv.h"
-#include "gspell-spell-utils.h"
+#include "gspell-navigator-gtv.h"
+#include "gspell-utils.h"
 
 /**
  * SECTION:spell-navigator-gtv
