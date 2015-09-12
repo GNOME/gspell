@@ -261,7 +261,7 @@ gedit_spell_checker_init (GeditSpellChecker *checker)
  * Returns: a new #GeditSpellChecker object.
  */
 GeditSpellChecker *
-gedit_spell_checker_new	(const GeditSpellCheckerLanguage *language)
+gedit_spell_checker_new (const GeditSpellCheckerLanguage *language)
 {
 	return g_object_new (GEDIT_TYPE_SPELL_CHECKER,
 			     "language", language,
