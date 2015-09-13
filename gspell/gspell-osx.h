@@ -2,6 +2,7 @@
  * This file is part of gspell.
  *
  * Copyright 2011, 2014 - Jesse van den Kieboom
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +29,7 @@ G_GNUC_INTERNAL
 gchar *	_gspell_osx_get_preferred_spell_language	(void);
 
 G_GNUC_INTERNAL
-gchar *	_gspell_osx_get_resource_path		(void);
+gchar *	_gspell_osx_get_resource_path			(void);
 
 G_END_DECLS
 

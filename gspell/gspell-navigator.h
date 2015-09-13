@@ -35,31 +35,31 @@ struct _GspellNavigatorInterface
 	GTypeInterface parent_interface;
 
 	gboolean	(* goto_next)		(GspellNavigator  *navigator,
-						 gchar               **word,
+						 gchar           **word,
 						 GspellChecker   **spell_checker,
-						 GError              **error);
+						 GError          **error);
 
 	void		(* change)		(GspellNavigator *navigator,
-						 const gchar         *word,
-						 const gchar         *change_to);
+						 const gchar     *word,
+						 const gchar     *change_to);
 
 	void		(* change_all)		(GspellNavigator *navigator,
-						 const gchar         *word,
-						 const gchar         *change_to);
+						 const gchar     *word,
+						 const gchar     *change_to);
 };
 
-gboolean	gspell_navigator_goto_next		(GspellNavigator  *navigator,
-							  gchar               **word,
-							  GspellChecker   **spell_checker,
-							  GError              **error);
+gboolean	gspell_navigator_goto_next	(GspellNavigator  *navigator,
+						 gchar           **word,
+						 GspellChecker   **spell_checker,
+						 GError          **error);
 
 void		gspell_navigator_change		(GspellNavigator *navigator,
-							  const gchar         *word,
-							  const gchar         *change_to);
+						 const gchar     *word,
+						 const gchar     *change_to);
 
 void		gspell_navigator_change_all	(GspellNavigator *navigator,
-							  const gchar         *word,
-							  const gchar         *change_to);
+						 const gchar     *word,
+						 const gchar     *change_to);
 
 G_END_DECLS
 

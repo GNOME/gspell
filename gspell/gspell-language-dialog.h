@@ -2,6 +2,7 @@
  * This file is part of gspell.
  *
  * Copyright 2002 - Paolo Maggi
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +31,8 @@ G_DECLARE_FINAL_TYPE (GspellLanguageDialog, gspell_language_dialog,
 		      GSPELL, LANGUAGE_DIALOG,
 		      GtkDialog)
 
-GtkWidget *	gspell_language_dialog_new				(GtkWindow			 *parent,
-									  const GspellLanguage *cur_lang);
+GtkWidget *	gspell_language_dialog_new			(GtkWindow            *parent,
+								 const GspellLanguage *cur_lang);
 
 const GspellLanguage *
 		gspell_language_dialog_get_selected_language	(GspellLanguageDialog *dialog);

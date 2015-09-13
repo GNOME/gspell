@@ -2,6 +2,7 @@
  * This file is part of gspell.
  *
  * Copyright 2006 - Paolo Maggi
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +29,7 @@ typedef struct _GspellLanguage GspellLanguage;
 
 const gchar *	gspell_language_to_string		(const GspellLanguage *lang);
 
-const gchar *	gspell_language_to_key		(const GspellLanguage *lang);
+const gchar *	gspell_language_to_key			(const GspellLanguage *lang);
 
 const GspellLanguage *
 		gspell_language_from_key		(const gchar *key);

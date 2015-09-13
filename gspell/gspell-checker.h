@@ -2,6 +2,7 @@
  * This file is part of gspell.
  *
  * Copyright 2002-2006 - Paolo Maggi
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,43 +59,42 @@ struct _GspellCheckerClass
 
 	/* Signals */
 	void (* add_word_to_personal)	(GspellChecker *checker,
-					 const gchar       *word);
+					 const gchar   *word);
 
 	void (* add_word_to_session)	(GspellChecker *checker,
-					 const gchar       *word);
+					 const gchar   *word);
 
 	void (* clear_session)		(GspellChecker *checker);
 };
 
-GQuark		gspell_checker_error_quark			(void);
+GQuark		gspell_checker_error_quark		(void);
 
-GspellChecker *
-		gspell_checker_new				(const GspellLanguage *language);
+GspellChecker *	gspell_checker_new			(const GspellLanguage *language);
 
-gboolean	gspell_checker_set_language		(GspellChecker               *checker,
-								  const GspellLanguage *language);
+gboolean	gspell_checker_set_language		(GspellChecker        *checker,
+							 const GspellLanguage *language);
 
 const GspellLanguage *
 		gspell_checker_get_language		(GspellChecker *checker);
 
-gboolean	gspell_checker_check_word			(GspellChecker  *checker,
-								  const gchar        *word,
-								  GError            **error);
+gboolean	gspell_checker_check_word		(GspellChecker  *checker,
+							 const gchar    *word,
+							 GError        **error);
 
 GSList *	gspell_checker_get_suggestions		(GspellChecker *checker,
-								  const gchar       *word);
+							 const gchar   *word);
 
 void		gspell_checker_add_word_to_personal	(GspellChecker *checker,
-								  const gchar       *word);
+							 const gchar   *word);
 
-void		gspell_checker_add_word_to_session		(GspellChecker *checker,
-								  const gchar       *word);
+void		gspell_checker_add_word_to_session	(GspellChecker *checker,
+							 const gchar   *word);
 
 void		gspell_checker_clear_session		(GspellChecker *checker);
 
 void		gspell_checker_set_correction		(GspellChecker *checker,
-								  const gchar       *word,
-								  const gchar       *replacement);
+							 const gchar   *word,
+							 const gchar   *replacement);
 
 G_END_DECLS
 

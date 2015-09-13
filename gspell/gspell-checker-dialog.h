@@ -31,8 +31,8 @@ G_DECLARE_FINAL_TYPE (GspellCheckerDialog, gspell_checker_dialog,
 		      GSPELL, CHECKER_DIALOG,
 		      GtkDialog)
 
-GtkWidget *	gspell_checker_dialog_new		(GtkWindow           *parent,
-							  GspellNavigator *navigator);
+GtkWidget *	gspell_checker_dialog_new		(GtkWindow       *parent,
+							 GspellNavigator *navigator);
 
 G_END_DECLS
 

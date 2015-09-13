@@ -34,14 +34,14 @@ G_DECLARE_FINAL_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv,
 		      GObject)
 
 GspellInlineCheckerGtv *
-	gspell_inline_checker_gtv_new		(GtkSourceBuffer   *buffer,
-							  GspellChecker *checker);
+	gspell_inline_checker_gtv_new		(GtkSourceBuffer *buffer,
+						 GspellChecker   *checker);
 
 void	gspell_inline_checker_gtv_attach_view	(GspellInlineCheckerGtv *spell,
-							  GtkTextView                *view);
+						 GtkTextView            *view);
 
 void	gspell_inline_checker_gtv_detach_view	(GspellInlineCheckerGtv *spell,
-							  GtkTextView                *view);
+						 GtkTextView            *view);
 
 #endif  /* __GSPELL_INLINE_CHECKER_GTV_H__ */
 

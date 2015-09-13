@@ -2,6 +2,7 @@
  * This file is part of gspell.
  *
  * Copyright 2010 - Jesse van den Kieboom
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,11 +26,11 @@
 G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
-gboolean	_gspell_utils_is_digit		(const gchar *text);
+gboolean	_gspell_utils_is_digit			(const gchar *text);
 
 G_GNUC_INTERNAL
 gboolean	_gspell_utils_skip_no_spell_check	(GtkTextIter       *start,
-							  const GtkTextIter *end);
+							 const GtkTextIter *end);
 
 G_END_DECLS
 

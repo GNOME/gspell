@@ -36,8 +36,8 @@ struct _GspellNavigatorGtvClass
 	GObjectClass parent_class;
 };
 
-GspellNavigator *	gspell_navigator_gtv_new		(GtkTextView       *view,
-								  GspellChecker *spell_checker);
+GspellNavigator *	gspell_navigator_gtv_new		(GtkTextView   *view,
+								 GspellChecker *spell_checker);
 
 G_END_DECLS
 
