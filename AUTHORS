@@ -1,1 +1,12 @@
+Author of gspell:
 Sébastien Wilmet <swilmet@gnome.org>
+
+The code comes from the gedit spell plugin, which was primarily written by:
+Paolo Maggi
+Paolo Borelli
+Jesse van den Kieboom
+Ignacio Casal Quinteiro
+Sébastien Wilmet
+
+The GspellInlineCheckerGtv originally comes from GtkSpell, which was written by:
+Evan Martin
