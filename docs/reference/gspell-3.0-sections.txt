@@ -4,6 +4,7 @@
 <FILE>checker</FILE>
 <TITLE>GspellChecker</TITLE>
 GspellChecker
+GspellCheckerError
 GSPELL_CHECKER_ERROR
 gspell_checker_new
 gspell_checker_set_language

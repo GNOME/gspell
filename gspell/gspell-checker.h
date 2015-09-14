@@ -47,11 +47,10 @@ G_DECLARE_DERIVABLE_TYPE (GspellChecker, gspell_checker,
  * An error code used with %GSPELL_CHECKER_ERROR in a #GError returned
  * from a spell-checker-related function.
  */
-typedef enum _GspellCheckerError GspellCheckerError;
-enum _GspellCheckerError
+typedef enum _GspellCheckerError
 {
 	GSPELL_CHECKER_ERROR_DICTIONARY,
-};
+} GspellCheckerError;
 
 struct _GspellCheckerClass
 {
