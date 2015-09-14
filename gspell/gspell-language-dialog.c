@@ -21,7 +21,7 @@
 #include "gspell-language-dialog.h"
 
 /**
- * SECTION:spell-language-dialog
+ * SECTION:language-dialog
  * @Short_description: Dialog to choose a spell language.
  * @Title: GspellLanguageDialog
  * @See_also: #GspellLanguage.

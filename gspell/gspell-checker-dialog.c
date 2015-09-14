@@ -23,7 +23,7 @@
 #include "gspell-checker.h"
 
 /**
- * SECTION:spell-checker-dialog
+ * SECTION:checker-dialog
  * @Short_description: Spell checker dialog
  * @Title: GspellCheckerDialog
  * @See_also: #GspellNavigator

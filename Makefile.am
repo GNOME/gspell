@@ -1,4 +1,4 @@
-SUBDIRS = gspell po tests
+SUBDIRS = gspell po docs tests
 
 MAINTAINERCLEANFILES = \
 	ABOUT-NLS \
@@ -9,6 +9,7 @@ MAINTAINERCLEANFILES = \
 	config.rpath \
 	config.sub \
 	depcomp \
+	gtk-doc.make \
 	install-sh \
 	ltmain.sh \
 	m4/ax_append_compile_flags.m4 \
@@ -27,6 +28,7 @@ MAINTAINERCLEANFILES = \
 	m4/gettext.m4 \
 	m4/glibc21.m4 \
 	m4/glibc2.m4 \
+	m4/gtk-doc.m4 \
 	m4/iconv.m4 \
 	m4/intdiv0.m4 \
 	m4/intldir.m4 \
@@ -62,5 +64,7 @@ MAINTAINERCLEANFILES = \
 	missing \
 	po/stamp-po \
 	test-driver
+
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
 
 -include $(top_srcdir)/git.mk

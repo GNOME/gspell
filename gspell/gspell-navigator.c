@@ -20,7 +20,7 @@
 #include "gspell-navigator.h"
 
 /**
- * SECTION:spell-navigator
+ * SECTION:navigator
  * @Short_description: Interface to navigate through misspelled words
  * @Title: GspellNavigator
  * @See_also: #GspellNavigatorGtv, #GspellCheckerDialog

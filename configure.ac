@@ -84,6 +84,17 @@ AM_GNU_GETTEXT_VERSION([0.19.4])
 AC_SUBST([GETTEXT_PACKAGE], [$PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Define to the gettext package name.])
 
+# Documentation
+AX_REQUIRE_DEFINED([GTK_DOC_CHECK])
+# TODO bump to 1.25 once released.
+GTK_DOC_CHECK([1.24], [--flavour=no-tmpl])
+
+GLIB_PREFIX="`$PKG_CONFIG --variable=prefix glib-2.0`"
+GTK_PREFIX="`$PKG_CONFIG --variable=prefix gtk+-3.0`"
+
+AC_SUBST(GLIB_PREFIX)
+AC_SUBST(GTK_PREFIX)
+
 # check for osx platform
 AC_MSG_CHECKING([for Mac OS X platform])
 case "$host" in
@@ -137,9 +148,11 @@ fi
 # Output files
 AC_CONFIG_FILES([
 	Makefile
-	po/Makefile.in
+	docs/Makefile
+	docs/reference/Makefile
 	gspell/Makefile
 	gspell/resources/Makefile
+	po/Makefile.in
 	tests/Makefile
 ])
 

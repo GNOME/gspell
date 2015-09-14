@@ -29,7 +29,7 @@
 #include "gtktextregion.h"
 
 /**
- * SECTION:automatic-spell-checker
+ * SECTION:inline-checker-gtv
  * @Short_description: Inline spell checker for GtkTextView
  * @Title: GspellInlineCheckerGtv
  * @See_also: #GspellChecker

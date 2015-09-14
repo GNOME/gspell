@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+   "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+ <!ENTITY % local.common.attrib "xmlns:xi CDATA #FIXED 'http://www.w3.org/2003/XInclude'">
+ <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+ %gtkdocentities;
+]>
+<book id="index">
+  <bookinfo>
+    <title>gspell Reference Manual</title>
+    <releaseinfo>for gspell &package_version;</releaseinfo>
+  </bookinfo>
+
+  <chapter>
+    <title>API reference</title>
+    <xi:include href="xml/checker.xml"/>
+    <xi:include href="xml/checker-dialog.xml"/>
+    <xi:include href="xml/inline-checker-gtv.xml"/>
+    <xi:include href="xml/language.xml"/>
+    <xi:include href="xml/language-dialog.xml"/>
+    <xi:include href="xml/navigator.xml"/>
+    <xi:include href="xml/navigator-gtv.xml"/>
+  </chapter>
+
+  <chapter id="object-tree">
+    <title>Object Hierarchy</title>
+    <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+
+  <index id="api-index-full">
+    <title>Index of all symbols</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+</book>

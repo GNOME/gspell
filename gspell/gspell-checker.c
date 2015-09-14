@@ -32,7 +32,7 @@
 #endif
 
 /**
- * SECTION:spell-checker
+ * SECTION:checker
  * @Short_description: Spell checker
  * @Title: GspellChecker
  * @See_also: #GspellLanguage
