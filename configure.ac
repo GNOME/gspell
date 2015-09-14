@@ -30,8 +30,12 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 # Check for programs
 AC_PROG_CC
 AC_PROG_INSTALL
+
 AX_REQUIRE_DEFINED([PKG_PROG_PKG_CONFIG])
+AX_REQUIRE_DEFINED([PKG_INSTALLDIR])
 PKG_PROG_PKG_CONFIG
+PKG_INSTALLDIR
+
 # needed on osx
 AC_PROG_OBJC
 
@@ -155,6 +159,7 @@ fi
 
 # Output files
 AC_CONFIG_FILES([
+	gspell-3.0.pc
 	Makefile
 	docs/Makefile
 	docs/reference/Makefile

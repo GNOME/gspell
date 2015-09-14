@@ -1,5 +1,10 @@
 SUBDIRS = gspell po docs tests
 
+pkgconfig_DATA = gspell-3.0.pc
+
+EXTRA_DIST = \
+	gspell-3.0.pc.in
+
 MAINTAINERCLEANFILES = \
 	ABOUT-NLS \
 	aclocal.m4 \
