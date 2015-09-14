@@ -126,4 +126,32 @@ CLEANFILES +=		\
 
 endif # HAVE_INTROSPECTION
 
+if ENABLE_VAPIGEN
+-include $(VAPIGEN_MAKEFILE)
+
+gspell-3.0.vapi: Gspell-3.0.gir
+
+VAPIGEN_VAPIS = gspell-3.0.vapi
+
+gspell_3_0_vapi_DEPS =		\
+	gtk+-3.0		\
+	gtksourceview-3.0
+
+gspell-3.0.deps:
+	$(AM_V_GEN) for pkg in $(gspell_3_0_vapi_DEPS); do \
+		echo $$pkg >> $@; \
+	done
+
+gspell_3_0_vapi_METADATADIRS = $(srcdir)
+gspell_3_0_vapi_FILES = Gspell-3.0.gir
+
+vapidir = $(datadir)/vala/vapi
+vapi_DATA =		\
+	gspell-3.0.vapi	\
+	gspell-3.0.deps
+
+CLEANFILES += $(vapi_DATA)
+
+endif # ENABLE_VAPIGEN
+
 -include $(top_srcdir)/git.mk
