@@ -424,6 +424,12 @@ build_langs_list (const gchar *key,
 	return FALSE;
 }
 
+/**
+ * gspell_checker_get_available_languages:
+ *
+ * Returns: (transfer none) (element-type GspellLanguage): the list of available
+ * languages for the spell checking.
+ */
 const GSList *
 gspell_checker_get_available_languages (void)
 {

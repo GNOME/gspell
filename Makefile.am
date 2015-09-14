@@ -35,6 +35,7 @@ MAINTAINERCLEANFILES = \
 	m4/intl.m4 \
 	m4/intlmacosx.m4 \
 	m4/intmax.m4 \
+	m4/introspection.m4 \
 	m4/inttypes_h.m4 \
 	m4/inttypes-pri.m4 \
 	m4/lcmessage.m4 \

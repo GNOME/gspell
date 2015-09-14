@@ -88,4 +88,42 @@ libosx_la_SOURCES =	\
 libgspell_3_0_la_LIBADD += libosx.la
 endif # OS_OSX
 
+if HAVE_INTROSPECTION
+-include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS = Gspell-3.0.gir
+
+INTROSPECTION_SCANNER_ENV = CC="$(CC)"
+
+Gspell-3.0.gir: libgspell-3.0.la $(BUILT_SOURCES)
+INTROSPECTION_SCANNER_ARGS =		\
+	-I$(top_srcdir)			\
+	-I$(top_builddir)		\
+	--c-include=gspell/gspell.h	\
+	--warn-all
+Gspell_3_0_gir_NAMESPACE = Gspell
+Gspell_3_0_gir_VERSION = 3.0
+Gspell_3_0_gir_CFLAGS = $(DEP_CFLAGS)
+Gspell_3_0_gir_SCANNERFLAGS = $(WARN_SCANNERFLAGS)
+Gspell_3_0_gir_LIBS = libgspell-3.0.la
+Gspell_3_0_gir_FILES =			\
+	$(gspell_public_headers)	\
+	$(gspell_public_c_files)	\
+	$(BUILT_SOURCES)
+
+Gspell_3_0_gir_INCLUDES = GtkSource-3.0 Gtk-3.0
+Gspell_3_0_gir_PACKAGES = gtksourceview-3.0 gtk+-3.0
+Gspell_3_0_gir_EXPORT_PACKAGES = gspell-3.0
+
+girdir = $(datadir)/gir-1.0
+gir_DATA = Gspell-3.0.gir
+
+typelibdir = $(libdir)/girepository-1.0
+typelib_DATA = Gspell-3.0.typelib
+
+CLEANFILES +=		\
+	$(gir_DATA)	\
+	$(typelib_DATA)
+
+endif # HAVE_INTROSPECTION
+
 -include $(top_srcdir)/git.mk

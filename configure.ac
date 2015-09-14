@@ -95,6 +95,10 @@ GTK_PREFIX="`$PKG_CONFIG --variable=prefix gtk+-3.0`"
 AC_SUBST(GLIB_PREFIX)
 AC_SUBST(GTK_PREFIX)
 
+# Introspection
+AX_REQUIRE_DEFINED([GOBJECT_INTROSPECTION_CHECK])
+GOBJECT_INTROSPECTION_CHECK([1.42.0])
+
 # check for osx platform
 AC_MSG_CHECKING([for Mac OS X platform])
 case "$host" in
@@ -163,4 +167,5 @@ Configuration:
 
 	Source code location:	${srcdir}
 	Compiler:		${CC}
+	GObject introspection:	${found_introspection}
 "

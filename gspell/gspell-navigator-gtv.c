@@ -525,7 +525,7 @@ gspell_navigator_iface_init (gpointer g_iface,
  * @view: a #GtkTextView.
  * @spell_checker: a #GspellChecker.
  *
- * Returns: a new #GspellNavigatorGtv object.
+ * Returns: (transfer full): a new #GspellNavigatorGtv object.
  */
 GspellNavigator *
 gspell_navigator_gtv_new (GtkTextView   *view,
