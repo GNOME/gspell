@@ -72,6 +72,7 @@ checker_button_clicked_cb (GtkButton *checker_button,
 					      spell->checker);
 
 	checker_dialog = gspell_checker_dialog_new (GTK_WINDOW (window), navigator);
+	g_object_unref (navigator);
 
 	gtk_dialog_run (GTK_DIALOG (checker_dialog));
 	gtk_widget_destroy (checker_dialog);
