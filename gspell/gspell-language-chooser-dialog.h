@@ -31,11 +31,8 @@ G_DECLARE_FINAL_TYPE (GspellLanguageChooserDialog, gspell_language_chooser_dialo
 		      GSPELL, LANGUAGE_CHOOSER_DIALOG,
 		      GtkDialog)
 
-GtkWidget *	gspell_language_chooser_dialog_new			(GtkWindow            *parent,
-									 const GspellLanguage *cur_lang);
-
-const GspellLanguage *
-		gspell_language_chooser_dialog_get_selected_language	(GspellLanguageChooserDialog *dialog);
+GtkWidget *	gspell_language_chooser_dialog_new		(GtkWindow            *parent,
+								 const GspellLanguage *current_language);
 
 G_END_DECLS
 

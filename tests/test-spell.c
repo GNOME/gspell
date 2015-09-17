@@ -85,7 +85,6 @@ language_button_clicked_cb (GtkButton *language_button,
 	GtkWidget *window;
 	const GspellLanguage *language;
 	GtkWidget *language_dialog;
-	gint response;
 
 	window = gtk_widget_get_toplevel (GTK_WIDGET (spell));
 	if (!gtk_widget_is_toplevel (window))
@@ -97,12 +96,10 @@ language_button_clicked_cb (GtkButton *language_button,
 
 	language_dialog = gspell_language_chooser_dialog_new (GTK_WINDOW (window), language);
 
-	response = gtk_dialog_run (GTK_DIALOG (language_dialog));
-	if (response == GTK_RESPONSE_OK)
-	{
-		language = gspell_language_chooser_dialog_get_selected_language (GSPELL_LANGUAGE_CHOOSER_DIALOG (language_dialog));
-		gspell_checker_set_language (spell->checker, language);
-	}
+	gtk_dialog_run (GTK_DIALOG (language_dialog));
+
+	language = gspell_language_chooser_get_language (GSPELL_LANGUAGE_CHOOSER (language_dialog));
+	gspell_checker_set_language (spell->checker, language);
 
 	gtk_widget_destroy (language_dialog);
 }
