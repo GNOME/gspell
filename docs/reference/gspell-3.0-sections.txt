@@ -52,6 +52,17 @@ gspell_checker_get_available_languages
 </SECTION>
 
 <SECTION>
+<FILE>language-chooser</FILE>
+<TITLE>GspellLanguageChooser</TITLE>
+GspellLanguageChooser
+gspell_language_chooser_get_language
+gspell_language_chooser_set_language
+<SUBSECTION Standard>
+GSPELL_TYPE_LANGUAGE_CHOOSER
+GspellLanguageChooserInterface
+</SECTION>
+
+<SECTION>
 <FILE>language-dialog</FILE>
 <TITLE>GspellLanguageDialog</TITLE>
 GspellLanguageDialog
