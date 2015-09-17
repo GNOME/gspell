@@ -19,7 +19,7 @@
     <xi:include href="xml/inline-checker-gtv.xml"/>
     <xi:include href="xml/language.xml"/>
     <xi:include href="xml/language-chooser.xml"/>
-    <xi:include href="xml/language-dialog.xml"/>
+    <xi:include href="xml/language-chooser-dialog.xml"/>
     <xi:include href="xml/navigator.xml"/>
     <xi:include href="xml/navigator-gtv.xml"/>
   </chapter>

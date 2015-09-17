@@ -23,7 +23,7 @@
  * SECTION:language-chooser
  * @Short_description: Interface to choose a GspellLanguage
  * @Title: GspellLanguageChooser
- * @See_also: #GspellLanguage, #GspellLanguageDialog
+ * @See_also: #GspellLanguage, #GspellLanguageChooserDialog
  *
  * #GspellLanguageChooser is an interface that is implemented by widgets for
  * choosing a #GspellLanguage.

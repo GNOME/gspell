@@ -20,7 +20,7 @@ gspell_public_headers =				\
 	gspell-inline-checker-gtv.h		\
 	gspell-language.h			\
 	gspell-language-chooser.h		\
-	gspell-language-dialog.h		\
+	gspell-language-chooser-dialog.h	\
 	gspell-navigator.h			\
 	gspell-navigator-gtv.h
 
@@ -30,7 +30,7 @@ gspell_public_c_files =				\
 	gspell-inline-checker-gtv.c		\
 	gspell-language.c			\
 	gspell-language-chooser.c		\
-	gspell-language-dialog.c		\
+	gspell-language-chooser-dialog.c	\
 	gspell-navigator.c			\
 	gspell-navigator-gtv.c
 

@@ -18,15 +18,15 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gspell-language-dialog.h"
+#include "gspell-language-chooser-dialog.h"
 
 /**
- * SECTION:language-dialog
+ * SECTION:language-chooser-dialog
  * @Short_description: Dialog to choose a spell language.
- * @Title: GspellLanguageDialog
+ * @Title: GspellLanguageChooserDialog
  * @See_also: #GspellLanguage.
  *
- * #GspellLanguageDialog is a #GtkDialog to choose an available
+ * #GspellLanguageChooserDialog is a #GtkDialog to choose an available
  * #GspellLanguage.
  */
 
@@ -37,23 +37,23 @@ enum
 	N_COLUMNS
 };
 
-struct _GspellLanguageDialog
+struct _GspellLanguageChooserDialog
 {
 	GtkDialog dialog;
 
 	GtkTreeView *treeview;
 };
 
-G_DEFINE_TYPE (GspellLanguageDialog, gspell_language_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE (GspellLanguageChooserDialog, gspell_language_chooser_dialog, GTK_TYPE_DIALOG)
 
 static void
-gspell_language_dialog_class_init (GspellLanguageDialogClass *klass)
+gspell_language_chooser_dialog_class_init (GspellLanguageChooserDialogClass *klass)
 {
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
 	/* Bind class to template */
 	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/gspell/language-dialog.ui");
-	gtk_widget_class_bind_template_child (widget_class, GspellLanguageDialog, treeview);
+	gtk_widget_class_bind_template_child (widget_class, GspellLanguageChooserDialog, treeview);
 }
 
 static void
@@ -84,13 +84,13 @@ static void
 row_activated_cb (GtkTreeView          *tree_view,
 		  GtkTreePath          *path,
 		  GtkTreeViewColumn    *column,
-		  GspellLanguageDialog *dialog)
+		  GspellLanguageChooserDialog *dialog)
 {
 	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 }
 
 static void
-gspell_language_dialog_init (GspellLanguageDialog *dialog)
+gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 {
 	GtkListStore *store;
 	GtkTreeViewColumn *column;
@@ -127,7 +127,7 @@ gspell_language_dialog_init (GspellLanguageDialog *dialog)
 }
 
 static void
-populate_language_list (GspellLanguageDialog *dialog,
+populate_language_list (GspellLanguageChooserDialog *dialog,
 			const GspellLanguage *cur_lang)
 {
 	GtkListStore *store;
@@ -164,21 +164,21 @@ populate_language_list (GspellLanguageDialog *dialog,
 }
 
 /**
- * gspell_language_dialog_new:
+ * gspell_language_chooser_dialog_new:
  * @parent: transient parent of the dialog.
  * @cur_lang: the #GspellLanguage to select initially.
  *
- * Returns: a new #GspellLanguageDialog widget.
+ * Returns: a new #GspellLanguageChooserDialog widget.
  */
 GtkWidget *
-gspell_language_dialog_new (GtkWindow            *parent,
-			    const GspellLanguage *cur_lang)
+gspell_language_chooser_dialog_new (GtkWindow            *parent,
+				    const GspellLanguage *cur_lang)
 {
-	GspellLanguageDialog *dialog;
+	GspellLanguageChooserDialog *dialog;
 
 	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
 
-	dialog = g_object_new (GSPELL_TYPE_LANGUAGE_DIALOG,
+	dialog = g_object_new (GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG,
 			       "transient-for", parent,
 			       NULL);
 
@@ -188,13 +188,13 @@ gspell_language_dialog_new (GtkWindow            *parent,
 }
 
 /**
- * gspell_language_dialog_get_selected_language:
- * @dialog: a #GspellLanguageDialog.
+ * gspell_language_chooser_dialog_get_selected_language:
+ * @dialog: a #GspellLanguageChooserDialog.
  *
  * Returns: the currently selected language.
  */
 const GspellLanguage *
-gspell_language_dialog_get_selected_language (GspellLanguageDialog *dialog)
+gspell_language_chooser_dialog_get_selected_language (GspellLanguageChooserDialog *dialog)
 {
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;

@@ -63,13 +63,13 @@ GspellLanguageChooserInterface
 </SECTION>
 
 <SECTION>
-<FILE>language-dialog</FILE>
-<TITLE>GspellLanguageDialog</TITLE>
-GspellLanguageDialog
-gspell_language_dialog_new
-gspell_language_dialog_get_selected_language
+<FILE>language-chooser-dialog</FILE>
+<TITLE>GspellLanguageChooserDialog</TITLE>
+GspellLanguageChooserDialog
+gspell_language_chooser_dialog_new
+gspell_language_chooser_dialog_get_selected_language
 <SUBSECTION Standard>
-GSPELL_TYPE_LANGUAGE_DIALOG
+GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG
 </SECTION>
 
 <SECTION>

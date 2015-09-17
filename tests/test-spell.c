@@ -95,12 +95,12 @@ language_button_clicked_cb (GtkButton *language_button,
 
 	language = gspell_checker_get_language (spell->checker);
 
-	language_dialog = gspell_language_dialog_new (GTK_WINDOW (window), language);
+	language_dialog = gspell_language_chooser_dialog_new (GTK_WINDOW (window), language);
 
 	response = gtk_dialog_run (GTK_DIALOG (language_dialog));
 	if (response == GTK_RESPONSE_OK)
 	{
-		language = gspell_language_dialog_get_selected_language (GSPELL_LANGUAGE_DIALOG (language_dialog));
+		language = gspell_language_chooser_dialog_get_selected_language (GSPELL_LANGUAGE_CHOOSER_DIALOG (language_dialog));
 		gspell_checker_set_language (spell->checker, language);
 	}
 

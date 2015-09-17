@@ -18,27 +18,27 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_LANGUAGE_DIALOG_H__
-#define __GSPELL_LANGUAGE_DIALOG_H__
+#ifndef __GSPELL_LANGUAGE_CHOOSER_DIALOG_H__
+#define __GSPELL_LANGUAGE_CHOOSER_DIALOG_H__
 
 #include <gtk/gtk.h>
 #include "gspell-language.h"
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_LANGUAGE_DIALOG (gspell_language_dialog_get_type ())
-G_DECLARE_FINAL_TYPE (GspellLanguageDialog, gspell_language_dialog,
-		      GSPELL, LANGUAGE_DIALOG,
+#define GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG (gspell_language_chooser_dialog_get_type ())
+G_DECLARE_FINAL_TYPE (GspellLanguageChooserDialog, gspell_language_chooser_dialog,
+		      GSPELL, LANGUAGE_CHOOSER_DIALOG,
 		      GtkDialog)
 
-GtkWidget *	gspell_language_dialog_new			(GtkWindow            *parent,
-								 const GspellLanguage *cur_lang);
+GtkWidget *	gspell_language_chooser_dialog_new			(GtkWindow            *parent,
+									 const GspellLanguage *cur_lang);
 
 const GspellLanguage *
-		gspell_language_dialog_get_selected_language	(GspellLanguageDialog *dialog);
+		gspell_language_chooser_dialog_get_selected_language	(GspellLanguageChooserDialog *dialog);
 
 G_END_DECLS
 
-#endif  /* __GSPELL_LANGUAGE_DIALOG_H__ */
+#endif  /* __GSPELL_LANGUAGE_CHOOSER_DIALOG_H__ */
 
 /* ex:set ts=8 noet: */
