@@ -17,14 +17,30 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gspell/gspell-checker.h>
-#include <gspell/gspell-checker-dialog.h>
-#include <gspell/gspell-inline-checker-gtv.h>
+#ifndef __GSPELL_LANGUAGE_CHOOSER_BUTTON_H__
+#define __GSPELL_LANGUAGE_CHOOSER_BUTTON_H__
+
+#include <gtk/gtk.h>
 #include <gspell/gspell-language.h>
-#include <gspell/gspell-language-chooser.h>
-#include <gspell/gspell-language-chooser-button.h>
-#include <gspell/gspell-language-chooser-dialog.h>
-#include <gspell/gspell-navigator.h>
-#include <gspell/gspell-navigator-gtv.h>
+
+G_BEGIN_DECLS
+
+#define GSPELL_TYPE_LANGUAGE_CHOOSER_BUTTON (gspell_language_chooser_button_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellLanguageChooserButton, gspell_language_chooser_button,
+			  GSPELL, LANGUAGE_CHOOSER_BUTTON,
+			  GtkButton)
+
+struct _GspellLanguageChooserButtonClass
+{
+	GtkButtonClass parent_class;
+
+	gpointer padding[8];
+};
+
+GtkWidget *	gspell_language_chooser_button_new	(const GspellLanguage *current_language);
+
+G_END_DECLS
+
+#endif /* __GSPELL_LANGUAGE_CHOOSER_BUTTON_H__ */
 
 /* ex:set ts=8 noet: */

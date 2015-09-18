@@ -79,32 +79,6 @@ checker_button_clicked_cb (GtkButton *checker_button,
 }
 
 static void
-language_button_clicked_cb (GtkButton *language_button,
-			    TestSpell *spell)
-{
-	GtkWidget *window;
-	const GspellLanguage *language;
-	GtkWidget *language_dialog;
-
-	window = gtk_widget_get_toplevel (GTK_WIDGET (spell));
-	if (!gtk_widget_is_toplevel (window))
-	{
-		g_return_if_reached ();
-	}
-
-	language = gspell_checker_get_language (spell->checker);
-
-	language_dialog = gspell_language_chooser_dialog_new (GTK_WINDOW (window), language);
-
-	gtk_dialog_run (GTK_DIALOG (language_dialog));
-
-	language = gspell_language_chooser_get_language (GSPELL_LANGUAGE_CHOOSER (language_dialog));
-	gspell_checker_set_language (spell->checker, language);
-
-	gtk_widget_destroy (language_dialog);
-}
-
-static void
 highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 				  TestSpell       *spell)
 {
@@ -134,6 +108,7 @@ get_sidebar (TestSpell *spell)
 	GtkWidget *checker_button;
 	GtkWidget *language_button;
 	GtkWidget *highlight_checkbutton;
+	const GspellLanguage *language;
 
 	sidebar = gtk_grid_new ();
 
@@ -157,14 +132,14 @@ get_sidebar (TestSpell *spell)
 			  spell);
 
 	/* Button to launch a language dialog */
-	language_button = gtk_button_new_with_mnemonic ("_Set Language…");
+	language = gspell_checker_get_language (spell->checker);
+	language_button = gspell_language_chooser_button_new (language);
 	gtk_container_add (GTK_CONTAINER (sidebar),
 			   language_button);
 
-	g_signal_connect (language_button,
-			  "clicked",
-			  G_CALLBACK (language_button_clicked_cb),
-			  spell);
+	g_object_bind_property (language_button, "language",
+				spell->checker, "language",
+				G_BINDING_DEFAULT);
 
 	/* Checkbutton to activate the inline spell checker */
 	highlight_checkbutton = gtk_check_button_new_with_mnemonic ("_Highlight Misspelled Words");

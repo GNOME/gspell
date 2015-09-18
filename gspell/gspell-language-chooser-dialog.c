@@ -25,7 +25,7 @@
  * SECTION:language-chooser-dialog
  * @Short_description: Dialog to choose a spell language.
  * @Title: GspellLanguageChooserDialog
- * @See_also: #GspellLanguage.
+ * @See_also: #GspellLanguage, #GspellLanguageChooser
  *
  * #GspellLanguageChooserDialog is a #GtkDialog to choose an available
  * #GspellLanguage. #GspellLanguageChooserDialog implements the

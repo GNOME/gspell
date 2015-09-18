@@ -63,6 +63,16 @@ GspellLanguageChooserInterface
 </SECTION>
 
 <SECTION>
+<FILE>language-chooser-button</FILE>
+<TITLE>GspellLanguageChooserButton</TITLE>
+GspellLanguageChooserButton
+gspell_language_chooser_button_new
+<SUBSECTION Standard>
+GSPELL_TYPE_LANGUAGE_CHOOSER_BUTTON
+GspellLanguageChooserButtonClass
+</SECTION>
+
+<SECTION>
 <FILE>language-chooser-dialog</FILE>
 <TITLE>GspellLanguageChooserDialog</TITLE>
 GspellLanguageChooserDialog
