@@ -157,6 +157,14 @@ gspell_language_chooser_button_set_property (GObject      *object,
 }
 
 static void
+gspell_language_chooser_button_constructed (GObject *object)
+{
+	G_OBJECT_CLASS (gspell_language_chooser_button_parent_class)->constructed (object);
+
+	update_button_label (GSPELL_LANGUAGE_CHOOSER_BUTTON (object));
+}
+
+static void
 dialog_response_after_cb (GtkDialog *dialog,
 			  gint       response)
 {
@@ -245,6 +253,7 @@ gspell_language_chooser_button_class_init (GspellLanguageChooserButtonClass *kla
 
 	object_class->get_property = gspell_language_chooser_button_get_property;
 	object_class->set_property = gspell_language_chooser_button_set_property;
+	object_class->constructed = gspell_language_chooser_button_constructed;
 
 	button_class->clicked = gspell_language_chooser_button_clicked;
 
@@ -254,7 +263,6 @@ gspell_language_chooser_button_class_init (GspellLanguageChooserButtonClass *kla
 static void
 gspell_language_chooser_button_init (GspellLanguageChooserButton *button)
 {
-	update_button_label (button);
 }
 
 /**
