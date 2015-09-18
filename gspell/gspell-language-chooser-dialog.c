@@ -101,10 +101,26 @@ gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
 					     const GspellLanguage  *language)
 {
 	GspellLanguageChooserDialog *dialog;
+	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
 	dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (chooser);
+
+	selection = gtk_tree_view_get_selection (dialog->treeview);
+
+	if (language == NULL)
+	{
+		gtk_tree_selection_unselect_all (selection);
+
+		if (dialog->language != NULL)
+		{
+			dialog->language = NULL;
+			g_object_notify (G_OBJECT (dialog), "language");
+		}
+
+		return;
+	}
 
 	model = gtk_tree_view_get_model (dialog->treeview);
 
@@ -123,9 +139,6 @@ gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
 
 		if (language == cur_lang)
 		{
-			GtkTreeSelection *selection;
-
-			selection = gtk_tree_view_get_selection (dialog->treeview);
 			gtk_tree_selection_select_iter (selection, &iter);
 			scroll_to_selected (dialog->treeview);
 
