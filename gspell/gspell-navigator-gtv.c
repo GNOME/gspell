@@ -22,7 +22,7 @@
 
 /**
  * SECTION:navigator-gtv
- * @Short_description: A GspellNavigator implementation for GtkTextView.
+ * @Short_description: A GspellNavigator implementation for GtkTextView
  * @Title: GspellNavigatorGtv
  * @See_also: #GspellNavigator, #GspellCheckerDialog
  *
