@@ -11,7 +11,7 @@ noinst_PROGRAMS = $(TEST_PROGS)
 TEST_PROGS = test-spell
 test_spell_SOURCES = test-spell.c
 test_spell_LDADD =				\
-	$(top_builddir)/gspell/libgspell-3.0.la	\
+	$(top_builddir)/gspell/libgspell-1.la	\
 	$(DEP_LIBS)				\
 	$(GTK_MAC_LIBS)
 

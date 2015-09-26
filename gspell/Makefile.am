@@ -44,28 +44,28 @@ gspell_private_c_files =	\
 	gspell-utils.c		\
 	gtktextregion.c
 
-lib_LTLIBRARIES = libgspell-3.0.la
+lib_LTLIBRARIES = libgspell-1.la
 
-libgspell_3_0_la_SOURCES =		\
+libgspell_1_la_SOURCES =		\
 	$(gspell_public_headers)	\
 	$(gspell_public_c_files)	\
 	$(gspell_private_headers)	\
 	$(gspell_private_c_files)
 
 # do not distribute generated files
-nodist_libgspell_3_0_la_SOURCES = \
+nodist_libgspell_1_la_SOURCES = \
 	$(BUILT_SOURCES)
 
-libgspell_3_0_la_LIBADD =	\
-	$(DEP_LIBS)		\
+libgspell_1_la_LIBADD =	\
+	$(DEP_LIBS)	\
 	$(GTK_MAC_LIBS)
 
-libgspell_3_0_la_LDFLAGS =			\
+libgspell_1_la_LDFLAGS =			\
 	-no-undefined				\
 	-export-symbols-regex "^gspell_.*"
 
-libgspell_3_0_includedir = $(includedir)/gspell-3.0/gspell
-libgspell_3_0_include_HEADERS = $(gspell_public_headers)
+libgspell_1_includedir = $(includedir)/gspell-1/gspell
+libgspell_1_include_HEADERS = $(gspell_public_headers)
 
 xml_res = $(srcdir)/resources/gspell.gresource.xml
 gspell-resources.c: $(xml_res) $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/resources --generate-dependencies $(xml_res))
@@ -89,40 +89,40 @@ libosx_la_SOURCES =	\
 	gspell-osx.c	\
 	gspell-osx.h
 
-libgspell_3_0_la_LIBADD += libosx.la
+libgspell_1_la_LIBADD += libosx.la
 endif # OS_OSX
 
 if HAVE_INTROSPECTION
 -include $(INTROSPECTION_MAKEFILE)
-INTROSPECTION_GIRS = Gspell-3.0.gir
+INTROSPECTION_GIRS = Gspell-1.gir
 
 INTROSPECTION_SCANNER_ENV = CC="$(CC)"
 
-Gspell-3.0.gir: libgspell-3.0.la $(BUILT_SOURCES)
+Gspell-1.gir: libgspell-1.la $(BUILT_SOURCES)
 INTROSPECTION_SCANNER_ARGS =		\
 	-I$(top_srcdir)			\
 	-I$(top_builddir)		\
 	--c-include=gspell/gspell.h	\
 	--warn-all
-Gspell_3_0_gir_NAMESPACE = Gspell
-Gspell_3_0_gir_VERSION = 3.0
-Gspell_3_0_gir_CFLAGS = $(DEP_CFLAGS)
-Gspell_3_0_gir_SCANNERFLAGS = $(WARN_SCANNERFLAGS)
-Gspell_3_0_gir_LIBS = libgspell-3.0.la
-Gspell_3_0_gir_FILES =			\
+Gspell_1_gir_NAMESPACE = Gspell
+Gspell_1_gir_VERSION = 1
+Gspell_1_gir_CFLAGS = $(DEP_CFLAGS)
+Gspell_1_gir_SCANNERFLAGS = $(WARN_SCANNERFLAGS)
+Gspell_1_gir_LIBS = libgspell-1.la
+Gspell_1_gir_FILES =			\
 	$(gspell_public_headers)	\
 	$(gspell_public_c_files)	\
 	$(BUILT_SOURCES)
 
-Gspell_3_0_gir_INCLUDES = GtkSource-3.0 Gtk-3.0
-Gspell_3_0_gir_PACKAGES = gtksourceview-3.0 gtk+-3.0
-Gspell_3_0_gir_EXPORT_PACKAGES = gspell-3.0
+Gspell_1_gir_INCLUDES = GtkSource-3.0 Gtk-3.0
+Gspell_1_gir_PACKAGES = gtksourceview-3.0 gtk+-3.0
+Gspell_1_gir_EXPORT_PACKAGES = gspell-1
 
 girdir = $(datadir)/gir-1.0
-gir_DATA = Gspell-3.0.gir
+gir_DATA = Gspell-1.gir
 
 typelibdir = $(libdir)/girepository-1.0
-typelib_DATA = Gspell-3.0.typelib
+typelib_DATA = Gspell-1.typelib
 
 CLEANFILES +=		\
 	$(gir_DATA)	\
@@ -133,26 +133,26 @@ endif # HAVE_INTROSPECTION
 if ENABLE_VAPIGEN
 -include $(VAPIGEN_MAKEFILE)
 
-gspell-3.0.vapi: Gspell-3.0.gir
+gspell-1.vapi: Gspell-1.gir
 
-VAPIGEN_VAPIS = gspell-3.0.vapi
+VAPIGEN_VAPIS = gspell-1.vapi
 
-gspell_3_0_vapi_DEPS =		\
+gspell_1_vapi_DEPS =		\
 	gtk+-3.0		\
 	gtksourceview-3.0
 
-gspell-3.0.deps:
-	$(AM_V_GEN) for pkg in $(gspell_3_0_vapi_DEPS); do \
+gspell-1.deps:
+	$(AM_V_GEN) for pkg in $(gspell_1_vapi_DEPS); do \
 		echo $$pkg >> $@; \
 	done
 
-gspell_3_0_vapi_METADATADIRS = $(srcdir)
-gspell_3_0_vapi_FILES = Gspell-3.0.gir
+gspell_1_vapi_METADATADIRS = $(srcdir)
+gspell_1_vapi_FILES = Gspell-1.gir
 
 vapidir = $(datadir)/vala/vapi
 vapi_DATA =		\
-	gspell-3.0.vapi	\
-	gspell-3.0.deps
+	gspell-1.vapi	\
+	gspell-1.deps
 
 CLEANFILES += $(vapi_DATA)
 

@@ -8,5 +8,5 @@ Description: Spell checking for GTK+
 Version: @PACKAGE_VERSION@
 Requires: @AX_PACKAGE_REQUIRES@
 Requires.private: @AX_PACKAGE_REQUIRES_PRIVATE@
-Libs: -L${libdir} -lgspell-3.0
-Cflags: -I${includedir}/gspell-3.0
+Libs: -L${libdir} -lgspell-1
+Cflags: -I${includedir}/gspell-1

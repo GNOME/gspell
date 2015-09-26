@@ -2,7 +2,7 @@
 AUTOMAKE_OPTIONS = 1.6
 
 # The name of the module.
-DOC_MODULE = gspell-3.0
+DOC_MODULE = gspell1
 
 # The top-level XML file (SGML in the past).
 DOC_MAIN_SGML_FILE = gspell-docs.xml
@@ -43,11 +43,11 @@ FIXXREF_OPTIONS =							\
 # Only needed if you are using gtkdoc-scangobj to dynamically query widget
 # signals and properties.
 GTKDOC_CFLAGS = -I$(top_srcdir) $(DEP_CFLAGS)
-GTKDOC_LIBS = $(top_builddir)/gspell/libgspell-3.0.la $(DEP_LIBS)
+GTKDOC_LIBS = $(top_builddir)/gspell/libgspell-1.la $(DEP_LIBS)
 
-MAINTAINERCLEANFILES =			\
-	gspell-3.0-overrides.txt	\
-	gspell-3.0.types
+MAINTAINERCLEANFILES =		\
+	gspell1-overrides.txt	\
+	gspell1.types
 
 # include common portion ...
 include $(top_srcdir)/gtk-doc.make

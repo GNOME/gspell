@@ -159,7 +159,7 @@ fi
 
 # Output files
 AC_CONFIG_FILES([
-	gspell-3.0.pc
+	gspell-1.pc
 	Makefile
 	docs/Makefile
 	docs/reference/Makefile

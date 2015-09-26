@@ -1,9 +1,9 @@
 SUBDIRS = gspell po docs tests
 
-pkgconfig_DATA = gspell-3.0.pc
+pkgconfig_DATA = gspell-1.pc
 
 EXTRA_DIST = \
-	gspell-3.0.pc.in
+	gspell-1.pc.in
 
 MAINTAINERCLEANFILES = \
 	ABOUT-NLS \
