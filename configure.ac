@@ -44,7 +44,7 @@ AC_CONFIG_SRCDIR([gspell/gspell-checker.c])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE([1.11 tar-ustar dist-xz no-dist-gzip foreign])
+AM_INIT_AUTOMAKE([1.11 tar-ustar dist-xz no-dist-gzip gnu])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 

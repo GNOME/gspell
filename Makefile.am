@@ -15,6 +15,7 @@ MAINTAINERCLEANFILES = \
 	config.sub \
 	depcomp \
 	gtk-doc.make \
+	INSTALL \
 	install-sh \
 	ltmain.sh \
 	m4/ax_append_compile_flags.m4 \
