@@ -37,3 +37,9 @@ Simple install procedure:
   $ make install
 
 See the file 'INSTALL' for more detailed information.
+
+
+How to contribute
+-----------------
+
+See the file 'HACKING'.
