@@ -1,1 +1,14 @@
 # List of source files containing translatable strings.
+gspell/gspell-checker.c
+gspell/gspell-checker-dialog.c
+gspell/gspell-inline-checker-gtv.c
+gspell/gspell-language.c
+gspell/gspell-language-chooser.c
+gspell/gspell-language-chooser-button.c
+gspell/gspell-language-chooser-dialog.c
+gspell/gspell-navigator.c
+gspell/gspell-navigator-gtv.c
+gspell/gspell-osx.c
+gspell/gspell-utils.c
+gspell/resources/checker-dialog.ui
+gspell/resources/language-dialog.ui
