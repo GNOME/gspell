@@ -64,6 +64,9 @@ struct _GspellCheckerClass
 					 const gchar   *word);
 
 	void (* clear_session)		(GspellChecker *checker);
+
+	/* Padding for future expansion */
+	gpointer padding[12];
 };
 
 GQuark		gspell_checker_error_quark		(void);

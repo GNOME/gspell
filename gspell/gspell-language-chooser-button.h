@@ -34,6 +34,7 @@ struct _GspellLanguageChooserButtonClass
 {
 	GtkButtonClass parent_class;
 
+	/* Padding for future expansion */
 	gpointer padding[8];
 };
 

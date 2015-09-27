@@ -34,6 +34,9 @@ G_DECLARE_DERIVABLE_TYPE (GspellNavigatorGtv, gspell_navigator_gtv,
 struct _GspellNavigatorGtvClass
 {
 	GObjectClass parent_class;
+
+	/* Padding for future expansion */
+	gpointer padding[8];
 };
 
 GspellNavigator *	gspell_navigator_gtv_new		(GtkTextView   *view,
