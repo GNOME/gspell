@@ -1,9 +1,10 @@
-gspell
-======
+gspell - a spell-checking library for GTK+
+==========================================
 
 This is version 0.0.1 of gspell.
 
-gspell is a spell-checking library for GTK+.
+gspell provides a flexible API to implement the spell checking in a GTK+
+application.
 
 Announcement and why this library has been created:
 https://blogs.gnome.org/swilmet/2015/09/16/introducing-gspell-a-new-spell-checking-library/

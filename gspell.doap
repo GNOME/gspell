@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+  <name xml:lang="en">gspell</name>
+  <shortdesc xml:lang="en">Spell-checking library for GTK+</shortdesc>
+  <description>gspell provides a flexible API to implement the spell checking
+in a GTK+ application.</description>
+
+  <homepage rdf:resource="https://github.com/swilmet/gspell" />
+
+  <programming-language>C</programming-language>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Sébastien Wilmet</foaf:name>
+      <foaf:mbox rdf:resource="mailto:swilmet@gnome.org" />
+      <gnome:userid>swilmet</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+</Project>
