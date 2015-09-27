@@ -18,13 +18,10 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
+#include "config.h"
 #include "gspell-checker.h"
 #include <enchant.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include "gspell-utils.h"
 
 #ifdef OS_OSX

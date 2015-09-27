@@ -22,9 +22,10 @@
  * Copyright 2002 - Evan Martin
  */
 
+#include "config.h"
 #include "gspell-inline-checker-gtv.h"
 #include <string.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include "gspell-utils.h"
 #include "gtktextregion.h"
 

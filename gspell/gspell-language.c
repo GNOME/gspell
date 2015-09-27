@@ -23,15 +23,14 @@
 
 #include "config.h"
 #include "gspell-language.h"
+#include <string.h>
+#include <enchant.h>
+#include <glib/gi18n-lib.h>
+#include <libxml/xmlreader.h>
 
 #ifdef OS_OSX
 #include "gspell-osx.h"
 #endif
-
-#include <string.h>
-#include <enchant.h>
-#include <glib/gi18n.h>
-#include <libxml/xmlreader.h>
 
 #define ISO_639_DOMAIN	"iso_639"
 #define ISO_3166_DOMAIN	"iso_3166"

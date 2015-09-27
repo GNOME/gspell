@@ -18,8 +18,9 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "gspell-checker-dialog.h"
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include "gspell-checker.h"
 
 /**
