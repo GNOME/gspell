@@ -61,6 +61,7 @@ libgspell_1_la_LIBADD =	\
 	$(GTK_MAC_LIBS)
 
 libgspell_1_la_LDFLAGS =			\
+	-version-info $(GSPELL_LT_VERSION)	\
 	-no-undefined				\
 	-export-symbols-regex "^gspell_.*"
 

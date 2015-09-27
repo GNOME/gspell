@@ -11,6 +11,27 @@ AC_INIT([gspell],
 AX_REQUIRE_DEFINED([AX_IS_RELEASE])
 AX_IS_RELEASE([git-directory])
 
+# Libtool versioning
+#
+# For development releases, keep the same numbers.
+#
+# For stable releases, apply the following algorithm step by step:
+# 1. If the library source code has changed at all since the last
+#    update, then increment REVISION.
+# 2. If any exported functions or data have been added, removed, or
+#    changed since the last update, increment CURRENT and set REVISION
+#    to 0.
+# 3. If any exported functions or data have been added since the last
+#    public release, increment AGE.
+# 4. If any exported functions or data have been removed since the last
+#    public release, set AGE to 0.
+
+GSPELL_LT_CURRENT=0
+GSPELL_LT_REVISION=0
+GSPELL_LT_AGE=0
+GSPELL_LT_VERSION="$GSPELL_LT_CURRENT:$GSPELL_LT_REVISION:$GSPELL_LT_AGE"
+AC_SUBST(GSPELL_LT_VERSION)
+
 # Dependencies
 enchant_req=1.6.0
 iso_codes_req=0.35
