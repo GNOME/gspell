@@ -13,6 +13,20 @@ The gspell library is free software and is released under the terms of the
 GNU General Public License. See the file 'COPYING' for more information.
 
 
+WARNING - API (un)stability
+---------------------------
+
+The API is *not* yet stable! There can be API or ABI breaks at any time!
+You should *not* use this library unless you know what you do!
+
+API stability will be guaranteed only when the 1.0 version is released. But the
+1.0 version will *not* be completely parallel-installable with the previous
+versions, only the libtool version will be bumped.
+
+The 1.0 version will be released when it's ready, hopefully at the same time as
+GNOME 3.20 in March 2016.
+
+
 Dependencies
 ------------
 
