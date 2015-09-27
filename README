@@ -1,11 +1,39 @@
 gspell
 ======
 
-A spell-checking library for GTK+.
+This is version 0.0.1 of gspell.
+
+gspell is a spell-checking library for GTK+.
+
+Announcement and why this library has been created:
+https://blogs.gnome.org/swilmet/2015/09/16/introducing-gspell-a-new-spell-checking-library/
+
+The gspell library is free software and is released under the terms of the
+GNU General Public License. See the file 'COPYING' for more information.
+
 
 Dependencies
 ------------
 
-- GTK+
-- GtkSourceView
-- libxml2
+* Enchant >= 1.6.0
+* GLib >= 2.44
+* GTK+ >= 3.16
+* GtkSourceView >= 3.16
+* libxml2
+* iso-codes
+
+It is planned to remove the dependencies to GtkSourceView and libxml2 in a
+future version of gspell.
+
+
+Installation
+------------
+
+Simple install procedure:
+
+  $ ./configure
+  $ make
+  [ Become root if necessary ]
+  $ make install
+
+See the file 'INSTALL' for more detailed information.
