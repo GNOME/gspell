@@ -1,0 +1,162 @@
+# translation of gspell.master.po to Español
+# translation of gspell to spanish
+# Copyright © 1999-2003, 2006, 2007, 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gspell package.
+# 
+# Pablo Saratxaga <srtxg@chanae.alphanet.ch>, 1999-2000.
+# Carlos Perelló Marín <carlos@gnome-db.org>, 2000-2001.
+# Chema Celorio <chema@celorio.com>, 2000.
+# QA by <asan@euskalnet.net>, 2001.
+# Pablo Gonzalo del Campo <pablodc@bigfoot.com>,2002, 2003, 2004.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003 - 2006.
+# Francisco Javier F. Serrador <serrador@tecknolabs.com>, 2006.
+# Juanje Ojeda Croissier <jojeda@emergya.es>, 2008.
+# Leandro Machacón <leandroman@gemail.com>, 2010.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013, 2014, 2015., 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell.master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-08-18 13:51+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Gtranslator 2.91.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Error al comprobar la ortografía de la palabra «%s»: %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(no hay palabras sugeridas)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Error:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Comprobación de ortografía finalizada"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Sin palabras mal escritas"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(ortografía correcta)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Sugerencias"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Más…"
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "_Ignorar todo"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "_Añadir"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "_Sugerencias de ortografía…"
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Desconocida (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "Predeterminado"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Comprobar ortografía"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Palabra mal escrita:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "palabra"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Cambiar _por:"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "Comprobar pa_labra"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "_Sugerencias:"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "_Ignorar"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "Ignorar _todo"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "Ca_mbiar"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "Cambiar _todo"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Diccionario de usuario:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "Añadir pa_labra"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Establecer idioma"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "Seleccione el _idioma del documento actual."
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "_Seleccionar"

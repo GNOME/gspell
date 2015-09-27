@@ -1,0 +1,160 @@
+# Galician translation of gspell.
+# Copyright (C) 1999-2001, 2005, 2006, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
+# Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
+# colaborar connosco, podes atopar máis información en http://www.trasno.net
+# Ruben Lopez Gomez <ryu@mundivia.es>, 1999.
+# Manuel A. Fernández Montecelo <manuel@sindominio.net>, 2001.
+# Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
+# Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2007, 2008.
+# Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
+# Suso Baleato <suso.baleato@xunta.es>, 2009.
+# Antón Méixome <meixome@mancomun.org>, 2009.
+# Antón Méixome <meixome@certima.net>, 2010.
+# Fran Diéguez <frandieguez@gnome.org>, 2009, 2010, 2011, 2012.
+# Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
+# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell-master-po-gl-116402.merged\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-09-14 17:02+0200\n"
+"Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
+"Language-Team: gnome-l10n-gl@gnome.org\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Produciuse un erro ao comprobar a ortografía da palabra «%s»: %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(non hai suxestión de palabras)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Erro:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Verificación ortográfica concluída"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Non hai palabras con erros ortográficos"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(corrixir ortografía)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Suxestións"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Máis…"
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "_Ignorar todos"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "Eng_adir"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "_Suxestións de ortografía…"
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Descoñecido (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "predeterminado"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Verificación ortográfica"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Palabra incorrecta:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "palabra"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Cambiar _por:"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "Corrixir pala_bra"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "_Suxestións:"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "_Ignorar"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "Ignorar _todos"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "Ca_mbiar"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "Cambiar _todos"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Dicionario do usuario:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "Engadir _palabra"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Definir o idioma"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "Seleccione o _idioma do documento actual."
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "_Seleccionar"

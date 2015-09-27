@@ -1,0 +1,153 @@
+# translation of lv.po to Latvian
+# Copyright (C) 2006, 2007, 2009 Free Software Foundation, Inc.
+#
+# Raivis Dejus <orvils@gmail.com>, 2006, 2007, 2009.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2009, 2010.
+# Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
+# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2014, 2015.
+# Anita Reitere <nitalynx@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: lv\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-09-16 15:42+0300\n"
+"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Kļūda, pārbaudot vārda “%s” pareizrakstību: %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(nav ieteikto vārdu)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Kļūda:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Pareizrakstības pārbaude pabeigta"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Nav nepareizi uzrakstītu vārdu"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(pareiza rakstība)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Ieteikumi"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Vairāk..."
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "_Ignorēt visus"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "_Pievienot"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "Pareizrak_stības ieteikumi..."
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Nezināms (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "Noklusētais"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Pārbaudīt pareizrakstību"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Nepareizi uzrakstīts vārds:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "vārds"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Mainī_t uz:"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "Pārbaudīt _vārdu"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "Ieteik_umi:"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "_Ignorēt"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "Ignorēt _visus"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "Mai_nīt"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "Mainīt vi_sus"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Lietotāja vārdnīca:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "Pievien_ot vārdu"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Iestatīt valodu"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "Izvēlēties pašreizējā dokumenta va_lodu."
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "At_celt"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "Izvēlētie_s"

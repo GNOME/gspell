@@ -1,0 +1,172 @@
+# French translation of gspell.
+# Copyright (C) 1998-2014 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gspell package.
+#
+#
+# Vincent Renardias <vincent@ldsol.com>, 1998-1999.
+# Joaquim Fellmann <joaquim@hrnet.fr>, 2000.
+# Christophe Merlet <redfox@redfoxcenter.org>, 2000-2005.
+# Christophe Fergeau <teuf@users.sourceforge.net>, 2002.
+# Laurent Richard <kouran@iespana.es>, 2002.
+# Yann Laviolette <borisgazoo@hotmail.com>, 2003.
+# Sébastien Bacher <seb128@debian.org>, 2004.
+# Baptiste Mille-Mathias <baptiste.millemathias@gmail.com>, 2005-2006.
+# Guillaume Desmottes <cass@skynet.be>, 2005.
+# Stéphane Raimbault <stephane.raimbault@gmail.com>, 2005, 2007-2008.
+# Jonathan Ernst <jonathan@ernstfamily.ch>, 2006-2007.
+# Benoît Dejean <benoit@placenet.org>, 2006.
+# Robert-André Mauchin <zebob.m@pengzone.org>, 2006-2008.
+# Samuel Mutel <samuel.mutel@free.fr>, 2006.
+# Marc Lorber <linux-lorber@club-internet.fr>, 2006.
+# Claude Paroz <claude@2xlibre.net>, 2007-2011.
+# Bruno Brouard <annoa.b@gmail.com>, 2008,2011-12.
+# Yannick Tailliez <ytdispatch-libre@yahoo.com>, 2008.
+# Gérard Baylard <Geodebay@gmail.com>, 2011.
+# Alain Lojewski <allomervan@gmail.com>, 2012-2015.
+# Fievez Yoann <yoann.fievez@gmail.com>, 2013.
+# Julien Hardelin <jhardlin@orange.fr>, 2013.
+# naybnet <naybnet@gmail.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:30+0200\n"
+"PO-Revision-Date: 2015-08-31 12:30+0100\n"
+"Last-Translator: Alain Lojewski <allomervan@gmail.com>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Erreur pendant la vérification de l'orthographe du mot « %s » : %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(aucun mot suggéré)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Erreur :"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Vérification orthographique terminée"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Aucun mot mal orthographié"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(Orthographe correcte)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Suggestions"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Plus..."
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "_Ignorer tout"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "A_jouter"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "_Suggestions d'orthographes..."
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Inconnue (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "Par défaut"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Vérifier l'orthographe"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Mot mal orthographié :"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "mot"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Remplacer _par :"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "_Vérifier le mot"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "_Suggestions :"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "_Ignorer"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "Tou_jours ignorer"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "Re_mplacer"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "_Tout remplacer"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Dictionnaire de l'utilisateur :"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "A_jouter le mot"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Définir la langue"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "Sélectionnez la _langue du document actuel."
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "A_nnuler"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "_Sélectionner"

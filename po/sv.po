@@ -1,0 +1,154 @@
+# Swedish messages for gspell. 
+# Copyright © 1998-2015 Free Software Foundation, Inc.
+# Martin Wahlen <mva@sslug.dk>, 1998.
+# Martin Norbäck <d95mback@dtek.chalmers.se>, 1999, 2000.
+# Andreas Hyden <a.hyden@cyberpoint.se>, 2000.
+# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004, 2005.
+# Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2014, 2015.
+# Sebastian Rasmussen <sebras@gmail.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-08-19 21:52+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.3\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Fel vid kontroll av stavningen på ordet ”%s”: %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(inga föreslagna ord)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Fel:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Stavningskontrollen färdig"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Inga felstavade ord"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(korrekt stavning)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Förslag"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Mer…"
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "_Ignorera alla"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "_Lägg till"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "_Stavningsförslag…"
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Okänd (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "Standard"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Kontrollera stavning"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Felstavat ord:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "ord"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Ändra _till:"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "Kontrollera o_rd"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "_Förslag:"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "_Ignorera"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "Ignorera _alla"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "Ä_ndra"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "Ändra a_lla"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Användarordbok:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "Lägg till _ord"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Ställ in språk"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "Välj _språket i det aktuella dokumentet."
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "A_vbryt"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "_Välj"

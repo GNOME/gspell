@@ -1,0 +1,178 @@
+# Translation of gspell to Greek
+# Copyright (C) 2000 ~ 2010, Free Software Foundation, Inc.
+# spyros:
+# initial translation
+# simos:
+# kostas: 12Nov2003, fixes
+# kostas: 26Jan2004, update
+# Nikos: 12Feb2004, fixes for Gnome2.6
+# Nikos: 29jun2004 review
+# Nikos: 30Jul2004 Consistency
+# Nikos: 06Sep2004 Completed translation for 2.8
+# Nikos: 17Jan2005 starting translation for 2.10
+# updated: 37 translated messages, 52 fuzzy translations, 116 untranslated messages.
+# simos: 248 messages, 02Mar2001.
+# kostas: 523 messages, 30Oct2002, completed translation.
+# kostas: updated and finished translation for Gnome 2.1x, 02Dec2002.
+# kostas: 666 (uh?..) messages, 06Jan2003, one more update.
+# kostas: 563 messages,25May2003,update for Gnome2.4xx.
+# kostas: 640 messages,06Jul2003.
+# Nikos: fixes for access keys, 08jul2003.
+# kostas:13feb2003,646 messages.
+# Spiros Papadimitriou <spapadim+@cs.cmu.edu>, 2000.
+# Simos Xenitellis <simos@hellug.gr>, 2000, 2001, 2002.
+# Kostas Papadimas <pkst@gnome.org>, 2002, 2003, 2004, 2005, 2006, 2008, 2011.
+# Nikos Charonitakis <charosn@her.forthnet.gr>, 2003, 2004, 2005.
+# Simos Xenitellis <simos@gnome.org>, 2006.
+# Dimitris Glezos <dimitris@glezos.com>, 2006, 2007.
+# Konstantinos Kouratoras <kouratoras@gmail.com>, 2008, 2009.
+# Γιώργος Στεφανάκης <george.stefanakis@gmail.com>, 2010.
+# Michael Kotsarinis <mk73628@gmail.com>, 2011.
+# Ioannis Zampoukas <ioza1964@yahoo.gr>, 2011.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2012, 2013, 2014, 2015.
+# Efstathios Iosifidis <iosifidis@opensuse.org>, 2013, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: el\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-08-29 00:53+0300\n"
+"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"Language-Team: www.gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.4\n"
+"X-Project-Style: gnome\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Σφάλμα κατά τον έλεγχο ορθογραφίας της λέξης “%s”: %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(όχι προτεινόμενες λέξεις)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Σφάλμα:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Ο έλεγχος ορθογραφίας ολοκληρώθηκε"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Δεν υπάρχουν ανορθόγραφες λέξεις"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(διόρθωση ορθογραφίας)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Συμβουλές"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Περισσότερα..."
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "_Αγνόηση όλων"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "_Προσθήκη"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "_Συμβουλές ορθογραφίας..."
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Άγνωστο (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "Προεπιλεγμένη"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Έλεγχος ορθογραφίας"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Ανορθόγραφη λέξη:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "λέξη"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Αλλαγή _σε:"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "Έλεγχος _λέξης"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "_Συμβουλές:"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "Α_γνόηση"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "Αγνόηση ό_λων"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "Αλλα_γή"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "Αλλαγή ό_λων"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Λεξικό χρήστη:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "Προσθήκη λέ_ξης"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Ορισμός γλώσσας"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "Επιλέξτε τη γ_λώσσα του τρέχοντος εγγράφου."
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "_Ακύρωση"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "_Επιλογή"

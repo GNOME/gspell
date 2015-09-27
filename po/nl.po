@@ -1,0 +1,167 @@
+# Dutch translation for gspell
+#
+# This file is distributed under the same license as the gspell package.
+#
+#
+# Tab group     - tabgroep
+#
+#
+# Dennis Smit <synap@area101.penguin.nl>, 2000.
+# Ludootje <ludootje@linux.be>, 2001.
+# Jan-Willem Harmanny <jwharmanny@hotmail.com>, 2002.
+# Ronald Hummelink <ronald@hummelink.xs4all.nl>, 2002.
+# Sander Knopper <sander@knopper.dhs.org>, 2002.
+# Reinout van Schouwen <reinout@cs.vu.nl>, 2002–2007.
+# Taco Witte <T.C.Witte@phys.uu.nl>, 2002.
+# Daniel van Eeden <daniel_e@dds.nl>, 2004.
+# Tino Meinen <a.t.meinen@chello.nl>, 2005, 2006.
+# Wouter Bolsterlee <wbolster@gnome.org>, 2008–2013.
+# Rob van den Berg <linuxned@gmail.com>, 2010.
+# Kenneth Venken <kenneth.venken@gmail.com>, 2010.
+# Hannie Dumoleyn <hannie@ubuntu.org>, 2010-2012, 2013, 2015.
+# Erwin Poeze <donnut@outlook.com>, 2014.
+# Nathan Follens <nthn@unseen.is>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-09-22 12:38+0200\n"
+"Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
+"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Fout bij het controleren van de spelling van het woord \"%s\": %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(geen woorden voorgesteld)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Fout:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Spellingscontrole voltooid"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Geen verkeerd gespelde woorden"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(correcte spelling)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Suggesties"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Meer…"
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "Alles _negeren"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "_Toevoegen"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "_Spellingsuggesties…"
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Onbekend (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "Standaard"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Spelling controleren"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Verkeerd gespeld woord:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "woord"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Wijzigen _in:"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "_Woord controleren"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "_Suggesties:"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "Ne_geren"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "_Alles negeren"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "_Wijzigen"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "A_lles wijzigen"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Gebruikerswoordenboek:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "W_oord toevoegen"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Taal instellen"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "De taa_l van het huidige document selecteren"
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "_Annuleren"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "_Selecteren"

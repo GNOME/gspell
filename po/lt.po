@@ -1,0 +1,158 @@
+# translation of lt.po to Lithuanian
+# Lithuanian translation of gspell
+# Copyright (C) 2000-2006, 2007, 2008 Free Software Foundation, Inc.
+#
+#
+# Gediminas Paulauskas <menesis@chatsubo.lt>, 2000-2003.
+# Vaidotas Zemlys <mpiktas@delfi.lt>, 2003.
+# Žygimantas Beručka <zygis@gnome.org>, 2003-2006.
+# Vytautas Povilaitis <punktyras@nkm.lt>, 2007.
+# Gintautas Miliauskas <gintas@akl.lt>, 2007, 2008, 2010.
+# Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2011, 2012.
+# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lt\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-08-13 22:58+0300\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
+"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Klaida tikrinant žodžio „%s“ rašybą: %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(pasiūlymų nėra)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "Klaidos:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "Baigtas rašybos tikrinimas"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "Nėra neteisingai parašytų žodžių"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(teisinga rašyba)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "Pasiūlymai"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "_Daugiau..."
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "_Ignoruoti visus"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "_Pridėti"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "_Rašybos pasiūlymai..."
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Nežinomas (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "Numatytasis"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Tikrinti rašybą"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "Klaidingas žodis:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "žodis"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "Keis_ti į"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "Patikrinti žo_dį"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "_Pasiūlymai"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "_Ignoruoti"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "Ignoruoti _visus"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "Pakei_sti"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "Įrašyti v_isus"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "Vartotojo žodynas:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "Pridėti ž_odį"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Nustatyti kalbą"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "Pasirinkti esamo dokumento _kalbą."
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "_Atsisakyti"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "_Pasirinkti"

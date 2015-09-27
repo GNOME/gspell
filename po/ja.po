@@ -1,0 +1,157 @@
+# gspell ja.po.
+# Copyright (C) 1999,2000,2002-2013 Free Software Foundation, Inc.
+# Akira Higuchi <a-higuti@math.sci.hokudai.ac.jp>, 1999
+# Yuusuke Tahara <tahara@gnome.gr.jp>
+# Yukihiro Nakai <nakai@gnome.gr.jp>
+# Akira TAGOH <tagoh@gnome.gr.jp>, 2002.
+# KAMAGASAKO Masatoshi <emerald@gnome.gr.jp>, 2003.
+# Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003-2009.
+# Satoru SATOH <ss@gnome.gr.jp>, 2006.
+# Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2009.
+# Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2010-2012.
+# Hajime Taira <htaira@redhat.com>, 2011.
+# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2011, 2013, 2014, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"PO-Revision-Date: 2015-09-15 23:12+0900\n"
+"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: gspell/gspell-checker.c:460
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "単語“%s”のスペルチェック中にエラー: %s"
+
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+msgid "(no suggested words)"
+msgstr "(単語の候補なし)"
+
+#: gspell/gspell-checker-dialog.c:237
+msgid "Error:"
+msgstr "エラー:"
+
+#: gspell/gspell-checker-dialog.c:274
+msgid "Completed spell checking"
+msgstr "スペルチェック完了"
+
+#: gspell/gspell-checker-dialog.c:278
+msgid "No misspelled words"
+msgstr "スペルミスと思われる単語はありません"
+
+#: gspell/gspell-checker-dialog.c:507
+msgid "(correct spelling)"
+msgstr "(正しいつづり)"
+
+#: gspell/gspell-checker-dialog.c:645
+msgid "Suggestions"
+msgstr "提示"
+
+#: gspell/gspell-inline-checker-gtv.c:595
+msgid "_More..."
+msgstr "詳細(_M)..."
+
+#: gspell/gspell-inline-checker-gtv.c:635
+msgid "_Ignore All"
+msgstr "すべて無視(_I)"
+
+#: gspell/gspell-inline-checker-gtv.c:644
+msgid "_Add"
+msgstr "追加(_A)"
+
+#: gspell/gspell-inline-checker-gtv.c:681
+msgid "_Spelling Suggestions..."
+msgstr "スペルの提示(_S)..."
+
+#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language.c:369
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "不明 (%s)"
+
+#: gspell/gspell-language.c:481
+msgctxt "language"
+msgid "Default"
+msgstr "デフォルト"
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "スペルチェック"
+
+#: gspell/resources/checker-dialog.ui:27
+msgid "Misspelled word:"
+msgstr "スペルミスと思われる単語:"
+
+#: gspell/resources/checker-dialog.ui:40
+msgid "word"
+msgstr "単語"
+
+#: gspell/resources/checker-dialog.ui:57
+msgid "Change _to:"
+msgstr "変更先(_T):"
+
+#: gspell/resources/checker-dialog.ui:82
+msgid "Check _Word"
+msgstr "単語のチェック(_W)"
+
+#: gspell/resources/checker-dialog.ui:112
+msgid "_Suggestions:"
+msgstr "正解の候補(_S):"
+
+#: gspell/resources/checker-dialog.ui:125
+msgid "_Ignore"
+msgstr "無視(_I)"
+
+#: gspell/resources/checker-dialog.ui:139
+msgid "Ignore _All"
+msgstr "すべて無視(_A)"
+
+#: gspell/resources/checker-dialog.ui:153
+msgid "Cha_nge"
+msgstr "変更(_N)"
+
+#: gspell/resources/checker-dialog.ui:169
+msgid "Change A_ll"
+msgstr "すべて変更(_L)"
+
+#: gspell/resources/checker-dialog.ui:187
+msgid "User dictionary:"
+msgstr "ユーザー辞書:"
+
+#: gspell/resources/checker-dialog.ui:199
+msgid "Add w_ord"
+msgstr "単語の追加(_O)"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "言語の設定"
+
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr "このドキュメントの言語を選択してください(_L):"
+
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr "キャンセル(_C)"
+
+#: gspell/resources/language-dialog.ui:70
+msgid "_Select"
+msgstr "選択(_S)"
