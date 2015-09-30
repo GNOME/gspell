@@ -35,7 +35,7 @@
  * @See_also: #GspellLanguage
  *
  * #GspellChecker is a spell checker. It is a wrapper around the Enchant
- * library, to have a #GObject-based API.
+ * library, to have an API based on #GObject.
  *
  * If the #GspellChecker:language is not set correctly, the spell checker
  * should not be used. It can happen when no dictionaries are available, in
