@@ -10,6 +10,7 @@
 in a GTK+ application.</description>
 
   <homepage rdf:resource="https://github.com/swilmet/gspell" />
+  <download-page rdf:resource="https://people.gnome.org/~swilmet/gspell/" />
 
   <programming-language>C</programming-language>
 

@@ -1,0 +1,11 @@
+News in 0.1.0
+-------------
+This is the first version, but the code comes from the gedit spell plugin, it
+was not implemented from scratch.
+
+gspell currently has:
+
+* GObject wrappers around Enchant (GspellChecker and GspellLanguage)
+* An inline spell checker for GtkTextView (modified version of GtkSpell)
+* A spell checker dialog for GtkTextView
+* Language choosers (button and dialog)

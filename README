@@ -1,16 +1,25 @@
 gspell - a spell-checking library for GTK+
 ==========================================
 
-This is version 0.0.1 of gspell.
+This is version 0.1.0 of gspell.
 
 gspell provides a flexible API to implement the spell checking in a GTK+
 application.
 
 Announcement and why this library has been created:
-https://blogs.gnome.org/swilmet/2015/09/16/introducing-gspell-a-new-spell-checking-library/
+
+    https://blogs.gnome.org/swilmet/2015/09/16/introducing-gspell-a-new-spell-checking-library/
 
 The gspell library is free software and is released under the terms of the
 GNU General Public License. See the file 'COPYING' for more information.
+
+gspell is currently hosted on GitHub:
+
+    https://github.com/swilmet/gspell
+
+You can download the latest gspell tarball from:
+
+    https://people.gnome.org/~swilmet/gspell/
 
 
 WARNING - API (un)stability

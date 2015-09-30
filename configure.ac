@@ -3,10 +3,10 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.64)
 
 AC_INIT([gspell],
-        [0.0.1],
-	[],
+	[0.1.0],
+	[https://github.com/swilmet/gspell/issues],
 	[gspell],
-	[])
+	[https://github.com/swilmet/gspell])
 
 AX_REQUIRE_DEFINED([AX_IS_RELEASE])
 AX_IS_RELEASE([git-directory])
