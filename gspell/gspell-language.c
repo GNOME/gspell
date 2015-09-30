@@ -41,6 +41,11 @@ struct _GspellLanguage
 	gchar *name;
 };
 
+G_DEFINE_BOXED_TYPE (GspellLanguage,
+		     gspell_language,
+		     gspell_language_copy,
+		     gspell_language_free)
+
 static gboolean available_languages_initialized = FALSE;
 static GSList *available_languages = NULL;
 
@@ -512,4 +517,33 @@ gspell_language_from_key (const gchar *key)
 
 	return NULL;
 }
+
+/**
+ * gspell_language_copy:
+ * @lang: a #GspellLanguage.
+ *
+ * Used by language bindings.
+ *
+ * Returns: a copy of @lang.
+ */
+GspellLanguage *
+gspell_language_copy (const GspellLanguage *lang)
+{
+	g_return_val_if_fail (lang != NULL, NULL);
+
+	return (GspellLanguage *) lang;
+}
+
+/**
+ * gspell_language_free:
+ * @lang: a #GspellLanguage.
+ *
+ * Used by language bindings.
+ */
+void
+gspell_language_free (GspellLanguage *lang)
+{
+	g_return_if_fail (lang != NULL);
+}
+
 /* ex:set ts=8 noet: */

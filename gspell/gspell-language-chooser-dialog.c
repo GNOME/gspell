@@ -175,7 +175,7 @@ gspell_language_chooser_dialog_get_property (GObject    *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			g_value_set_pointer (value, (gpointer) gspell_language_chooser_dialog_get_language (chooser));
+			g_value_set_boxed (value, gspell_language_chooser_dialog_get_language (chooser));
 			break;
 
 		default:
@@ -195,7 +195,7 @@ gspell_language_chooser_dialog_set_property (GObject      *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			gspell_language_chooser_dialog_set_language (chooser, g_value_get_pointer (value));
+			gspell_language_chooser_dialog_set_language (chooser, g_value_get_boxed (value));
 			break;
 
 		default:
@@ -303,7 +303,7 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 
 	gtk_widget_init_template (GTK_WIDGET (dialog));
 
-	store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_POINTER);
+	store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, GSPELL_TYPE_LANGUAGE);
 	gtk_tree_view_set_model (dialog->treeview, GTK_TREE_MODEL (store));
 	g_object_unref (store);
 

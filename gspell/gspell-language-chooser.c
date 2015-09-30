@@ -40,11 +40,12 @@ gspell_language_chooser_default_init (GspellLanguageChooserInterface *interface)
 	 * The selected #GspellLanguage.
 	 */
 	g_object_interface_install_property (interface,
-					     g_param_spec_pointer ("language",
-								   "Language",
-								   "",
-								   G_PARAM_READWRITE |
-								   G_PARAM_STATIC_STRINGS));
+					     g_param_spec_boxed ("language",
+								 "Language",
+								 "",
+								 GSPELL_TYPE_LANGUAGE,
+								 G_PARAM_READWRITE |
+								 G_PARAM_STATIC_STRINGS));
 }
 
 /**

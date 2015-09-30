@@ -114,7 +114,7 @@ gspell_checker_set_property (GObject      *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			gspell_checker_set_language (checker, g_value_get_pointer (value));
+			gspell_checker_set_language (checker, g_value_get_boxed (value));
 			break;
 
 		default:
@@ -136,7 +136,7 @@ gspell_checker_get_property (GObject    *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			g_value_set_pointer (value, (gpointer)priv->active_lang);
+			g_value_set_boxed (value, priv->active_lang);
 			break;
 
 		default:
@@ -181,12 +181,13 @@ gspell_checker_class_init (GspellCheckerClass *klass)
 	 */
 	g_object_class_install_property (object_class,
 					 PROP_LANGUAGE,
-					 g_param_spec_pointer ("language",
-							       "Language",
-							       "The language used by the spell checker",
-							       G_PARAM_READWRITE |
-							       G_PARAM_CONSTRUCT |
-							       G_PARAM_STATIC_STRINGS));
+					 g_param_spec_boxed ("language",
+							     "Language",
+							     "",
+							     GSPELL_TYPE_LANGUAGE,
+							     G_PARAM_READWRITE |
+							     G_PARAM_CONSTRUCT |
+							     G_PARAM_STATIC_STRINGS));
 
 	/**
 	 * GspellChecker::add-word-to-personal:

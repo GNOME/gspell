@@ -21,11 +21,15 @@
 #ifndef __GSPELL_LANGUAGE_H__
 #define __GSPELL_LANGUAGE_H__
 
-#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
 typedef struct _GspellLanguage GspellLanguage;
+
+#define GSPELL_TYPE_LANGUAGE (gspell_language_get_type ())
+
+GType		gspell_language_get_type		(void) G_GNUC_CONST;
 
 const gchar *	gspell_language_to_string		(const GspellLanguage *lang);
 
@@ -36,6 +40,12 @@ const GspellLanguage *
 
 /* GSList contains "GspellLanguage*" items */
 const GSList *	gspell_checker_get_available_languages	(void);
+
+/* These should not be used, they are just to make GObject Introspection
+ * bindings happy.
+ */
+GspellLanguage *gspell_language_copy			(const GspellLanguage *lang);
+void		gspell_language_free			(GspellLanguage *lang);
 
 G_END_DECLS
 

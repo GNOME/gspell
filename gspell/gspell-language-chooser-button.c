@@ -127,7 +127,7 @@ gspell_language_chooser_button_get_property (GObject    *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			g_value_set_pointer (value, (gpointer) gspell_language_chooser_button_get_language (chooser));
+			g_value_set_boxed (value, gspell_language_chooser_button_get_language (chooser));
 			break;
 
 		default:
@@ -147,7 +147,7 @@ gspell_language_chooser_button_set_property (GObject      *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			gspell_language_chooser_button_set_language (chooser, g_value_get_pointer (value));
+			gspell_language_chooser_button_set_language (chooser, g_value_get_boxed (value));
 			break;
 
 		default:
