@@ -17,7 +17,9 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "gspell-navigator-gtv.h"
+#include <glib/gi18n-lib.h>
 #include "gspell-utils.h"
 
 /**
@@ -317,6 +319,23 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 
 	g_assert ((priv->word_start == NULL && priv->word_end == NULL) ||
 		  (priv->word_start != NULL && priv->word_end != NULL));
+
+	if (gspell_checker_get_language (priv->spell_checker) == NULL)
+	{
+		if (spell_checker_p != NULL)
+		{
+			*spell_checker_p = g_object_ref (priv->spell_checker);
+		}
+
+		g_set_error (error_p,
+			     GSPELL_CHECKER_ERROR,
+			     GSPELL_CHECKER_ERROR_NO_LANGUAGE_SET,
+			     "%s",
+			     _("Spell checker error: no language set. "
+			       "It's maybe because no dictionaries are installed."));
+
+		return FALSE;
+	}
 
 	gtk_text_buffer_get_iter_at_mark (priv->buffer, &end, priv->end_boundary);
 

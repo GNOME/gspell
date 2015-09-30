@@ -43,6 +43,7 @@ G_DECLARE_DERIVABLE_TYPE (GspellChecker, gspell_checker,
 /**
  * GspellCheckerError:
  * @GSPELL_CHECKER_ERROR_DICTIONARY: dictionary error.
+ * @GSPELL_CHECKER_ERROR_NO_LANGUAGE_SET: no language set.
  *
  * An error code used with %GSPELL_CHECKER_ERROR in a #GError returned
  * from a spell-checker-related function.
@@ -50,6 +51,7 @@ G_DECLARE_DERIVABLE_TYPE (GspellChecker, gspell_checker,
 typedef enum _GspellCheckerError
 {
 	GSPELL_CHECKER_ERROR_DICTIONARY,
+	GSPELL_CHECKER_ERROR_NO_LANGUAGE_SET,
 } GspellCheckerError;
 
 struct _GspellCheckerClass
