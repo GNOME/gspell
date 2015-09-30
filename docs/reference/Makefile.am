@@ -8,7 +8,7 @@ DOC_MODULE = gspell1
 DOC_MAIN_SGML_FILE = gspell-docs.xml
 
 # Extra options to supply to gtkdoc-scan
-SCAN_OPTIONS =
+SCAN_OPTIONS = --rebuild-types
 
 # The directory containing the source code. Relative to $(srcdir)
 DOC_SOURCE_DIR = $(top_srcdir)/gspell
