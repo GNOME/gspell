@@ -90,6 +90,11 @@ highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 
 		buffer = GTK_SOURCE_BUFFER (gtk_text_view_get_buffer (GTK_TEXT_VIEW (spell->view)));
 
+		/* A real application needs to check if
+		 * gspell_checker_get_language() != NULL. If it is NULL, the
+		 * inline spell checker should not be created and a warning
+		 * should be printed to say that no dictionaries are available.
+		 */
 		spell->inline_spell = gspell_inline_checker_gtv_new (buffer, spell->checker);
 
 		gspell_inline_checker_gtv_attach_view (spell->inline_spell,
