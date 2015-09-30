@@ -100,6 +100,10 @@ void		gspell_checker_set_correction		(GspellChecker *checker,
 							 const gchar   *word,
 							 const gchar   *replacement);
 
+/* Non-exported function */
+G_GNUC_INTERNAL
+gboolean	_gspell_checker_check_language_set	(GspellChecker *checker);
+
 G_END_DECLS
 
 #endif  /* __GSPELL_CHECKER_H__ */

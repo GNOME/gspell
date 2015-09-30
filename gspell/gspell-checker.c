@@ -82,10 +82,12 @@ gspell_checker_error_quark (void)
 	return quark;
 }
 
-static gboolean
-is_language_set (GspellChecker *checker)
+gboolean
+_gspell_checker_check_language_set (GspellChecker *checker)
 {
 	GspellCheckerPrivate *priv;
+
+	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), FALSE);
 
 	priv = gspell_checker_get_instance_private (checker);
 
@@ -443,7 +445,7 @@ gspell_checker_check_word (GspellChecker  *checker,
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	/* If no dictionaries are available, limit the damage by returning TRUE. */
-	g_return_val_if_fail (is_language_set (checker), TRUE);
+	g_return_val_if_fail (_gspell_checker_check_language_set (checker), TRUE);
 
 	priv = gspell_checker_get_instance_private (checker);
 
@@ -490,7 +492,7 @@ gspell_checker_get_suggestions (GspellChecker *checker,
 
 	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
 	g_return_val_if_fail (word != NULL, NULL);
-	g_return_val_if_fail (is_language_set (checker), NULL);
+	g_return_val_if_fail (_gspell_checker_check_language_set (checker), NULL);
 
 	priv = gspell_checker_get_instance_private (checker);
 
@@ -528,7 +530,7 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
 
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
-	g_return_if_fail (is_language_set (checker));
+	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 
@@ -554,7 +556,7 @@ gspell_checker_add_word_to_session (GspellChecker *checker,
 
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
-	g_return_if_fail (is_language_set (checker));
+	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 
@@ -575,7 +577,7 @@ gspell_checker_clear_session (GspellChecker *checker)
 	GspellCheckerPrivate *priv;
 
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
-	g_return_if_fail (is_language_set (checker));
+	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 
@@ -607,7 +609,7 @@ gspell_checker_set_correction (GspellChecker *checker,
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
 	g_return_if_fail (replacement != NULL);
-	g_return_if_fail (is_language_set (checker));
+	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 

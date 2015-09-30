@@ -94,6 +94,11 @@ check_word (GspellInlineCheckerGtv *spell,
 	GError *error = NULL;
 	gboolean correctly_spelled;
 
+	if (gspell_checker_get_language (spell->spell_checker) == NULL)
+	{
+		return;
+	}
+
 	if (!gtk_text_iter_starts_word (start) ||
 	    !gtk_text_iter_ends_word (end))
 	{
@@ -759,6 +764,8 @@ language_notify_cb (GspellChecker          *checker,
 		    GParamSpec             *pspec,
 		    GspellInlineCheckerGtv *spell)
 {
+	_gspell_checker_check_language_set (checker);
+
 	recheck_all (spell);
 }
 
@@ -935,6 +942,8 @@ set_spell_checker (GspellInlineCheckerGtv *spell,
 	g_return_if_fail (spell->spell_checker == NULL);
 
 	spell->spell_checker = g_object_ref (checker);
+
+	_gspell_checker_check_language_set (checker);
 
 	g_signal_connect_object (spell->spell_checker,
 				 "add_word_to_session",
