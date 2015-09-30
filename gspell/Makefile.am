@@ -1,6 +1,7 @@
 SUBDIRS = resources
 
 AM_CPPFLAGS =				\
+	-DDATADIR=\""$(datadir)"\"	\
 	-DG_LOG_DOMAIN=\"gspell\"	\
 	-I$(top_builddir)		\
 	-I$(top_srcdir)			\
@@ -37,10 +38,12 @@ gspell_public_c_files =				\
 	gspell-navigator-gtv.c
 
 gspell_private_headers =	\
+	gconstructor.h		\
 	gspell-utils.h		\
 	gtktextregion.h
 
 gspell_private_c_files =	\
+	gspell-init.c		\
 	gspell-utils.c		\
 	gtktextregion.c
 
