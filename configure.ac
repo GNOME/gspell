@@ -106,7 +106,7 @@ fi
 # i18n
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.4])
-AC_SUBST([GETTEXT_PACKAGE], [$PACKAGE])
+AC_SUBST([GETTEXT_PACKAGE], [gspell-1])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Define to the gettext package name.])
 
 # Documentation
