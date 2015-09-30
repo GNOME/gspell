@@ -1091,9 +1091,7 @@ gspell_inline_checker_gtv_class_init (GspellInlineCheckerGtvClass *klass)
 	/**
 	 * GspellInlineCheckerGtv:spell-checker:
 	 *
-	 * The #GspellChecker to use. It cannot be changed afterwards. If
-	 * you want to change the language, you need to create another
-	 * #GspellInlineCheckerGtv.
+	 * The #GspellChecker to use.
 	 */
 	g_object_class_install_property (object_class,
 					 PROP_SPELL_CHECKER,

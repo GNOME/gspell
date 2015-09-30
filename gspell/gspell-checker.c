@@ -254,7 +254,10 @@ gspell_checker_init (GspellChecker *checker)
 
 /**
  * gspell_checker_new:
- * @language: (nullable): the #GspellLanguage to use.
+ * @language: (nullable): the #GspellLanguage to use, or %NULL.
+ *
+ * Creates a new #GspellChecker. If @language is %NULL, finds the best available
+ * language based on the current locale.
  *
  * Returns: a new #GspellChecker object.
  */

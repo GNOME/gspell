@@ -116,11 +116,12 @@ gspell_navigator_goto_next (GspellNavigator  *navigator,
  * @word: the word to change.
  * @change_to: the replacement.
  *
- * Changes the current @word by @change_to. @word is the same as returned by the
- * last gspell_navigator_goto_next().
+ * Changes the current @word by @change_to in the text. @word must be the same
+ * as returned by the last call to gspell_navigator_goto_next().
  *
- * gspell_checker_set_correction() has already been called, this function
- * is to make the change in the text. Only the current word should be changed.
+ * This function doesn't call gspell_checker_set_correction(). A widget using a
+ * #GspellNavigator should call gspell_checker_set_correction() in addition to
+ * this function.
  */
 void
 gspell_navigator_change (GspellNavigator *navigator,
@@ -138,10 +139,11 @@ gspell_navigator_change (GspellNavigator *navigator,
  * @word: the word to change.
  * @change_to: the replacement.
  *
- * Changes all occurrences of @word by @change_to.
+ * Changes all occurrences of @word by @change_to in the text.
  *
- * gspell_checker_set_correction() has already been called, this function
- * is to make the change in the text.
+ * This function doesn't call gspell_checker_set_correction(). A widget using a
+ * #GspellNavigator should call gspell_checker_set_correction() in addition to
+ * this function.
  */
 void
 gspell_navigator_change_all (GspellNavigator *navigator,
