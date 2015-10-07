@@ -9,7 +9,7 @@
   <description>gspell provides a flexible API to implement the spell checking
 in a GTK+ application.</description>
 
-  <homepage rdf:resource="https://github.com/swilmet/gspell" />
+  <homepage rdf:resource="https://wiki.gnome.org/Projects/gspell" />
   <download-page rdf:resource="https://people.gnome.org/~swilmet/gspell/" />
 
   <programming-language>C</programming-language>

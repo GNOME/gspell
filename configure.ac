@@ -6,7 +6,7 @@ AC_INIT([gspell],
 	[0.1.1],
 	[https://github.com/swilmet/gspell/issues],
 	[gspell],
-	[https://github.com/swilmet/gspell])
+	[https://wiki.gnome.org/Projects/gspell])
 
 AX_REQUIRE_DEFINED([AX_IS_RELEASE])
 AX_IS_RELEASE([git-directory])

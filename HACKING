@@ -1,10 +1,6 @@
 How to contribute to gspell
 ===========================
 
-Currently gspell is hosted on GitHub:
-
-    https://github.com/swilmet/gspell
-
 Currently the way to contribute is to request a pull.
 
 Apart from that, gspell follows the same guidelines and code conventions as
