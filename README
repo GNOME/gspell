@@ -50,8 +50,8 @@ It is planned to remove the dependencies to GtkSourceView and libxml2 in a
 future version of gspell.
 
 
-Installation
-------------
+Installation from a tarball
+---------------------------
 
 Simple install procedure:
 
@@ -61,6 +61,14 @@ Simple install procedure:
   $ make install
 
 See the file 'INSTALL' for more detailed information.
+
+
+Installation from Git
+---------------------
+
+It is recommended to use Jhbuild:
+
+    https://wiki.gnome.org/Projects/Jhbuild
 
 
 How to contribute
