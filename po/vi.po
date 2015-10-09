@@ -9,9 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-09-26 08:52+0700\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-10-08 21:48+0000\n"
+"PO-Revision-Date: 2015-10-09 15:07+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
 "Language: vi\n"
@@ -21,12 +22,17 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:466
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Gặp lỗi khi kiểm tra chính tả của từ “%s”: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:577
 msgid "(no suggested words)"
 msgstr "(không có từ để gợi ý)"
 
@@ -42,6 +48,10 @@ msgstr "Hoàn thành kiểm lỗi chính tả"
 msgid "No misspelled words"
 msgstr "Không có từ sai chính tả"
 
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
 #: gspell/gspell-checker-dialog.c:507
 msgid "(correct spelling)"
 msgstr "(đúng chính tả)"
@@ -50,46 +60,67 @@ msgstr "(đúng chính tả)"
 msgid "Suggestions"
 msgstr "Gợi ý"
 
-#: gspell/gspell-inline-checker-gtv.c:595
+#: gspell/gspell-inline-checker-gtv.c:600
 msgid "_More..."
 msgstr "Thê_m nữa…"
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#. Ignore all
+#: gspell/gspell-inline-checker-gtv.c:640
 msgid "_Ignore All"
 msgstr "Bỏ _qua tất cả"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-inline-checker-gtv.c:649
 msgid "_Add"
 msgstr "Thê_m"
 
-#: gspell/gspell-inline-checker-gtv.c:681
+#. Prepend suggestions
+#: gspell/gspell-inline-checker-gtv.c:686
 msgid "_Spelling Suggestions..."
 msgstr "_Gợi ý chính tả…"
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#. Translators: the first %s is the language name, and
+#. * the second %s is the locale name. Example:
+#. * "French (France)"
+#.
+#: gspell/gspell-language.c:359 gspell/gspell-language.c:365
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gspell/gspell-language.c:369
+#. Translators: this refers to an unknown language code
+#. * (one which isn't in our built-in list).
+#.
+#: gspell/gspell-language.c:374
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Chưa biết (%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: this refers the Default language used by the
+#. * spell checker
+#.
+#: gspell/gspell-language.c:486
 msgctxt "language"
 msgid "Default"
 msgstr "Mặc định"
 
 #: gspell/gspell-language-chooser-button.c:78
 msgid "No language selected"
+msgstr "Chưa chọn ngôn ngữ"
+
+#: gspell/gspell-navigator-gtv.c:334
+msgid ""
+"Spell checker error: no language set. It's maybe because no dictionaries are "
+"installed."
 msgstr ""
+"Bộ kiểm tra chính tả gặp lỗi: chưa đặt ngôn ngữ. Nguyên nhân có thể là do từ "
+"điển chưa được cài đặt."
 
 #: gspell/resources/checker-dialog.ui:8
 msgid "Check Spelling"
-msgstr "Kiểm lỗi chính tả"
+msgstr "Kiểm tra chính tả"
 
 #: gspell/resources/checker-dialog.ui:27
 msgid "Misspelled word:"
