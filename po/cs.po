@@ -19,9 +19,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-09-17 09:29+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-10-07 13:19+0000\n"
+"PO-Revision-Date: 2015-10-13 12:21+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -31,12 +32,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:466
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Chyba při kontrole pravopisu slova „%s“: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:577
 msgid "(no suggested words)"
 msgstr "(žádná navrhovaná slova)"
 
@@ -52,6 +58,10 @@ msgstr "Kontrola pravopisu dokončena"
 msgid "No misspelled words"
 msgstr "Žádná chybná slova"
 
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
 #: gspell/gspell-checker-dialog.c:507
 msgid "(correct spelling)"
 msgstr "(správný tvar)"
@@ -60,42 +70,63 @@ msgstr "(správný tvar)"
 msgid "Suggestions"
 msgstr "Návrhy"
 
-#: gspell/gspell-inline-checker-gtv.c:595
+#: gspell/gspell-inline-checker-gtv.c:600
 msgid "_More..."
 msgstr "Ví_ce…"
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#. Ignore all
+#: gspell/gspell-inline-checker-gtv.c:640
 msgid "_Ignore All"
 msgstr "_Ignorovat vše"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-inline-checker-gtv.c:649
 msgid "_Add"
 msgstr "Přid_at"
 
-#: gspell/gspell-inline-checker-gtv.c:681
+#. Prepend suggestions
+#: gspell/gspell-inline-checker-gtv.c:686
 msgid "_Spelling Suggestions..."
 msgstr "Návrhy pravopi_su…"
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#. Translators: the first %s is the language name, and
+#. * the second %s is the locale name. Example:
+#. * "French (France)"
+#.
+#: gspell/gspell-language.c:359 gspell/gspell-language.c:365
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gspell/gspell-language.c:369
+#. Translators: this refers to an unknown language code
+#. * (one which isn't in our built-in list).
+#.
+#: gspell/gspell-language.c:374
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Neznámý (%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: this refers the Default language used by the
+#. * spell checker
+#.
+#: gspell/gspell-language.c:486
 msgctxt "language"
 msgid "Default"
 msgstr "Výchozí"
 
 #: gspell/gspell-language-chooser-button.c:78
 msgid "No language selected"
+msgstr "Není vybrán žádný jazyk"
+
+#: gspell/gspell-navigator-gtv.c:334
+msgid ""
+"Spell checker error: no language set. It's maybe because no dictionaries are "
+"installed."
 msgstr ""
+"Chyba kontroly pravopisu: není nastaven žádný jazyk. Důvodem může být, že "
+"nejsou nainstalovány žádné slovníky."
 
 #: gspell/resources/checker-dialog.ui:8
 msgid "Check Spelling"
