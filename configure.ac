@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.64)
 
 AC_INIT([gspell],
-	[0.1.1],
+	[0.1.2],
 	[https://github.com/swilmet/gspell/issues],
 	[gspell],
 	[https://wiki.gnome.org/Projects/gspell])
