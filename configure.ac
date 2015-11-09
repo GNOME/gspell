@@ -4,7 +4,7 @@ AC_PREREQ(2.64)
 
 AC_INIT([gspell],
 	[0.1.2],
-	[https://github.com/swilmet/gspell/issues],
+	[https://bugzilla.gnome.org/page.cgi?id=browse.html&product=gspell],
 	[gspell],
 	[https://wiki.gnome.org/Projects/gspell])
 

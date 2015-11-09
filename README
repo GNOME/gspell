@@ -21,6 +21,11 @@ You can download the latest gspell tarball from:
 
     https://download.gnome.org/sources/gspell/
 
+Bugs and feature requests should be reported in bugzilla, but please search the
+database before filing a new bug:
+
+    https://bugzilla.gnome.org/page.cgi?id=browse.html&product=gspell
+
 
 WARNING - API (un)stability
 ---------------------------
