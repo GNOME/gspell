@@ -2,7 +2,7 @@
 AUTOMAKE_OPTIONS = 1.6
 
 # The name of the module.
-DOC_MODULE = gspell1
+DOC_MODULE = gspell-1.0
 
 # The top-level XML file (SGML in the past).
 DOC_MAIN_SGML_FILE = gspell-docs.xml
@@ -45,9 +45,9 @@ FIXXREF_OPTIONS =							\
 GTKDOC_CFLAGS = -I$(top_srcdir) $(DEP_CFLAGS)
 GTKDOC_LIBS = $(top_builddir)/gspell/libgspell-1.la $(DEP_LIBS)
 
-MAINTAINERCLEANFILES =		\
-	gspell1-overrides.txt	\
-	gspell1.types
+MAINTAINERCLEANFILES =			\
+	gspell-1.0-overrides.txt	\
+	gspell-1.0.types
 
 # include common portion ...
 include $(top_srcdir)/gtk-doc.make
