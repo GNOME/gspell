@@ -35,11 +35,12 @@
  * button is pressed or when a row is activated (e.g. with a double-click).
  */
 
-enum
+typedef struct _GspellLanguageChooserDialogPrivate GspellLanguageChooserDialogPrivate;
+
+struct _GspellLanguageChooserDialogPrivate
 {
-	COLUMN_LANGUAGE_NAME,
-	COLUMN_LANGUAGE_POINTER,
-	N_COLUMNS
+	GtkTreeView *treeview;
+	const GspellLanguage *language;
 };
 
 enum
@@ -48,12 +49,11 @@ enum
 	PROP_LANGUAGE,
 };
 
-struct _GspellLanguageChooserDialog
+enum
 {
-	GtkDialog dialog;
-
-	GtkTreeView *treeview;
-	const GspellLanguage *language;
+	COLUMN_LANGUAGE_NAME,
+	COLUMN_LANGUAGE_POINTER,
+	N_COLUMNS
 };
 
 static void gspell_language_chooser_dialog_iface_init (GspellLanguageChooserInterface *iface);
@@ -61,6 +61,7 @@ static void gspell_language_chooser_dialog_iface_init (GspellLanguageChooserInte
 G_DEFINE_TYPE_WITH_CODE (GspellLanguageChooserDialog,
 			 gspell_language_chooser_dialog,
 			 GTK_TYPE_DIALOG,
+			 G_ADD_PRIVATE (GspellLanguageChooserDialog)
 			 G_IMPLEMENT_INTERFACE (GSPELL_TYPE_LANGUAGE_CHOOSER,
 						gspell_language_chooser_dialog_iface_init))
 
@@ -91,9 +92,13 @@ scroll_to_selected (GtkTreeView *tree_view)
 static const GspellLanguage *
 gspell_language_chooser_dialog_get_language (GspellLanguageChooser *chooser)
 {
-	GspellLanguageChooserDialog *dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (chooser);
+	GspellLanguageChooserDialog *dialog;
+	GspellLanguageChooserDialogPrivate *priv;
 
-	return dialog->language;
+	dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (chooser);
+	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
+
+	return priv->language;
 }
 
 static void
@@ -101,28 +106,30 @@ gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
 					     const GspellLanguage  *language)
 {
 	GspellLanguageChooserDialog *dialog;
+	GspellLanguageChooserDialogPrivate *priv;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
 	dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (chooser);
+	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
 
-	selection = gtk_tree_view_get_selection (dialog->treeview);
+	selection = gtk_tree_view_get_selection (priv->treeview);
 
 	if (language == NULL)
 	{
 		gtk_tree_selection_unselect_all (selection);
 
-		if (dialog->language != NULL)
+		if (priv->language != NULL)
 		{
-			dialog->language = NULL;
+			priv->language = NULL;
 			g_object_notify (G_OBJECT (dialog), "language");
 		}
 
 		return;
 	}
 
-	model = gtk_tree_view_get_model (dialog->treeview);
+	model = gtk_tree_view_get_model (priv->treeview);
 
 	if (!gtk_tree_model_get_iter_first (model, &iter))
 	{
@@ -140,11 +147,11 @@ gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
 		if (language == cur_lang)
 		{
 			gtk_tree_selection_select_iter (selection, &iter);
-			scroll_to_selected (dialog->treeview);
+			scroll_to_selected (priv->treeview);
 
-			if (dialog->language != language)
+			if (priv->language != language)
 			{
-				dialog->language = language;
+				priv->language = language;
 				g_object_notify (G_OBJECT (dialog), "language");
 			}
 
@@ -209,6 +216,7 @@ gspell_language_chooser_dialog_response (GtkDialog *gtk_dialog,
 					 gint       response)
 {
 	GspellLanguageChooserDialog *dialog;
+	GspellLanguageChooserDialogPrivate *priv;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -220,8 +228,9 @@ gspell_language_chooser_dialog_response (GtkDialog *gtk_dialog,
 	}
 
 	dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (gtk_dialog);
+	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
 
-	selection = gtk_tree_view_get_selection (dialog->treeview);
+	selection = gtk_tree_view_get_selection (priv->treeview);
 
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
@@ -232,9 +241,9 @@ gspell_language_chooser_dialog_response (GtkDialog *gtk_dialog,
 			    COLUMN_LANGUAGE_POINTER, &lang,
 			    -1);
 
-	if (dialog->language != lang)
+	if (priv->language != lang)
 	{
-		dialog->language = lang;
+		priv->language = lang;
 		g_object_notify (G_OBJECT (dialog), "language");
 	}
 }
@@ -255,13 +264,13 @@ gspell_language_chooser_dialog_class_init (GspellLanguageChooserDialogClass *kla
 
 	/* Bind class to template */
 	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/gspell/language-dialog.ui");
-	gtk_widget_class_bind_template_child (widget_class, GspellLanguageChooserDialog, treeview);
+	gtk_widget_class_bind_template_child_private (widget_class, GspellLanguageChooserDialog, treeview);
 }
 
 static void
-row_activated_cb (GtkTreeView          *tree_view,
-		  GtkTreePath          *path,
-		  GtkTreeViewColumn    *column,
+row_activated_cb (GtkTreeView                 *tree_view,
+		  GtkTreePath                 *path,
+		  GtkTreeViewColumn           *column,
 		  GspellLanguageChooserDialog *dialog)
 {
 	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
@@ -270,11 +279,14 @@ row_activated_cb (GtkTreeView          *tree_view,
 static void
 populate_language_list (GspellLanguageChooserDialog *dialog)
 {
+	GspellLanguageChooserDialogPrivate *priv;
 	GtkListStore *store;
 	const GSList *available_langs;
 	const GSList *l;
 
-	store = GTK_LIST_STORE (gtk_tree_view_get_model (dialog->treeview));
+	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
+
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (priv->treeview));
 
 	available_langs = gspell_checker_get_available_languages ();
 
@@ -297,14 +309,17 @@ populate_language_list (GspellLanguageChooserDialog *dialog)
 static void
 gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 {
+	GspellLanguageChooserDialogPrivate *priv;
 	GtkListStore *store;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 
+	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
+
 	gtk_widget_init_template (GTK_WIDGET (dialog));
 
 	store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, GSPELL_TYPE_LANGUAGE);
-	gtk_tree_view_set_model (dialog->treeview, GTK_TREE_MODEL (store));
+	gtk_tree_view_set_model (priv->treeview, GTK_TREE_MODEL (store));
 	g_object_unref (store);
 
 	/* Add the language column */
@@ -314,20 +329,20 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 	gtk_tree_view_column_add_attribute (column, renderer,
 					    "text", COLUMN_LANGUAGE_NAME);
 
-	gtk_tree_view_append_column (dialog->treeview, column);
+	gtk_tree_view_append_column (priv->treeview, column);
 
-	gtk_tree_view_set_search_column (dialog->treeview, COLUMN_LANGUAGE_NAME);
+	gtk_tree_view_set_search_column (priv->treeview, COLUMN_LANGUAGE_NAME);
 
-	gtk_widget_grab_focus (GTK_WIDGET (dialog->treeview));
+	gtk_widget_grab_focus (GTK_WIDGET (priv->treeview));
 
 	populate_language_list (dialog);
 
-	g_signal_connect (dialog->treeview,
+	g_signal_connect (priv->treeview,
 			  "realize",
 			  G_CALLBACK (scroll_to_selected),
 			  dialog);
 
-	g_signal_connect (dialog->treeview,
+	g_signal_connect (priv->treeview,
 			  "row-activated",
 			  G_CALLBACK (row_activated_cb),
 			  dialog);
