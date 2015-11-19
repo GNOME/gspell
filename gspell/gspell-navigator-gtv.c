@@ -29,7 +29,7 @@
  * @See_also: #GspellNavigator, #GspellCheckerDialog
  *
  * #GspellNavigatorGtv is a simple implementation of the
- * #GspellNavigator interface.
+ * #GspellNavigator interface for the #GtkTextView widget.
  *
  * If a selection exists in the #GtkTextView, only the selected text is spell
  * checked. Otherwise the whole buffer is checked. The same #GspellChecker

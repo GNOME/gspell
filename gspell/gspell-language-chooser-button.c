@@ -25,7 +25,7 @@
 
 /**
  * SECTION:language-chooser-button
- * @Short_description: Button to choose a spell language
+ * @Short_description: Button to choose a GspellLanguage
  * @Title: GspellLanguageChooserButton
  * @See_also: #GspellLanguage, #GspellLanguageChooser
  *

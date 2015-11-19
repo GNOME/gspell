@@ -23,7 +23,7 @@
 
 /**
  * SECTION:language-chooser-dialog
- * @Short_description: Dialog to choose a spell language
+ * @Short_description: Dialog to choose a GspellLanguage
  * @Title: GspellLanguageChooserDialog
  * @See_also: #GspellLanguage, #GspellLanguageChooser
  *
