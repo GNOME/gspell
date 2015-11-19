@@ -12,18 +12,34 @@
     <releaseinfo>for gspell &package_version;</releaseinfo>
   </bookinfo>
 
-  <chapter>
+  <part>
     <title>API reference</title>
-    <xi:include href="xml/checker.xml"/>
-    <xi:include href="xml/checker-dialog.xml"/>
-    <xi:include href="xml/inline-checker-gtv.xml"/>
-    <xi:include href="xml/language.xml"/>
-    <xi:include href="xml/language-chooser.xml"/>
-    <xi:include href="xml/language-chooser-button.xml"/>
-    <xi:include href="xml/language-chooser-dialog.xml"/>
-    <xi:include href="xml/navigator.xml"/>
-    <xi:include href="xml/navigator-gtv.xml"/>
-  </chapter>
+
+    <chapter>
+      <title>Main Classes</title>
+      <xi:include href="xml/checker.xml"/>
+      <xi:include href="xml/language.xml"/>
+    </chapter>
+
+    <chapter>
+      <title>Inline Checkers</title>
+      <xi:include href="xml/inline-checker-gtv.xml"/>
+    </chapter>
+
+    <chapter>
+      <title>External Checkers</title>
+      <xi:include href="xml/checker-dialog.xml"/>
+      <xi:include href="xml/navigator.xml"/>
+      <xi:include href="xml/navigator-gtv.xml"/>
+    </chapter>
+
+    <chapter>
+      <title>Language Choosers</title>
+      <xi:include href="xml/language-chooser.xml"/>
+      <xi:include href="xml/language-chooser-button.xml"/>
+      <xi:include href="xml/language-chooser-dialog.xml"/>
+    </chapter>
+  </part>
 
   <chapter id="object-tree">
     <title>Object Hierarchy</title>
