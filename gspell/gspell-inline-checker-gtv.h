@@ -26,7 +26,7 @@
 #define __GSPELL_INLINE_CHECKER_GTV_H__
 
 #include <gtksourceview/gtksource.h>
-#include "gspell-checker.h"
+#include <gspell/gspell-checker.h>
 
 #define GSPELL_TYPE_INLINE_CHECKER_GTV (gspell_inline_checker_gtv_get_type ())
 G_DECLARE_FINAL_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv,

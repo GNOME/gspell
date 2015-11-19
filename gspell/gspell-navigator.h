@@ -21,7 +21,7 @@
 #define __GSPELL_NAVIGATOR_H__
 
 #include <glib-object.h>
-#include "gspell-checker.h"
+#include <gspell/gspell-checker.h>
 
 G_BEGIN_DECLS
 

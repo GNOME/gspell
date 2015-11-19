@@ -22,7 +22,7 @@
 #define __GSPELL_CHECKER_H__
 
 #include <glib-object.h>
-#include "gspell-language.h"
+#include <gspell/gspell-language.h>
 
 G_BEGIN_DECLS
 

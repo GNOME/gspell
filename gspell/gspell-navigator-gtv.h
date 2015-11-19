@@ -21,8 +21,8 @@
 #define __GSPELL_NAVIGATOR_GTV_H__
 
 #include <gtk/gtk.h>
-#include "gspell-navigator.h"
-#include "gspell-checker.h"
+#include <gspell/gspell-navigator.h>
+#include <gspell/gspell-checker.h>
 
 G_BEGIN_DECLS
 

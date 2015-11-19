@@ -22,7 +22,7 @@
 #define __GSPELL_LANGUAGE_CHOOSER_DIALOG_H__
 
 #include <gtk/gtk.h>
-#include "gspell-language.h"
+#include <gspell/gspell-language.h>
 
 G_BEGIN_DECLS
 

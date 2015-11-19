@@ -22,7 +22,7 @@
 #define __GSPELL_CHECKER_DIALOG_H__
 
 #include <gtk/gtk.h>
-#include "gspell-navigator.h"
+#include <gspell/gspell-navigator.h>
 
 G_BEGIN_DECLS
 
