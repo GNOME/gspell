@@ -27,9 +27,17 @@
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_CHECKER_DIALOG (gspell_checker_dialog_get_type ())
-G_DECLARE_FINAL_TYPE (GspellCheckerDialog, gspell_checker_dialog,
-		      GSPELL, CHECKER_DIALOG,
-		      GtkDialog)
+G_DECLARE_DERIVABLE_TYPE (GspellCheckerDialog, gspell_checker_dialog,
+			  GSPELL, CHECKER_DIALOG,
+			  GtkDialog)
+
+struct _GspellCheckerDialogClass
+{
+	GtkDialogClass parent_class;
+
+	/* Padding for future expansion */
+	gpointer padding[8];
+};
 
 GtkWidget *	gspell_checker_dialog_new		(GtkWindow       *parent,
 							 GspellNavigator *navigator);

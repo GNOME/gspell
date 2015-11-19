@@ -35,11 +35,6 @@
 
 typedef struct _GspellCheckerDialogPrivate GspellCheckerDialogPrivate;
 
-struct _GspellCheckerDialog
-{
-	GtkDialog parent_instance;
-};
-
 struct _GspellCheckerDialogPrivate
 {
 	GspellNavigator *navigator;
