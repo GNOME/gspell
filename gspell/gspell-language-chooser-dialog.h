@@ -40,7 +40,8 @@ struct _GspellLanguageChooserDialogClass
 };
 
 GtkWidget *	gspell_language_chooser_dialog_new		(GtkWindow            *parent,
-								 const GspellLanguage *current_language);
+								 const GspellLanguage *current_language,
+								 GtkDialogFlags        flags);
 
 G_END_DECLS
 

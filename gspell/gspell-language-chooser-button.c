@@ -202,8 +202,11 @@ ensure_dialog (GspellLanguageChooserButton *button)
 		parent = GTK_WINDOW (toplevel);
 	}
 
-	priv->dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (gspell_language_chooser_dialog_new (parent,
-											   priv->language));
+	priv->dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (
+		gspell_language_chooser_dialog_new (parent,
+						    priv->language,
+						    GTK_DIALOG_DESTROY_WITH_PARENT |
+						    GTK_DIALOG_USE_HEADER_BAR));
 
 	if (parent != NULL)
 	{

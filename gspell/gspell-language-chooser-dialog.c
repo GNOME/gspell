@@ -221,6 +221,27 @@ gspell_language_chooser_dialog_set_property (GObject      *object,
 }
 
 static void
+gspell_language_chooser_dialog_constructed (GObject *object)
+{
+	gint use_header_bar;
+
+	if (G_OBJECT_CLASS (gspell_language_chooser_dialog_parent_class)->constructed != NULL)
+	{
+		G_OBJECT_CLASS (gspell_language_chooser_dialog_parent_class)->constructed (object);
+	}
+
+	g_object_get (object,
+		      "use-header-bar", &use_header_bar,
+		      NULL);
+
+	if (use_header_bar)
+	{
+		/* Avoid the title being ellipsized, if possible (for translations too). */
+		gtk_widget_set_size_request (GTK_WIDGET (object), 450, -1);
+	}
+}
+
+static void
 dialog_response_cb (GtkDialog *gtk_dialog,
 		    gint       response)
 {
@@ -265,6 +286,7 @@ gspell_language_chooser_dialog_class_init (GspellLanguageChooserDialogClass *kla
 
 	object_class->get_property = gspell_language_chooser_dialog_get_property;
 	object_class->set_property = gspell_language_chooser_dialog_set_property;
+	object_class->constructed = gspell_language_chooser_dialog_constructed;
 
 	g_object_class_override_property (object_class, PROP_LANGUAGE, "language");
 
@@ -373,18 +395,23 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
  * gspell_language_chooser_dialog_new:
  * @parent: transient parent of the dialog.
  * @current_language: the #GspellLanguage to select initially.
+ * @flags: #GtkDialogFlags
  *
  * Returns: a new #GspellLanguageChooserDialog widget.
  */
 GtkWidget *
 gspell_language_chooser_dialog_new (GtkWindow            *parent,
-				    const GspellLanguage *current_language)
+				    const GspellLanguage *current_language,
+				    GtkDialogFlags        flags)
 {
 	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
 
 	return g_object_new (GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG,
 			     "transient-for", parent,
 			     "language", current_language,
+			     "modal", (flags & GTK_DIALOG_MODAL) != 0,
+			     "destroy-with-parent", (flags & GTK_DIALOG_DESTROY_WITH_PARENT) != 0,
+			     "use-header-bar", (flags & GTK_DIALOG_USE_HEADER_BAR) != 0,
 			     NULL);
 }
 
