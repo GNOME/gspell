@@ -33,6 +33,15 @@
  *
  * The #GspellLanguageChooser:language property is updated only when the Select
  * button is pressed or when a row is activated (e.g. with a double-click).
+ *
+ * The application is responsible to destroy the dialog, typically when the
+ * #GtkDialog::response signal has been received or gtk_dialog_run() has
+ * returned.
+ *
+ * If you want to add a #GtkResponseType for your application (for example to
+ * add an Help button), use a positive value. The response IDs used by
+ * #GspellLanguageChooserDialog are an implementation detail and are not exposed
+ * in the API.
  */
 
 typedef struct _GspellLanguageChooserDialogPrivate GspellLanguageChooserDialogPrivate;
@@ -212,8 +221,8 @@ gspell_language_chooser_dialog_set_property (GObject      *object,
 }
 
 static void
-gspell_language_chooser_dialog_response (GtkDialog *gtk_dialog,
-					 gint       response)
+dialog_response_cb (GtkDialog *gtk_dialog,
+		    gint       response)
 {
 	GspellLanguageChooserDialog *dialog;
 	GspellLanguageChooserDialogPrivate *priv;
@@ -253,12 +262,9 @@ gspell_language_chooser_dialog_class_init (GspellLanguageChooserDialogClass *kla
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-	GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (klass);
 
 	object_class->get_property = gspell_language_chooser_dialog_get_property;
 	object_class->set_property = gspell_language_chooser_dialog_set_property;
-
-	dialog_class->response = gspell_language_chooser_dialog_response;
 
 	g_object_class_override_property (object_class, PROP_LANGUAGE, "language");
 
@@ -346,6 +352,21 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 			  "row-activated",
 			  G_CALLBACK (row_activated_cb),
 			  dialog);
+
+	/* Be the first to receive the signal, to notify the property before the
+	 * dialog gets destroyed by the app.
+	 * It means that the behavior of the dialog is not fully overridable by
+	 * an app, but I don't think it's really important and worst case a new
+	 * GspellLanguageChooser implementation can be written. If our
+	 * ::response handler was done in the object method handler, apps would
+	 * need to connect to the ::response signal with the after flag to
+	 * destroy the dialog, which is less convenient and needs more
+	 * documentation.
+	 */
+	g_signal_connect (dialog,
+			  "response",
+			  G_CALLBACK (dialog_response_cb),
+			  NULL);
 }
 
 /**
