@@ -27,6 +27,14 @@ database before filing a new bug:
     https://bugzilla.gnome.org/page.cgi?id=browse.html&product=gspell
 
 
+About versions
+--------------
+
+gspell follows the GNOME release schedule.
+
+gspell 0.1.x should be installed alongside GNOME 3.18.
+
+
 WARNING - API (un)stability
 ---------------------------
 
