@@ -37,11 +37,6 @@
  * The application is responsible to destroy the dialog, typically when the
  * #GtkDialog::response signal has been received or gtk_dialog_run() has
  * returned.
- *
- * If you want to add a #GtkResponseType for your application (for example to
- * add an Help button), use a positive value. The response IDs used by
- * #GspellLanguageChooserDialog are an implementation detail and are not exposed
- * in the API.
  */
 
 typedef struct _GspellLanguageChooserDialogPrivate GspellLanguageChooserDialogPrivate;
