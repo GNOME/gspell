@@ -165,8 +165,8 @@ gspell_language_chooser_button_constructed (GObject *object)
 }
 
 static void
-dialog_response_after_cb (GtkDialog *dialog,
-			  gint       response)
+dialog_response_cb (GtkDialog *dialog,
+		    gint       response)
 {
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
@@ -218,10 +218,10 @@ ensure_dialog (GspellLanguageChooserButton *button)
 				button, "language",
 				G_BINDING_DEFAULT);
 
-	g_signal_connect_after (priv->dialog,
-				"response",
-				G_CALLBACK (dialog_response_after_cb),
-				NULL);
+	g_signal_connect (priv->dialog,
+			  "response",
+			  G_CALLBACK (dialog_response_cb),
+			  NULL);
 
 	g_signal_connect_object (priv->dialog,
 				 "destroy",
