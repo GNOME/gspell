@@ -17,6 +17,9 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef __GSPELL_H__
+#define __GSPELL_H__
+
 #include <gspell/gspell-checker.h>
 #include <gspell/gspell-checker-dialog.h>
 #include <gspell/gspell-inline-checker-gtv.h>
@@ -26,5 +29,7 @@
 #include <gspell/gspell-language-chooser-dialog.h>
 #include <gspell/gspell-navigator.h>
 #include <gspell/gspell-navigator-gtv.h>
+
+#endif /* __GSPELL_H__ */
 
 /* ex:set ts=8 noet: */
