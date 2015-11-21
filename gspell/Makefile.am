@@ -3,6 +3,7 @@ SUBDIRS = resources
 AM_CPPFLAGS =				\
 	-DDATADIR=\""$(datadir)"\"	\
 	-DG_LOG_DOMAIN=\"gspell\"	\
+	-DGSPELL_COMPILATION		\
 	-I$(top_builddir)		\
 	-I$(top_srcdir)			\
 	$(WARN_CFLAGS)			\

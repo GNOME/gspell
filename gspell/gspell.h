@@ -20,6 +20,8 @@
 #ifndef __GSPELL_H__
 #define __GSPELL_H__
 
+#define __GSPELL_H_INSIDE__
+
 #include <gspell/gspell-checker.h>
 #include <gspell/gspell-checker-dialog.h>
 #include <gspell/gspell-inline-checker-gtv.h>
@@ -29,6 +31,8 @@
 #include <gspell/gspell-language-chooser-dialog.h>
 #include <gspell/gspell-navigator.h>
 #include <gspell/gspell-navigator-gtv.h>
+
+#undef __GSPELL_H_INSIDE__
 
 #endif /* __GSPELL_H__ */
 

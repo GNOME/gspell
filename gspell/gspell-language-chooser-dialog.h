@@ -21,6 +21,10 @@
 #ifndef __GSPELL_LANGUAGE_CHOOSER_DIALOG_H__
 #define __GSPELL_LANGUAGE_CHOOSER_DIALOG_H__
 
+#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
+
 #include <gtk/gtk.h>
 #include <gspell/gspell-language.h>
 

@@ -21,6 +21,10 @@
 #ifndef __GSPELL_LANGUAGE_H__
 #define __GSPELL_LANGUAGE_H__
 
+#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS

@@ -25,6 +25,10 @@
 #ifndef __GSPELL_INLINE_CHECKER_GTV_H__
 #define __GSPELL_INLINE_CHECKER_GTV_H__
 
+#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
+
 #include <gtksourceview/gtksource.h>
 #include <gspell/gspell-checker.h>
 
