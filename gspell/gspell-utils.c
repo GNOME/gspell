@@ -24,7 +24,7 @@
 
 gboolean
 _gspell_utils_is_digit (const gchar *text,
-			gint         text_length)
+			gssize       text_length)
 {
 	const gchar *p;
 	const gchar *end;

@@ -27,7 +27,7 @@ G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
 gboolean	_gspell_utils_is_digit			(const gchar *text,
-							 gint         text_length);
+							 gssize       text_length);
 
 G_GNUC_INTERNAL
 gboolean	_gspell_utils_skip_no_spell_check	(GtkTextIter       *start,

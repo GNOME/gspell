@@ -436,7 +436,7 @@ gspell_checker_get_language (GspellChecker *checker)
 gboolean
 gspell_checker_check_word (GspellChecker  *checker,
 			   const gchar    *word,
-			   gint            word_length,
+			   gssize          word_length,
 			   GError        **error)
 {
 	GspellCheckerPrivate *priv;
