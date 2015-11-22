@@ -360,7 +360,7 @@ init_dictionary (GspellChecker *checker)
 	}
 
 	app_name = g_get_application_name ();
-	gspell_checker_add_word_to_session (checker, app_name);
+	gspell_checker_add_word_to_session (checker, app_name, -1);
 
 	return TRUE;
 }
@@ -579,6 +579,7 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
  * gspell_checker_add_word_to_session:
  * @checker: a #GspellChecker.
  * @word: a word.
+ * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  *
  * Adds a word to the session dictionary. The session dictionary is lost when
  * the application exits. This function is typically called when an “Ignore All”
@@ -586,19 +587,36 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
  */
 void
 gspell_checker_add_word_to_session (GspellChecker *checker,
-				    const gchar   *word)
+				    const gchar   *word,
+				    gssize         word_length)
 {
 	GspellCheckerPrivate *priv;
 
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
+	g_return_if_fail (word_length >= -1);
 	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 
-	enchant_dict_add_to_session (priv->dict, word, -1);
+	enchant_dict_add_to_session (priv->dict, word, word_length);
 
-	g_signal_emit (G_OBJECT (checker), signals[SIGNAL_ADD_WORD_TO_SESSION], 0, word);
+	if (word_length == -1)
+	{
+		g_signal_emit (G_OBJECT (checker),
+			       signals[SIGNAL_ADD_WORD_TO_SESSION], 0,
+			       word);
+	}
+	else
+	{
+		gchar *nul_terminated_word = g_strndup (word, word_length);
+
+		g_signal_emit (G_OBJECT (checker),
+			       signals[SIGNAL_ADD_WORD_TO_SESSION], 0,
+			       nul_terminated_word);
+
+		g_free (nul_terminated_word);
+	}
 }
 
 /**

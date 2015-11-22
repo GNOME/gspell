@@ -99,7 +99,8 @@ void		gspell_checker_add_word_to_personal	(GspellChecker *checker,
 							 gssize         word_length);
 
 void		gspell_checker_add_word_to_session	(GspellChecker *checker,
-							 const gchar   *word);
+							 const gchar   *word,
+							 gssize         word_length);
 
 void		gspell_checker_clear_session		(GspellChecker *checker);
 
