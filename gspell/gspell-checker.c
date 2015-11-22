@@ -536,25 +536,43 @@ gspell_checker_get_suggestions (GspellChecker *checker,
  * gspell_checker_add_word_to_personal:
  * @checker: a #GspellChecker.
  * @word: a word.
+ * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  *
  * Adds a word to the personal dictionary. It is typically saved in the user
  * home directory.
  */
 void
 gspell_checker_add_word_to_personal (GspellChecker *checker,
-				     const gchar   *word)
+				     const gchar   *word,
+				     gssize         word_length)
 {
 	GspellCheckerPrivate *priv;
 
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
+	g_return_if_fail (word_length >= -1);
 	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 
-	enchant_dict_add (priv->dict, word, -1);
+	enchant_dict_add (priv->dict, word, word_length);
 
-	g_signal_emit (G_OBJECT (checker), signals[SIGNAL_ADD_WORD_TO_PERSONAL], 0, word);
+	if (word_length == -1)
+	{
+		g_signal_emit (G_OBJECT (checker),
+			       signals[SIGNAL_ADD_WORD_TO_PERSONAL], 0,
+			       word);
+	}
+	else
+	{
+		gchar *nul_terminated_word = g_strndup (word, word_length);
+
+		g_signal_emit (G_OBJECT (checker),
+			       signals[SIGNAL_ADD_WORD_TO_PERSONAL], 0,
+			       nul_terminated_word);
+
+		g_free (nul_terminated_word);
+	}
 }
 
 /**

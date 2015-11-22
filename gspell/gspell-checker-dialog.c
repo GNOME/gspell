@@ -526,7 +526,7 @@ add_word_button_clicked_handler (GtkButton           *button,
 
 	g_return_if_fail (priv->misspelled_word != NULL);
 
-	gspell_checker_add_word_to_personal (priv->checker, priv->misspelled_word);
+	gspell_checker_add_word_to_personal (priv->checker, priv->misspelled_word, -1);
 
 	goto_next (dialog);
 }

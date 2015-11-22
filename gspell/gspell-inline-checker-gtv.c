@@ -503,7 +503,7 @@ add_to_dictionary_cb (GtkWidget              *menu_item,
 
 	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
 
-	gspell_checker_add_word_to_personal (spell->spell_checker, word);
+	gspell_checker_add_word_to_personal (spell->spell_checker, word, -1);
 
 	g_free (word);
 }
