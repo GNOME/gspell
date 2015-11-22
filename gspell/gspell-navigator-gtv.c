@@ -404,7 +404,7 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 
 		word = gtk_text_buffer_get_text (priv->buffer, &word_start, &word_end, FALSE);
 
-		correctly_spelled = gspell_checker_check_word (priv->spell_checker, word, &error);
+		correctly_spelled = gspell_checker_check_word (priv->spell_checker, word, -1, &error);
 
 		if (error != NULL)
 		{

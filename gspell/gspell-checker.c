@@ -22,6 +22,7 @@
 #include "gspell-checker.h"
 #include <enchant.h>
 #include <glib/gi18n-lib.h>
+#include <string.h>
 #include "gspell-utils.h"
 
 #ifdef OS_OSX
@@ -427,6 +428,7 @@ gspell_checker_get_language (GspellChecker *checker)
  * gspell_checker_check_word:
  * @checker: a #GspellChecker.
  * @word: the word to check.
+ * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  * @error: (out) (optional): a location to a %NULL #GError, or %NULL.
  *
  * Returns: whether @word is correctly spelled.
@@ -434,6 +436,7 @@ gspell_checker_get_language (GspellChecker *checker)
 gboolean
 gspell_checker_check_word (GspellChecker  *checker,
 			   const gchar    *word,
+			   gint            word_length,
 			   GError        **error)
 {
 	GspellCheckerPrivate *priv;
@@ -442,6 +445,7 @@ gspell_checker_check_word (GspellChecker  *checker,
 
 	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), FALSE);
 	g_return_val_if_fail (word != NULL, FALSE);
+	g_return_val_if_fail (word_length >= -1, FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	/* If no dictionaries are available, limit the damage by returning TRUE. */
@@ -449,23 +453,34 @@ gspell_checker_check_word (GspellChecker  *checker,
 
 	priv = gspell_checker_get_instance_private (checker);
 
-	if (_gspell_utils_is_digit (word))
+	if (_gspell_utils_is_digit (word, word_length))
 	{
 		return TRUE;
 	}
 
-	enchant_result = enchant_dict_check (priv->dict, word, -1);
+	enchant_result = enchant_dict_check (priv->dict, word, word_length);
 
 	correctly_spelled = enchant_result == 0;
 
 	if (enchant_result < 0)
 	{
+		gchar *nul_terminated_word;
+
+		if (word_length == -1)
+		{
+			word_length = strlen (word);
+		}
+
+		nul_terminated_word = g_strndup (word, word_length);
+
 		g_set_error (error,
 			     GSPELL_CHECKER_ERROR,
 			     GSPELL_CHECKER_ERROR_DICTIONARY,
 			     _("Error when checking the spelling of word “%s”: %s"),
-			     word,
+			     nul_terminated_word,
 			     enchant_dict_get_error (priv->dict));
+
+		g_free (nul_terminated_word);
 	}
 
 	return correctly_spelled;

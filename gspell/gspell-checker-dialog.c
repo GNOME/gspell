@@ -184,7 +184,7 @@ set_misspelled_word (GspellCheckerDialog *dialog,
 
 	priv = gspell_checker_dialog_get_instance_private (dialog);
 
-	g_return_if_fail (!gspell_checker_check_word (priv->checker, word, NULL));
+	g_return_if_fail (!gspell_checker_check_word (priv->checker, word, -1, NULL));
 
 	g_free (priv->misspelled_word);
 	priv->misspelled_word = g_strdup (word);
@@ -475,7 +475,7 @@ check_word_button_clicked_handler (GtkButton           *button,
 
 	word = gtk_entry_get_text (priv->word_entry);
 
-	correctly_spelled = gspell_checker_check_word (priv->checker, word, &error);
+	correctly_spelled = gspell_checker_check_word (priv->checker, word, -1, &error);
 
 	if (error != NULL)
 	{

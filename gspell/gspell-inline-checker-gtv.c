@@ -109,7 +109,7 @@ check_word (GspellInlineCheckerGtv *spell,
 	word = gtk_text_buffer_get_text (spell->buffer, start, end, FALSE);
 
 	correctly_spelled = gspell_checker_check_word (spell->spell_checker,
-						       word,
+						       word, -1,
 						       &error);
 
 	if (error != NULL)

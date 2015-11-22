@@ -87,6 +87,7 @@ const GspellLanguage *
 
 gboolean	gspell_checker_check_word		(GspellChecker  *checker,
 							 const gchar    *word,
+							 gint            word_length,
 							 GError        **error);
 
 GSList *	gspell_checker_get_suggestions		(GspellChecker *checker,
