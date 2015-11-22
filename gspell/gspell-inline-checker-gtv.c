@@ -554,7 +554,9 @@ replace_word_cb (GtkWidget              *menu_item,
 
 	gtk_text_buffer_end_user_action (spell->buffer);
 
-	gspell_checker_set_correction (spell->spell_checker, old_word, new_word);
+	gspell_checker_set_correction (spell->spell_checker,
+				       old_word, -1,
+				       new_word, -1);
 
 	g_free (old_word);
 }

@@ -649,27 +649,34 @@ gspell_checker_clear_session (GspellChecker *checker)
  * gspell_checker_set_correction:
  * @checker: a #GspellChecker.
  * @word: a word.
+ * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  * @replacement: the replacement word.
+ * @replacement_length: the byte length of @replacement, or -1 if @replacement
+ *   is nul-terminated.
  *
  * Informs the spell checker that @word is replaced/corrected by @replacement.
  */
 void
 gspell_checker_set_correction (GspellChecker *checker,
 			       const gchar   *word,
-			       const gchar   *replacement)
+			       gssize         word_length,
+			       const gchar   *replacement,
+			       gssize         replacement_length)
 {
 	GspellCheckerPrivate *priv;
 
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
+	g_return_if_fail (word_length >= -1);
 	g_return_if_fail (replacement != NULL);
+	g_return_if_fail (replacement_length >= -1);
 	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 
 	enchant_dict_store_replacement (priv->dict,
-					word, -1,
-					replacement, -1);
+					word, word_length,
+					replacement, replacement_length);
 }
 
 /* ex:set ts=8 noet: */

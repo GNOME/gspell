@@ -569,8 +569,8 @@ change_button_clicked_handler (GtkButton           *button,
 	g_return_if_fail (change_to[0] != '\0');
 
 	gspell_checker_set_correction (priv->checker,
-				       priv->misspelled_word,
-				       change_to);
+				       priv->misspelled_word, -1,
+				       change_to, -1);
 
 	gspell_navigator_change (priv->navigator, priv->misspelled_word, change_to);
 	g_free (change_to);
@@ -608,8 +608,8 @@ change_all_button_clicked_handler (GtkButton           *button,
 	g_return_if_fail (change_to[0] != '\0');
 
 	gspell_checker_set_correction (priv->checker,
-				       priv->misspelled_word,
-				       change_to);
+				       priv->misspelled_word, -1,
+				       change_to, -1);
 
 	gspell_navigator_change_all (priv->navigator, priv->misspelled_word, change_to);
 	g_free (change_to);

@@ -106,7 +106,9 @@ void		gspell_checker_clear_session		(GspellChecker *checker);
 
 void		gspell_checker_set_correction		(GspellChecker *checker,
 							 const gchar   *word,
-							 const gchar   *replacement);
+							 gssize         word_length,
+							 const gchar   *replacement,
+							 gssize         replacement_length);
 
 /* Non-exported function */
 G_GNUC_INTERNAL
