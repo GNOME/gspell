@@ -193,7 +193,7 @@ set_misspelled_word (GspellCheckerDialog *dialog,
 	gtk_label_set_markup (priv->misspelled_word_label, label);
 	g_free (label);
 
-	suggestions = gspell_checker_get_suggestions (priv->checker, priv->misspelled_word);
+	suggestions = gspell_checker_get_suggestions (priv->checker, priv->misspelled_word, -1);
 
 	set_suggestions (dialog, suggestions);
 
@@ -508,7 +508,7 @@ check_word_button_clicked_handler (GtkButton           *button,
 	{
 		GSList *suggestions;
 
-		suggestions = gspell_checker_get_suggestions (priv->checker, word);
+		suggestions = gspell_checker_get_suggestions (priv->checker, word, -1);
 
 		set_suggestions (dialog, suggestions);
 

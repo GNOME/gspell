@@ -91,7 +91,8 @@ gboolean	gspell_checker_check_word		(GspellChecker  *checker,
 							 GError        **error);
 
 GSList *	gspell_checker_get_suggestions		(GspellChecker *checker,
-							 const gchar   *word);
+							 const gchar   *word,
+							 gssize         word_length);
 
 void		gspell_checker_add_word_to_personal	(GspellChecker *checker,
 							 const gchar   *word);

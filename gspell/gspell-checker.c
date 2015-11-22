@@ -490,6 +490,7 @@ gspell_checker_check_word (GspellChecker  *checker,
  * gspell_checker_get_suggestions:
  * @checker: a #GspellChecker.
  * @word: a misspelled word.
+ * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  *
  * Gets the suggestions for @word. Free the return value with
  * g_slist_free_full(suggestions, g_free).
@@ -498,7 +499,8 @@ gspell_checker_check_word (GspellChecker  *checker,
  */
 GSList *
 gspell_checker_get_suggestions (GspellChecker *checker,
-				const gchar   *word)
+				const gchar   *word,
+				gssize         word_length)
 {
 	GspellCheckerPrivate *priv;
 	gchar **suggestions;
@@ -507,11 +509,12 @@ gspell_checker_get_suggestions (GspellChecker *checker,
 
 	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
 	g_return_val_if_fail (word != NULL, NULL);
+	g_return_val_if_fail (word_length >= -1, NULL);
 	g_return_val_if_fail (_gspell_checker_check_language_set (checker), NULL);
 
 	priv = gspell_checker_get_instance_private (checker);
 
-	suggestions = enchant_dict_suggest (priv->dict, word, -1, NULL);
+	suggestions = enchant_dict_suggest (priv->dict, word, word_length, NULL);
 
 	if (suggestions == NULL)
 	{

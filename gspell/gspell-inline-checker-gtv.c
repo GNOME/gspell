@@ -569,7 +569,7 @@ get_suggestion_menu (GspellInlineCheckerGtv *spell,
 
 	top_menu = gtk_menu_new ();
 
-	suggestions = gspell_checker_get_suggestions (spell->spell_checker, word);
+	suggestions = gspell_checker_get_suggestions (spell->spell_checker, word, -1);
 
 	if (suggestions == NULL)
 	{
