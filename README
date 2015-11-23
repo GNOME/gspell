@@ -1,7 +1,7 @@
 gspell - a spell-checking library for GTK+
 ==========================================
 
-This is version 0.2.0 of gspell.
+This is version 0.2.1 of gspell.
 
 gspell provides a flexible API to implement the spell checking in a GTK+
 application.
@@ -33,6 +33,10 @@ About versions
 gspell follows the GNOME release schedule.
 
 gspell 0.1.x should be installed alongside GNOME 3.18.
+
+gspell 0.2.x versions correspond to GNOME 3.19 versions. The API can change
+between 0.2.x versions. The 0.2 development cycle will lead to the 0.3 version
+or 1.0.
 
 
 WARNING - API (un)stability

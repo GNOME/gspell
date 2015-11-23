@@ -1,3 +1,11 @@
+News in 0.2.1
+-------------
+* Allow only <gspell/gspell.h> to be #included directly
+* Make GspellCheckerDialog derivable
+* Make GspellLanguageChooserDialog derivable
+* Add a GtkDialogFlags parameter to gspell_language_chooser_dialog_new()
+* Add string length parameters to GspellChecker functions
+
 News in 0.1.2
 -------------
 * gspell has now a bugzilla product on gnome.org
