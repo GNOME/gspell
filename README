@@ -1,7 +1,7 @@
 gspell - a spell-checking library for GTK+
 ==========================================
 
-This is version 0.2.1 of gspell.
+This is version 0.2.2 of gspell.
 
 gspell provides a flexible API to implement the spell checking in a GTK+
 application.
