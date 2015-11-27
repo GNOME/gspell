@@ -489,7 +489,7 @@ gspell_language_to_string (const GspellLanguage *lang)
 }
 
 const gchar *
-gspell_language_to_key (const GspellLanguage *lang)
+gspell_language_get_code (const GspellLanguage *lang)
 {
 	g_return_val_if_fail (lang != NULL, NULL);
 

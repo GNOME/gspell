@@ -348,7 +348,7 @@ init_dictionary (GspellChecker *checker)
 	{
 		const gchar *key;
 
-		key = gspell_language_to_key (priv->active_lang);
+		key = gspell_language_get_code (priv->active_lang);
 
 		priv->dict = enchant_broker_request_dict (priv->broker, key);
 	}
