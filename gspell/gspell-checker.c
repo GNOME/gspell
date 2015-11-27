@@ -296,12 +296,12 @@ get_default_language (void)
 	/* Another try specific to Mac OS X */
 #ifdef OS_OSX
 	{
-		gchar *key = _gspell_osx_get_preferred_spell_language ();
+		gchar *code = _gspell_osx_get_preferred_spell_language ();
 
-		if (key != NULL)
+		if (code != NULL)
 		{
-			lang = gspell_language_lookup (key);
-			g_free (key);
+			lang = gspell_language_lookup (code);
+			g_free (code);
 			return lang;
 		}
 	}
@@ -346,11 +346,11 @@ init_dictionary (GspellChecker *checker)
 
 	if (priv->active_lang != NULL)
 	{
-		const gchar *key;
+		const gchar *code;
 
-		key = gspell_language_get_code (priv->active_lang);
+		code = gspell_language_get_code (priv->active_lang);
 
-		priv->dict = enchant_broker_request_dict (priv->broker, key);
+		priv->dict = enchant_broker_request_dict (priv->broker, code);
 	}
 
 	if (priv->dict == NULL)
