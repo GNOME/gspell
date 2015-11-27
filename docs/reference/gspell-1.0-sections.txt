@@ -47,7 +47,7 @@ GSPELL_TYPE_INLINE_CHECKER_GTV
 GspellLanguage
 gspell_language_to_string
 gspell_language_to_key
-gspell_language_from_key
+gspell_language_lookup
 gspell_checker_get_available_languages
 gspell_language_copy
 gspell_language_free

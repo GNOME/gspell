@@ -497,7 +497,7 @@ gspell_language_to_key (const GspellLanguage *lang)
 }
 
 const GspellLanguage *
-gspell_language_from_key (const gchar *key)
+gspell_language_lookup (const gchar *key)
 {
 	const GSList *langs;
 

@@ -40,7 +40,7 @@ const gchar *	gspell_language_to_string		(const GspellLanguage *lang);
 const gchar *	gspell_language_to_key			(const GspellLanguage *lang);
 
 const GspellLanguage *
-		gspell_language_from_key		(const gchar *key);
+		gspell_language_lookup			(const gchar *key);
 
 /* GSList contains "GspellLanguage*" items */
 const GSList *	gspell_checker_get_available_languages	(void);

@@ -285,7 +285,7 @@ get_default_language (void)
 
 	for (i = 0; lang_names[i] != NULL; i++)
 	{
-		lang = gspell_language_from_key (lang_names[i]);
+		lang = gspell_language_lookup (lang_names[i]);
 
 		if (lang != NULL)
 		{
@@ -300,7 +300,7 @@ get_default_language (void)
 
 		if (key != NULL)
 		{
-			lang = gspell_language_from_key (key);
+			lang = gspell_language_lookup (key);
 			g_free (key);
 			return lang;
 		}
@@ -308,7 +308,7 @@ get_default_language (void)
 #endif
 
 	/* Try English */
-	lang = gspell_language_from_key ("en_US");
+	lang = gspell_language_lookup ("en_US");
 	if (lang != NULL)
 	{
 		return lang;
