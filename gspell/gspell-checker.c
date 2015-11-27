@@ -315,7 +315,7 @@ get_default_language (void)
 	}
 
 	/* Take the first available language */
-	langs = gspell_checker_get_available_languages ();
+	langs = gspell_language_get_available ();
 	if (langs != NULL)
 	{
 		return langs->data;

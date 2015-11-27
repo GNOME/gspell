@@ -311,7 +311,7 @@ populate_language_list (GspellLanguageChooserDialog *dialog)
 
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (priv->treeview));
 
-	available_langs = gspell_checker_get_available_languages ();
+	available_langs = gspell_language_get_available ();
 
 	for (l = available_langs; l != NULL; l = l->next)
 	{

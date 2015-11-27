@@ -429,13 +429,13 @@ build_langs_list (const gchar *key,
 }
 
 /**
- * gspell_checker_get_available_languages:
+ * gspell_language_get_available:
  *
  * Returns: (transfer none) (element-type GspellLanguage): the list of available
  * languages for the spell checking.
  */
 const GSList *
-gspell_checker_get_available_languages (void)
+gspell_language_get_available (void)
 {
 	EnchantBroker *broker;
 	GTree *dicts;
@@ -503,7 +503,7 @@ gspell_language_lookup (const gchar *key)
 
 	g_return_val_if_fail (key != NULL, NULL);
 
-	langs = gspell_checker_get_available_languages ();
+	langs = gspell_language_get_available ();
 
 	while (langs != NULL)
 	{
