@@ -70,7 +70,7 @@ update_button_label (GspellLanguageChooserButton *button)
 	if (priv->language != NULL)
 	{
 		gtk_button_set_label (GTK_BUTTON (button),
-				      gspell_language_to_string (priv->language));
+				      gspell_language_get_name (priv->language));
 	}
 	else
 	{

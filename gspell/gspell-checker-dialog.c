@@ -87,7 +87,7 @@ set_spell_checker (GspellCheckerDialog *dialog,
 		lang = gspell_checker_get_language (checker);
 
 		gtk_header_bar_set_subtitle (header_bar,
-					     gspell_language_to_string (lang));
+					     gspell_language_get_name (lang));
 	}
 }
 

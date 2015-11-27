@@ -43,7 +43,7 @@ const GspellLanguage *
 
 const gchar *	gspell_language_get_code		(const GspellLanguage *lang);
 
-const gchar *	gspell_language_to_string		(const GspellLanguage *lang);
+const gchar *	gspell_language_get_name		(const GspellLanguage *lang);
 
 /* These should not be used, they are just to make GObject Introspection
  * bindings happy.

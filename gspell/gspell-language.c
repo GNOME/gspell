@@ -477,7 +477,7 @@ gspell_language_get_available (void)
 }
 
 const gchar *
-gspell_language_to_string (const GspellLanguage *lang)
+gspell_language_get_name (const GspellLanguage *lang)
 {
 	if (lang == NULL)
 		/* Translators: this refers the Default language used by the

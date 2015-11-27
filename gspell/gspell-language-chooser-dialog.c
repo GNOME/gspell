@@ -319,7 +319,7 @@ populate_language_list (GspellLanguageChooserDialog *dialog)
 		const gchar *name;
 		GtkTreeIter iter;
 
-		name = gspell_language_to_string (lang);
+		name = gspell_language_get_name (lang);
 
 		gtk_list_store_append (store, &iter);
 		gtk_list_store_set (store, &iter,
