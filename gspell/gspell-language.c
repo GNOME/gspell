@@ -464,6 +464,8 @@ gspell_language_lookup (const gchar *language_code)
 {
 	const GspellLanguage *language = NULL;
 
+	g_return_val_if_fail (language_code != NULL, NULL);
+
 	language = spell_language_lookup (language_code);
 
 	if (language == NULL)
@@ -500,7 +502,10 @@ gint
 gspell_language_compare (const GspellLanguage *language_a,
                          const GspellLanguage *language_b)
 {
-	return strcmp (language_a->ckey, language_b->ckey);
+	g_return_val_if_fail (language_a != NULL, 0);
+	g_return_val_if_fail (language_b != NULL, 0);
+
+	return g_strcmp0 (language_a->ckey, language_b->ckey);
 }
 
 /**
