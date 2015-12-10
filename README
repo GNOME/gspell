@@ -10,8 +10,8 @@ Announcement and why this library has been created:
 
     https://blogs.gnome.org/swilmet/2015/09/16/introducing-gspell-a-new-spell-checking-library/
 
-The gspell library is free software and is released under the terms of the
-GNU General Public License. See the file 'COPYING' for more information.
+The gspell library is free software and is released under the terms of the GNU
+LGPL version 2.1 or later. See the file 'COPYING' for more information.
 
 The official web site is:
 
