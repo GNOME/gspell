@@ -321,36 +321,6 @@ exit:
 	g_tree_replace (tree, g_strdup (language_code), language_name);
 }
 
-static const GspellLanguage *
-spell_language_lookup (const gchar *language_code)
-{
-	const GspellLanguage *closest_match = NULL;
-	const GList *available_languages;
-
-	available_languages = gspell_language_get_available ();
-
-	while (available_languages != NULL && language_code != NULL)
-	{
-		GspellLanguage *language = available_languages->data;
-		const gchar *code = language->code;
-		gsize length = strlen (code);
-
-		if (g_ascii_strcasecmp (language_code, code) == 0)
-		{
-			return language;
-		}
-
-		if (g_ascii_strncasecmp (language_code, code, length) == 0)
-		{
-			closest_match = language;
-		}
-
-		available_languages = g_list_next (available_languages);
-	}
-
-	return closest_match;
-}
-
 static gboolean
 spell_language_traverse_cb (const gchar  *code,
 			    const gchar  *name,
@@ -430,50 +400,36 @@ gspell_language_get_available (void)
 	return available_languages;
 }
 
-static const GspellLanguage *
-spell_language_pick_default (void)
-{
-	const GspellLanguage *language = NULL;
-	const gchar * const *language_names;
-	const GList *available_languages;
-	gint ii;
-
-	language_names = g_get_language_names ();
-	available_languages = gspell_language_get_available ();
-
-	for (ii = 0; language == NULL && language_names[ii] != NULL; ii++)
-	{
-		language = spell_language_lookup (language_names[ii]);
-	}
-
-	if (language == NULL)
-	{
-		language = spell_language_lookup ("en_US");
-	}
-
-	if (language == NULL && available_languages != NULL)
-	{
-		language = available_languages->data;
-	}
-
-	return language;
-}
-
 const GspellLanguage *
 gspell_language_lookup (const gchar *language_code)
 {
-	const GspellLanguage *language = NULL;
+	const GspellLanguage *closest_match = NULL;
+	const GList *available_languages;
 
 	g_return_val_if_fail (language_code != NULL, NULL);
 
-	language = spell_language_lookup (language_code);
+	available_languages = gspell_language_get_available ();
 
-	if (language == NULL)
+	while (available_languages != NULL)
 	{
-		language = spell_language_pick_default ();
+		GspellLanguage *language = available_languages->data;
+		const gchar *code = language->code;
+		gsize length = strlen (code);
+
+		if (g_ascii_strcasecmp (language_code, code) == 0)
+		{
+			return language;
+		}
+
+		if (g_ascii_strncasecmp (language_code, code, length) == 0)
+		{
+			closest_match = language;
+		}
+
+		available_languages = g_list_next (available_languages);
 	}
 
-	return language;
+	return closest_match;
 }
 
 const gchar *
