@@ -747,16 +747,16 @@ remove_tag_to_word (GspellInlineCheckerGtv *spell,
 }
 
 static void
-add_word_cb (GspellChecker          *checker,
-	     const gchar            *word,
-	     GspellInlineCheckerGtv *spell)
+word_added_cb (GspellChecker          *checker,
+	       const gchar            *word,
+	       GspellInlineCheckerGtv *spell)
 {
 	remove_tag_to_word (spell, word);
 }
 
 static void
-clear_session_cb (GspellChecker          *checker,
-		  GspellInlineCheckerGtv *spell)
+session_cleared_cb (GspellChecker          *checker,
+		    GspellInlineCheckerGtv *spell)
 {
 	recheck_all (spell);
 }
@@ -948,20 +948,20 @@ set_spell_checker (GspellInlineCheckerGtv *spell,
 	_gspell_checker_check_language_set (checker);
 
 	g_signal_connect_object (spell->spell_checker,
-				 "add_word_to_session",
-				 G_CALLBACK (add_word_cb),
+				 "word-added-to-session",
+				 G_CALLBACK (word_added_cb),
 				 spell,
 				 0);
 
 	g_signal_connect_object (spell->spell_checker,
-				 "add_word_to_personal",
-				 G_CALLBACK (add_word_cb),
+				 "word-added-to-personal",
+				 G_CALLBACK (word_added_cb),
 				 spell,
 				 0);
 
 	g_signal_connect_object (spell->spell_checker,
-				 "clear_session",
-				 G_CALLBACK (clear_session_cb),
+				 "session-cleared",
+				 G_CALLBACK (session_cleared_cb),
 				 spell,
 				 0);
 

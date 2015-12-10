@@ -60,9 +60,9 @@ enum
 
 enum
 {
-	SIGNAL_ADD_WORD_TO_PERSONAL,
-	SIGNAL_ADD_WORD_TO_SESSION,
-	SIGNAL_CLEAR_SESSION,
+	SIGNAL_WORD_ADDED_TO_PERSONAL,
+	SIGNAL_WORD_ADDED_TO_SESSION,
+	SIGNAL_SESSION_CLEARED,
 	LAST_SIGNAL
 };
 
@@ -193,51 +193,51 @@ gspell_checker_class_init (GspellCheckerClass *klass)
 							     G_PARAM_STATIC_STRINGS));
 
 	/**
-	 * GspellChecker::add-word-to-personal:
+	 * GspellChecker::word-added-to-personal:
 	 * @spell_checker: the #GspellChecker.
 	 * @word: the added word.
 	 *
 	 * Emitted when a word is added to the personal dictionary.
 	 */
-	signals[SIGNAL_ADD_WORD_TO_PERSONAL] =
-		g_signal_new ("add-word-to-personal",
+	signals[SIGNAL_WORD_ADDED_TO_PERSONAL] =
+		g_signal_new ("word-added-to-personal",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (GspellCheckerClass, add_word_to_personal),
+			      G_STRUCT_OFFSET (GspellCheckerClass, word_added_to_personal),
 			      NULL, NULL, NULL,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_STRING);
 
 	/**
-	 * GspellChecker::add-word-to-session:
+	 * GspellChecker::word-added-to-session:
 	 * @spell_checker: the #GspellChecker.
 	 * @word: the added word.
 	 *
 	 * Emitted when a word is added to the session dictionary. The session
 	 * dictionary is lost when the application exits.
 	 */
-	signals[SIGNAL_ADD_WORD_TO_SESSION] =
-		g_signal_new ("add-word-to-session",
+	signals[SIGNAL_WORD_ADDED_TO_SESSION] =
+		g_signal_new ("word-added-to-session",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (GspellCheckerClass, add_word_to_session),
+			      G_STRUCT_OFFSET (GspellCheckerClass, word_added_to_session),
 			      NULL, NULL, NULL,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_STRING);
 
 	/**
-	 * GspellChecker::clear-session:
+	 * GspellChecker::session-cleared:
 	 * @spell_checker: the #GspellChecker.
 	 *
 	 * Emitted when the session dictionary is cleared.
 	 */
-	signals[SIGNAL_CLEAR_SESSION] =
-		g_signal_new ("clear-session",
+	signals[SIGNAL_SESSION_CLEARED] =
+		g_signal_new ("session-cleared",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (GspellCheckerClass, clear_session),
+			      G_STRUCT_OFFSET (GspellCheckerClass, session_cleared),
 			      NULL, NULL, NULL,
 			      G_TYPE_NONE,
 			      0);
@@ -560,7 +560,7 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
 	if (word_length == -1)
 	{
 		g_signal_emit (G_OBJECT (checker),
-			       signals[SIGNAL_ADD_WORD_TO_PERSONAL], 0,
+			       signals[SIGNAL_WORD_ADDED_TO_PERSONAL], 0,
 			       word);
 	}
 	else
@@ -568,7 +568,7 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
 		gchar *nul_terminated_word = g_strndup (word, word_length);
 
 		g_signal_emit (G_OBJECT (checker),
-			       signals[SIGNAL_ADD_WORD_TO_PERSONAL], 0,
+			       signals[SIGNAL_WORD_ADDED_TO_PERSONAL], 0,
 			       nul_terminated_word);
 
 		g_free (nul_terminated_word);
@@ -604,7 +604,7 @@ gspell_checker_add_word_to_session (GspellChecker *checker,
 	if (word_length == -1)
 	{
 		g_signal_emit (G_OBJECT (checker),
-			       signals[SIGNAL_ADD_WORD_TO_SESSION], 0,
+			       signals[SIGNAL_WORD_ADDED_TO_SESSION], 0,
 			       word);
 	}
 	else
@@ -612,7 +612,7 @@ gspell_checker_add_word_to_session (GspellChecker *checker,
 		gchar *nul_terminated_word = g_strndup (word, word_length);
 
 		g_signal_emit (G_OBJECT (checker),
-			       signals[SIGNAL_ADD_WORD_TO_SESSION], 0,
+			       signals[SIGNAL_WORD_ADDED_TO_SESSION], 0,
 			       nul_terminated_word);
 
 		g_free (nul_terminated_word);
@@ -642,7 +642,7 @@ gspell_checker_clear_session (GspellChecker *checker)
 
 	init_dictionary (checker);
 
-	g_signal_emit (G_OBJECT (checker), signals[SIGNAL_CLEAR_SESSION], 0);
+	g_signal_emit (G_OBJECT (checker), signals[SIGNAL_SESSION_CLEARED], 0);
 }
 
 /**

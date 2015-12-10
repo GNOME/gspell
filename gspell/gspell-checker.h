@@ -63,13 +63,13 @@ struct _GspellCheckerClass
 	GObjectClass parent_class;
 
 	/* Signals */
-	void (* add_word_to_personal)	(GspellChecker *checker,
+	void (* word_added_to_personal)	(GspellChecker *checker,
 					 const gchar   *word);
 
-	void (* add_word_to_session)	(GspellChecker *checker,
+	void (* word_added_to_session)	(GspellChecker *checker,
 					 const gchar   *word);
 
-	void (* clear_session)		(GspellChecker *checker);
+	void (* session_cleared)	(GspellChecker *checker);
 
 	/* Padding for future expansion */
 	gpointer padding[12];
