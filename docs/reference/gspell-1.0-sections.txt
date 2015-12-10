@@ -49,6 +49,7 @@ gspell_language_get_available
 gspell_language_lookup
 gspell_language_get_code
 gspell_language_get_name
+gspell_language_compare
 gspell_language_copy
 gspell_language_free
 <SUBSECTION Standard>

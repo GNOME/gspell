@@ -38,7 +38,6 @@ iso_codes_req=0.35
 glib_req=2.44
 gtk_req=3.16
 gtksourceview_req=3.16
-libxml_req=2.5.0
 
 AC_CONFIG_SRCDIR([gspell/gspell-checker.c])
 AC_CONFIG_HEADER([config.h])
@@ -76,7 +75,7 @@ AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS])
 AX_REQUIRE_DEFINED([AX_PKG_CHECK_MODULES])
 AX_PKG_CHECK_MODULES([DEP],
 		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req  gtksourceview-3.0 >= $gtksourceview_req],
-		     [enchant >= $enchant_req  libxml-2.0 >= $libxml_req])
+		     [enchant >= $enchant_req])
 
 # iso-codes
 AX_REQUIRE_DEFINED([PKG_CHECK_EXISTS])

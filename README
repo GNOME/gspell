@@ -60,11 +60,10 @@ Dependencies
 * GLib >= 2.44
 * GTK+ >= 3.16
 * GtkSourceView >= 3.16
-* libxml2
 * iso-codes
 
-It is planned to remove the dependencies to GtkSourceView and libxml2 in a
-future version of gspell.
+It is planned to remove the dependency to GtkSourceView in a future version of
+gspell.
 
 
 Installation from a tarball

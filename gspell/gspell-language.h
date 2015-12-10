@@ -1,21 +1,27 @@
 /*
- * This file is part of gspell.
+ * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2006 - Paolo Maggi
+ * Copyright 2008 - Novell, Inc.
  * Copyright 2015 - Sébastien Wilmet
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* Based on GtkhtmlSpellLanguage (Novell), which was based on Marco Barisione's
+ * GSpellLanguage, which was based on GeditSpellCheckerLanguage, which was based
+ * partly on Epiphany's code.
  */
 
 #ifndef __GSPELL_LANGUAGE_H__
@@ -38,17 +44,18 @@ GType		gspell_language_get_type		(void) G_GNUC_CONST;
 const GList *	gspell_language_get_available		(void);
 
 const GspellLanguage *
-		gspell_language_lookup			(const gchar *key);
+		gspell_language_lookup			(const gchar *language_code);
 
-const gchar *	gspell_language_get_code		(const GspellLanguage *lang);
+const gchar *	gspell_language_get_code		(const GspellLanguage *language);
 
-const gchar *	gspell_language_get_name		(const GspellLanguage *lang);
+const gchar *	gspell_language_get_name		(const GspellLanguage *language);
 
-/* These should not be used, they are just to make GObject Introspection
- * bindings happy.
- */
-GspellLanguage *gspell_language_copy			(const GspellLanguage *lang);
-void		gspell_language_free			(GspellLanguage *lang);
+gint		gspell_language_compare			(const GspellLanguage *language_a,
+							 const GspellLanguage *language_b);
+
+GspellLanguage *gspell_language_copy			(const GspellLanguage *language);
+
+void		gspell_language_free			(GspellLanguage *language);
 
 G_END_DECLS
 
