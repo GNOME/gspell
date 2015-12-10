@@ -47,7 +47,7 @@ G_DEFINE_BOXED_TYPE (GspellLanguage,
 		     gspell_language_free)
 
 static gboolean available_languages_initialized = FALSE;
-static GSList *available_languages = NULL;
+static GList *available_languages = NULL;
 
 static GHashTable *iso_639_table = NULL;
 static GHashTable *iso_3166_table = NULL;
@@ -421,9 +421,9 @@ build_langs_list (const gchar *key,
 	lang->abrev = g_strdup (key);
 	lang->name = g_strdup (value);
 
-	available_languages = g_slist_insert_sorted (available_languages,
-						     lang,
-						     (GCompareFunc)lang_cmp);
+	available_languages = g_list_insert_sorted (available_languages,
+						    lang,
+						    (GCompareFunc)lang_cmp);
 
 	return FALSE;
 }
@@ -434,7 +434,7 @@ build_langs_list (const gchar *key,
  * Returns: (transfer none) (element-type GspellLanguage): the list of available
  * languages for the spell checking.
  */
-const GSList *
+const GList *
 gspell_language_get_available (void)
 {
 	EnchantBroker *broker;
@@ -499,7 +499,7 @@ gspell_language_get_code (const GspellLanguage *lang)
 const GspellLanguage *
 gspell_language_lookup (const gchar *key)
 {
-	const GSList *langs;
+	const GList *langs;
 
 	g_return_val_if_fail (key != NULL, NULL);
 
@@ -512,7 +512,7 @@ gspell_language_lookup (const gchar *key)
 		if (g_ascii_strcasecmp (key, l->abrev) == 0)
 			return l;
 
-		langs = g_slist_next (langs);
+		langs = langs->next;
 	}
 
 	return NULL;

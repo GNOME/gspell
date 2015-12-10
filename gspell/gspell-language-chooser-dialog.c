@@ -304,8 +304,8 @@ populate_language_list (GspellLanguageChooserDialog *dialog)
 {
 	GspellLanguageChooserDialogPrivate *priv;
 	GtkListStore *store;
-	const GSList *available_langs;
-	const GSList *l;
+	const GList *available_langs;
+	const GList *l;
 
 	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
 

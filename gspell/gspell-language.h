@@ -35,8 +35,7 @@ typedef struct _GspellLanguage GspellLanguage;
 
 GType		gspell_language_get_type		(void) G_GNUC_CONST;
 
-/* GSList contains "GspellLanguage*" items */
-const GSList *	gspell_language_get_available		(void);
+const GList *	gspell_language_get_available		(void);
 
 const GspellLanguage *
 		gspell_language_lookup			(const gchar *key);

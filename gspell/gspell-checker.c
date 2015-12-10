@@ -277,7 +277,7 @@ get_default_language (void)
 {
 	const GspellLanguage *lang;
 	const gchar * const *lang_names;
-	const GSList *langs;
+	const GList *langs;
 	gint i;
 
 	/* Try with the current locale */
