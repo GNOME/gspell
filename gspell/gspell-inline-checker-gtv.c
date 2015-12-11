@@ -130,8 +130,8 @@ check_word (GspellInlineCheckerGtv *spell,
 }
 
 static void
-adjust_iters_at_word_boundaries (GtkTextIter *start,
-				 GtkTextIter *end)
+adjust_iters (GtkTextIter *start,
+	      GtkTextIter *end)
 {
 	if (gtk_text_iter_inside_word (end))
 	{
@@ -171,7 +171,7 @@ check_subregion (GspellInlineCheckerGtv *spell,
 
 	start_adjusted = *start;
 	end_adjusted = *end;
-	adjust_iters_at_word_boundaries (&start_adjusted, &end_adjusted);
+	adjust_iters (&start_adjusted, &end_adjusted);
 
 	gtk_text_buffer_remove_tag (spell->buffer,
 				    spell->tag_highlight,
@@ -412,7 +412,7 @@ add_subregion_to_scan (GspellInlineCheckerGtv *spell,
 
 	start_adjusted = *start;
 	end_adjusted = *end;
-	adjust_iters_at_word_boundaries (&start_adjusted, &end_adjusted);
+	adjust_iters (&start_adjusted, &end_adjusted);
 
 	gtk_text_region_add (spell->scan_region,
 			     &start_adjusted,
