@@ -162,53 +162,48 @@ adjust_iters (GtkTextIter *start,
 
 static void
 check_subregion (GspellInlineCheckerGtv *spell,
-		 const GtkTextIter      *start,
-		 const GtkTextIter      *end)
+		 GtkTextIter            *start,
+		 GtkTextIter            *end)
 {
-	GtkTextIter start_adjusted;
-	GtkTextIter end_adjusted;
 	GtkTextIter word_start;
 
 	g_assert_cmpint (gtk_text_iter_compare (start, end), <=, 0);
 
-	start_adjusted = *start;
-	end_adjusted = *end;
-
-	if (gtk_text_iter_inside_word (&start_adjusted) &&
-	    !gtk_text_iter_starts_word (&start_adjusted))
+	if (gtk_text_iter_inside_word (start) &&
+	    !gtk_text_iter_starts_word (start))
 	{
-		gtk_text_iter_backward_word_start (&start_adjusted);
+		gtk_text_iter_backward_word_start (start);
 	}
 
-	if (gtk_text_iter_inside_word (&end_adjusted) &&
-	    !gtk_text_iter_starts_word (&end_adjusted))
+	if (gtk_text_iter_inside_word (end) &&
+	    !gtk_text_iter_starts_word (end))
 	{
-		gtk_text_iter_forward_word_end (&end_adjusted);
+		gtk_text_iter_forward_word_end (end);
 	}
 
 	gtk_text_buffer_remove_tag (spell->buffer,
 				    spell->tag_highlight,
-				    &start_adjusted,
-				    &end_adjusted);
+				    start,
+				    end);
 
-	word_start = start_adjusted;
+	word_start = *start;
 	if (!gtk_text_iter_starts_word (&word_start))
 	{
 		gtk_text_iter_forward_word_end (&word_start);
 
 		/* Didn't move, there is no words after @start_adjusted. */
-		if (gtk_text_iter_equal (&word_start, &start_adjusted))
+		if (gtk_text_iter_equal (&word_start, start))
 		{
 			return;
 		}
 
 		gtk_text_iter_backward_word_start (&word_start);
 		g_assert (gtk_text_iter_starts_word (&word_start));
-		g_assert_cmpint (gtk_text_iter_compare (&start_adjusted, &word_start), <, 0);
+		g_assert_cmpint (gtk_text_iter_compare (start, &word_start), <, 0);
 	}
 
-	while (_gspell_utils_skip_no_spell_check (&word_start, &end_adjusted) &&
-	       gtk_text_iter_compare (&word_start, &end_adjusted) < 0)
+	while (_gspell_utils_skip_no_spell_check (&word_start, end) &&
+	       gtk_text_iter_compare (&word_start, end) < 0)
 	{
 		GtkTextIter word_end;
 		GtkTextIter next_word_start;
@@ -218,7 +213,7 @@ check_subregion (GspellInlineCheckerGtv *spell,
 		word_end = word_start;
 		gtk_text_iter_forward_word_end (&word_end);
 
-		g_assert_cmpint (gtk_text_iter_compare (&word_end, &end_adjusted), <=, 0);
+		g_assert_cmpint (gtk_text_iter_compare (&word_end, end), <=, 0);
 
 		check_word (spell, &word_start, &word_end);
 
@@ -235,35 +230,6 @@ check_subregion (GspellInlineCheckerGtv *spell,
 		}
 
 		word_start = next_word_start;
-	}
-}
-
-static void
-check_region (GspellInlineCheckerGtv *spell,
-	      GtkTextRegion          *region)
-{
-	GtkTextRegionIterator region_iter;
-
-	if (region == NULL)
-	{
-		return;
-	}
-
-	gtk_text_region_get_iterator (region, &region_iter, 0);
-
-	while (!gtk_text_region_iterator_is_end (&region_iter))
-	{
-		GtkTextIter start;
-		GtkTextIter end;
-
-		if (!gtk_text_region_iterator_get_subregion (&region_iter, &start, &end))
-		{
-			return;
-		}
-
-		check_subregion (spell, &start, &end);
-
-		gtk_text_region_iterator_next (&region_iter);
 	}
 }
 
@@ -338,6 +304,7 @@ check_visible_region_in_view (GspellInlineCheckerGtv *spell,
 	GtkTextIter visible_start;
 	GtkTextIter visible_end;
 	GtkTextRegion *intersect;
+	GtkTextRegionIterator intersect_iter;
 
 	if (spell->scan_region == NULL)
 	{
@@ -355,12 +322,26 @@ check_visible_region_in_view (GspellInlineCheckerGtv *spell,
 		return;
 	}
 
-	check_region (spell, intersect);
-	gtk_text_region_destroy (intersect);
+	gtk_text_region_get_iterator (intersect, &intersect_iter, 0);
 
-	gtk_text_region_subtract (spell->scan_region,
-				  &visible_start,
-				  &visible_end);
+	while (!gtk_text_region_iterator_is_end (&intersect_iter))
+	{
+		GtkTextIter start;
+		GtkTextIter end;
+
+		if (!gtk_text_region_iterator_get_subregion (&intersect_iter, &start, &end))
+		{
+			return;
+		}
+
+		check_subregion (spell, &start, &end);
+
+		gtk_text_region_subtract (spell->scan_region, &start, &end);
+
+		gtk_text_region_iterator_next (&intersect_iter);
+	}
+
+	gtk_text_region_destroy (intersect);
 
 	if (is_text_region_empty (spell->scan_region))
 	{
