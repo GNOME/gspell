@@ -130,37 +130,6 @@ check_word (GspellInlineCheckerGtv *spell,
 }
 
 static void
-adjust_iters (GtkTextIter *start,
-	      GtkTextIter *end)
-{
-	if (gtk_text_iter_inside_word (end))
-	{
-		gtk_text_iter_forward_word_end (end);
-	}
-
-	if (!gtk_text_iter_starts_word (start))
-	{
-		if (gtk_text_iter_inside_word (start) ||
-		    gtk_text_iter_ends_word (start))
-		{
-			gtk_text_iter_backward_word_start (start);
-		}
-		else
-		{
-			/* If we're neither at the beginning nor inside a word,
-			 * me must be in some spaces.
-			 * Skip forward to the beginning of the next word.
-			 */
-			if (gtk_text_iter_forward_word_end (start) ||
-			    gtk_text_iter_is_end (start))
-			{
-				gtk_text_iter_backward_word_start (start);
-			}
-		}
-	}
-}
-
-static void
 check_subregion (GspellInlineCheckerGtv *spell,
 		 GtkTextIter            *start,
 		 GtkTextIter            *end)
@@ -410,21 +379,12 @@ add_subregion_to_scan (GspellInlineCheckerGtv *spell,
 		       const GtkTextIter      *start,
 		       const GtkTextIter      *end)
 {
-	GtkTextIter start_adjusted;
-	GtkTextIter end_adjusted;
-
 	if (spell->scan_region == NULL)
 	{
 		spell->scan_region = gtk_text_region_new (spell->buffer);
 	}
 
-	start_adjusted = *start;
-	end_adjusted = *end;
-	adjust_iters (&start_adjusted, &end_adjusted);
-
-	gtk_text_region_add (spell->scan_region,
-			     &start_adjusted,
-			     &end_adjusted);
+	gtk_text_region_add (spell->scan_region, start, end);
 }
 
 static void
@@ -462,7 +422,28 @@ delete_range_after_cb (GtkTextBuffer          *buffer,
 		       GtkTextIter            *end,
 		       GspellInlineCheckerGtv *spell)
 {
-	add_subregion_to_scan (spell, start, end);
+	GtkTextIter start_adjusted;
+	GtkTextIter end_adjusted;
+
+	start_adjusted = *start;
+	end_adjusted = *end;
+
+	/* Just to be sure. Normally start == end. */
+	gtk_text_iter_order (&start_adjusted, &end_adjusted);
+
+	if (gtk_text_iter_ends_word (&start_adjusted) ||
+	    (gtk_text_iter_inside_word (&start_adjusted) &&
+	     !gtk_text_iter_starts_word (&start_adjusted)))
+	{
+		gtk_text_iter_backward_word_start (&start_adjusted);
+	}
+
+	if (gtk_text_iter_inside_word (&end_adjusted))
+	{
+		gtk_text_iter_forward_word_end (&end_adjusted);
+	}
+
+	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }
 
