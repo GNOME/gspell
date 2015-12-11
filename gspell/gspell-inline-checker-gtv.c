@@ -169,9 +169,22 @@ check_subregion (GspellInlineCheckerGtv *spell,
 	GtkTextIter end_adjusted;
 	GtkTextIter word_start;
 
+	g_assert_cmpint (gtk_text_iter_compare (start, end), <=, 0);
+
 	start_adjusted = *start;
 	end_adjusted = *end;
-	adjust_iters (&start_adjusted, &end_adjusted);
+
+	if (gtk_text_iter_inside_word (&start_adjusted) &&
+	    !gtk_text_iter_starts_word (&start_adjusted))
+	{
+		gtk_text_iter_backward_word_start (&start_adjusted);
+	}
+
+	if (gtk_text_iter_inside_word (&end_adjusted) &&
+	    !gtk_text_iter_starts_word (&end_adjusted))
+	{
+		gtk_text_iter_forward_word_end (&end_adjusted);
+	}
 
 	gtk_text_buffer_remove_tag (spell->buffer,
 				    spell->tag_highlight,
@@ -179,6 +192,20 @@ check_subregion (GspellInlineCheckerGtv *spell,
 				    &end_adjusted);
 
 	word_start = start_adjusted;
+	if (!gtk_text_iter_starts_word (&word_start))
+	{
+		gtk_text_iter_forward_word_end (&word_start);
+
+		/* Didn't move, there is no words after @start_adjusted. */
+		if (gtk_text_iter_equal (&word_start, &start_adjusted))
+		{
+			return;
+		}
+
+		gtk_text_iter_backward_word_start (&word_start);
+		g_assert (gtk_text_iter_starts_word (&word_start));
+		g_assert_cmpint (gtk_text_iter_compare (&start_adjusted, &word_start), <, 0);
+	}
 
 	while (_gspell_utils_skip_no_spell_check (&word_start, &end_adjusted) &&
 	       gtk_text_iter_compare (&word_start, &end_adjusted) < 0)
@@ -186,21 +213,21 @@ check_subregion (GspellInlineCheckerGtv *spell,
 		GtkTextIter word_end;
 		GtkTextIter next_word_start;
 
+		g_assert (gtk_text_iter_starts_word (&word_start));
+
 		word_end = word_start;
 		gtk_text_iter_forward_word_end (&word_end);
 
-		if (gtk_text_iter_starts_word (&word_start) &&
-		    gtk_text_iter_ends_word (&word_end))
-		{
-			check_word (spell, &word_start, &word_end);
-		}
+		g_assert_cmpint (gtk_text_iter_compare (&word_end, &end_adjusted), <=, 0);
+
+		check_word (spell, &word_start, &word_end);
 
 		next_word_start = word_end;
 		gtk_text_iter_forward_word_end (&next_word_start);
 		gtk_text_iter_backward_word_start (&next_word_start);
 
-		/* Make sure we've actually advanced (we don't advance if we are
-		 * at the end of the buffer).
+		/* Make sure we've actually advanced (we don't advance if we
+		 * have just checked the last word of the buffer).
 		 */
 		if (gtk_text_iter_compare (&next_word_start, &word_start) <= 0)
 		{
