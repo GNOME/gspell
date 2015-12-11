@@ -114,7 +114,7 @@ check_word (GspellInlineCheckerGtv *spell,
 
 	if (error != NULL)
 	{
-		g_warning ("Automatic spell checker: %s", error->message);
+		g_warning ("Inline spell checker: %s", error->message);
 		g_error_free (error);
 	}
 
