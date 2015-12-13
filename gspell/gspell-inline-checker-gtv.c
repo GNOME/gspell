@@ -58,6 +58,7 @@ struct _GspellInlineCheckerGtv
 	GSList *views;
 
 	GtkTextTag *highlight_tag;
+	GtkTextTag *no_spell_check_tag;
 
 	GtkTextMark *mark_click;
 
@@ -820,7 +821,22 @@ tag_added_cb (GtkTextTagTable        *table,
 	      GtkTextTag             *tag,
 	      GspellInlineCheckerGtv *spell)
 {
+	gchar *name;
+
 	update_highlight_tag_priority (spell, table);
+
+	g_object_get (tag, "name", &name, NULL);
+
+	if (g_strcmp0 (name, "gtksourceview:context-classes:no-spell-check") == 0)
+	{
+		g_return_if_fail (spell->no_spell_check_tag == NULL);
+
+		spell->no_spell_check_tag = g_object_ref (tag);
+
+		recheck_all (spell);
+	}
+
+	g_free (name);
 }
 
 static void
@@ -831,6 +847,14 @@ tag_removed_cb (GtkTextTagTable        *table,
 	if (tag != spell->highlight_tag)
 	{
 		update_highlight_tag_priority (spell, table);
+	}
+
+	if (spell->no_spell_check_tag != NULL &&
+	    spell->no_spell_check_tag == tag)
+	{
+		g_clear_object (&spell->no_spell_check_tag);
+
+		recheck_all (spell);
 	}
 }
 
@@ -853,6 +877,7 @@ set_buffer (GspellInlineCheckerGtv *spell,
 	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
 	g_return_if_fail (spell->buffer == NULL);
 	g_return_if_fail (spell->highlight_tag == NULL);
+	g_return_if_fail (spell->no_spell_check_tag == NULL);
 	g_return_if_fail (spell->mark_click == NULL);
 
 	spell->buffer = g_object_ref (buffer);
@@ -877,6 +902,12 @@ set_buffer (GspellInlineCheckerGtv *spell,
 							   "underline", PANGO_UNDERLINE_ERROR,
 							   NULL);
 	g_object_ref (spell->highlight_tag);
+
+	spell->no_spell_check_tag = _gspell_utils_get_no_spell_check_tag (spell->buffer);
+	if (spell->no_spell_check_tag != NULL)
+	{
+		g_object_ref (spell->no_spell_check_tag);
+	}
 
 	tag_table = gtk_text_buffer_get_tag_table (spell->buffer);
 
@@ -1024,6 +1055,7 @@ gspell_inline_checker_gtv_dispose (GObject *object)
 	}
 
 	g_clear_object (&spell->highlight_tag);
+	g_clear_object (&spell->no_spell_check_tag);
 	g_clear_object (&spell->spell_checker);
 
 	g_slist_free_full (spell->views, g_object_unref);
