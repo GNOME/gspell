@@ -30,6 +30,9 @@ gboolean	_gspell_utils_is_digit			(const gchar *text,
 							 gssize       text_length);
 
 G_GNUC_INTERNAL
+GtkTextTag *	_gspell_utils_get_no_spell_check_tag	(GtkTextBuffer *buffer);
+
+G_GNUC_INTERNAL
 gboolean	_gspell_utils_skip_no_spell_check	(GtkTextIter       *start,
 							 const GtkTextIter *end);
 

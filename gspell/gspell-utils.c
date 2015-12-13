@@ -54,20 +54,30 @@ _gspell_utils_is_digit (const gchar *text,
 	return TRUE;
 }
 
+GtkTextTag *
+_gspell_utils_get_no_spell_check_tag (GtkTextBuffer *buffer)
+{
+	GtkTextTagTable *tag_table;
+
+	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (buffer), NULL);
+
+	tag_table = gtk_text_buffer_get_tag_table (buffer);
+
+	return gtk_text_tag_table_lookup (tag_table, "gtksourceview:context-classes:no-spell-check");
+}
+
 gboolean
 _gspell_utils_skip_no_spell_check (GtkTextIter       *start,
 				   const GtkTextIter *end)
 {
 	GtkTextBuffer *buffer;
-	GtkTextTagTable *tag_table;
 	GtkTextTag *no_spell_check_tag;
 
 	g_return_val_if_fail (start != NULL, FALSE);
 	g_return_val_if_fail (end != NULL, FALSE);
 
 	buffer = gtk_text_iter_get_buffer (start);
-	tag_table = gtk_text_buffer_get_tag_table (buffer);
-	no_spell_check_tag = gtk_text_tag_table_lookup (tag_table, "gtksourceview:context-classes:no-spell-check");
+	no_spell_check_tag = _gspell_utils_get_no_spell_check_tag (buffer);
 
 	if (no_spell_check_tag == NULL)
 	{
