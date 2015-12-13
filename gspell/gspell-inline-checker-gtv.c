@@ -57,7 +57,7 @@ struct _GspellInlineCheckerGtv
 	/* List of GtkTextView* */
 	GSList *views;
 
-	GtkTextTag *tag_highlight;
+	GtkTextTag *highlight_tag;
 
 	GtkTextMark *mark_click;
 
@@ -121,7 +121,7 @@ check_word (GspellInlineCheckerGtv *spell,
 	if (!correctly_spelled)
 	{
 		gtk_text_buffer_apply_tag (spell->buffer,
-					   spell->tag_highlight,
+					   spell->highlight_tag,
 					   start,
 					   end);
 	}
@@ -151,7 +151,7 @@ check_subregion (GspellInlineCheckerGtv *spell,
 	}
 
 	gtk_text_buffer_remove_tag (spell->buffer,
-				    spell->tag_highlight,
+				    spell->highlight_tag,
 				    start,
 				    end);
 
@@ -663,7 +663,7 @@ populate_popup_cb (GtkTextView            *view,
 		return;
 	}
 
-	if (!gtk_text_iter_has_tag (&start, spell->tag_highlight))
+	if (!gtk_text_iter_has_tag (&start, spell->highlight_tag))
 	{
 		return;
 	}
@@ -726,7 +726,7 @@ remove_tag_to_word (GspellInlineCheckerGtv *spell,
 		    gtk_text_iter_ends_word (&match_end))
 		{
 			gtk_text_buffer_remove_tag (spell->buffer,
-						    spell->tag_highlight,
+						    spell->highlight_tag,
 						    &match_start,
 						    &match_end);
 		}
@@ -806,12 +806,12 @@ popup_menu_cb (GtkTextView            *view,
 }
 
 static void
-update_tag_highlight_priority (GspellInlineCheckerGtv *spell,
+update_highlight_tag_priority (GspellInlineCheckerGtv *spell,
 			       GtkTextTagTable        *table)
 {
-	g_return_if_fail (spell->tag_highlight != NULL);
+	g_return_if_fail (spell->highlight_tag != NULL);
 
-	gtk_text_tag_set_priority (spell->tag_highlight,
+	gtk_text_tag_set_priority (spell->highlight_tag,
 				   gtk_text_tag_table_get_size (table) - 1);
 }
 
@@ -820,7 +820,7 @@ tag_added_cb (GtkTextTagTable        *table,
 	      GtkTextTag             *tag,
 	      GspellInlineCheckerGtv *spell)
 {
-	update_tag_highlight_priority (spell, table);
+	update_highlight_tag_priority (spell, table);
 }
 
 static void
@@ -828,9 +828,9 @@ tag_removed_cb (GtkTextTagTable        *table,
 		GtkTextTag             *tag,
 		GspellInlineCheckerGtv *spell)
 {
-	if (tag != spell->tag_highlight)
+	if (tag != spell->highlight_tag)
 	{
-		update_tag_highlight_priority (spell, table);
+		update_highlight_tag_priority (spell, table);
 	}
 }
 
@@ -840,7 +840,7 @@ tag_changed_cb (GtkTextTagTable        *table,
 		gboolean                size_changed,
 		GspellInlineCheckerGtv *spell)
 {
-	update_tag_highlight_priority (spell, table);
+	update_highlight_tag_priority (spell, table);
 }
 
 static void
@@ -852,7 +852,7 @@ set_buffer (GspellInlineCheckerGtv *spell,
 
 	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
 	g_return_if_fail (spell->buffer == NULL);
-	g_return_if_fail (spell->tag_highlight == NULL);
+	g_return_if_fail (spell->highlight_tag == NULL);
 	g_return_if_fail (spell->mark_click == NULL);
 
 	spell->buffer = g_object_ref (buffer);
@@ -873,10 +873,10 @@ set_buffer (GspellInlineCheckerGtv *spell,
 				 spell,
 				 G_CONNECT_AFTER);
 
-	spell->tag_highlight = gtk_text_buffer_create_tag (spell->buffer, NULL,
+	spell->highlight_tag = gtk_text_buffer_create_tag (spell->buffer, NULL,
 							   "underline", PANGO_UNDERLINE_ERROR,
 							   NULL);
-	g_object_ref (spell->tag_highlight);
+	g_object_ref (spell->highlight_tag);
 
 	tag_table = gtk_text_buffer_get_tag_table (spell->buffer);
 
@@ -1006,9 +1006,9 @@ gspell_inline_checker_gtv_dispose (GObject *object)
 
 		table = gtk_text_buffer_get_tag_table (spell->buffer);
 
-		if (table != NULL && spell->tag_highlight != NULL)
+		if (table != NULL && spell->highlight_tag != NULL)
 		{
-			gtk_text_tag_table_remove (table, spell->tag_highlight);
+			gtk_text_tag_table_remove (table, spell->highlight_tag);
 		}
 
 		if (spell->mark_click != NULL)
@@ -1023,7 +1023,7 @@ gspell_inline_checker_gtv_dispose (GObject *object)
 		spell->buffer = NULL;
 	}
 
-	g_clear_object (&spell->tag_highlight);
+	g_clear_object (&spell->highlight_tag);
 	g_clear_object (&spell->spell_checker);
 
 	g_slist_free_full (spell->views, g_object_unref);
