@@ -1,3 +1,22 @@
+News in 0.2.2
+-------------
+* Relicense gspell from GPLv2+ to LGPLv2.1+
+* Get rid of the libxml2 and GtkSourceView dependencies
+* Replace the GspellLanguage implementation by the GtkHtml one to get rid of
+  the libxml2 dependency and have a code licensed under the LGPL.
+* Code improvements to GspellInlineCheckerGtv
+
+API changes:
+* Rename gspell_language_from_key() to gspell_language_lookup()
+* Rename gspell_language_to_key() to gspell_language_get_code()
+* Rename gspell_language_to_string() to gspell_language_get_name()
+* Rename gspell_checker_get_available_languages() to gspell_language_get_available()
+  and return a GList instead of a GSList.
+* Rename GspellChecker signals:
+	- ::add-word-to-personal -> ::word-added-to-personal
+	- ::add-word-to-session -> ::word-added-to-session
+	- ::clear-session -> ::session-cleared
+
 News in 0.2.1
 -------------
 * Allow only <gspell/gspell.h> to be #included directly
