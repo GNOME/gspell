@@ -844,23 +844,13 @@ tag_changed_cb (GtkTextTagTable        *table,
 }
 
 static void
-highlight_updated_cb (GtkSourceBuffer        *buffer,
-		      GtkTextIter            *start,
-		      GtkTextIter            *end,
-		      GspellInlineCheckerGtv *spell)
-{
-	add_subregion_to_scan (spell, start, end);
-	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
-}
-
-static void
 set_buffer (GspellInlineCheckerGtv *spell,
-	    GtkSourceBuffer        *buffer)
+	    GtkTextBuffer          *buffer)
 {
 	GtkTextTagTable *tag_table;
 	GtkTextIter start;
 
-	g_return_if_fail (GTK_SOURCE_IS_BUFFER (buffer));
+	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
 	g_return_if_fail (spell->buffer == NULL);
 	g_return_if_fail (spell->tag_highlight == NULL);
 	g_return_if_fail (spell->mark_click == NULL);
@@ -882,12 +872,6 @@ set_buffer (GspellInlineCheckerGtv *spell,
 				 G_CALLBACK (delete_range_after_cb),
 				 spell,
 				 G_CONNECT_AFTER);
-
-	g_signal_connect_object (buffer,
-				 "highlight-updated", /* GtkSourceBuffer signal */
-				 G_CALLBACK (highlight_updated_cb),
-				 spell,
-				 0);
 
 	spell->tag_highlight = gtk_text_buffer_create_tag (spell->buffer, NULL,
 							   "underline", PANGO_UNDERLINE_ERROR,
@@ -1074,7 +1058,7 @@ gspell_inline_checker_gtv_class_init (GspellInlineCheckerGtvClass *klass)
 	/**
 	 * GspellInlineCheckerGtv:buffer:
 	 *
-	 * The #GtkSourceBuffer. If a same buffer is used for several views, the
+	 * The #GtkTextBuffer. If a same buffer is used for several views, the
 	 * misspelled words are visible in all views, because #GtkTextTag's are
 	 * added to the buffer.
 	 */
@@ -1083,7 +1067,7 @@ gspell_inline_checker_gtv_class_init (GspellInlineCheckerGtvClass *klass)
 					 g_param_spec_object ("buffer",
 							      "Buffer",
 							      "",
-							      GTK_SOURCE_TYPE_BUFFER,
+							      GTK_TYPE_TEXT_BUFFER,
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
 							      G_PARAM_STATIC_STRINGS));
@@ -1111,18 +1095,18 @@ gspell_inline_checker_gtv_init (GspellInlineCheckerGtv *spell)
 
 /**
  * gspell_inline_checker_gtv_new:
- * @buffer: a #GtkSourceBuffer.
+ * @buffer: a #GtkTextBuffer.
  * @checker: a #GspellChecker.
  *
  * Returns: a new #GspellInlineCheckerGtv object.
  */
 GspellInlineCheckerGtv *
-gspell_inline_checker_gtv_new (GtkSourceBuffer *buffer,
-			       GspellChecker   *checker)
+gspell_inline_checker_gtv_new (GtkTextBuffer *buffer,
+			       GspellChecker *checker)
 {
 	GspellInlineCheckerGtv *spell;
 
-	g_return_val_if_fail (GTK_SOURCE_IS_BUFFER (buffer), NULL);
+	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (buffer), NULL);
 	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
 
 	spell = g_object_get_data (G_OBJECT (buffer), INLINE_CHECKER_GTV_KEY);

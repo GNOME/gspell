@@ -29,8 +29,8 @@
 #error "Only <gspell/gspell.h> can be included directly."
 #endif
 
-#include <gtksourceview/gtksource.h>
 #include <gspell/gspell-checker.h>
+#include <gtk/gtk.h>
 
 #define GSPELL_TYPE_INLINE_CHECKER_GTV (gspell_inline_checker_gtv_get_type ())
 G_DECLARE_FINAL_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv,
@@ -38,8 +38,8 @@ G_DECLARE_FINAL_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv,
 		      GObject)
 
 GspellInlineCheckerGtv *
-	gspell_inline_checker_gtv_new		(GtkSourceBuffer *buffer,
-						 GspellChecker   *checker);
+	gspell_inline_checker_gtv_new		(GtkTextBuffer *buffer,
+						 GspellChecker *checker);
 
 void	gspell_inline_checker_gtv_attach_view	(GspellInlineCheckerGtv *spell,
 						 GtkTextView            *view);
