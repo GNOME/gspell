@@ -807,23 +807,11 @@ popup_menu_cb (GtkTextView            *view,
 }
 
 static void
-update_highlight_tag_priority (GspellInlineCheckerGtv *spell,
-			       GtkTextTagTable        *table)
-{
-	g_return_if_fail (spell->highlight_tag != NULL);
-
-	gtk_text_tag_set_priority (spell->highlight_tag,
-				   gtk_text_tag_table_get_size (table) - 1);
-}
-
-static void
 tag_added_cb (GtkTextTagTable        *table,
 	      GtkTextTag             *tag,
 	      GspellInlineCheckerGtv *spell)
 {
 	gchar *name;
-
-	update_highlight_tag_priority (spell, table);
 
 	g_object_get (tag, "name", &name, NULL);
 
@@ -844,11 +832,6 @@ tag_removed_cb (GtkTextTagTable        *table,
 		GtkTextTag             *tag,
 		GspellInlineCheckerGtv *spell)
 {
-	if (tag != spell->highlight_tag)
-	{
-		update_highlight_tag_priority (spell, table);
-	}
-
 	if (spell->no_spell_check_tag != NULL &&
 	    spell->no_spell_check_tag == tag)
 	{
@@ -856,15 +839,6 @@ tag_removed_cb (GtkTextTagTable        *table,
 
 		recheck_all (spell);
 	}
-}
-
-static void
-tag_changed_cb (GtkTextTagTable        *table,
-		GtkTextTag             *tag,
-		gboolean                size_changed,
-		GspellInlineCheckerGtv *spell)
-{
-	update_highlight_tag_priority (spell, table);
 }
 
 static void
@@ -920,12 +894,6 @@ set_buffer (GspellInlineCheckerGtv *spell,
 	g_signal_connect_object (tag_table,
 				 "tag-removed",
 				 G_CALLBACK (tag_removed_cb),
-				 spell,
-				 0);
-
-	g_signal_connect_object (tag_table,
-				 "tag-changed",
-				 G_CALLBACK (tag_changed_cb),
 				 spell,
 				 0);
 
