@@ -807,6 +807,21 @@ popup_menu_cb (GtkTextView            *view,
 }
 
 static void
+apply_or_remove_tag_cb (GtkTextBuffer          *buffer,
+			GtkTextTag             *tag,
+			GtkTextIter            *start,
+			GtkTextIter            *end,
+			GspellInlineCheckerGtv *spell)
+{
+	if (spell->no_spell_check_tag != NULL &&
+	    spell->no_spell_check_tag == tag)
+	{
+		add_subregion_to_scan (spell, start, end);
+		install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
+	}
+}
+
+static void
 tag_added_cb (GtkTextTagTable        *table,
 	      GtkTextTag             *tag,
 	      GspellInlineCheckerGtv *spell)
@@ -869,6 +884,18 @@ set_buffer (GspellInlineCheckerGtv *spell,
 	g_signal_connect_object (buffer,
 				 "delete-range",
 				 G_CALLBACK (delete_range_after_cb),
+				 spell,
+				 G_CONNECT_AFTER);
+
+	g_signal_connect_object (buffer,
+				 "apply-tag",
+				 G_CALLBACK (apply_or_remove_tag_cb),
+				 spell,
+				 G_CONNECT_AFTER);
+
+	g_signal_connect_object (buffer,
+				 "remove-tag",
+				 G_CALLBACK (apply_or_remove_tag_cb),
 				 spell,
 				 G_CONNECT_AFTER);
 
