@@ -59,11 +59,7 @@ Dependencies
 * Enchant >= 1.6.0
 * GLib >= 2.44
 * GTK+ >= 3.16
-* GtkSourceView >= 3.16
 * iso-codes
-
-It is planned to remove the dependency to GtkSourceView in a future version of
-gspell.
 
 
 Installation from a tarball

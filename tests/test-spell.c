@@ -28,7 +28,7 @@ struct _TestSpell
 {
 	GtkGrid parent;
 
-	GtkSourceView *view;
+	GtkTextView *view;
 	GspellChecker *checker;
 	GspellInlineCheckerGtv *inline_spell;
 };
@@ -68,8 +68,7 @@ checker_button_clicked_cb (GtkButton *checker_button,
 		g_return_if_reached ();
 	}
 
-	navigator = gspell_navigator_gtv_new (GTK_TEXT_VIEW (spell->view),
-					      spell->checker);
+	navigator = gspell_navigator_gtv_new (spell->view, spell->checker);
 
 	checker_dialog = gspell_checker_dialog_new (GTK_WINDOW (window), navigator);
 	g_object_unref (navigator);
@@ -84,11 +83,11 @@ highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 {
 	if (gtk_toggle_button_get_active (checkbutton))
 	{
-		GtkSourceBuffer *buffer;
+		GtkTextBuffer *buffer;
 
 		g_assert (spell->inline_spell == NULL);
 
-		buffer = GTK_SOURCE_BUFFER (gtk_text_view_get_buffer (GTK_TEXT_VIEW (spell->view)));
+		buffer = gtk_text_view_get_buffer (spell->view);
 
 		/* A real application needs to check if
 		 * gspell_checker_get_language() != NULL. If it is NULL, the
@@ -97,8 +96,7 @@ highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 		 */
 		spell->inline_spell = gspell_inline_checker_gtv_new (buffer, spell->checker);
 
-		gspell_inline_checker_gtv_attach_view (spell->inline_spell,
-						       GTK_TEXT_VIEW (spell->view));
+		gspell_inline_checker_gtv_attach_view (spell->inline_spell, spell->view);
 	}
 	else
 	{
@@ -166,7 +164,7 @@ test_spell_init (TestSpell *spell)
 {
 	GtkWidget *scrolled_window;
 
-	spell->view = GTK_SOURCE_VIEW (gtk_source_view_new ());
+	spell->view = GTK_TEXT_VIEW (gtk_text_view_new ());
 	spell->checker = gspell_checker_new (NULL);
 
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (spell),

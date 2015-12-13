@@ -119,8 +119,8 @@ Gspell_1_gir_FILES =			\
 	$(gspell_public_c_files)	\
 	$(BUILT_SOURCES)
 
-Gspell_1_gir_INCLUDES = GtkSource-3.0 Gtk-3.0
-Gspell_1_gir_PACKAGES = gtksourceview-3.0 gtk+-3.0
+Gspell_1_gir_INCLUDES = Gtk-3.0
+Gspell_1_gir_PACKAGES = gtk+-3.0
 Gspell_1_gir_EXPORT_PACKAGES = gspell-1
 
 girdir = $(datadir)/gir-1.0
@@ -142,9 +142,7 @@ gspell-1.vapi: Gspell-1.gir
 
 VAPIGEN_VAPIS = gspell-1.vapi
 
-gspell_1_vapi_DEPS =		\
-	gtk+-3.0		\
-	gtksourceview-3.0
+gspell_1_vapi_DEPS = gtk+-3.0
 
 gspell-1.deps:
 	$(AM_V_GEN) for pkg in $(gspell_1_vapi_DEPS); do \
