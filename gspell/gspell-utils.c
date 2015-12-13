@@ -20,7 +20,6 @@
 
 #include "gspell-utils.h"
 #include <string.h>
-#include <gtksourceview/gtksource.h>
 
 gboolean
 _gspell_utils_is_digit (const gchar *text,
@@ -59,13 +58,27 @@ gboolean
 _gspell_utils_skip_no_spell_check (GtkTextIter       *start,
 				   const GtkTextIter *end)
 {
-	GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER (gtk_text_iter_get_buffer (start));
+	GtkTextBuffer *buffer;
+	GtkTextTagTable *tag_table;
+	GtkTextTag *no_spell_check_tag;
 
-	while (gtk_source_buffer_iter_has_context_class (buffer, start, "no-spell-check"))
+	g_return_val_if_fail (start != NULL, FALSE);
+	g_return_val_if_fail (end != NULL, FALSE);
+
+	buffer = gtk_text_iter_get_buffer (start);
+	tag_table = gtk_text_buffer_get_tag_table (buffer);
+	no_spell_check_tag = gtk_text_tag_table_lookup (tag_table, "gtksourceview:context-classes:no-spell-check");
+
+	if (no_spell_check_tag == NULL)
+	{
+		return TRUE;
+	}
+
+	while (gtk_text_iter_has_tag (start, no_spell_check_tag))
 	{
 		GtkTextIter last = *start;
 
-		if (!gtk_source_buffer_iter_forward_to_context_class_toggle (buffer, start, "no-spell-check"))
+		if (!gtk_text_iter_forward_to_tag_toggle (start, no_spell_check_tag))
 		{
 			return FALSE;
 		}
