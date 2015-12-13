@@ -314,6 +314,7 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 	GspellNavigatorGtvPrivate *priv;
 	GtkTextIter word_start;
 	GtkTextIter end;
+	GtkTextTag *no_spell_check_tag;
 
 	priv = gspell_navigator_gtv_get_instance_private (GSPELL_NAVIGATOR_GTV (navigator));
 
@@ -364,6 +365,8 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 		word_start = word_end;
 	}
 
+	no_spell_check_tag = _gspell_utils_get_no_spell_check_tag (priv->buffer);
+
 	while (TRUE)
 	{
 		GtkTextIter word_end;
@@ -387,7 +390,7 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 			gtk_text_iter_backward_word_start (&word_start);
 		}
 
-		if (!_gspell_utils_skip_no_spell_check (&word_start, &end))
+		if (!_gspell_utils_skip_no_spell_check (no_spell_check_tag, &word_start, &end))
 		{
 			return FALSE;
 		}

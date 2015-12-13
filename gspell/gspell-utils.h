@@ -33,7 +33,8 @@ G_GNUC_INTERNAL
 GtkTextTag *	_gspell_utils_get_no_spell_check_tag	(GtkTextBuffer *buffer);
 
 G_GNUC_INTERNAL
-gboolean	_gspell_utils_skip_no_spell_check	(GtkTextIter       *start,
+gboolean	_gspell_utils_skip_no_spell_check	(GtkTextTag        *no_spell_check_tag,
+							 GtkTextIter       *start,
 							 const GtkTextIter *end);
 
 G_END_DECLS

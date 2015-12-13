@@ -172,7 +172,7 @@ check_subregion (GspellInlineCheckerGtv *spell,
 		g_assert_cmpint (gtk_text_iter_compare (start, &word_start), <, 0);
 	}
 
-	while (_gspell_utils_skip_no_spell_check (&word_start, end) &&
+	while (_gspell_utils_skip_no_spell_check (spell->no_spell_check_tag, &word_start, end) &&
 	       gtk_text_iter_compare (&word_start, end) < 0)
 	{
 		GtkTextIter word_end;

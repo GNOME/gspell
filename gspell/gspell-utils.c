@@ -67,22 +67,19 @@ _gspell_utils_get_no_spell_check_tag (GtkTextBuffer *buffer)
 }
 
 gboolean
-_gspell_utils_skip_no_spell_check (GtkTextIter       *start,
+_gspell_utils_skip_no_spell_check (GtkTextTag        *no_spell_check_tag,
+				   GtkTextIter       *start,
 				   const GtkTextIter *end)
 {
-	GtkTextBuffer *buffer;
-	GtkTextTag *no_spell_check_tag;
-
 	g_return_val_if_fail (start != NULL, FALSE);
 	g_return_val_if_fail (end != NULL, FALSE);
-
-	buffer = gtk_text_iter_get_buffer (start);
-	no_spell_check_tag = _gspell_utils_get_no_spell_check_tag (buffer);
 
 	if (no_spell_check_tag == NULL)
 	{
 		return TRUE;
 	}
+
+	g_return_val_if_fail (GTK_IS_TEXT_TAG (no_spell_check_tag), FALSE);
 
 	while (gtk_text_iter_has_tag (start, no_spell_check_tag))
 	{
