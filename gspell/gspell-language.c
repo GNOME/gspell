@@ -388,7 +388,7 @@ gspell_language_get_available (void)
 			(GTraverseFunc) spell_language_traverse_cb,
 			&available_languages);
 
-	g_tree_destroy (tree);
+	g_tree_unref (tree);
 
 	return available_languages;
 }
