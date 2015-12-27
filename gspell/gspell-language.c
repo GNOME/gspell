@@ -45,13 +45,18 @@ struct _GspellLanguage
 	gchar *collate_key;
 };
 
+typedef struct _DictsData DictsData;
+struct _DictsData
+{
+	GHashTable *iso_639_table;
+	GHashTable *iso_3166_table;
+	GTree *tree;
+};
+
 G_DEFINE_BOXED_TYPE (GspellLanguage,
 		     gspell_language,
 		     gspell_language_copy,
 		     gspell_language_free)
-
-static GHashTable *iso_639_table = NULL;
-static GHashTable *iso_3166_table = NULL;
 
 #ifdef G_OS_WIN32
 
@@ -248,7 +253,7 @@ spell_language_dict_describe_cb (const gchar * const language_code,
                                  const gchar * const provider_name,
                                  const gchar * const provider_desc,
                                  const gchar * const provider_file,
-                                 GTree *tree)
+				 DictsData *data)
 {
 	const gchar *iso_639_name;
 	const gchar *iso_3166_name;
@@ -263,7 +268,7 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 
 	g_return_if_fail (tokens != NULL);
 
-	iso_639_name = g_hash_table_lookup (iso_639_table, tokens[0]);
+	iso_639_name = g_hash_table_lookup (data->iso_639_table, tokens[0]);
 
 	if (iso_639_name == NULL)
 	{
@@ -278,7 +283,7 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 		goto exit;
 	}
 
-	iso_3166_name = g_hash_table_lookup (iso_3166_table, tokens[1]);
+	iso_3166_name = g_hash_table_lookup (data->iso_3166_table, tokens[1]);
 
 	if (iso_3166_name != NULL)
 	{
@@ -302,7 +307,7 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 exit:
 	g_strfreev (tokens);
 
-	g_tree_replace (tree, g_strdup (language_code), language_name);
+	g_tree_replace (data->tree, g_strdup (language_code), language_name);
 }
 
 static gboolean
@@ -337,7 +342,7 @@ gspell_language_get_available (void)
 	static GList *available_languages = NULL;
 	gchar *localedir;
 	EnchantBroker *broker;
-	GTree *tree;
+	DictsData data;
 
 	GMarkupParser iso_639_parser =
 	{
@@ -368,37 +373,37 @@ gspell_language_get_available (void)
 
 	g_free (localedir);
 
-	g_assert (iso_639_table == NULL);
-	iso_639_table = g_hash_table_new_full (g_str_hash,
-					       g_str_equal,
-					       (GDestroyNotify) g_free,
-					       (GDestroyNotify) g_free);
+	data.iso_639_table = g_hash_table_new_full (g_str_hash,
+						    g_str_equal,
+						    (GDestroyNotify) g_free,
+						    (GDestroyNotify) g_free);
 
-	g_assert (iso_3166_table == NULL);
-	iso_3166_table = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						(GDestroyNotify) g_free,
-						(GDestroyNotify) g_free);
+	data.iso_3166_table = g_hash_table_new_full (g_str_hash,
+						     g_str_equal,
+						     (GDestroyNotify) g_free,
+						     (GDestroyNotify) g_free);
 
-	iso_codes_parse (&iso_639_parser, "iso_639.xml", iso_639_table);
-	iso_codes_parse (&iso_3166_parser, "iso_3166.xml", iso_3166_table);
+	iso_codes_parse (&iso_639_parser, "iso_639.xml", data.iso_639_table);
+	iso_codes_parse (&iso_3166_parser, "iso_3166.xml", data.iso_3166_table);
 
-	tree = g_tree_new_full ((GCompareDataFunc) strcmp,
-				NULL,
-				(GDestroyNotify) g_free,
-				(GDestroyNotify) g_free);
+	data.tree = g_tree_new_full ((GCompareDataFunc) strcmp,
+				     NULL,
+				     (GDestroyNotify) g_free,
+				     (GDestroyNotify) g_free);
 
 	broker = enchant_broker_init ();
 	enchant_broker_list_dicts (broker,
 				   (EnchantDictDescribeFn) spell_language_dict_describe_cb,
-				   tree);
+				   &data);
 	enchant_broker_free (broker);
 
-	g_tree_foreach (tree,
+	g_tree_foreach (data.tree,
 			(GTraverseFunc) spell_language_traverse_cb,
 			&available_languages);
 
-	g_tree_unref (tree);
+	g_hash_table_unref (data.iso_639_table);
+	g_hash_table_unref (data.iso_3166_table);
+	g_tree_unref (data.tree);
 
 	return available_languages;
 }
