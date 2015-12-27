@@ -358,11 +358,13 @@ gspell_language_get_available (void)
 
 	g_free (localedir);
 
+	g_assert (iso_639_table == NULL);
 	iso_639_table = g_hash_table_new_full (g_str_hash,
 					       g_str_equal,
 					       (GDestroyNotify) g_free,
 					       (GDestroyNotify) g_free);
 
+	g_assert (iso_3166_table == NULL);
 	iso_3166_table = g_hash_table_new_full (g_str_hash,
 						g_str_equal,
 						(GDestroyNotify) g_free,
