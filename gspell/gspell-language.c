@@ -25,6 +25,16 @@
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
 
+/**
+ * SECTION:language
+ * @Short_description: Language
+ * @Title: GspellLanguage
+ * @See_also: #GspellChecker
+ *
+ * #GspellLanguage represents a language that can be used for the spell
+ * checking, i.e. a language for which a dictionary is installed.
+ */
+
 #define ISO_639_DOMAIN	"iso_639"
 #define ISO_3166_DOMAIN	"iso_3166"
 
@@ -393,6 +403,13 @@ gspell_language_get_available (void)
 	return available_languages;
 }
 
+/**
+ * gspell_language_lookup:
+ * @language_code: a language code.
+ *
+ * Returns: (nullable): a #GspellLanguage corresponding to @language_code, or
+ * %NULL if not found.
+ */
 const GspellLanguage *
 gspell_language_lookup (const gchar *language_code)
 {
@@ -424,6 +441,12 @@ gspell_language_lookup (const gchar *language_code)
 	return closest_match;
 }
 
+/**
+ * gspell_language_get_code:
+ * @language: a #GspellLanguage.
+ *
+ * Returns: the @language code, for example fr_BE.
+ */
 const gchar *
 gspell_language_get_code (const GspellLanguage *language)
 {
@@ -432,6 +455,16 @@ gspell_language_get_code (const GspellLanguage *language)
 	return language->code;
 }
 
+/**
+ * gspell_language_get_name:
+ * @language: a #GspellLanguage.
+ *
+ * Returns the @language name translated to the current locale. For example
+ * "French (Belgium)" is returned if the current locale is in English and the
+ * @language code is fr_BE.
+ *
+ * Returns: the @language name.
+ */
 const gchar *
 gspell_language_get_name (const GspellLanguage *language)
 {
@@ -440,6 +473,17 @@ gspell_language_get_name (const GspellLanguage *language)
 	return language->name;
 }
 
+/**
+ * gspell_language_compare:
+ * @language_a: a #GspellLanguage.
+ * @language_b: another #GspellLanguage.
+ *
+ * Compares alphabetically two languages by their name, as returned by
+ * gspell_language_get_name().
+ *
+ * Returns: an integer less than, equal to, or greater than zero, if @language_a
+ * is <, == or > than @language_b.
+ */
 gint
 gspell_language_compare (const GspellLanguage *language_a,
                          const GspellLanguage *language_b)
