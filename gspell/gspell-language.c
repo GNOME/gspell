@@ -32,7 +32,7 @@ struct _GspellLanguage
 {
 	gchar *code;
 	gchar *name;
-	gchar *ckey;
+	gchar *collate_key;
 };
 
 G_DEFINE_BOXED_TYPE (GspellLanguage,
@@ -305,7 +305,7 @@ spell_language_traverse_cb (const gchar  *code,
 	language = g_slice_new (GspellLanguage);
 	language->code = g_strdup (code);
 	language->name = g_strdup (name);
-	language->ckey = g_utf8_collate_key (name, -1);
+	language->collate_key = g_utf8_collate_key (name, -1);
 
 	*available_languages = g_list_insert_sorted (*available_languages,
 						     language,
@@ -454,7 +454,7 @@ gspell_language_compare (const GspellLanguage *language_a,
 	g_return_val_if_fail (language_a != NULL, 0);
 	g_return_val_if_fail (language_b != NULL, 0);
 
-	return g_strcmp0 (language_a->ckey, language_b->ckey);
+	return g_strcmp0 (language_a->collate_key, language_b->collate_key);
 }
 
 /**
