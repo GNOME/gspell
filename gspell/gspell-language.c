@@ -117,33 +117,33 @@ iso_639_start_element (GMarkupParseContext  *context,
 	const gchar *iso_639_2_code = NULL;
 	const gchar *name = NULL;
 	const gchar *code = NULL;
-	gint ii;
+	gint i;
 
-	if (strcmp (element_name, "iso_639_entry") != 0)
+	if (g_strcmp0 (element_name, "iso_639_entry") != 0)
 	{
 		return;
 	}
 
-	for (ii = 0; attribute_names[ii] != NULL; ii++)
+	for (i = 0; attribute_names[i] != NULL; i++)
 	{
-		if (strcmp (attribute_names[ii], "name") == 0)
+		if (g_str_equal (attribute_names[i], "name"))
 		{
-			name = attribute_values[ii];
+			name = attribute_values[i];
 		}
-		else if (strcmp (attribute_names[ii], "iso_639_1_code") == 0)
+		else if (g_str_equal (attribute_names[i], "iso_639_1_code"))
 		{
-			iso_639_1_code = attribute_values[ii];
+			iso_639_1_code = attribute_values[i];
 		}
-		else if (strcmp (attribute_names[ii], "iso_639_2T_code") == 0)
+		else if (g_str_equal (attribute_names[i], "iso_639_2T_code"))
 		{
-			iso_639_2_code = attribute_values[ii];
+			iso_639_2_code = attribute_values[i];
 		}
 	}
 
 	code = (iso_639_1_code != NULL) ? iso_639_1_code : iso_639_2_code;
 
-	if (code != NULL && *code != '\0' &&
-	    name != NULL && *name != '\0')
+	if (code != NULL && code[0] != '\0' &&
+	    name != NULL && name[0] != '\0')
 	{
 		g_hash_table_insert (hash_table,
 				     g_strdup (code),
@@ -162,27 +162,27 @@ iso_3166_start_element (GMarkupParseContext  *context,
 	GHashTable *hash_table = data;
 	const gchar *name = NULL;
 	const gchar *code = NULL;
-	gint ii;
+	gint i;
 
-	if (strcmp (element_name, "iso_3166_entry") != 0)
+	if (g_strcmp0 (element_name, "iso_3166_entry") != 0)
 	{
 		return;
 	}
 
-	for (ii = 0; attribute_names[ii] != NULL; ii++)
+	for (i = 0; attribute_names[i] != NULL; i++)
 	{
-		if (strcmp (attribute_names[ii], "name") == 0)
+		if (g_str_equal (attribute_names[i], "name"))
 		{
-			name = attribute_values[ii];
+			name = attribute_values[i];
 		}
-		else if (strcmp (attribute_names[ii], "alpha_2_code") == 0)
+		else if (g_str_equal (attribute_names[i], "alpha_2_code"))
 		{
-			code = attribute_values[ii];
+			code = attribute_values[i];
 		}
 	}
 
-	if (code != NULL && *code != '\0' &&
-	    name != NULL && *name != '\0')
+	if (code != NULL && code[0] != '\0' &&
+	    name != NULL && name[0] != '\0')
 	{
 		g_hash_table_insert (hash_table,
 				     g_ascii_strdown (code, -1),
