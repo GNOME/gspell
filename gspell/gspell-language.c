@@ -190,18 +190,6 @@ iso_3166_start_element (GMarkupParseContext  *context,
 	}
 }
 
-static GMarkupParser iso_639_parser =
-{
-	iso_639_start_element,
-	NULL, NULL, NULL, NULL
-};
-
-static GMarkupParser iso_3166_parser =
-{
-	iso_3166_start_element,
-	NULL, NULL, NULL, NULL
-};
-
 static void
 iso_codes_parse (const GMarkupParser *parser,
 		 const gchar         *basename,
@@ -340,6 +328,18 @@ gspell_language_get_available (void)
 	gchar *localedir;
 	EnchantBroker *broker;
 	GTree *tree;
+
+	GMarkupParser iso_639_parser =
+	{
+		iso_639_start_element,
+		NULL, NULL, NULL, NULL
+	};
+
+	GMarkupParser iso_3166_parser =
+	{
+		iso_3166_start_element,
+		NULL, NULL, NULL, NULL
+	};
 
 	if (initialized)
 	{
