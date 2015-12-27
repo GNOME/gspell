@@ -398,14 +398,15 @@ gspell_language_lookup (const gchar *language_code)
 {
 	const GspellLanguage *closest_match = NULL;
 	const GList *available_languages;
+	const GList *l;
 
 	g_return_val_if_fail (language_code != NULL, NULL);
 
 	available_languages = gspell_language_get_available ();
 
-	while (available_languages != NULL)
+	for (l = available_languages; l != NULL; l = l->next)
 	{
-		GspellLanguage *language = available_languages->data;
+		const GspellLanguage *language = l->data;
 		const gchar *code = language->code;
 		gsize length = strlen (code);
 
@@ -418,8 +419,6 @@ gspell_language_lookup (const gchar *language_code)
 		{
 			closest_match = language;
 		}
-
-		available_languages = g_list_next (available_languages);
 	}
 
 	return closest_match;
