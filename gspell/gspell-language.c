@@ -43,12 +43,12 @@ G_DEFINE_BOXED_TYPE (GspellLanguage,
 static GHashTable *iso_639_table = NULL;
 static GHashTable *iso_3166_table = NULL;
 
-#define ISOCODESLOCALEDIR ISO_CODES_PREFIX "/share/locale"
-
 #ifdef G_OS_WIN32
+
 #ifdef DATADIR
 #undef DATADIR
 #endif
+
 #include <shlobj.h>
 static HMODULE hmodule;
 
@@ -72,54 +72,37 @@ DllMain (HINSTANCE hinstDLL,
 	return TRUE;
 }
 
-static gchar *
-_get_iso_codes_prefix (void)
-{
-	static gchar retval[1000];
-	static gboolean beenhere = FALSE;
-	gchar *temp_dir = 0;
-
-	if (beenhere)
-	{
-		return retval;
-	}
-
-	if (!(temp_dir = g_win32_get_package_installation_directory_of_module ((gpointer) hmodule)))
-	{
-		strcpy (retval, ISO_CODES_PREFIX);
-		return retval;
-	}
-
-	strcpy (retval, temp_dir);
-	g_free (temp_dir);
-	beenhere = TRUE;
-	return retval;
-}
-
-static gchar *
-_get_isocodeslocaledir (void)
-{
-	static gchar retval[1000];
-	static gboolean beenhere = FALSE;
-
-	if (beenhere)
-	{
-		return retval;
-	}
-
-	strcpy (retval, _get_iso_codes_prefix ());
-	strcat (retval, "\\share\\locale");
-	beenhere = TRUE;
-	return retval;
-}
-
-#undef ISO_CODES_PREFIX
-#define ISO_CODES_PREFIX _get_iso_codes_prefix ()
-
-#undef ISOCODESLOCALEDIR
-#define ISOCODESLOCALEDIR _get_isocodeslocaledir ()
-
 #endif /* G_OS_WIN32 */
+
+static gchar *
+get_iso_codes_prefix (void)
+{
+	gchar *prefix = NULL;
+
+#ifdef G_OS_WIN32
+	prefix = g_win32_get_package_installation_directory_of_module ((gpointer) hmodule);
+#endif
+
+	if (prefix == NULL)
+	{
+		prefix = g_strdup (ISO_CODES_PREFIX);
+	}
+
+	return prefix;
+}
+
+static gchar *
+get_iso_codes_localedir (void)
+{
+	gchar *prefix;
+	gchar *localedir;
+
+	prefix = get_iso_codes_prefix ();
+	localedir = g_build_filename (prefix, "share", "locale", NULL);
+	g_free (prefix);
+
+	return localedir;
+}
 
 static void
 iso_639_start_element (GMarkupParseContext  *context,
@@ -225,15 +208,18 @@ iso_codes_parse (const GMarkupParser *parser,
 		 GHashTable          *hash_table)
 {
 	GMappedFile *mapped_file;
+	gchar *prefix;
 	gchar *filename;
 	GError *error = NULL;
 
-	filename = g_build_filename (ISO_CODES_PREFIX,
+	prefix = get_iso_codes_prefix ();
+	filename = g_build_filename (prefix,
 				     "share",
 				     "xml",
 				     "iso-codes",
 				     basename,
 				     NULL);
+	g_free (prefix);
 
 	mapped_file = g_mapped_file_new (filename, FALSE, &error);
 	g_free (filename);
@@ -351,6 +337,7 @@ gspell_language_get_available (void)
 {
 	static gboolean initialized = FALSE;
 	static GList *available_languages = NULL;
+	gchar *localedir;
 	EnchantBroker *broker;
 	GTree *tree;
 
@@ -361,11 +348,15 @@ gspell_language_get_available (void)
 
 	initialized = TRUE;
 
-	bindtextdomain (ISO_639_DOMAIN, ISOCODESLOCALEDIR);
+	localedir = get_iso_codes_localedir ();
+
+	bindtextdomain (ISO_639_DOMAIN, localedir);
 	bind_textdomain_codeset (ISO_639_DOMAIN, "UTF-8");
 
-	bindtextdomain (ISO_3166_DOMAIN, ISOCODESLOCALEDIR);
+	bindtextdomain (ISO_3166_DOMAIN, localedir);
 	bind_textdomain_codeset (ISO_3166_DOMAIN, "UTF-8");
+
+	g_free (localedir);
 
 	iso_639_table = g_hash_table_new_full (g_str_hash,
 					       g_str_equal,
