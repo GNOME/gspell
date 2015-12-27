@@ -193,6 +193,36 @@ test_spell_new (void)
 	return g_object_new (TEST_TYPE_SPELL, NULL);
 }
 
+static void
+print_available_language_codes (void)
+{
+	const GList *available_languages;
+	const GList *l;
+
+	g_print ("Available language codes: ");
+
+	available_languages = gspell_language_get_available ();
+
+	if (available_languages == NULL)
+	{
+		g_print ("none\n");
+		return;
+	}
+
+	for (l = available_languages; l != NULL; l = l->next)
+	{
+		const GspellLanguage *language = l->data;
+		g_print ("%s", gspell_language_get_code (language));
+
+		if (l->next != NULL)
+		{
+			g_print (", ");
+		}
+	}
+
+	g_print ("\n");
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -201,6 +231,8 @@ main (gint    argc,
 	TestSpell *spell;
 
 	gtk_init (&argc, &argv);
+
+	print_available_language_codes ();
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
