@@ -435,13 +435,7 @@ gspell_language_get_code (const GspellLanguage *language)
 const gchar *
 gspell_language_get_name (const GspellLanguage *language)
 {
-	if (language == NULL)
-	{
-		/* Translators: This refers to the default language used by the
-		 * spell checker.
-		 */
-		return C_("language", "Default");
-	}
+	g_return_val_if_fail (language != NULL, NULL);
 
 	return language->name;
 }
