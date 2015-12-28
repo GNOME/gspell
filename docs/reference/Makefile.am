@@ -19,9 +19,10 @@ CFILE_GLOB = $(top_srcdir)/gspell/*.c
 
 # Header files or dirs to ignore when scanning. Use base file/dir names
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h private_code
-IGNORE_HFILES =			\
-	gspell-osx.h		\
-	gspell-utils.h		\
+IGNORE_HFILES =					\
+	gspell-buffer-notifier.h		\
+	gspell-osx.h				\
+	gspell-utils.h				\
 	gtktextregion.h
 
 # Extra options to supply to gtkdoc-mkdb

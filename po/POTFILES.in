@@ -1,4 +1,5 @@
 # List of source files containing translatable strings.
+gspell/gspell-buffer-notifier.c
 gspell/gspell-checker.c
 gspell/gspell-checker-dialog.c
 gspell/gspell-inline-checker-gtv.c

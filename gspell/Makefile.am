@@ -40,14 +40,16 @@ gspell_public_c_files =				\
 	gspell-navigator-gtv.c			\
 	gspell-text-buffer.c
 
-gspell_private_headers =	\
-	gconstructor.h		\
-	gspell-utils.h		\
+gspell_private_headers =			\
+	gconstructor.h				\
+	gspell-buffer-notifier.h		\
+	gspell-utils.h				\
 	gtktextregion.h
 
-gspell_private_c_files =	\
-	gspell-init.c		\
-	gspell-utils.c		\
+gspell_private_c_files =			\
+	gspell-buffer-notifier.c		\
+	gspell-init.c				\
+	gspell-utils.c				\
 	gtktextregion.c
 
 lib_LTLIBRARIES = libgspell-1.la
