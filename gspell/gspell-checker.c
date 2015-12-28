@@ -214,8 +214,8 @@ gspell_checker_class_init (GspellCheckerClass *klass)
 	 * @spell_checker: the #GspellChecker.
 	 * @word: the added word.
 	 *
-	 * Emitted when a word is added to the session dictionary. The session
-	 * dictionary is lost when the application exits.
+	 * Emitted when a word is added to the session dictionary. See
+	 * gspell_checker_add_word_to_session().
 	 */
 	signals[SIGNAL_WORD_ADDED_TO_SESSION] =
 		g_signal_new ("word-added-to-session",
@@ -581,9 +581,12 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
  * @word: a word.
  * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  *
- * Adds a word to the session dictionary. The session dictionary is lost when
- * the application exits. This function is typically called when an “Ignore All”
- * action is activated.
+ * Adds a word to the session dictionary. Each #GspellChecker instance has a
+ * different session dictionary. The session dictionary is lost when the
+ * #GspellChecker:language property changes or when @checker is destroyed or
+ * when gspell_checker_clear_session() is called.
+ *
+ * This function is typically called for an “Ignore All” action.
  */
 void
 gspell_checker_add_word_to_session (GspellChecker *checker,
