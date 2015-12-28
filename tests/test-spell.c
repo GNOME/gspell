@@ -88,13 +88,14 @@ highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 		g_assert (spell->inline_spell == NULL);
 
 		buffer = gtk_text_view_get_buffer (spell->view);
+		gspell_text_buffer_set_spell_checker (buffer, spell->checker);
 
 		/* A real application needs to check if
 		 * gspell_checker_get_language() != NULL. If it is NULL, the
 		 * inline spell checker should not be created and a warning
 		 * should be printed to say that no dictionaries are available.
 		 */
-		spell->inline_spell = gspell_inline_checker_gtv_new (buffer, spell->checker);
+		spell->inline_spell = gspell_inline_checker_gtv_new (buffer);
 
 		gspell_inline_checker_gtv_attach_view (spell->inline_spell, spell->view);
 	}

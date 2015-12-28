@@ -26,6 +26,8 @@
 #include "gspell-inline-checker-gtv.h"
 #include <string.h>
 #include <glib/gi18n-lib.h>
+#include "gspell-buffer-notifier.h"
+#include "gspell-text-buffer.h"
 #include "gspell-utils.h"
 #include "gtktextregion.h"
 
@@ -45,6 +47,10 @@
  *
  * The spell is checked only on the visible regions of the attached
  * #GtkTextView's.
+ *
+ * You need to call gspell_text_buffer_set_spell_checker() to associate a
+ * #GspellChecker to the #GtkTextBuffer. The #GspellInlineCheckerGtv re-checks
+ * the buffer when the #GspellChecker changes.
  */
 
 struct _GspellInlineCheckerGtv
@@ -70,7 +76,6 @@ enum
 {
 	PROP_0,
 	PROP_BUFFER,
-	PROP_SPELL_CHECKER,
 };
 
 #define ENABLE_DEBUG 0
@@ -95,7 +100,8 @@ check_word (GspellInlineCheckerGtv *spell,
 	GError *error = NULL;
 	gboolean correctly_spelled;
 
-	if (gspell_checker_get_language (spell->spell_checker) == NULL)
+	if (spell->spell_checker == NULL ||
+	    gspell_checker_get_language (spell->spell_checker) == NULL)
 	{
 		return;
 	}
@@ -493,7 +499,10 @@ add_to_dictionary_cb (GtkWidget              *menu_item,
 
 	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
 
-	gspell_checker_add_word_to_personal (spell->spell_checker, word, -1);
+	if (spell->spell_checker != NULL)
+	{
+		gspell_checker_add_word_to_personal (spell->spell_checker, word, -1);
+	}
 
 	g_free (word);
 }
@@ -513,7 +522,10 @@ ignore_all_cb (GtkWidget              *menu_item,
 
 	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
 
-	gspell_checker_add_word_to_session (spell->spell_checker, word, -1);
+	if (spell->spell_checker != NULL)
+	{
+		gspell_checker_add_word_to_session (spell->spell_checker, word, -1);
+	}
 
 	g_free (word);
 }
@@ -544,9 +556,12 @@ replace_word_cb (GtkWidget              *menu_item,
 
 	gtk_text_buffer_end_user_action (spell->buffer);
 
-	gspell_checker_set_correction (spell->spell_checker,
-				       old_word, -1,
-				       new_word, -1);
+	if (spell->spell_checker != NULL)
+	{
+		gspell_checker_set_correction (spell->spell_checker,
+					       old_word, -1,
+					       new_word, -1);
+	}
 
 	g_free (old_word);
 }
@@ -557,11 +572,14 @@ get_suggestion_menu (GspellInlineCheckerGtv *spell,
 {
 	GtkWidget *top_menu;
 	GtkWidget *menu_item;
-	GSList *suggestions;
+	GSList *suggestions = NULL;
 
 	top_menu = gtk_menu_new ();
 
-	suggestions = gspell_checker_get_suggestions (spell->spell_checker, word, -1);
+	if (spell->spell_checker != NULL)
+	{
+		suggestions = gspell_checker_get_suggestions (spell->spell_checker, word, -1);
+	}
 
 	if (suggestions == NULL)
 	{
@@ -857,11 +875,73 @@ tag_removed_cb (GtkTextTagTable        *table,
 }
 
 static void
+set_spell_checker (GspellInlineCheckerGtv *spell,
+		   GspellChecker          *checker)
+{
+	g_return_if_fail (checker == NULL || GSPELL_IS_CHECKER (checker));
+
+	if (spell->spell_checker == checker)
+	{
+		return;
+	}
+
+	if (spell->spell_checker != NULL)
+	{
+		g_signal_handlers_disconnect_by_data (spell->spell_checker, spell);
+		g_object_unref (spell->spell_checker);
+	}
+
+	spell->spell_checker = checker;
+
+	if (spell->spell_checker != NULL)
+	{
+		g_object_ref (spell->spell_checker);
+
+		_gspell_checker_check_language_set (spell->spell_checker);
+
+		g_signal_connect (spell->spell_checker,
+				  "word-added-to-session",
+				  G_CALLBACK (word_added_cb),
+				  spell);
+
+		g_signal_connect (spell->spell_checker,
+				  "word-added-to-personal",
+				  G_CALLBACK (word_added_cb),
+				  spell);
+
+		g_signal_connect (spell->spell_checker,
+				  "session-cleared",
+				  G_CALLBACK (session_cleared_cb),
+				  spell);
+
+		g_signal_connect (spell->spell_checker,
+				  "notify::language",
+				  G_CALLBACK (language_notify_cb),
+				  spell);
+	}
+}
+
+static void
+text_buffer_checker_changed_cb (GspellBufferNotifier   *notifier,
+				GtkTextBuffer          *buffer,
+				GspellChecker          *new_checker,
+				GspellInlineCheckerGtv *spell)
+{
+	if (spell->buffer == buffer)
+	{
+		set_spell_checker (spell, new_checker);
+		recheck_all (spell);
+	}
+}
+
+static void
 set_buffer (GspellInlineCheckerGtv *spell,
 	    GtkTextBuffer          *buffer)
 {
 	GtkTextTagTable *tag_table;
 	GtkTextIter start;
+	GspellChecker *checker;
+	GspellBufferNotifier *notifier;
 
 	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
 	g_return_if_fail (spell->buffer == NULL);
@@ -930,47 +1010,19 @@ set_buffer (GspellInlineCheckerGtv *spell,
 	gtk_text_buffer_get_start_iter (spell->buffer, &start);
 	spell->mark_click = gtk_text_buffer_create_mark (spell->buffer, NULL, &start, TRUE);
 
+	checker = gspell_text_buffer_get_spell_checker (spell->buffer);
+	set_spell_checker (spell, checker);
+
+	notifier = _gspell_buffer_notifier_get_instance ();
+	g_signal_connect_object (notifier,
+				 "text-buffer-checker-changed",
+				 G_CALLBACK (text_buffer_checker_changed_cb),
+				 spell,
+				 0);
+
 	recheck_all (spell);
 
 	g_object_notify (G_OBJECT (spell), "buffer");
-}
-
-static void
-set_spell_checker (GspellInlineCheckerGtv *spell,
-		   GspellChecker          *checker)
-{
-	g_return_if_fail (GSPELL_IS_CHECKER (checker));
-	g_return_if_fail (spell->spell_checker == NULL);
-
-	spell->spell_checker = g_object_ref (checker);
-
-	_gspell_checker_check_language_set (checker);
-
-	g_signal_connect_object (spell->spell_checker,
-				 "word-added-to-session",
-				 G_CALLBACK (word_added_cb),
-				 spell,
-				 0);
-
-	g_signal_connect_object (spell->spell_checker,
-				 "word-added-to-personal",
-				 G_CALLBACK (word_added_cb),
-				 spell,
-				 0);
-
-	g_signal_connect_object (spell->spell_checker,
-				 "session-cleared",
-				 G_CALLBACK (session_cleared_cb),
-				 spell,
-				 0);
-
-	g_signal_connect_object (spell->spell_checker,
-				 "notify::language",
-				 G_CALLBACK (language_notify_cb),
-				 spell,
-				 0);
-
-	g_object_notify (G_OBJECT (spell), "spell-checker");
 }
 
 static void
@@ -985,10 +1037,6 @@ gspell_inline_checker_gtv_get_property (GObject    *object,
 	{
 		case PROP_BUFFER:
 			g_value_set_object (value, spell->buffer);
-			break;
-
-		case PROP_SPELL_CHECKER:
-			g_value_set_object (value, spell->spell_checker);
 			break;
 
 		default:
@@ -1009,10 +1057,6 @@ gspell_inline_checker_gtv_set_property (GObject      *object,
 	{
 		case PROP_BUFFER:
 			set_buffer (spell, g_value_get_object (value));
-			break;
-
-		case PROP_SPELL_CHECKER:
-			set_spell_checker (spell, g_value_get_object (value));
 			break;
 
 		default:
@@ -1049,9 +1093,10 @@ gspell_inline_checker_gtv_dispose (GObject *object)
 		spell->buffer = NULL;
 	}
 
+	set_spell_checker (spell, NULL);
+
 	g_clear_object (&spell->highlight_tag);
 	g_clear_object (&spell->no_spell_check_tag);
-	g_clear_object (&spell->spell_checker);
 
 	g_slist_free_full (spell->views, g_object_unref);
 	spell->views = NULL;
@@ -1098,21 +1143,6 @@ gspell_inline_checker_gtv_class_init (GspellInlineCheckerGtvClass *klass)
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
 							      G_PARAM_STATIC_STRINGS));
-
-	/**
-	 * GspellInlineCheckerGtv:spell-checker:
-	 *
-	 * The #GspellChecker to use.
-	 */
-	g_object_class_install_property (object_class,
-					 PROP_SPELL_CHECKER,
-					 g_param_spec_object ("spell-checker",
-							      "Spell Checker",
-							      "",
-							      GSPELL_TYPE_CHECKER,
-							      G_PARAM_READWRITE |
-							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -1123,30 +1153,24 @@ gspell_inline_checker_gtv_init (GspellInlineCheckerGtv *spell)
 /**
  * gspell_inline_checker_gtv_new:
  * @buffer: a #GtkTextBuffer.
- * @checker: a #GspellChecker.
  *
  * Returns: a new #GspellInlineCheckerGtv object.
  */
 GspellInlineCheckerGtv *
-gspell_inline_checker_gtv_new (GtkTextBuffer *buffer,
-			       GspellChecker *checker)
+gspell_inline_checker_gtv_new (GtkTextBuffer *buffer)
 {
 	GspellInlineCheckerGtv *spell;
 
 	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (buffer), NULL);
-	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
 
 	spell = g_object_get_data (G_OBJECT (buffer), INLINE_CHECKER_GTV_KEY);
 	if (spell != NULL)
 	{
-		g_object_ref (spell);
-		g_return_val_if_fail (spell->spell_checker == checker, spell);
-		return spell;
+		return g_object_ref (spell);
 	}
 
 	return g_object_new (GSPELL_TYPE_INLINE_CHECKER_GTV,
 			     "buffer", buffer,
-			     "spell-checker", checker,
 			     NULL);
 }
 

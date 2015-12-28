@@ -38,8 +38,7 @@ G_DECLARE_FINAL_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv,
 		      GObject)
 
 GspellInlineCheckerGtv *
-	gspell_inline_checker_gtv_new		(GtkTextBuffer *buffer,
-						 GspellChecker *checker);
+	gspell_inline_checker_gtv_new		(GtkTextBuffer *buffer);
 
 void	gspell_inline_checker_gtv_attach_view	(GspellInlineCheckerGtv *spell,
 						 GtkTextView            *view);
