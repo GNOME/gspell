@@ -18,6 +18,7 @@
  */
 
 #include "gspell-text-buffer.h"
+#include "gspell-buffer-notifier.h"
 
 /**
  * SECTION:text-buffer
@@ -40,6 +41,8 @@ void
 gspell_text_buffer_set_spell_checker (GtkTextBuffer *buffer,
 				      GspellChecker *checker)
 {
+	GspellBufferNotifier *notifier;
+
 	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
 	g_return_if_fail (checker == NULL || GSPELL_IS_CHECKER (checker));
 
@@ -56,6 +59,9 @@ gspell_text_buffer_set_spell_checker (GtkTextBuffer *buffer,
 				   SPELL_CHECKER_KEY,
 				   NULL);
 	}
+
+	notifier = _gspell_buffer_notifier_get_instance ();
+	_gspell_buffer_notifier_text_buffer_checker_changed (notifier, buffer, checker);
 }
 
 /**
