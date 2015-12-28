@@ -9,6 +9,7 @@ gspell/gspell-language-chooser-dialog.c
 gspell/gspell-navigator.c
 gspell/gspell-navigator-gtv.c
 gspell/gspell-osx.c
+gspell/gspell-text-buffer.c
 gspell/gspell-utils.c
 gspell/resources/checker-dialog.ui
 gspell/resources/language-dialog.ui

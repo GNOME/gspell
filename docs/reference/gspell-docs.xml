@@ -22,6 +22,11 @@
     </chapter>
 
     <chapter>
+      <title>Buffer Support</title>
+      <xi:include href="xml/text-buffer.xml"/>
+    </chapter>
+
+    <chapter>
       <title>Inline Checkers</title>
       <xi:include href="xml/inline-checker-gtv.xml"/>
     </chapter>

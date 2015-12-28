@@ -108,3 +108,10 @@ gspell_navigator_gtv_new
 GSPELL_TYPE_NAVIGATOR_GTV
 GspellNavigatorGtvClass
 </SECTION>
+
+<SECTION>
+<FILE>text-buffer</FILE>
+<TITLE>GtkTextBuffer support</TITLE>
+gspell_text_buffer_set_spell_checker
+gspell_text_buffer_get_spell_checker
+</SECTION>
