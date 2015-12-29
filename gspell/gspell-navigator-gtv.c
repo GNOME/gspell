@@ -33,8 +33,7 @@
  * #GspellNavigator interface for the #GtkTextView widget.
  *
  * If a selection exists in the #GtkTextView, only the selected text is spell
- * checked. Otherwise the whole buffer is checked. The same #GspellChecker
- * is used throughout the navigation.
+ * checked. Otherwise the whole buffer is checked.
  *
  * If only the selected text is spell checked, the implementation of
  * gspell_navigator_change_all() changes only the occurrences that were

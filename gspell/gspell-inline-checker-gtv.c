@@ -49,8 +49,9 @@
  * #GtkTextView's.
  *
  * You need to call gspell_text_buffer_set_spell_checker() to associate a
- * #GspellChecker to the #GtkTextBuffer. The #GspellInlineCheckerGtv re-checks
- * the buffer when the #GspellChecker changes.
+ * #GspellChecker to the #GtkTextBuffer. You can call
+ * gspell_text_buffer_set_spell_checker() at any time, a #GspellInlineCheckerGtv
+ * re-checks the buffer when the #GspellChecker changes.
  */
 
 struct _GspellInlineCheckerGtv

@@ -25,7 +25,7 @@
  * @Title: GtkTextBuffer support
  * @See_also: #GspellChecker
  *
- * Spell checking support to a #GtkTextBuffer.
+ * Spell checking support for #GtkTextBuffer.
  */
 
 #define SPELL_CHECKER_KEY "gspell-text-buffer-spell-checker-key"
