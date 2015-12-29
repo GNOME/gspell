@@ -27,23 +27,23 @@
 
 #include <gtk/gtk.h>
 
-#define GSPELL_TYPE_INLINE_CHECKER_TEXT_BUFFER (gspell_inline_checker_text_buffer_get_type ())
+#define GSPELL_TYPE_INLINE_CHECKER_TEXT_BUFFER (_gspell_inline_checker_text_buffer_get_type ())
 
 G_GNUC_INTERNAL
-G_DECLARE_FINAL_TYPE (GspellInlineCheckerTextBuffer, gspell_inline_checker_text_buffer,
+G_DECLARE_FINAL_TYPE (GspellInlineCheckerTextBuffer, _gspell_inline_checker_text_buffer,
 		      GSPELL, INLINE_CHECKER_TEXT_BUFFER,
 		      GObject)
 
 G_GNUC_INTERNAL
 GspellInlineCheckerTextBuffer *
-	gspell_inline_checker_text_buffer_new		(GtkTextBuffer *buffer);
+	_gspell_inline_checker_text_buffer_new		(GtkTextBuffer *buffer);
 
 G_GNUC_INTERNAL
-void	gspell_inline_checker_text_buffer_attach_view	(GspellInlineCheckerTextBuffer *spell,
+void	_gspell_inline_checker_text_buffer_attach_view	(GspellInlineCheckerTextBuffer *spell,
 							 GtkTextView                   *view);
 
 G_GNUC_INTERNAL
-void	gspell_inline_checker_text_buffer_detach_view	(GspellInlineCheckerTextBuffer *spell,
+void	_gspell_inline_checker_text_buffer_detach_view	(GspellInlineCheckerTextBuffer *spell,
 							 GtkTextView                   *view);
 
 #endif  /* __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__ */

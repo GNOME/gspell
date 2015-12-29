@@ -79,15 +79,15 @@ update_inline_checker (GspellInlineCheckerText *self)
 
 	if (priv->inline_checker != NULL)
 	{
-		gspell_inline_checker_text_buffer_detach_view (priv->inline_checker,
-							       priv->view);
+		_gspell_inline_checker_text_buffer_detach_view (priv->inline_checker,
+								priv->view);
 		g_object_unref (priv->inline_checker);
 	}
 
 	buffer = gtk_text_view_get_buffer (priv->view);
-	priv->inline_checker = gspell_inline_checker_text_buffer_new (buffer);
-	gspell_inline_checker_text_buffer_attach_view (priv->inline_checker,
-						       priv->view);
+	priv->inline_checker = _gspell_inline_checker_text_buffer_new (buffer);
+	_gspell_inline_checker_text_buffer_attach_view (priv->inline_checker,
+							priv->view);
 }
 
 static void
@@ -173,8 +173,8 @@ gspell_inline_checker_text_dispose (GObject *object)
 
 	if (priv->view != NULL && priv->inline_checker != NULL)
 	{
-		gspell_inline_checker_text_buffer_detach_view (priv->inline_checker,
-							       priv->view);
+		_gspell_inline_checker_text_buffer_detach_view (priv->inline_checker,
+								priv->view);
 	}
 
 	g_clear_object (&priv->view);

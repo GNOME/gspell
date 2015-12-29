@@ -68,7 +68,7 @@ enum
 #define TIMEOUT_DURATION_BUFFER_MODIFIED 400
 #define TIMEOUT_DURATION_DRAWING 20
 
-G_DEFINE_TYPE (GspellInlineCheckerTextBuffer, gspell_inline_checker_text_buffer, G_TYPE_OBJECT)
+G_DEFINE_TYPE (GspellInlineCheckerTextBuffer, _gspell_inline_checker_text_buffer, G_TYPE_OBJECT)
 
 static void
 check_word (GspellInlineCheckerTextBuffer *spell,
@@ -1005,10 +1005,10 @@ set_buffer (GspellInlineCheckerTextBuffer *spell,
 }
 
 static void
-gspell_inline_checker_text_buffer_get_property (GObject    *object,
-						guint       prop_id,
-						GValue     *value,
-						GParamSpec *pspec)
+_gspell_inline_checker_text_buffer_get_property (GObject    *object,
+						 guint       prop_id,
+						 GValue     *value,
+						 GParamSpec *pspec)
 {
 	GspellInlineCheckerTextBuffer *spell = GSPELL_INLINE_CHECKER_TEXT_BUFFER (object);
 
@@ -1025,10 +1025,10 @@ gspell_inline_checker_text_buffer_get_property (GObject    *object,
 }
 
 static void
-gspell_inline_checker_text_buffer_set_property (GObject      *object,
-						guint         prop_id,
-						const GValue *value,
-						GParamSpec   *pspec)
+_gspell_inline_checker_text_buffer_set_property (GObject      *object,
+						 guint         prop_id,
+						 const GValue *value,
+						 GParamSpec   *pspec)
 {
 	GspellInlineCheckerTextBuffer *spell = GSPELL_INLINE_CHECKER_TEXT_BUFFER (object);
 
@@ -1045,7 +1045,7 @@ gspell_inline_checker_text_buffer_set_property (GObject      *object,
 }
 
 static void
-gspell_inline_checker_text_buffer_dispose (GObject *object)
+_gspell_inline_checker_text_buffer_dispose (GObject *object)
 {
 	GspellInlineCheckerTextBuffer *spell = GSPELL_INLINE_CHECKER_TEXT_BUFFER (object);
 
@@ -1094,17 +1094,17 @@ gspell_inline_checker_text_buffer_dispose (GObject *object)
 		spell->timeout_id = 0;
 	}
 
-	G_OBJECT_CLASS (gspell_inline_checker_text_buffer_parent_class)->dispose (object);
+	G_OBJECT_CLASS (_gspell_inline_checker_text_buffer_parent_class)->dispose (object);
 }
 
 static void
-gspell_inline_checker_text_buffer_class_init (GspellInlineCheckerTextBufferClass *klass)
+_gspell_inline_checker_text_buffer_class_init (GspellInlineCheckerTextBufferClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->get_property = gspell_inline_checker_text_buffer_get_property;
-	object_class->set_property = gspell_inline_checker_text_buffer_set_property;
-	object_class->dispose = gspell_inline_checker_text_buffer_dispose;
+	object_class->get_property = _gspell_inline_checker_text_buffer_get_property;
+	object_class->set_property = _gspell_inline_checker_text_buffer_set_property;
+	object_class->dispose = _gspell_inline_checker_text_buffer_dispose;
 
 	g_object_class_install_property (object_class,
 					 PROP_BUFFER,
@@ -1118,12 +1118,12 @@ gspell_inline_checker_text_buffer_class_init (GspellInlineCheckerTextBufferClass
 }
 
 static void
-gspell_inline_checker_text_buffer_init (GspellInlineCheckerTextBuffer *spell)
+_gspell_inline_checker_text_buffer_init (GspellInlineCheckerTextBuffer *spell)
 {
 }
 
 GspellInlineCheckerTextBuffer *
-gspell_inline_checker_text_buffer_new (GtkTextBuffer *buffer)
+_gspell_inline_checker_text_buffer_new (GtkTextBuffer *buffer)
 {
 	GspellInlineCheckerTextBuffer *spell;
 
@@ -1141,7 +1141,7 @@ gspell_inline_checker_text_buffer_new (GtkTextBuffer *buffer)
 }
 
 /**
- * gspell_inline_checker_text_buffer_attach_view:
+ * _gspell_inline_checker_text_buffer_attach_view:
  * @spell: a #GspellInlineCheckerTextBuffer.
  * @view: a #GtkTextView.
  *
@@ -1149,8 +1149,8 @@ gspell_inline_checker_text_buffer_new (GtkTextBuffer *buffer)
  * the #GspellInlineCheckerTextBuffer:buffer property.
  */
 void
-gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *spell,
-					       GtkTextView                   *view)
+_gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *spell,
+						GtkTextView                   *view)
 {
 	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_TEXT_BUFFER (spell));
 	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
@@ -1188,15 +1188,15 @@ gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *sp
 }
 
 /**
- * gspell_inline_checker_text_buffer_detach_view:
+ * _gspell_inline_checker_text_buffer_detach_view:
  * @spell: a #GspellInlineCheckerTextBuffer.
  * @view: a #GtkTextView.
  *
  * Disables the inline spell checker for @view.
  */
 void
-gspell_inline_checker_text_buffer_detach_view (GspellInlineCheckerTextBuffer *spell,
-					       GtkTextView                   *view)
+_gspell_inline_checker_text_buffer_detach_view (GspellInlineCheckerTextBuffer *spell,
+						GtkTextView                   *view)
 {
 	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_TEXT_BUFFER (spell));
 	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
