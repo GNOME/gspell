@@ -29,7 +29,7 @@ struct _TestSpell
 	GtkGrid parent;
 
 	GtkTextView *view;
-	GspellInlineCheckerGtv *inline_spell;
+	GspellInlineCheckerTextBuffer *inline_spell;
 };
 
 G_DEFINE_TYPE (TestSpell, test_spell, GTK_TYPE_GRID)
@@ -98,9 +98,9 @@ highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 		 * inline spell checker should not be created and a warning
 		 * should be printed to say that no dictionaries are available.
 		 */
-		spell->inline_spell = gspell_inline_checker_gtv_new (buffer);
+		spell->inline_spell = gspell_inline_checker_text_buffer_new (buffer);
 
-		gspell_inline_checker_gtv_attach_view (spell->inline_spell, spell->view);
+		gspell_inline_checker_text_buffer_attach_view (spell->inline_spell, spell->view);
 	}
 	else
 	{

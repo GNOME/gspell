@@ -2,7 +2,7 @@
 gspell/gspell-buffer-notifier.c
 gspell/gspell-checker.c
 gspell/gspell-checker-dialog.c
-gspell/gspell-inline-checker-gtv.c
+gspell/gspell-inline-checker-text-buffer.c
 gspell/gspell-language.c
 gspell/gspell-language-chooser.c
 gspell/gspell-language-chooser-button.c

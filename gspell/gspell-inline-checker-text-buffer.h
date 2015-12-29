@@ -22,8 +22,8 @@
  * Copyright 2002 - Evan Martin
  */
 
-#ifndef __GSPELL_INLINE_CHECKER_GTV_H__
-#define __GSPELL_INLINE_CHECKER_GTV_H__
+#ifndef __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__
+#define __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__
 
 #if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -32,20 +32,20 @@
 #include <gspell/gspell-checker.h>
 #include <gtk/gtk.h>
 
-#define GSPELL_TYPE_INLINE_CHECKER_GTV (gspell_inline_checker_gtv_get_type ())
-G_DECLARE_FINAL_TYPE (GspellInlineCheckerGtv, gspell_inline_checker_gtv,
-		      GSPELL, INLINE_CHECKER_GTV,
+#define GSPELL_TYPE_INLINE_CHECKER_TEXT_BUFFER (gspell_inline_checker_text_buffer_get_type ())
+G_DECLARE_FINAL_TYPE (GspellInlineCheckerTextBuffer, gspell_inline_checker_text_buffer,
+		      GSPELL, INLINE_CHECKER_TEXT_BUFFER,
 		      GObject)
 
-GspellInlineCheckerGtv *
-	gspell_inline_checker_gtv_new		(GtkTextBuffer *buffer);
+GspellInlineCheckerTextBuffer *
+	gspell_inline_checker_text_buffer_new		(GtkTextBuffer *buffer);
 
-void	gspell_inline_checker_gtv_attach_view	(GspellInlineCheckerGtv *spell,
-						 GtkTextView            *view);
+void	gspell_inline_checker_text_buffer_attach_view	(GspellInlineCheckerTextBuffer *spell,
+							 GtkTextView                   *view);
 
-void	gspell_inline_checker_gtv_detach_view	(GspellInlineCheckerGtv *spell,
-						 GtkTextView            *view);
+void	gspell_inline_checker_text_buffer_detach_view	(GspellInlineCheckerTextBuffer *spell,
+							 GtkTextView                   *view);
 
-#endif  /* __GSPELL_INLINE_CHECKER_GTV_H__ */
+#endif  /* __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__ */
 
 /* ex:set ts=8 noet: */

@@ -31,14 +31,14 @@ GSPELL_TYPE_CHECKER_DIALOG
 </SECTION>
 
 <SECTION>
-<FILE>inline-checker-gtv</FILE>
-<TITLE>GspellInlineCheckerGtv</TITLE>
-GspellInlineCheckerGtv
-gspell_inline_checker_gtv_new
-gspell_inline_checker_gtv_attach_view
-gspell_inline_checker_gtv_detach_view
+<FILE>inline-checker-text</FILE>
+<TITLE>GspellInlineCheckerTextBuffer</TITLE>
+GspellInlineCheckerTextBuffer
+gspell_inline_checker_text_buffer_new
+gspell_inline_checker_text_buffer_attach_view
+gspell_inline_checker_text_buffer_detach_view
 <SUBSECTION Standard>
-GSPELL_TYPE_INLINE_CHECKER_GTV
+GSPELL_TYPE_INLINE_CHECKER_TEXT_BUFFER
 </SECTION>
 
 <SECTION>
