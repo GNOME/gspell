@@ -20,6 +20,7 @@
 #include "config.h"
 #include "gspell-navigator-gtv.h"
 #include <glib/gi18n-lib.h>
+#include "gspell-text-buffer.h"
 #include "gspell-utils.h"
 
 /**
@@ -41,6 +42,9 @@
  *
  * The implementation of gspell_navigator_goto_next() selects the
  * misspelled word and scrolls to it.
+ *
+ * You need to call gspell_text_buffer_set_spell_checker() to associate a
+ * #GspellChecker to the #GtkTextBuffer.
  */
 
 typedef struct _GspellNavigatorGtvPrivate GspellNavigatorGtvPrivate;
@@ -49,7 +53,6 @@ struct _GspellNavigatorGtvPrivate
 {
 	GtkTextView *view;
 	GtkTextBuffer *buffer;
-	GspellChecker *spell_checker;
 
 	/* Delimit the region to spell check. */
 	GtkTextMark *start_boundary;
@@ -64,7 +67,6 @@ enum
 {
 	PROP_0,
 	PROP_VIEW,
-	PROP_SPELL_CHECKER,
 };
 
 static void gspell_navigator_iface_init (gpointer g_iface, gpointer iface_data);
@@ -129,20 +131,6 @@ set_view (GspellNavigatorGtv *navigator,
 }
 
 static void
-set_spell_checker (GspellNavigatorGtv *navigator,
-		   GspellChecker      *spell_checker)
-{
-	GspellNavigatorGtvPrivate *priv;
-
-	priv = gspell_navigator_gtv_get_instance_private (navigator);
-
-	if (g_set_object (&priv->spell_checker, spell_checker))
-	{
-		g_object_notify (G_OBJECT (navigator), "spell-checker");
-	}
-}
-
-static void
 gspell_navigator_gtv_get_property (GObject    *object,
 				   guint       prop_id,
 				   GValue     *value,
@@ -156,10 +144,6 @@ gspell_navigator_gtv_get_property (GObject    *object,
 	{
 		case PROP_VIEW:
 			g_value_set_object (value, priv->view);
-			break;
-
-		case PROP_SPELL_CHECKER:
-			g_value_set_object (value, priv->spell_checker);
 			break;
 
 		default:
@@ -182,10 +166,6 @@ gspell_navigator_gtv_set_property (GObject      *object,
 			set_view (navigator, g_value_get_object (value));
 			break;
 
-		case PROP_SPELL_CHECKER:
-			set_spell_checker (navigator, g_value_get_object (value));
-			break;
-
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 			break;
@@ -200,7 +180,6 @@ gspell_navigator_gtv_dispose (GObject *object)
 	priv = gspell_navigator_gtv_get_instance_private (GSPELL_NAVIGATOR_GTV (object));
 
 	g_clear_object (&priv->view);
-	g_clear_object (&priv->spell_checker);
 
 	if (priv->buffer != NULL)
 	{
@@ -259,21 +238,6 @@ gspell_navigator_gtv_class_init (GspellNavigatorGtvClass *klass)
 							      G_PARAM_READWRITE |
 							      G_PARAM_CONSTRUCT_ONLY |
 							      G_PARAM_STATIC_STRINGS));
-
-	/**
-	 * GspellNavigatorGtv:spell-checker:
-	 *
-	 * The #GspellChecker to use.
-	 */
-	g_object_class_install_property (object_class,
-					 PROP_SPELL_CHECKER,
-					 g_param_spec_object ("spell-checker",
-							      "Spell Checker",
-							      "",
-							      GSPELL_TYPE_CHECKER,
-							      G_PARAM_READWRITE |
-							      G_PARAM_CONSTRUCT |
-							      G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -312,6 +276,7 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 				GError          **error_p)
 {
 	GspellNavigatorGtvPrivate *priv;
+	GspellChecker *spell_checker;
 	GtkTextIter word_start;
 	GtkTextIter end;
 	GtkTextTag *no_spell_check_tag;
@@ -321,11 +286,18 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 	g_assert ((priv->word_start == NULL && priv->word_end == NULL) ||
 		  (priv->word_start != NULL && priv->word_end != NULL));
 
-	if (gspell_checker_get_language (priv->spell_checker) == NULL)
+	spell_checker = gspell_text_buffer_get_spell_checker (priv->buffer);
+
+	if (spell_checker == NULL)
+	{
+		return FALSE;
+	}
+
+	if (gspell_checker_get_language (spell_checker) == NULL)
 	{
 		if (spell_checker_p != NULL)
 		{
-			*spell_checker_p = g_object_ref (priv->spell_checker);
+			*spell_checker_p = g_object_ref (spell_checker);
 		}
 
 		g_set_error (error_p,
@@ -407,7 +379,7 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 
 		word = gtk_text_buffer_get_text (priv->buffer, &word_start, &word_end, FALSE);
 
-		correctly_spelled = gspell_checker_check_word (priv->spell_checker, word, -1, &error);
+		correctly_spelled = gspell_checker_check_word (spell_checker, word, -1, &error);
 
 		if (error != NULL)
 		{
@@ -426,7 +398,7 @@ gspell_navigator_gtv_goto_next (GspellNavigator  *navigator,
 
 			if (spell_checker_p != NULL)
 			{
-				*spell_checker_p = g_object_ref (priv->spell_checker);
+				*spell_checker_p = g_object_ref (spell_checker);
 			}
 
 			if (word_p != NULL)
@@ -545,20 +517,16 @@ gspell_navigator_iface_init (gpointer g_iface,
 /**
  * gspell_navigator_gtv_new:
  * @view: a #GtkTextView.
- * @spell_checker: a #GspellChecker.
  *
  * Returns: (transfer full): a new #GspellNavigatorGtv object.
  */
 GspellNavigator *
-gspell_navigator_gtv_new (GtkTextView   *view,
-			  GspellChecker *spell_checker)
+gspell_navigator_gtv_new (GtkTextView *view)
 {
 	g_return_val_if_fail (GTK_IS_TEXT_VIEW (view), NULL);
-	g_return_val_if_fail (GSPELL_IS_CHECKER (spell_checker), NULL);
 
 	return g_object_new (GSPELL_TYPE_NAVIGATOR_GTV,
 			     "view", view,
-			     "spell-checker", spell_checker,
 			     NULL);
 }
 

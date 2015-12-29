@@ -43,8 +43,7 @@ struct _GspellNavigatorGtvClass
 	gpointer padding[8];
 };
 
-GspellNavigator *	gspell_navigator_gtv_new		(GtkTextView   *view,
-								 GspellChecker *spell_checker);
+GspellNavigator *	gspell_navigator_gtv_new		(GtkTextView *view);
 
 G_END_DECLS
 

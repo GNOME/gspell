@@ -73,9 +73,7 @@ checker_button_clicked_cb (GtkButton *checker_button,
 		g_return_if_reached ();
 	}
 
-	navigator = gspell_navigator_gtv_new (spell->view,
-					      get_spell_checker (spell));
-
+	navigator = gspell_navigator_gtv_new (spell->view);
 	checker_dialog = gspell_checker_dialog_new (GTK_WINDOW (window), navigator);
 	g_object_unref (navigator);
 
