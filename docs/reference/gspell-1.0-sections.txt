@@ -32,13 +32,11 @@ GSPELL_TYPE_CHECKER_DIALOG
 
 <SECTION>
 <FILE>inline-checker-text</FILE>
-<TITLE>GspellInlineCheckerTextBuffer</TITLE>
-GspellInlineCheckerTextBuffer
-gspell_inline_checker_text_buffer_new
-gspell_inline_checker_text_buffer_attach_view
-gspell_inline_checker_text_buffer_detach_view
+<TITLE>GspellInlineCheckerText</TITLE>
+GspellInlineCheckerText
+gspell_inline_checker_text_new
 <SUBSECTION Standard>
-GSPELL_TYPE_INLINE_CHECKER_TEXT_BUFFER
+GSPELL_TYPE_INLINE_CHECKER_TEXT
 </SECTION>
 
 <SECTION>

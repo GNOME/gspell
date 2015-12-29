@@ -26,34 +26,11 @@
 #include "gspell-inline-checker-text-buffer.h"
 #include <string.h>
 #include <glib/gi18n-lib.h>
+#include "gspell-checker.h"
 #include "gspell-buffer-notifier.h"
 #include "gspell-text-buffer.h"
 #include "gspell-utils.h"
 #include "gtktextregion.h"
-
-/**
- * SECTION:inline-checker-text
- * @Short_description: Inline spell checker for GtkTextView
- * @Title: GspellInlineCheckerTextBuffer
- * @See_also: #GspellChecker
- *
- * The #GspellInlineCheckerTextBuffer is an inline spell checker for the
- * #GtkTextView widget. Misspelled words are highlighted with a
- * %PANGO_UNDERLINE_ERROR, usually a red wavy underline. Right-clicking a
- * misspelled word pops up a context menu of suggested replacements. The context
- * menu also contains an “Ignore All” item to add the misspelled word to the
- * session dictionary. And an “Add” item to add the word to the personal
- * dictionary.
- *
- * The spell is checked only on the visible regions of the attached
- * #GtkTextView's.
- *
- * You need to call gspell_text_buffer_set_spell_checker() to associate a
- * #GspellChecker to the #GtkTextBuffer. You can call
- * gspell_text_buffer_set_spell_checker() at any time, a
- * #GspellInlineCheckerTextBuffer re-checks the buffer when the #GspellChecker
- * changes.
- */
 
 struct _GspellInlineCheckerTextBuffer
 {
@@ -1129,13 +1106,6 @@ gspell_inline_checker_text_buffer_class_init (GspellInlineCheckerTextBufferClass
 	object_class->set_property = gspell_inline_checker_text_buffer_set_property;
 	object_class->dispose = gspell_inline_checker_text_buffer_dispose;
 
-	/**
-	 * GspellInlineCheckerTextBuffer:buffer:
-	 *
-	 * The #GtkTextBuffer. If a same buffer is used for several views, the
-	 * misspelled words are visible in all views, because #GtkTextTag's are
-	 * added to the buffer.
-	 */
 	g_object_class_install_property (object_class,
 					 PROP_BUFFER,
 					 g_param_spec_object ("buffer",
@@ -1152,12 +1122,6 @@ gspell_inline_checker_text_buffer_init (GspellInlineCheckerTextBuffer *spell)
 {
 }
 
-/**
- * gspell_inline_checker_text_buffer_new:
- * @buffer: a #GtkTextBuffer.
- *
- * Returns: a new #GspellInlineCheckerTextBuffer object.
- */
 GspellInlineCheckerTextBuffer *
 gspell_inline_checker_text_buffer_new (GtkTextBuffer *buffer)
 {
@@ -1236,7 +1200,6 @@ gspell_inline_checker_text_buffer_detach_view (GspellInlineCheckerTextBuffer *sp
 {
 	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_TEXT_BUFFER (spell));
 	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
-	g_return_if_fail (gtk_text_view_get_buffer (view) == spell->buffer);
 	g_return_if_fail (g_slist_find (spell->views, view) != NULL);
 
 	g_signal_handlers_disconnect_by_data (view, spell);

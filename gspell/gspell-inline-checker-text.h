@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,24 +17,34 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_H__
-#define __GSPELL_H__
+#ifndef __GSPELL_INLINE_CHECKER_TEXT_H__
+#define __GSPELL_INLINE_CHECKER_TEXT_H__
 
-#define __GSPELL_H_INSIDE__
+#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
 
-#include <gspell/gspell-checker.h>
-#include <gspell/gspell-checker-dialog.h>
-#include <gspell/gspell-inline-checker-text.h>
-#include <gspell/gspell-language.h>
-#include <gspell/gspell-language-chooser.h>
-#include <gspell/gspell-language-chooser-button.h>
-#include <gspell/gspell-language-chooser-dialog.h>
-#include <gspell/gspell-navigator.h>
-#include <gspell/gspell-navigator-gtv.h>
-#include <gspell/gspell-text-buffer.h>
+#include <gtk/gtk.h>
 
-#undef __GSPELL_H_INSIDE__
+G_BEGIN_DECLS
 
-#endif /* __GSPELL_H__ */
+#define GSPELL_TYPE_INLINE_CHECKER_TEXT (gspell_inline_checker_text_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellInlineCheckerText, gspell_inline_checker_text,
+			  GSPELL, INLINE_CHECKER_TEXT,
+			  GObject)
+
+struct _GspellInlineCheckerTextClass
+{
+	GObjectClass parent_class;
+
+	/* Padding for future expansion */
+	gpointer padding[8];
+};
+
+GspellInlineCheckerText *	gspell_inline_checker_text_new		(GtkTextView *view);
+
+G_END_DECLS
+
+#endif /* __GSPELL_INLINE_CHECKER_TEXT_H__ */
 
 /* ex:set ts=8 noet: */
