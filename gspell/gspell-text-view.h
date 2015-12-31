@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,25 +17,20 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_H__
-#define __GSPELL_H__
+#ifndef __GSPELL_TEXT_VIEW_H__
+#define __GSPELL_TEXT_VIEW_H__
 
-#define __GSPELL_H_INSIDE__
+#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
 
-#include <gspell/gspell-checker.h>
-#include <gspell/gspell-checker-dialog.h>
-#include <gspell/gspell-inline-checker-text.h>
-#include <gspell/gspell-language.h>
-#include <gspell/gspell-language-chooser.h>
-#include <gspell/gspell-language-chooser-button.h>
-#include <gspell/gspell-language-chooser-dialog.h>
-#include <gspell/gspell-navigator.h>
-#include <gspell/gspell-navigator-gtv.h>
-#include <gspell/gspell-text-buffer.h>
-#include <gspell/gspell-text-view.h>
+#include <gtk/gtk.h>
 
-#undef __GSPELL_H_INSIDE__
+void		gspell_text_view_set_inline_checking	(GtkTextView *view,
+							 gboolean     enable);
 
-#endif /* __GSPELL_H__ */
+gboolean	gspell_text_view_get_inline_checking	(GtkTextView *view);
+
+#endif /* __GSPELL_TEXT_VIEW_H__ */
 
 /* ex:set ts=8 noet: */

@@ -29,7 +29,6 @@ struct _TestSpell
 	GtkGrid parent;
 
 	GtkTextView *view;
-	GspellInlineCheckerText *inline_spell;
 };
 
 G_DEFINE_TYPE (TestSpell, test_spell, GTK_TYPE_GRID)
@@ -42,21 +41,8 @@ get_spell_checker (TestSpell *spell)
 }
 
 static void
-test_spell_dispose (GObject *object)
-{
-	TestSpell *spell = TEST_SPELL (object);
-
-	g_clear_object (&spell->inline_spell);
-
-	G_OBJECT_CLASS (test_spell_parent_class)->dispose (object);
-}
-
-static void
 test_spell_class_init (TestSpellClass *klass)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	object_class->dispose = test_spell_dispose;
 }
 
 static void
@@ -85,21 +71,8 @@ static void
 highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 				  TestSpell       *spell)
 {
-	if (gtk_toggle_button_get_active (checkbutton))
-	{
-		g_assert (spell->inline_spell == NULL);
-
-		/* A real application needs to check if
-		 * gspell_checker_get_language() != NULL. If it is NULL, the
-		 * inline spell checker should not be created and a warning
-		 * should be printed to say that no dictionaries are available.
-		 */
-		spell->inline_spell = gspell_inline_checker_text_new (spell->view);
-	}
-	else
-	{
-		g_clear_object (&spell->inline_spell);
-	}
+	gboolean enable = gtk_toggle_button_get_active (checkbutton);
+	gspell_text_view_set_inline_checking (spell->view, enable);
 }
 
 static void
