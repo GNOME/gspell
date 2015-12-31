@@ -102,6 +102,23 @@ highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
 	}
 }
 
+static void
+change_buffer_button_clicked_cb (GtkButton *change_buffer_button,
+				 TestSpell *spell)
+{
+	GtkTextBuffer *old_buffer;
+	GtkTextBuffer *new_buffer;
+	GspellChecker *checker;
+
+	old_buffer = gtk_text_view_get_buffer (spell->view);
+	checker = gspell_text_buffer_get_spell_checker (old_buffer);
+
+	new_buffer = gtk_text_buffer_new (NULL);
+	gspell_text_buffer_set_spell_checker (new_buffer, checker);
+
+	gtk_text_view_set_buffer (spell->view, new_buffer);
+}
+
 static GtkWidget *
 get_sidebar (TestSpell *spell)
 {
@@ -109,6 +126,7 @@ get_sidebar (TestSpell *spell)
 	GtkWidget *checker_button;
 	GtkWidget *language_button;
 	GtkWidget *highlight_checkbutton;
+	GtkWidget *change_buffer_button;
 	GspellChecker *checker;
 	const GspellLanguage *language;
 
@@ -155,6 +173,16 @@ get_sidebar (TestSpell *spell)
 			  spell);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (highlight_checkbutton), TRUE);
+
+	/* Button to change the GtkTextBuffer */
+	change_buffer_button = gtk_button_new_with_mnemonic ("Change _Buffer!");
+	gtk_container_add (GTK_CONTAINER (sidebar),
+			   change_buffer_button);
+
+	g_signal_connect (change_buffer_button,
+			  "clicked",
+			  G_CALLBACK (change_buffer_button_clicked_cb),
+			  spell);
 
 	return sidebar;
 }
