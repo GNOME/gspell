@@ -19,7 +19,6 @@ gspell_public_headers =				\
 	gspell.h				\
 	gspell-checker.h			\
 	gspell-checker-dialog.h			\
-	gspell-inline-checker-text.h		\
 	gspell-language.h			\
 	gspell-language-chooser.h		\
 	gspell-language-chooser-button.h	\
@@ -32,7 +31,6 @@ gspell_public_headers =				\
 gspell_public_c_files =				\
 	gspell-checker.c			\
 	gspell-checker-dialog.c			\
-	gspell-inline-checker-text.c		\
 	gspell-language.c			\
 	gspell-language-chooser.c		\
 	gspell-language-chooser-button.c	\
@@ -45,6 +43,7 @@ gspell_public_c_files =				\
 gspell_private_headers =			\
 	gconstructor.h				\
 	gspell-buffer-notifier.h		\
+	gspell-inline-checker-text.h		\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-utils.h				\
 	gtktextregion.h
@@ -52,6 +51,7 @@ gspell_private_headers =			\
 gspell_private_c_files =			\
 	gspell-buffer-notifier.c		\
 	gspell-init.c				\
+	gspell-inline-checker-text.c		\
 	gspell-inline-checker-text-buffer.c	\
 	gspell-utils.c				\
 	gtktextregion.c
