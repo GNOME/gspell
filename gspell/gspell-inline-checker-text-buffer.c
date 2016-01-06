@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2002 - Paolo Maggi
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -324,7 +324,7 @@ check_visible_region (GspellInlineCheckerTextBuffer *spell)
 
 	for (l = spell->views; l != NULL; l = l->next)
 	{
-		GtkTextView *view = l->data;
+		GtkTextView *view = GTK_TEXT_VIEW (l->data);
 		check_visible_region_in_view (spell, view);
 	}
 
@@ -1077,7 +1077,7 @@ _gspell_inline_checker_text_buffer_dispose (GObject *object)
 	g_clear_object (&spell->highlight_tag);
 	g_clear_object (&spell->no_spell_check_tag);
 
-	g_slist_free_full (spell->views, g_object_unref);
+	g_slist_free (spell->views);
 	spell->views = NULL;
 
 	spell->mark_click = NULL;
@@ -1182,7 +1182,6 @@ _gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *s
 				 0);
 
 	spell->views = g_slist_prepend (spell->views, view);
-	g_object_ref (view);
 
 	check_visible_region_in_view (spell, view);
 }
@@ -1205,7 +1204,6 @@ _gspell_inline_checker_text_buffer_detach_view (GspellInlineCheckerTextBuffer *s
 	g_signal_handlers_disconnect_by_data (view, spell);
 
 	spell->views = g_slist_remove (spell->views, view);
-	g_object_unref (view);
 }
 
 /* ex:set ts=8 noet: */

@@ -85,7 +85,7 @@ set_view (GspellInlineCheckerText *self,
 	g_assert (priv->view == NULL);
 	g_assert (priv->inline_checker == NULL);
 
-	priv->view = g_object_ref (view);
+	priv->view = view;
 
 	g_signal_connect_object (priv->view,
 				 "notify::buffer",
@@ -151,7 +151,7 @@ _gspell_inline_checker_text_dispose (GObject *object)
 								priv->view);
 	}
 
-	g_clear_object (&priv->view);
+	priv->view = NULL;
 	g_clear_object (&priv->inline_checker);
 
 	G_OBJECT_CLASS (_gspell_inline_checker_text_parent_class)->dispose (object);
