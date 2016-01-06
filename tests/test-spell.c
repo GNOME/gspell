@@ -90,6 +90,7 @@ change_buffer_button_clicked_cb (GtkButton *change_buffer_button,
 	gspell_text_buffer_set_spell_checker (new_buffer, checker);
 
 	gtk_text_view_set_buffer (spell->view, new_buffer);
+	g_object_unref (new_buffer);
 }
 
 static GtkWidget *
