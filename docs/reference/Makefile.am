@@ -21,6 +21,7 @@ CFILE_GLOB = $(top_srcdir)/gspell/*.c
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h private_code
 IGNORE_HFILES =					\
 	gspell-buffer-notifier.h		\
+	gspell-inline-checker-text.h		\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-osx.h				\
 	gspell-utils.h				\
