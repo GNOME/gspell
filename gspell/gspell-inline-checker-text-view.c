@@ -17,14 +17,14 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gspell-inline-checker-text.h"
+#include "gspell-inline-checker-text-view.h"
 #include "gspell-inline-checker-text-buffer.h"
 
 /* Inline spell checker for GtkTextView. Handles buffer changes. */
 
-typedef struct _GspellInlineCheckerTextPrivate GspellInlineCheckerTextPrivate;
+typedef struct _GspellInlineCheckerTextViewPrivate GspellInlineCheckerTextViewPrivate;
 
-struct _GspellInlineCheckerTextPrivate
+struct _GspellInlineCheckerTextViewPrivate
 {
 	GtkTextView *view;
 	GspellInlineCheckerTextBuffer *inline_checker;
@@ -36,15 +36,17 @@ enum
 	PROP_VIEW,
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (GspellInlineCheckerText, _gspell_inline_checker_text, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (GspellInlineCheckerTextView,
+			    _gspell_inline_checker_text_view,
+			    G_TYPE_OBJECT)
 
 static void
-update_inline_checker (GspellInlineCheckerText *self)
+update_inline_checker (GspellInlineCheckerTextView *self)
 {
-	GspellInlineCheckerTextPrivate *priv;
+	GspellInlineCheckerTextViewPrivate *priv;
 	GtkTextBuffer *buffer;
 
-	priv = _gspell_inline_checker_text_get_instance_private (self);
+	priv = _gspell_inline_checker_text_view_get_instance_private (self);
 
 	if (priv->view == NULL)
 	{
@@ -65,22 +67,22 @@ update_inline_checker (GspellInlineCheckerText *self)
 }
 
 static void
-notify_buffer_cb (GtkTextView             *view,
-		  GParamSpec              *pspec,
-		  GspellInlineCheckerText *self)
+notify_buffer_cb (GtkTextView                 *view,
+		  GParamSpec                  *pspec,
+		  GspellInlineCheckerTextView *self)
 {
 	update_inline_checker (self);
 }
 
 static void
-set_view (GspellInlineCheckerText *self,
-	  GtkTextView             *view)
+set_view (GspellInlineCheckerTextView *self,
+	  GtkTextView                 *view)
 {
-	GspellInlineCheckerTextPrivate *priv;
+	GspellInlineCheckerTextViewPrivate *priv;
 
 	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
 
-	priv = _gspell_inline_checker_text_get_instance_private (self);
+	priv = _gspell_inline_checker_text_view_get_instance_private (self);
 
 	g_assert (priv->view == NULL);
 	g_assert (priv->inline_checker == NULL);
@@ -97,14 +99,16 @@ set_view (GspellInlineCheckerText *self,
 }
 
 static void
-_gspell_inline_checker_text_get_property (GObject    *object,
-					  guint       prop_id,
-					  GValue     *value,
-					  GParamSpec *pspec)
+_gspell_inline_checker_text_view_get_property (GObject    *object,
+					       guint       prop_id,
+					       GValue     *value,
+					       GParamSpec *pspec)
 {
-	GspellInlineCheckerTextPrivate *priv;
+	GspellInlineCheckerTextView *self;
+	GspellInlineCheckerTextViewPrivate *priv;
 
-	priv = _gspell_inline_checker_text_get_instance_private (GSPELL_INLINE_CHECKER_TEXT (object));
+	self = GSPELL_INLINE_CHECKER_TEXT_VIEW (object);
+	priv = _gspell_inline_checker_text_view_get_instance_private (self);
 
 	switch (prop_id)
 	{
@@ -119,12 +123,12 @@ _gspell_inline_checker_text_get_property (GObject    *object,
 }
 
 static void
-_gspell_inline_checker_text_set_property (GObject      *object,
-					  guint         prop_id,
-					  const GValue *value,
-					  GParamSpec   *pspec)
+_gspell_inline_checker_text_view_set_property (GObject      *object,
+					       guint         prop_id,
+					       const GValue *value,
+					       GParamSpec   *pspec)
 {
-	GspellInlineCheckerText *self = GSPELL_INLINE_CHECKER_TEXT (object);
+	GspellInlineCheckerTextView *self = GSPELL_INLINE_CHECKER_TEXT_VIEW (object);
 
 	switch (prop_id)
 	{
@@ -139,11 +143,13 @@ _gspell_inline_checker_text_set_property (GObject      *object,
 }
 
 static void
-_gspell_inline_checker_text_dispose (GObject *object)
+_gspell_inline_checker_text_view_dispose (GObject *object)
 {
-	GspellInlineCheckerTextPrivate *priv;
+	GspellInlineCheckerTextView *self;
+	GspellInlineCheckerTextViewPrivate *priv;
 
-	priv = _gspell_inline_checker_text_get_instance_private (GSPELL_INLINE_CHECKER_TEXT (object));
+	self = GSPELL_INLINE_CHECKER_TEXT_VIEW (object);
+	priv = _gspell_inline_checker_text_view_get_instance_private (self);
 
 	if (priv->view != NULL && priv->inline_checker != NULL)
 	{
@@ -154,17 +160,17 @@ _gspell_inline_checker_text_dispose (GObject *object)
 	priv->view = NULL;
 	g_clear_object (&priv->inline_checker);
 
-	G_OBJECT_CLASS (_gspell_inline_checker_text_parent_class)->dispose (object);
+	G_OBJECT_CLASS (_gspell_inline_checker_text_view_parent_class)->dispose (object);
 }
 
 static void
-_gspell_inline_checker_text_class_init (GspellInlineCheckerTextClass *klass)
+_gspell_inline_checker_text_view_class_init (GspellInlineCheckerTextViewClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	object_class->get_property = _gspell_inline_checker_text_get_property;
-	object_class->set_property = _gspell_inline_checker_text_set_property;
-	object_class->dispose = _gspell_inline_checker_text_dispose;
+	object_class->get_property = _gspell_inline_checker_text_view_get_property;
+	object_class->set_property = _gspell_inline_checker_text_view_set_property;
+	object_class->dispose = _gspell_inline_checker_text_view_dispose;
 
 	g_object_class_install_property (object_class,
 					 PROP_VIEW,
@@ -178,16 +184,16 @@ _gspell_inline_checker_text_class_init (GspellInlineCheckerTextClass *klass)
 }
 
 static void
-_gspell_inline_checker_text_init (GspellInlineCheckerText *self)
+_gspell_inline_checker_text_view_init (GspellInlineCheckerTextView *self)
 {
 }
 
-GspellInlineCheckerText *
-_gspell_inline_checker_text_new (GtkTextView *view)
+GspellInlineCheckerTextView *
+_gspell_inline_checker_text_view_new (GtkTextView *view)
 {
 	g_return_val_if_fail (GTK_IS_TEXT_VIEW (view), NULL);
 
-	return g_object_new (GSPELL_TYPE_INLINE_CHECKER_TEXT,
+	return g_object_new (GSPELL_TYPE_INLINE_CHECKER_TEXT_VIEW,
 			     "view", view,
 			     NULL);
 }

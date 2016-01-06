@@ -2,8 +2,8 @@
 gspell/gspell-buffer-notifier.c
 gspell/gspell-checker.c
 gspell/gspell-checker-dialog.c
-gspell/gspell-inline-checker-text.c
 gspell/gspell-inline-checker-text-buffer.c
+gspell/gspell-inline-checker-text-view.c
 gspell/gspell-language.c
 gspell/gspell-language-chooser.c
 gspell/gspell-language-chooser-button.c
