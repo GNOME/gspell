@@ -43,16 +43,16 @@ gspell_public_c_files =				\
 gspell_private_headers =			\
 	gconstructor.h				\
 	gspell-buffer-notifier.h		\
+	gspell-inline-checker-text.h		\
 	gspell-inline-checker-text-buffer.h	\
-	gspell-inline-checker-text-view.h	\
 	gspell-utils.h				\
 	gtktextregion.h
 
 gspell_private_c_files =			\
 	gspell-buffer-notifier.c		\
 	gspell-init.c				\
+	gspell-inline-checker-text.c		\
 	gspell-inline-checker-text-buffer.c	\
-	gspell-inline-checker-text-view.c	\
 	gspell-utils.c				\
 	gtktextregion.c
 

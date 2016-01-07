@@ -17,30 +17,30 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_INLINE_CHECKER_TEXT_VIEW_H__
-#define __GSPELL_INLINE_CHECKER_TEXT_VIEW_H__
+#ifndef __GSPELL_INLINE_CHECKER_TEXT_H__
+#define __GSPELL_INLINE_CHECKER_TEXT_H__
 
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_INLINE_CHECKER_TEXT_VIEW (_gspell_inline_checker_text_view_get_type ())
+#define GSPELL_TYPE_INLINE_CHECKER_TEXT (_gspell_inline_checker_text_get_type ())
 
 G_GNUC_INTERNAL
-G_DECLARE_DERIVABLE_TYPE (GspellInlineCheckerTextView, _gspell_inline_checker_text_view,
-			  GSPELL, INLINE_CHECKER_TEXT_VIEW,
+G_DECLARE_DERIVABLE_TYPE (GspellInlineCheckerText, _gspell_inline_checker_text,
+			  GSPELL, INLINE_CHECKER_TEXT,
 			  GObject)
 
-struct _GspellInlineCheckerTextViewClass
+struct _GspellInlineCheckerTextClass
 {
 	GObjectClass parent_class;
 };
 
 G_GNUC_INTERNAL
-GspellInlineCheckerTextView *	_gspell_inline_checker_text_view_new		(GtkTextView *view);
+GspellInlineCheckerText *	_gspell_inline_checker_text_new		(GtkTextView *view);
 
 G_END_DECLS
 
-#endif /* __GSPELL_INLINE_CHECKER_TEXT_VIEW_H__ */
+#endif /* __GSPELL_INLINE_CHECKER_TEXT_H__ */
 
 /* ex:set ts=8 noet: */

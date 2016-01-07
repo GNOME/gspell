@@ -18,7 +18,7 @@
  */
 
 #include "gspell-text-view.h"
-#include "gspell-inline-checker-text-view.h"
+#include "gspell-inline-checker-text.h"
 
 /**
  * SECTION:text-view
@@ -66,7 +66,7 @@ gspell_text_view_set_inline_checking (GtkTextView *view,
 
 		g_object_set_data_full (G_OBJECT (view),
 					INLINE_CHECKER_KEY,
-					_gspell_inline_checker_text_view_new (view),
+					_gspell_inline_checker_text_new (view),
 					g_object_unref);
 	}
 	else
