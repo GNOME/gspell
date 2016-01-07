@@ -66,7 +66,7 @@ gspell_text_view_set_inline_checking (GtkTextView *view,
 			return;
 		}
 
-		inline_checker = gspell_inline_checker_text_new (view);
+		inline_checker = _gspell_inline_checker_text_new (view);
 		gspell_inline_checker_text_set_enabled (inline_checker, TRUE);
 
 		g_object_set_data_full (G_OBJECT (view),

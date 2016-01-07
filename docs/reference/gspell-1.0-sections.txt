@@ -106,7 +106,6 @@ gspell_text_view_get_inline_checking
 <FILE>inline-checker-text</FILE>
 <TITLE>GspellInlineCheckerText</TITLE>
 GspellInlineCheckerText
-gspell_inline_checker_text_new
 gspell_inline_checker_text_set_enabled
 gspell_inline_checker_text_get_enabled
 <SUBSECTION Standard>

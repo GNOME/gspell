@@ -253,7 +253,7 @@ gspell_inline_checker_text_init (GspellInlineCheckerText *inline_checker)
 }
 
 GspellInlineCheckerText *
-gspell_inline_checker_text_new (GtkTextView *view)
+_gspell_inline_checker_text_new (GtkTextView *view)
 {
 	g_return_val_if_fail (GTK_IS_TEXT_VIEW (view), NULL);
 
