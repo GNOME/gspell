@@ -38,6 +38,25 @@ gspell_language_get_type
 </SECTION>
 
 <SECTION>
+<FILE>text-buffer</FILE>
+<TITLE>GtkTextBuffer support</TITLE>
+gspell_text_buffer_set_spell_checker
+gspell_text_buffer_get_spell_checker
+</SECTION>
+
+<SECTION>
+<FILE>inline-checker-text</FILE>
+<TITLE>GspellInlineCheckerText</TITLE>
+GspellInlineCheckerText
+gspell_text_view_get_inline_checker
+gspell_inline_checker_text_set_enabled
+gspell_inline_checker_text_get_enabled
+<SUBSECTION Standard>
+GSPELL_TYPE_INLINE_CHECKER_TEXT
+GspellInlineCheckerTextClass
+</SECTION>
+
+<SECTION>
 <FILE>checker-dialog</FILE>
 <TITLE>GspellCheckerDialog</TITLE>
 GspellCheckerDialog
@@ -56,6 +75,16 @@ gspell_navigator_change_all
 <SUBSECTION Standard>
 GspellNavigatorInterface
 GSPELL_TYPE_NAVIGATOR
+</SECTION>
+
+<SECTION>
+<FILE>navigator-gtv</FILE>
+<TITLE>GspellNavigatorGtv</TITLE>
+GspellNavigatorGtv
+gspell_navigator_gtv_new
+<SUBSECTION Standard>
+GSPELL_TYPE_NAVIGATOR_GTV
+GspellNavigatorGtvClass
 </SECTION>
 
 <SECTION>
@@ -86,38 +115,4 @@ GspellLanguageChooserDialog
 gspell_language_chooser_dialog_new
 <SUBSECTION Standard>
 GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG
-</SECTION>
-
-<SECTION>
-<FILE>text-buffer</FILE>
-<TITLE>GtkTextBuffer support</TITLE>
-gspell_text_buffer_set_spell_checker
-gspell_text_buffer_get_spell_checker
-</SECTION>
-
-<SECTION>
-<FILE>text-view</FILE>
-<TITLE>GtkTextView support</TITLE>
-gspell_text_view_get_inline_checker
-</SECTION>
-
-<SECTION>
-<FILE>inline-checker-text</FILE>
-<TITLE>GspellInlineCheckerText</TITLE>
-GspellInlineCheckerText
-gspell_inline_checker_text_set_enabled
-gspell_inline_checker_text_get_enabled
-<SUBSECTION Standard>
-GSPELL_TYPE_INLINE_CHECKER_TEXT
-GspellInlineCheckerTextClass
-</SECTION>
-
-<SECTION>
-<FILE>navigator-gtv</FILE>
-<TITLE>GspellNavigatorGtv</TITLE>
-GspellNavigatorGtv
-gspell_navigator_gtv_new
-<SUBSECTION Standard>
-GSPELL_TYPE_NAVIGATOR_GTV
-GspellNavigatorGtvClass
 </SECTION>

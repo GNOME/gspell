@@ -20,13 +20,6 @@
 #include "gspell-text-view.h"
 #include "gspell-inline-checker-text.h"
 
-/**
- * SECTION:text-view
- * @Title: GtkTextView support
- *
- * Spell checking support for #GtkTextView.
- */
-
 #define INLINE_CHECKER_KEY "gspell-text-view-inline-checker-key"
 
 /**

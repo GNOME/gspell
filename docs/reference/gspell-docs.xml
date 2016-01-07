@@ -22,9 +22,20 @@
     </chapter>
 
     <chapter>
-      <title>External Checking</title>
+      <title>Buffer Support</title>
+      <xi:include href="xml/text-buffer.xml"/>
+    </chapter>
+
+    <chapter>
+      <title>Inline Checkers</title>
+      <xi:include href="xml/inline-checker-text.xml"/>
+    </chapter>
+
+    <chapter>
+      <title>External Checkers</title>
       <xi:include href="xml/checker-dialog.xml"/>
       <xi:include href="xml/navigator.xml"/>
+      <xi:include href="xml/navigator-gtv.xml"/>
     </chapter>
 
     <chapter>
@@ -32,14 +43,6 @@
       <xi:include href="xml/language-chooser.xml"/>
       <xi:include href="xml/language-chooser-button.xml"/>
       <xi:include href="xml/language-chooser-dialog.xml"/>
-    </chapter>
-
-    <chapter>
-      <title>GtkTextView Support</title>
-      <xi:include href="xml/text-buffer.xml"/>
-      <xi:include href="xml/text-view.xml"/>
-      <xi:include href="xml/inline-checker-text.xml"/>
-      <xi:include href="xml/navigator-gtv.xml"/>
     </chapter>
   </part>
 
