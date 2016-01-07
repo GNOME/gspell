@@ -38,6 +38,7 @@
       <title>GtkTextView Support</title>
       <xi:include href="xml/text-buffer.xml"/>
       <xi:include href="xml/text-view.xml"/>
+      <xi:include href="xml/inline-checker-text.xml"/>
       <xi:include href="xml/navigator-gtv.xml"/>
     </chapter>
   </part>

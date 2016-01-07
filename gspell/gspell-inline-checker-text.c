@@ -20,7 +20,28 @@
 #include "gspell-inline-checker-text.h"
 #include "gspell-inline-checker-text-buffer.h"
 
-/* Inline spell checker for GtkTextView. Handles buffer changes. */
+/**
+ * SECTION:inline-checker-text
+ * @Short_description: Inline spell checker for GtkTextView
+ * @Title: GspellInlineCheckerText
+ *
+ * The #GspellInlineCheckerText is an inline spell checker for the
+ * #GtkTextView widget. Misspelled words are highlighted with a
+ * %PANGO_UNDERLINE_ERROR, usually a red wavy underline. Right-clicking a
+ * misspelled word pops up a context menu of suggested replacements. The context
+ * menu also contains an “Ignore All” item to add the misspelled word to the
+ * session dictionary. And an “Add” item to add the word to the personal
+ * dictionary.
+ *
+ * The spell is checked only on the visible region of the #GtkTextView. Note
+ * that if a same #GtkTextBuffer is used for several views, the misspelled words
+ * are visible in all views, because the highlighting is achieved with a
+ * #GtkTextTag added to the buffer.
+ *
+ * You need to call gspell_text_buffer_set_spell_checker() to associate a
+ * #GspellChecker to the #GtkTextBuffer. #GtkTextView:buffer changes are
+ * handled, as well as #GspellChecker changes.
+ */
 
 typedef struct _GspellInlineCheckerTextPrivate GspellInlineCheckerTextPrivate;
 
@@ -196,6 +217,11 @@ gspell_inline_checker_text_class_init (GspellInlineCheckerTextClass *klass)
 	object_class->set_property = gspell_inline_checker_text_set_property;
 	object_class->dispose = gspell_inline_checker_text_dispose;
 
+	/**
+	 * GspellInlineCheckerText:view:
+	 *
+	 * The #GtkTextView.
+	 */
 	g_object_class_install_property (object_class,
 					 PROP_VIEW,
 					 g_param_spec_object ("view",
