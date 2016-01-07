@@ -59,14 +59,19 @@ gspell_text_view_set_inline_checking (GtkTextView *view,
 
 	if (enable)
 	{
+		GspellInlineCheckerText *inline_checker;
+
 		if (gspell_text_view_get_inline_checking (view))
 		{
 			return;
 		}
 
+		inline_checker = gspell_inline_checker_text_new (view);
+		gspell_inline_checker_text_set_enabled (inline_checker, TRUE);
+
 		g_object_set_data_full (G_OBJECT (view),
 					INLINE_CHECKER_KEY,
-					gspell_inline_checker_text_new (view),
+					inline_checker,
 					g_object_unref);
 	}
 	else

@@ -41,7 +41,13 @@ struct _GspellInlineCheckerTextClass
 	gpointer padding[8];
 };
 
-GspellInlineCheckerText *	gspell_inline_checker_text_new		(GtkTextView *view);
+GspellInlineCheckerText *
+		gspell_inline_checker_text_new			(GtkTextView *view);
+
+void		gspell_inline_checker_text_set_enabled		(GspellInlineCheckerText *inline_checker,
+								 gboolean                 enabled);
+
+gboolean	gspell_inline_checker_text_get_enabled		(GspellInlineCheckerText *inline_checker);
 
 G_END_DECLS
 
