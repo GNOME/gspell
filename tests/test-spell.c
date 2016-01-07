@@ -68,14 +68,6 @@ checker_button_clicked_cb (GtkButton *checker_button,
 }
 
 static void
-highlight_checkbutton_toggled_cb (GtkToggleButton *checkbutton,
-				  TestSpell       *spell)
-{
-	gboolean enable = gtk_toggle_button_get_active (checkbutton);
-	gspell_text_view_set_inline_checking (spell->view, enable);
-}
-
-static void
 change_buffer_button_clicked_cb (GtkButton *change_buffer_button,
 				 TestSpell *spell)
 {
@@ -103,6 +95,7 @@ get_sidebar (TestSpell *spell)
 	GtkWidget *change_buffer_button;
 	GspellChecker *checker;
 	const GspellLanguage *language;
+	GspellInlineCheckerText *inline_checker;
 
 	sidebar = gtk_grid_new ();
 
@@ -141,10 +134,10 @@ get_sidebar (TestSpell *spell)
 	gtk_container_add (GTK_CONTAINER (sidebar),
 			   highlight_checkbutton);
 
-	g_signal_connect (highlight_checkbutton,
-			  "toggled",
-			  G_CALLBACK (highlight_checkbutton_toggled_cb),
-			  spell);
+	inline_checker = gspell_text_view_get_inline_checker (spell->view);
+	g_object_bind_property (highlight_checkbutton, "active",
+				inline_checker, "enabled",
+				G_BINDING_DEFAULT);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (highlight_checkbutton), TRUE);
 

@@ -30,70 +30,34 @@
 #define INLINE_CHECKER_KEY "gspell-text-view-inline-checker-key"
 
 /**
- * gspell_text_view_set_inline_checking:
+ * gspell_text_view_get_inline_checker:
  * @view: a #GtkTextView.
- * @enable: whether to enable the inline spell checking.
  *
- * Enables or disables inline spell checking.
+ * Returns the #GspellInlineCheckerText of @view. The returned object is
+ * guaranteed to be the same for the lifetime of @view.
  *
- * If enabled, misspelled words are highlighted with a %PANGO_UNDERLINE_ERROR,
- * usually a red wavy underline. Right-clicking a misspelled word pops up a
- * context menu of suggested replacements. The context menu also contains an
- * “Ignore All” item to add the misspelled word to the session dictionary. And
- * an “Add” item to add the word to the personal dictionary.
- *
- * The spell is checked only on the visible region of the #GtkTextView. Note
- * that if a same #GtkTextBuffer is used for several views, the misspelled words
- * are visible in all views, because the highlighting is achieved with a
- * #GtkTextTag added to the buffer.
- *
- * You need to call gspell_text_buffer_set_spell_checker() to associate a
- * #GspellChecker to the #GtkTextBuffer. #GtkTextView:buffer changes are
- * handled, as well as #GspellChecker changes.
+ * Returns: (transfer none): the #GspellInlineCheckerText of @view.
  */
-void
-gspell_text_view_set_inline_checking (GtkTextView *view,
-				      gboolean     enable)
+GspellInlineCheckerText *
+gspell_text_view_get_inline_checker (GtkTextView *view)
 {
-	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
+	GspellInlineCheckerText *inline_checker;
 
-	if (enable)
+	g_return_val_if_fail (GTK_IS_TEXT_VIEW (view), NULL);
+
+	inline_checker = g_object_get_data (G_OBJECT (view), INLINE_CHECKER_KEY);
+
+	if (inline_checker == NULL)
 	{
-		GspellInlineCheckerText *inline_checker;
-
-		if (gspell_text_view_get_inline_checking (view))
-		{
-			return;
-		}
-
 		inline_checker = _gspell_inline_checker_text_new (view);
-		gspell_inline_checker_text_set_enabled (inline_checker, TRUE);
 
 		g_object_set_data_full (G_OBJECT (view),
 					INLINE_CHECKER_KEY,
 					inline_checker,
 					g_object_unref);
 	}
-	else
-	{
-		g_object_set_data (G_OBJECT (view),
-				   INLINE_CHECKER_KEY,
-				   NULL);
-	}
-}
 
-/**
- * gspell_text_view_get_inline_checking:
- * @view: a #GtkTextView.
- *
- * Returns: whether the inline spell checking is enabled for @view.
- */
-gboolean
-gspell_text_view_get_inline_checking (GtkTextView *view)
-{
-	g_return_val_if_fail (GTK_IS_TEXT_VIEW (view), FALSE);
-
-	return g_object_get_data (G_OBJECT (view), INLINE_CHECKER_KEY) != NULL;
+	return inline_checker;
 }
 
 /* ex:set ts=8 noet: */

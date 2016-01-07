@@ -98,8 +98,7 @@ gspell_text_buffer_get_spell_checker
 <SECTION>
 <FILE>text-view</FILE>
 <TITLE>GtkTextView support</TITLE>
-gspell_text_view_set_inline_checking
-gspell_text_view_get_inline_checking
+gspell_text_view_get_inline_checker
 </SECTION>
 
 <SECTION>

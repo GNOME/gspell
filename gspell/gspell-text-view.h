@@ -25,11 +25,10 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gspell/gspell-inline-checker-text.h>
 
-void		gspell_text_view_set_inline_checking	(GtkTextView *view,
-							 gboolean     enable);
-
-gboolean	gspell_text_view_get_inline_checking	(GtkTextView *view);
+GspellInlineCheckerText *
+		gspell_text_view_get_inline_checker	(GtkTextView *view);
 
 #endif /* __GSPELL_TEXT_VIEW_H__ */
 
