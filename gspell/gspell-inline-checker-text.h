@@ -20,24 +20,28 @@
 #ifndef __GSPELL_INLINE_CHECKER_TEXT_H__
 #define __GSPELL_INLINE_CHECKER_TEXT_H__
 
+#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
+
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_INLINE_CHECKER_TEXT (_gspell_inline_checker_text_get_type ())
-
-G_GNUC_INTERNAL
-G_DECLARE_DERIVABLE_TYPE (GspellInlineCheckerText, _gspell_inline_checker_text,
+#define GSPELL_TYPE_INLINE_CHECKER_TEXT (gspell_inline_checker_text_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellInlineCheckerText, gspell_inline_checker_text,
 			  GSPELL, INLINE_CHECKER_TEXT,
 			  GObject)
 
 struct _GspellInlineCheckerTextClass
 {
 	GObjectClass parent_class;
+
+	/* Padding for future expansion */
+	gpointer padding[8];
 };
 
-G_GNUC_INTERNAL
-GspellInlineCheckerText *	_gspell_inline_checker_text_new		(GtkTextView *view);
+GspellInlineCheckerText *	gspell_inline_checker_text_new		(GtkTextView *view);
 
 G_END_DECLS
 
