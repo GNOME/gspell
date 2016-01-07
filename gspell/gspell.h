@@ -32,7 +32,6 @@
 #include <gspell/gspell-navigator.h>
 #include <gspell/gspell-navigator-gtv.h>
 #include <gspell/gspell-text-buffer.h>
-#include <gspell/gspell-text-view.h>
 
 #undef __GSPELL_H_INSIDE__
 

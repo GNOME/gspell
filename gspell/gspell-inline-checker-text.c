@@ -58,6 +58,8 @@ enum
 	PROP_ENABLED,
 };
 
+#define INLINE_CHECKER_KEY "gspell-inline-checker-text-key"
+
 G_DEFINE_TYPE_WITH_PRIVATE (GspellInlineCheckerText, gspell_inline_checker_text, G_TYPE_OBJECT)
 
 static void
@@ -252,14 +254,37 @@ gspell_inline_checker_text_init (GspellInlineCheckerText *inline_checker)
 {
 }
 
+/**
+ * gspell_text_view_get_inline_checker:
+ * @view: a #GtkTextView.
+ *
+ * Returns the #GspellInlineCheckerText of @view. The returned object is
+ * guaranteed to be the same for the lifetime of @view.
+ *
+ * Returns: (transfer none): the #GspellInlineCheckerText of @view.
+ */
 GspellInlineCheckerText *
-_gspell_inline_checker_text_new (GtkTextView *view)
+gspell_text_view_get_inline_checker (GtkTextView *view)
 {
+	GspellInlineCheckerText *inline_checker;
+
 	g_return_val_if_fail (GTK_IS_TEXT_VIEW (view), NULL);
 
-	return g_object_new (GSPELL_TYPE_INLINE_CHECKER_TEXT,
-			     "view", view,
-			     NULL);
+	inline_checker = g_object_get_data (G_OBJECT (view), INLINE_CHECKER_KEY);
+
+	if (inline_checker == NULL)
+	{
+		inline_checker = g_object_new (GSPELL_TYPE_INLINE_CHECKER_TEXT,
+					       "view", view,
+					       NULL);
+
+		g_object_set_data_full (G_OBJECT (view),
+					INLINE_CHECKER_KEY,
+					inline_checker,
+					g_object_unref);
+	}
+
+	return inline_checker;
 }
 
 /**
