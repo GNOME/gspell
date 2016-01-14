@@ -41,14 +41,16 @@ typedef struct _GspellLanguageChooserButtonPrivate GspellLanguageChooserButtonPr
 
 struct _GspellLanguageChooserButtonPrivate
 {
-	const GspellLanguage *language;
 	GspellLanguageChooserDialog *dialog;
+	const GspellLanguage *language;
+	guint default_language : 1;
 };
 
 enum
 {
 	PROP_0,
 	PROP_LANGUAGE,
+	PROP_LANGUAGE_CODE,
 };
 
 static void gspell_language_chooser_button_iface_init (GspellLanguageChooserInterface *iface);
@@ -80,11 +82,17 @@ update_button_label (GspellLanguageChooserButton *button)
 }
 
 static const GspellLanguage *
-gspell_language_chooser_button_get_language (GspellLanguageChooser *chooser)
+gspell_language_chooser_button_get_language_full (GspellLanguageChooser *chooser,
+						  gboolean              *default_language)
 {
 	GspellLanguageChooserButtonPrivate *priv;
 
 	priv = gspell_language_chooser_button_get_instance_private (GSPELL_LANGUAGE_CHOOSER_BUTTON (chooser));
+
+	if (default_language != NULL)
+	{
+		*default_language = priv->default_language;
+	}
 
 	return priv->language;
 }
@@ -95,9 +103,19 @@ gspell_language_chooser_button_set_language (GspellLanguageChooser *chooser,
 {
 	GspellLanguageChooserButton *button;
 	GspellLanguageChooserButtonPrivate *priv;
+	gboolean default_language;
+	gboolean notify_language_code = FALSE;
 
 	button = GSPELL_LANGUAGE_CHOOSER_BUTTON (chooser);
 	priv = gspell_language_chooser_button_get_instance_private (button);
+
+	default_language = (language == NULL);
+
+	if (priv->default_language != default_language)
+	{
+		priv->default_language = default_language;
+		notify_language_code = TRUE;
+	}
 
 	if (language == NULL)
 	{
@@ -111,13 +129,19 @@ gspell_language_chooser_button_set_language (GspellLanguageChooser *chooser,
 		update_button_label (button);
 
 		g_object_notify (G_OBJECT (chooser), "language");
+		notify_language_code = TRUE;
+	}
+
+	if (notify_language_code)
+	{
+		g_object_notify (G_OBJECT (chooser), "language-code");
 	}
 }
 
 static void
 gspell_language_chooser_button_iface_init (GspellLanguageChooserInterface *iface)
 {
-	iface->get_language = gspell_language_chooser_button_get_language;
+	iface->get_language_full = gspell_language_chooser_button_get_language_full;
 	iface->set_language = gspell_language_chooser_button_set_language;
 }
 
@@ -132,7 +156,11 @@ gspell_language_chooser_button_get_property (GObject    *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			g_value_set_boxed (value, gspell_language_chooser_button_get_language (chooser));
+			g_value_set_boxed (value, gspell_language_chooser_get_language (chooser));
+			break;
+
+		case PROP_LANGUAGE_CODE:
+			g_value_set_string (value, gspell_language_chooser_get_language_code (chooser));
 			break;
 
 		default:
@@ -152,7 +180,11 @@ gspell_language_chooser_button_set_property (GObject      *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			gspell_language_chooser_button_set_language (chooser, g_value_get_boxed (value));
+			gspell_language_chooser_set_language (chooser, g_value_get_boxed (value));
+			break;
+
+		case PROP_LANGUAGE_CODE:
+			gspell_language_chooser_set_language_code (chooser, g_value_get_string (value));
 			break;
 
 		default:
@@ -209,7 +241,7 @@ ensure_dialog (GspellLanguageChooserButton *button)
 
 	priv->dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (
 		gspell_language_chooser_dialog_new (parent,
-						    priv->language,
+						    priv->default_language ? NULL : priv->language,
 						    GTK_DIALOG_DESTROY_WITH_PARENT |
 						    GTK_DIALOG_USE_HEADER_BAR));
 
@@ -219,8 +251,8 @@ ensure_dialog (GspellLanguageChooserButton *button)
 				      gtk_window_get_modal (parent));
 	}
 
-	g_object_bind_property (priv->dialog, "language",
-				button, "language",
+	g_object_bind_property (priv->dialog, "language-code",
+				button, "language-code",
 				G_BINDING_DEFAULT);
 
 	g_signal_connect (priv->dialog,
@@ -248,7 +280,7 @@ gspell_language_chooser_button_clicked (GtkButton *gtk_button)
 	ensure_dialog (button);
 
 	gspell_language_chooser_set_language (GSPELL_LANGUAGE_CHOOSER (priv->dialog),
-					      priv->language);
+					      priv->default_language ? NULL : priv->language);
 
 	gtk_window_present (GTK_WINDOW (priv->dialog));
 }
@@ -266,6 +298,7 @@ gspell_language_chooser_button_class_init (GspellLanguageChooserButtonClass *kla
 	button_class->clicked = gspell_language_chooser_button_clicked;
 
 	g_object_class_override_property (object_class, PROP_LANGUAGE, "language");
+	g_object_class_override_property (object_class, PROP_LANGUAGE_CODE, "language-code");
 }
 
 static void

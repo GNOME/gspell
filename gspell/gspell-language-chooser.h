@@ -38,18 +38,27 @@ struct _GspellLanguageChooserInterface
 {
 	GTypeInterface parent_interface;
 
-	const GspellLanguage *	(* get_language)	(GspellLanguageChooser *chooser);
+	/* The return value is the same as get_language(), but there is the
+	 * (optional) out parameter @default_language in addition.
+	 */
+	const GspellLanguage *	(* get_language_full)	(GspellLanguageChooser *chooser,
+							 gboolean              *default_language);
 
 	void			(* set_language)	(GspellLanguageChooser *chooser,
 							 const GspellLanguage  *language);
 
-	gpointer padding[8];
+	gpointer padding[12];
 };
 
-const GspellLanguage *	gspell_language_chooser_get_language	(GspellLanguageChooser *chooser);
+const GspellLanguage *	gspell_language_chooser_get_language		(GspellLanguageChooser *chooser);
 
-void			gspell_language_chooser_set_language	(GspellLanguageChooser *chooser,
-								 const GspellLanguage  *language);
+void			gspell_language_chooser_set_language		(GspellLanguageChooser *chooser,
+									 const GspellLanguage  *language);
+
+const gchar *		gspell_language_chooser_get_language_code	(GspellLanguageChooser *chooser);
+
+void			gspell_language_chooser_set_language_code	(GspellLanguageChooser *chooser,
+									 const gchar           *language_code);
 
 G_END_DECLS
 

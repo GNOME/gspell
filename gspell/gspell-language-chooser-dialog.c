@@ -45,12 +45,14 @@ struct _GspellLanguageChooserDialogPrivate
 {
 	GtkTreeView *treeview;
 	const GspellLanguage *language;
+	guint default_language : 1;
 };
 
 enum
 {
 	PROP_0,
 	PROP_LANGUAGE,
+	PROP_LANGUAGE_CODE,
 };
 
 enum
@@ -94,29 +96,38 @@ scroll_to_selected (GtkTreeView *tree_view)
 }
 
 static const GspellLanguage *
-gspell_language_chooser_dialog_get_language (GspellLanguageChooser *chooser)
+gspell_language_chooser_dialog_get_language_full (GspellLanguageChooser *chooser,
+						  gboolean              *default_language)
 {
 	GspellLanguageChooserDialog *dialog;
 	GspellLanguageChooserDialogPrivate *priv;
 
 	dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (chooser);
 	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
+
+	if (default_language != NULL)
+	{
+		*default_language = priv->default_language;
+	}
 
 	return priv->language;
 }
 
 static void
 gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
-					     const GspellLanguage  *language)
+					     const GspellLanguage  *language_param)
 {
 	GspellLanguageChooserDialog *dialog;
 	GspellLanguageChooserDialogPrivate *priv;
+	const GspellLanguage *language;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
 	dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (chooser);
 	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
+
+	language = language_param;
 
 	if (language == NULL)
 	{
@@ -127,12 +138,26 @@ gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
 
 	if (language == NULL)
 	{
+		gboolean notify_language_code = FALSE;
+
 		gtk_tree_selection_unselect_all (selection);
+
+		/* Update first the full state before notifying the properties. */
+		if (!priv->default_language)
+		{
+			priv->default_language = TRUE;
+			notify_language_code = TRUE;
+		}
 
 		if (priv->language != NULL)
 		{
 			priv->language = NULL;
 			g_object_notify (G_OBJECT (dialog), "language");
+		}
+
+		if (notify_language_code)
+		{
+			g_object_notify (G_OBJECT (dialog), "language-code");
 		}
 
 		return;
@@ -155,13 +180,32 @@ gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
 
 		if (language == cur_lang)
 		{
+			gboolean default_language;
+			gboolean notify_language_code = FALSE;
+
 			gtk_tree_selection_select_iter (selection, &iter);
 			scroll_to_selected (priv->treeview);
+
+			/* Update first the full state before notifying the properties. */
+
+			default_language = language_param == NULL;
+
+			if (priv->default_language != default_language)
+			{
+				priv->default_language = default_language;
+				notify_language_code = TRUE;
+			}
 
 			if (priv->language != language)
 			{
 				priv->language = language;
 				g_object_notify (G_OBJECT (dialog), "language");
+				notify_language_code = TRUE;
+			}
+
+			if (notify_language_code)
+			{
+				g_object_notify (G_OBJECT (dialog), "language-code");
 			}
 
 			return;
@@ -176,7 +220,7 @@ warning:
 static void
 gspell_language_chooser_dialog_iface_init (GspellLanguageChooserInterface *iface)
 {
-	iface->get_language = gspell_language_chooser_dialog_get_language;
+	iface->get_language_full = gspell_language_chooser_dialog_get_language_full;
 	iface->set_language = gspell_language_chooser_dialog_set_language;
 }
 
@@ -191,7 +235,11 @@ gspell_language_chooser_dialog_get_property (GObject    *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			g_value_set_boxed (value, gspell_language_chooser_dialog_get_language (chooser));
+			g_value_set_boxed (value, gspell_language_chooser_get_language (chooser));
+			break;
+
+		case PROP_LANGUAGE_CODE:
+			g_value_set_string (value, gspell_language_chooser_get_language_code (chooser));
 			break;
 
 		default:
@@ -211,7 +259,11 @@ gspell_language_chooser_dialog_set_property (GObject      *object,
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			gspell_language_chooser_dialog_set_language (chooser, g_value_get_boxed (value));
+			gspell_language_chooser_set_language (chooser, g_value_get_boxed (value));
+			break;
+
+		case PROP_LANGUAGE_CODE:
+			gspell_language_chooser_set_language_code (chooser, g_value_get_string (value));
 			break;
 
 		default:
@@ -251,6 +303,7 @@ dialog_response_cb (GtkDialog *gtk_dialog,
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	const GspellLanguage *lang;
+	gboolean notify_language_code = FALSE;
 
 	if (response != GTK_RESPONSE_OK)
 	{
@@ -271,10 +324,24 @@ dialog_response_cb (GtkDialog *gtk_dialog,
 			    COLUMN_LANGUAGE_POINTER, &lang,
 			    -1);
 
+	/* Update first the full state before notifying the properties. */
+
+	if (priv->default_language)
+	{
+		priv->default_language = FALSE;
+		notify_language_code = TRUE;
+	}
+
 	if (priv->language != lang)
 	{
 		priv->language = lang;
 		g_object_notify (G_OBJECT (dialog), "language");
+		notify_language_code = TRUE;
+	}
+
+	if (notify_language_code)
+	{
+		g_object_notify (G_OBJECT (dialog), "language-code");
 	}
 }
 
@@ -289,6 +356,7 @@ gspell_language_chooser_dialog_class_init (GspellLanguageChooserDialogClass *kla
 	object_class->constructed = gspell_language_chooser_dialog_constructed;
 
 	g_object_class_override_property (object_class, PROP_LANGUAGE, "language");
+	g_object_class_override_property (object_class, PROP_LANGUAGE_CODE, "language-code");
 
 	/* Bind class to template */
 	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/gspell/language-dialog.ui");
@@ -344,6 +412,8 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 	GtkCellRenderer *renderer;
 
 	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
+
+	priv->default_language = TRUE;
 
 	gtk_widget_init_template (GTK_WIDGET (dialog));
 

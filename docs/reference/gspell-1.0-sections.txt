@@ -94,6 +94,8 @@ GspellNavigatorTextClass
 GspellLanguageChooser
 gspell_language_chooser_get_language
 gspell_language_chooser_set_language
+gspell_language_chooser_get_language_code
+gspell_language_chooser_set_language_code
 <SUBSECTION Standard>
 GSPELL_TYPE_LANGUAGE_CHOOSER
 GspellLanguageChooserInterface
