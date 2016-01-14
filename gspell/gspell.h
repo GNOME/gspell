@@ -30,7 +30,7 @@
 #include <gspell/gspell-language-chooser-button.h>
 #include <gspell/gspell-language-chooser-dialog.h>
 #include <gspell/gspell-navigator.h>
-#include <gspell/gspell-navigator-gtv.h>
+#include <gspell/gspell-navigator-text.h>
 #include <gspell/gspell-text-buffer.h>
 
 #undef __GSPELL_H_INSIDE__

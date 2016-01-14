@@ -25,7 +25,7 @@ gspell_public_headers =				\
 	gspell-language-chooser-button.h	\
 	gspell-language-chooser-dialog.h	\
 	gspell-navigator.h			\
-	gspell-navigator-gtv.h			\
+	gspell-navigator-text.h			\
 	gspell-text-buffer.h
 
 gspell_public_c_files =				\
@@ -37,7 +37,7 @@ gspell_public_c_files =				\
 	gspell-language-chooser-button.c	\
 	gspell-language-chooser-dialog.c	\
 	gspell-navigator.c			\
-	gspell-navigator-gtv.c			\
+	gspell-navigator-text.c			\
 	gspell-text-buffer.c
 
 gspell_private_headers =			\

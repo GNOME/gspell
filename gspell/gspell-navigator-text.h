@@ -17,8 +17,8 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_NAVIGATOR_GTV_H__
-#define __GSPELL_NAVIGATOR_GTV_H__
+#ifndef __GSPELL_NAVIGATOR_TEXT_H__
+#define __GSPELL_NAVIGATOR_TEXT_H__
 
 #if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -30,12 +30,12 @@
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_NAVIGATOR_GTV (gspell_navigator_gtv_get_type ())
-G_DECLARE_DERIVABLE_TYPE (GspellNavigatorGtv, gspell_navigator_gtv,
-			  GSPELL, NAVIGATOR_GTV,
+#define GSPELL_TYPE_NAVIGATOR_TEXT (gspell_navigator_text_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellNavigatorText, gspell_navigator_text,
+			  GSPELL, NAVIGATOR_TEXT,
 			  GObject)
 
-struct _GspellNavigatorGtvClass
+struct _GspellNavigatorTextClass
 {
 	GObjectClass parent_class;
 
@@ -43,10 +43,10 @@ struct _GspellNavigatorGtvClass
 	gpointer padding[8];
 };
 
-GspellNavigator *	gspell_navigator_gtv_new		(GtkTextView *view);
+GspellNavigator *	gspell_navigator_text_new		(GtkTextView *view);
 
 G_END_DECLS
 
-#endif /* __GSPELL_NAVIGATOR_GTV_H__ */
+#endif /* __GSPELL_NAVIGATOR_TEXT_H__ */
 
 /* ex:set ts=8 noet: */

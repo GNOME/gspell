@@ -78,13 +78,13 @@ GSPELL_TYPE_NAVIGATOR
 </SECTION>
 
 <SECTION>
-<FILE>navigator-gtv</FILE>
-<TITLE>GspellNavigatorGtv</TITLE>
-GspellNavigatorGtv
-gspell_navigator_gtv_new
+<FILE>navigator-text</FILE>
+<TITLE>GspellNavigatorText</TITLE>
+GspellNavigatorText
+gspell_navigator_text_new
 <SUBSECTION Standard>
-GSPELL_TYPE_NAVIGATOR_GTV
-GspellNavigatorGtvClass
+GSPELL_TYPE_NAVIGATOR_TEXT
+GspellNavigatorTextClass
 </SECTION>
 
 <SECTION>
