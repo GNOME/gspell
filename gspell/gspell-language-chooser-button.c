@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -98,6 +98,11 @@ gspell_language_chooser_button_set_language (GspellLanguageChooser *chooser,
 
 	button = GSPELL_LANGUAGE_CHOOSER_BUTTON (chooser);
 	priv = gspell_language_chooser_button_get_instance_private (button);
+
+	if (language == NULL)
+	{
+		language = gspell_language_get_default ();
+	}
 
 	if (priv->language != language)
 	{
@@ -270,7 +275,8 @@ gspell_language_chooser_button_init (GspellLanguageChooserButton *button)
 
 /**
  * gspell_language_chooser_button_new:
- * @current_language: a #GspellLanguage.
+ * @current_language: (nullable): a #GspellLanguage, or %NULL to pick the
+ *   default language.
  *
  * Returns: a new #GspellLanguageChooserButton widget.
  */

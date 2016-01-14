@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2002 - Paolo Maggi
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -117,6 +117,11 @@ gspell_language_chooser_dialog_set_language (GspellLanguageChooser *chooser,
 
 	dialog = GSPELL_LANGUAGE_CHOOSER_DIALOG (chooser);
 	priv = gspell_language_chooser_dialog_get_instance_private (dialog);
+
+	if (language == NULL)
+	{
+		language = gspell_language_get_default ();
+	}
 
 	selection = gtk_tree_view_get_selection (priv->treeview);
 
@@ -389,7 +394,8 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 /**
  * gspell_language_chooser_dialog_new:
  * @parent: transient parent of the dialog.
- * @current_language: the #GspellLanguage to select initially.
+ * @current_language: (nullable): the #GspellLanguage to select initially, or
+ *   %NULL to pick the default language.
  * @flags: #GtkDialogFlags
  *
  * Returns: a new #GspellLanguageChooserDialog widget.

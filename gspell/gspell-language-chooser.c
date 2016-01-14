@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -65,7 +65,8 @@ gspell_language_chooser_get_language (GspellLanguageChooser *chooser)
 /**
  * gspell_language_chooser_set_language:
  * @chooser: a #GspellLanguageChooser.
- * @language: a #GspellLanguage.
+ * @language: (nullable): a #GspellLanguage or %NULL to pick the default
+ *   language.
  *
  * Sets the selected language.
  */
