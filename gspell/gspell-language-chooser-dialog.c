@@ -339,6 +339,7 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 {
 	GspellLanguageChooserDialogPrivate *priv;
 	GtkListStore *store;
+	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 
@@ -349,6 +350,9 @@ gspell_language_chooser_dialog_init (GspellLanguageChooserDialog *dialog)
 	store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, GSPELL_TYPE_LANGUAGE);
 	gtk_tree_view_set_model (priv->treeview, GTK_TREE_MODEL (store));
 	g_object_unref (store);
+
+	selection = gtk_tree_view_get_selection (priv->treeview);
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
 
 	/* Add the language column */
 	column = gtk_tree_view_column_new ();
