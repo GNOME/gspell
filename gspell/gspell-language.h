@@ -3,7 +3,7 @@
  *
  * Copyright 2006 - Paolo Maggi
  * Copyright 2008 - Novell, Inc.
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -42,6 +42,9 @@ typedef struct _GspellLanguage GspellLanguage;
 GType		gspell_language_get_type		(void) G_GNUC_CONST;
 
 const GList *	gspell_language_get_available		(void);
+
+const GspellLanguage *
+		gspell_language_get_default		(void);
 
 const GspellLanguage *
 		gspell_language_lookup			(const gchar *language_code);

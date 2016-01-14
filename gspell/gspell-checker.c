@@ -259,8 +259,8 @@ gspell_checker_init (GspellChecker *checker)
  * gspell_checker_new:
  * @language: (nullable): the #GspellLanguage to use, or %NULL.
  *
- * Creates a new #GspellChecker. If @language is %NULL, finds the best available
- * language based on the current locale.
+ * Creates a new #GspellChecker. If @language is %NULL, the default language is
+ * picked with gspell_language_get_default().
  *
  * Returns: a new #GspellChecker object.
  */
@@ -270,58 +270,6 @@ gspell_checker_new (const GspellLanguage *language)
 	return g_object_new (GSPELL_TYPE_CHECKER,
 			     "language", language,
 			     NULL);
-}
-
-static const GspellLanguage *
-get_default_language (void)
-{
-	const GspellLanguage *lang;
-	const gchar * const *lang_names;
-	const GList *langs;
-	gint i;
-
-	/* Try with the current locale */
-	lang_names = g_get_language_names ();
-
-	for (i = 0; lang_names[i] != NULL; i++)
-	{
-		lang = gspell_language_lookup (lang_names[i]);
-
-		if (lang != NULL)
-		{
-			return lang;
-		}
-	}
-
-	/* Another try specific to Mac OS X */
-#ifdef OS_OSX
-	{
-		gchar *code = _gspell_osx_get_preferred_spell_language ();
-
-		if (code != NULL)
-		{
-			lang = gspell_language_lookup (code);
-			g_free (code);
-			return lang;
-		}
-	}
-#endif
-
-	/* Try English */
-	lang = gspell_language_lookup ("en_US");
-	if (lang != NULL)
-	{
-		return lang;
-	}
-
-	/* Take the first available language */
-	langs = gspell_language_get_available ();
-	if (langs != NULL)
-	{
-		return langs->data;
-	}
-
-	return NULL;
 }
 
 static gboolean
@@ -341,7 +289,7 @@ init_dictionary (GspellChecker *checker)
 
 	if (priv->active_lang == NULL)
 	{
-		priv->active_lang = get_default_language ();
+		priv->active_lang = gspell_language_get_default ();
 	}
 
 	if (priv->active_lang != NULL)
@@ -370,8 +318,8 @@ init_dictionary (GspellChecker *checker)
  * @checker: a #GspellChecker.
  * @language: (nullable): the #GspellLanguage to use, or %NULL.
  *
- * Sets the language to use for the spell checking. If @language is %NULL, finds
- * the best available language based on the current locale.
+ * Sets the language to use for the spell checking. If @language is %NULL, the
+ * default language is picked with gspell_language_get_default().
  *
  * Returns: whether the operation was successful.
  */

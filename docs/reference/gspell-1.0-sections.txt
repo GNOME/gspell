@@ -26,6 +26,7 @@ gspell_checker_error_quark
 <TITLE>GspellLanguage</TITLE>
 GspellLanguage
 gspell_language_get_available
+gspell_language_get_default
 gspell_language_lookup
 gspell_language_get_code
 gspell_language_get_name

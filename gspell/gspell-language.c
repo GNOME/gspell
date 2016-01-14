@@ -3,7 +3,7 @@
  *
  * Copyright 2006 - Paolo Maggi
  * Copyright 2008 - Novell, Inc.
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,7 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
+#include "gspell-osx.h"
 
 /**
  * SECTION:language
@@ -406,6 +407,70 @@ gspell_language_get_available (void)
 	g_tree_unref (data.tree);
 
 	return available_languages;
+}
+
+/**
+ * gspell_language_get_default:
+ *
+ * Finds the best available language based on the current locale.
+ *
+ * Returns: (nullable): the default #GspellLanguage, or %NULL if no dictionaries
+ * are available.
+ */
+const GspellLanguage *
+gspell_language_get_default (void)
+{
+	const GspellLanguage *lang;
+	const gchar * const *lang_names;
+	const GList *langs;
+	gint i;
+
+	/* Try with the current locale */
+	lang_names = g_get_language_names ();
+
+	for (i = 0; lang_names[i] != NULL; i++)
+	{
+		lang = gspell_language_lookup (lang_names[i]);
+
+		if (lang != NULL)
+		{
+			return lang;
+		}
+	}
+
+	/* Another try specific to Mac OS X */
+#ifdef OS_OSX
+	{
+		gchar *code = _gspell_osx_get_preferred_spell_language ();
+
+		if (code != NULL)
+		{
+			lang = gspell_language_lookup (code);
+			g_free (code);
+
+			if (lang != NULL)
+			{
+				return lang;
+			}
+		}
+	}
+#endif
+
+	/* Try English */
+	lang = gspell_language_lookup ("en_US");
+	if (lang != NULL)
+	{
+		return lang;
+	}
+
+	/* Take the first available language */
+	langs = gspell_language_get_available ();
+	if (langs != NULL)
+	{
+		return langs->data;
+	}
+
+	return NULL;
 }
 
 /**
