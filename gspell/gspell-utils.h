@@ -26,7 +26,7 @@
 G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
-gboolean	_gspell_utils_is_digit			(const gchar *text,
+gboolean	_gspell_utils_is_number			(const gchar *text,
 							 gssize       text_length);
 
 G_GNUC_INTERNAL

@@ -22,8 +22,8 @@
 #include <string.h>
 
 gboolean
-_gspell_utils_is_digit (const gchar *text,
-			gssize       text_length)
+_gspell_utils_is_number (const gchar *text,
+			 gssize       text_length)
 {
 	const gchar *p;
 	const gchar *end;

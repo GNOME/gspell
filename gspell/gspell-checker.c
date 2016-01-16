@@ -368,7 +368,7 @@ gspell_checker_check_word (GspellChecker  *checker,
 		return TRUE;
 	}
 
-	if (_gspell_utils_is_digit (word, word_length))
+	if (_gspell_utils_is_number (word, word_length))
 	{
 		return TRUE;
 	}
