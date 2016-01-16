@@ -131,6 +131,7 @@ gspell_language_chooser_get_language_code (GspellLanguageChooser *chooser)
 {
 	const GspellLanguage *lang;
 	gboolean default_lang = TRUE;
+	const gchar *language_code;
 
 	g_return_val_if_fail (GSPELL_IS_LANGUAGE_CHOOSER (chooser), "");
 
@@ -141,7 +142,10 @@ gspell_language_chooser_get_language_code (GspellLanguageChooser *chooser)
 		return "";
 	}
 
-	return gspell_language_get_code (lang);
+	language_code = gspell_language_get_code (lang);
+	g_return_val_if_fail (language_code != NULL, "");
+
+	return language_code;
 }
 
 /**
