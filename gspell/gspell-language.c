@@ -24,7 +24,10 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
+
+#ifdef OS_OSX
 #include "gspell-osx.h"
+#endif
 
 /**
  * SECTION:language
