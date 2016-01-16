@@ -35,7 +35,9 @@
  * @buffer: a #GtkTextBuffer.
  * @checker: (nullable): a #GspellChecker, or %NULL to unset the spell checker.
  *
- * Associates a spell checker to a #GtkTextBuffer.
+ * Associates a spell checker to a #GtkTextBuffer. The @buffer will own a
+ * reference to @checker, so you can release your reference to @checker if you
+ * no longer need it.
  */
 void
 gspell_text_buffer_set_spell_checker (GtkTextBuffer *buffer,

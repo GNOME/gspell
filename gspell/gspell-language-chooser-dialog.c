@@ -31,8 +31,9 @@
  * #GspellLanguage. #GspellLanguageChooserDialog implements the
  * #GspellLanguageChooser interface.
  *
- * The #GspellLanguageChooser:language property is updated only when the Select
- * button is pressed or when a row is activated (e.g. with a double-click).
+ * The #GspellLanguageChooser:language and #GspellLanguageChooser:language-code
+ * properties are updated only when the Select button is pressed or when a row
+ * is activated (e.g. with a double-click).
  *
  * The application is responsible to destroy the dialog, typically when the
  * #GtkDialog::response signal has been received or gtk_dialog_run() has

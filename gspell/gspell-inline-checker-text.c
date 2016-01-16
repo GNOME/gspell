@@ -237,7 +237,7 @@ gspell_inline_checker_text_class_init (GspellInlineCheckerTextClass *klass)
 	/**
 	 * GspellInlineCheckerText:enabled:
 	 *
-	 * Whether the inline spell checking is enabled.
+	 * Whether the inline spell checker is enabled.
 	 */
 	g_object_class_install_property (object_class,
 					 PROP_ENABLED,
@@ -292,7 +292,7 @@ gspell_text_view_get_inline_checker (GtkTextView *view)
  * @inline_checker: a #GspellInlineCheckerText.
  * @enabled: the new state.
  *
- * Enables or disables the inline spell checking.
+ * Enables or disables the inline spell checker.
  */
 void
 gspell_inline_checker_text_set_enabled (GspellInlineCheckerText *inline_checker,
@@ -323,7 +323,7 @@ gspell_inline_checker_text_set_enabled (GspellInlineCheckerText *inline_checker,
  * gspell_inline_checker_text_get_enabled:
  * @inline_checker: a #GspellInlineCheckerText.
  *
- * Returns: whether the inline spell checking is enabled.
+ * Returns: whether the inline spell checker is enabled.
  */
 gboolean
 gspell_inline_checker_text_get_enabled (GspellInlineCheckerText *inline_checker)

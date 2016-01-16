@@ -344,7 +344,7 @@ gspell_checker_get_language (GspellChecker *checker)
  * If the #GspellChecker:language is %NULL, i.e. when no dictonaries are
  * available, this function returns %TRUE to limit the damage.
  *
- * Returns: whether @word is correctly spelled.
+ * Returns: %TRUE if @word is correctly spelled, %FALSE otherwise.
  */
 gboolean
 gspell_checker_check_word (GspellChecker  *checker,
@@ -457,7 +457,7 @@ gspell_checker_get_suggestions (GspellChecker *checker,
  * @word: a word.
  * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  *
- * Adds a word to the personal dictionary. It is typically saved in the user
+ * Adds a word to the personal dictionary. It is typically saved in the user's
  * home directory.
  */
 void

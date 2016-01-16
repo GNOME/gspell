@@ -49,7 +49,7 @@
  * language, even if the language is the same as the default language.
  *
  * Thus, a good default value for a #GSettings key is the empty string. That
- * way, the default language is chosen, and can change depending on the locale.
+ * way, the default language is picked, and can change depending on the locale.
  * But once the user has chosen a language, that language is kept in the
  * #GSettings key.
  */
