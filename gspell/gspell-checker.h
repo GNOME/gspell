@@ -79,7 +79,7 @@ GQuark		gspell_checker_error_quark		(void);
 
 GspellChecker *	gspell_checker_new			(const GspellLanguage *language);
 
-gboolean	gspell_checker_set_language		(GspellChecker        *checker,
+void		gspell_checker_set_language		(GspellChecker        *checker,
 							 const GspellLanguage *language);
 
 const GspellLanguage *
@@ -109,10 +109,6 @@ void		gspell_checker_set_correction		(GspellChecker *checker,
 							 gssize         word_length,
 							 const gchar   *replacement,
 							 gssize         replacement_length);
-
-/* Non-exported function */
-G_GNUC_INTERNAL
-gboolean	_gspell_checker_check_language_set	(GspellChecker *checker);
 
 G_END_DECLS
 

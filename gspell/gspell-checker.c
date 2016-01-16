@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2002-2006 - Paolo Maggi
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,9 +38,9 @@
  * #GspellChecker is a spell checker. It is a wrapper around the Enchant
  * library, to have an API based on #GObject.
  *
- * If the #GspellChecker:language is not set correctly, the spell checker
- * should not be used. It can happen when no dictionaries are available, in
- * which case gspell_checker_get_language() returns %NULL.
+ * If the #GspellChecker:language property is %NULL, it means that no
+ * dictonaries are available, in which case the #GspellChecker is in a
+ * “disabled” (but allowed) state.
  */
 
 typedef struct _GspellCheckerPrivate GspellCheckerPrivate;
@@ -83,29 +83,6 @@ gspell_checker_error_quark (void)
 	return quark;
 }
 
-gboolean
-_gspell_checker_check_language_set (GspellChecker *checker)
-{
-	GspellCheckerPrivate *priv;
-
-	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), FALSE);
-
-	priv = gspell_checker_get_instance_private (checker);
-
-	g_assert ((priv->active_lang == NULL && priv->dict == NULL) ||
-		  (priv->active_lang != NULL && priv->dict != NULL));
-
-	if (priv->active_lang == NULL)
-	{
-		g_warning ("Spell checker: the language is not correctly set.\n"
-			   "There is maybe no dictionaries available.\n"
-			   "Check the return value of gspell_checker_get_language().");
-		return FALSE;
-	}
-
-	return TRUE;
-}
-
 static void
 gspell_checker_set_property (GObject      *object,
 			     guint         prop_id,
@@ -132,14 +109,12 @@ gspell_checker_get_property (GObject    *object,
 			     GValue     *value,
 			     GParamSpec *pspec)
 {
-	GspellCheckerPrivate *priv;
-
-	priv = gspell_checker_get_instance_private (GSPELL_CHECKER (object));
+	GspellChecker *checker = GSPELL_CHECKER (object);
 
 	switch (prop_id)
 	{
 		case PROP_LANGUAGE:
-			g_value_set_boxed (value, priv->active_lang);
+			g_value_set_boxed (value, gspell_checker_get_language (checker));
 			break;
 
 		default:
@@ -272,45 +247,41 @@ gspell_checker_new (const GspellLanguage *language)
 			     NULL);
 }
 
-static gboolean
-init_dictionary (GspellChecker *checker)
+static void
+create_new_dictionary (GspellChecker *checker)
 {
 	GspellCheckerPrivate *priv;
+	const gchar *language_code;
 	const gchar *app_name;
 
 	priv = gspell_checker_get_instance_private (checker);
 
-	g_return_val_if_fail (priv->broker != NULL, FALSE);
-
 	if (priv->dict != NULL)
 	{
-		return TRUE;
+		enchant_broker_free_dict (priv->broker, priv->dict);
+		priv->dict = NULL;
 	}
 
 	if (priv->active_lang == NULL)
 	{
-		priv->active_lang = gspell_language_get_default ();
+		return;
 	}
 
-	if (priv->active_lang != NULL)
-	{
-		const gchar *code;
-
-		code = gspell_language_get_code (priv->active_lang);
-
-		priv->dict = enchant_broker_request_dict (priv->broker, code);
-	}
+	language_code = gspell_language_get_code (priv->active_lang);
+	priv->dict = enchant_broker_request_dict (priv->broker, language_code);
 
 	if (priv->dict == NULL)
 	{
+		/* Should never happen, no need to return a GError. */
+		g_warning ("Impossible to create an Enchant dictionary for the language code '%s'.",
+			   language_code);
+
 		priv->active_lang = NULL;
-		return FALSE;
+		return;
 	}
 
 	app_name = g_get_application_name ();
 	gspell_checker_add_word_to_session (checker, app_name, -1);
-
-	return TRUE;
 }
 
 /**
@@ -320,37 +291,28 @@ init_dictionary (GspellChecker *checker)
  *
  * Sets the language to use for the spell checking. If @language is %NULL, the
  * default language is picked with gspell_language_get_default().
- *
- * Returns: whether the operation was successful.
  */
-gboolean
+void
 gspell_checker_set_language (GspellChecker        *checker,
 			     const GspellLanguage *language)
 {
 	GspellCheckerPrivate *priv;
-	gboolean success;
 
-	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), FALSE);
+	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
 
-	if (language != NULL && priv->active_lang == language)
+	if (language == NULL)
 	{
-		return TRUE;
+		language = gspell_language_get_default ();
 	}
 
-	if (priv->dict != NULL)
+	if (priv->active_lang != language)
 	{
-		enchant_broker_free_dict (priv->broker, priv->dict);
-		priv->dict = NULL;
+		priv->active_lang = language;
+		create_new_dictionary (checker);
+		g_object_notify (G_OBJECT (checker), "language");
 	}
-
-	priv->active_lang = language;
-	success = init_dictionary (checker);
-
-	g_object_notify (G_OBJECT (checker), "language");
-
-	return success;
 }
 
 /**
@@ -379,6 +341,9 @@ gspell_checker_get_language (GspellChecker *checker)
  * @word_length: the byte length of @word, or -1 if @word is nul-terminated.
  * @error: (out) (optional): a location to a %NULL #GError, or %NULL.
  *
+ * If the #GspellChecker:language is %NULL, i.e. when no dictonaries are
+ * available, this function returns %TRUE to limit the damage.
+ *
  * Returns: whether @word is correctly spelled.
  */
 gboolean
@@ -396,10 +361,12 @@ gspell_checker_check_word (GspellChecker  *checker,
 	g_return_val_if_fail (word_length >= -1, FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-	/* If no dictionaries are available, limit the damage by returning TRUE. */
-	g_return_val_if_fail (_gspell_checker_check_language_set (checker), TRUE);
-
 	priv = gspell_checker_get_instance_private (checker);
+
+	if (priv->dict == NULL)
+	{
+		return TRUE;
+	}
 
 	if (_gspell_utils_is_digit (word, word_length))
 	{
@@ -458,9 +425,13 @@ gspell_checker_get_suggestions (GspellChecker *checker,
 	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
 	g_return_val_if_fail (word != NULL, NULL);
 	g_return_val_if_fail (word_length >= -1, NULL);
-	g_return_val_if_fail (_gspell_checker_check_language_set (checker), NULL);
 
 	priv = gspell_checker_get_instance_private (checker);
+
+	if (priv->dict == NULL)
+	{
+		return NULL;
+	}
 
 	suggestions = enchant_dict_suggest (priv->dict, word, word_length, NULL);
 
@@ -474,7 +445,7 @@ gspell_checker_get_suggestions (GspellChecker *checker,
 		suggestions_list = g_slist_prepend (suggestions_list, suggestions[i]);
 	}
 
-	/* The single suggestions will be freed by the caller */
+	/* The array/list elements will be freed by the caller. */
 	g_free (suggestions);
 
 	return g_slist_reverse (suggestions_list);
@@ -499,9 +470,13 @@ gspell_checker_add_word_to_personal (GspellChecker *checker,
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
 	g_return_if_fail (word_length >= -1);
-	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
+
+	if (priv->dict == NULL)
+	{
+		return;
+	}
 
 	enchant_dict_add (priv->dict, word, word_length);
 
@@ -546,9 +521,13 @@ gspell_checker_add_word_to_session (GspellChecker *checker,
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
 	g_return_if_fail (word != NULL);
 	g_return_if_fail (word_length >= -1);
-	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
+
+	if (priv->dict == NULL)
+	{
+		return;
+	}
 
 	enchant_dict_add_to_session (priv->dict, word, word_length);
 
@@ -579,19 +558,10 @@ gspell_checker_add_word_to_session (GspellChecker *checker,
 void
 gspell_checker_clear_session (GspellChecker *checker)
 {
-	GspellCheckerPrivate *priv;
-
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
-	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
-	priv = gspell_checker_get_instance_private (checker);
-
-	/* free and re-request dictionary */
-	g_assert (priv->dict != NULL);
-	enchant_broker_free_dict (priv->broker, priv->dict);
-	priv->dict = NULL;
-
-	init_dictionary (checker);
+	/* Free and re-request dictionary. */
+	create_new_dictionary (checker);
 
 	g_signal_emit (G_OBJECT (checker), signals[SIGNAL_SESSION_CLEARED], 0);
 }
@@ -621,9 +591,13 @@ gspell_checker_set_correction (GspellChecker *checker,
 	g_return_if_fail (word_length >= -1);
 	g_return_if_fail (replacement != NULL);
 	g_return_if_fail (replacement_length >= -1);
-	g_return_if_fail (_gspell_checker_check_language_set (checker));
 
 	priv = gspell_checker_get_instance_private (checker);
+
+	if (priv->dict == NULL)
+	{
+		return;
+	}
 
 	enchant_dict_store_replacement (priv->dict,
 					word, word_length,

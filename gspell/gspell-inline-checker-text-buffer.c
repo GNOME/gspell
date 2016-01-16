@@ -753,8 +753,6 @@ language_notify_cb (GspellChecker                 *checker,
 		    GParamSpec                    *pspec,
 		    GspellInlineCheckerTextBuffer *spell)
 {
-	_gspell_checker_check_language_set (checker);
-
 	recheck_all (spell);
 }
 
@@ -875,8 +873,6 @@ set_spell_checker (GspellInlineCheckerTextBuffer *spell,
 	if (spell->spell_checker != NULL)
 	{
 		g_object_ref (spell->spell_checker);
-
-		_gspell_checker_check_language_set (spell->spell_checker);
 
 		g_signal_connect (spell->spell_checker,
 				  "word-added-to-session",
