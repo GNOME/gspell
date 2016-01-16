@@ -337,7 +337,7 @@ spell_language_traverse_cb (const gchar  *code,
  * gspell_language_get_available:
  *
  * Returns: (transfer none) (element-type GspellLanguage): the list of available
- * languages for the spell checking.
+ * languages, sorted with gspell_language_compare().
  */
 const GList *
 gspell_language_get_available (void)
