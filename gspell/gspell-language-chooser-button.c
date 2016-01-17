@@ -33,8 +33,9 @@
  * #GspellLanguage. #GspellLanguageChooserButton implements the
  * #GspellLanguageChooser interface.
  *
- * When the button is clicked, a #GspellLanguageChooserDialog is launched to
- * choose the language.
+ * The button contains a label with the #GspellLanguageChooser:language name, as
+ * returned by gspell_language_get_name(). When the button is clicked, a
+ * #GspellLanguageChooserDialog is launched to choose the language.
  */
 
 typedef struct _GspellLanguageChooserButtonPrivate GspellLanguageChooserButtonPrivate;
