@@ -6,8 +6,8 @@
          xmlns="http://usefulinc.com/ns/doap#">
   <name xml:lang="en">gspell</name>
   <shortdesc xml:lang="en">Spell-checking library for GTK+</shortdesc>
-  <description>gspell provides a flexible API to implement the spell checking
-in a GTK+ application.</description>
+  <description>gspell provides a flexible API to add spell checking to a GTK+
+application.</description>
 
   <homepage rdf:resource="https://wiki.gnome.org/Projects/gspell" />
   <download-page rdf:resource="https://download.gnome.org/sources/gspell/" />
