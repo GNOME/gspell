@@ -1,3 +1,19 @@
+News in 0.2.3
+-------------
+* GspellLanguage: code improvements, write API documentation and add
+  get_default() function
+* Add gspell_text_buffer_set/get_spell_checker() functions
+* GspellNavigatorGtv renamed to GspellNavigatorText
+* Remove GspellNavigatorText:spell-checker property
+* GspellInlineCheckerGtv replaced by the higher-level class
+  GspellInlineCheckerText
+* Language choosers: accept NULL language to pick the default language
+* Add the GspellLanguageChooser:language-code property, for a GSettings key
+  binding
+* GspellChecker: accept a NULL language in case no dictionaries are available
+* Other code and documentation improvements
+* Translation updates
+
 News in 0.2.2
 -------------
 * Relicense gspell from GPLv2+ to LGPLv2.1+
