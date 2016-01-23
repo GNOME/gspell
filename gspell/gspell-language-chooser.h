@@ -46,8 +46,6 @@ struct _GspellLanguageChooserInterface
 
 	void			(* set_language)	(GspellLanguageChooser *chooser,
 							 const GspellLanguage  *language);
-
-	gpointer padding[12];
 };
 
 const GspellLanguage *	gspell_language_chooser_get_language		(GspellLanguageChooser *chooser);
