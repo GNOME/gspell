@@ -44,15 +44,15 @@ gspell_private_headers =			\
 	gconstructor.h				\
 	gspell-buffer-notifier.h		\
 	gspell-inline-checker-text-buffer.h	\
-	gspell-utils.h				\
-	gtktextregion.h
+	gspell-text-region.h			\
+	gspell-utils.h
 
 gspell_private_c_files =			\
 	gspell-buffer-notifier.c		\
 	gspell-init.c				\
 	gspell-inline-checker-text-buffer.c	\
-	gspell-utils.c				\
-	gtktextregion.c
+	gspell-text-region.c			\
+	gspell-utils.c
 
 lib_LTLIBRARIES = libgspell-1.la
 

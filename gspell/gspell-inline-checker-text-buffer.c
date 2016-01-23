@@ -29,8 +29,8 @@
 #include "gspell-checker.h"
 #include "gspell-buffer-notifier.h"
 #include "gspell-text-buffer.h"
+#include "gspell-text-region.h"
 #include "gspell-utils.h"
-#include "gtktextregion.h"
 
 struct _GspellInlineCheckerTextBuffer
 {
@@ -47,7 +47,7 @@ struct _GspellInlineCheckerTextBuffer
 
 	GtkTextMark *mark_click;
 
-	GtkTextRegion *scan_region;
+	GspellTextRegion *scan_region;
 	guint timeout_id;
 };
 
@@ -213,30 +213,30 @@ get_visible_region (GtkTextView *view,
 
 /* A TextRegion can contain empty subregions. So checking the number of
  * subregions is not sufficient.
- * When calling gtk_text_region_add() with equal iters, the subregion is not
+ * When calling text_region_add() with equal iters, the subregion is not
  * added. But when a subregion becomes empty, due to text deletion, the
  * subregion is not removed from the TextRegion.
  */
 static gboolean
-is_text_region_empty (GtkTextRegion *region)
+is_text_region_empty (GspellTextRegion *region)
 {
-	GtkTextRegionIterator region_iter;
+	GspellTextRegionIterator region_iter;
 
 	if (region == NULL)
 	{
 		return TRUE;
 	}
 
-	gtk_text_region_get_iterator (region, &region_iter, 0);
+	gspell_text_region_get_iterator (region, &region_iter, 0);
 
-	while (!gtk_text_region_iterator_is_end (&region_iter))
+	while (!gspell_text_region_iterator_is_end (&region_iter))
 	{
 		GtkTextIter region_start;
 		GtkTextIter region_end;
 
-		if (!gtk_text_region_iterator_get_subregion (&region_iter,
-							     &region_start,
-							     &region_end))
+		if (!gspell_text_region_iterator_get_subregion (&region_iter,
+								&region_start,
+								&region_end))
 		{
 			return TRUE;
 		}
@@ -246,7 +246,7 @@ is_text_region_empty (GtkTextRegion *region)
 			return FALSE;
 		}
 
-		gtk_text_region_iterator_next (&region_iter);
+		gspell_text_region_iterator_next (&region_iter);
 	}
 
 	return TRUE;
@@ -258,8 +258,8 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 {
 	GtkTextIter visible_start;
 	GtkTextIter visible_end;
-	GtkTextRegion *intersect;
-	GtkTextRegionIterator intersect_iter;
+	GspellTextRegion *intersect;
+	GspellTextRegionIterator intersect_iter;
 
 	if (spell->scan_region == NULL)
 	{
@@ -268,39 +268,41 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 
 	get_visible_region (view, &visible_start, &visible_end);
 
-	intersect = gtk_text_region_intersect (spell->scan_region,
-					       &visible_start,
-					       &visible_end);
+	intersect = gspell_text_region_intersect (spell->scan_region,
+						 &visible_start,
+						 &visible_end);
 
 	if (intersect == NULL)
 	{
 		return;
 	}
 
-	gtk_text_region_get_iterator (intersect, &intersect_iter, 0);
+	gspell_text_region_get_iterator (intersect, &intersect_iter, 0);
 
-	while (!gtk_text_region_iterator_is_end (&intersect_iter))
+	while (!gspell_text_region_iterator_is_end (&intersect_iter))
 	{
 		GtkTextIter start;
 		GtkTextIter end;
 
-		if (!gtk_text_region_iterator_get_subregion (&intersect_iter, &start, &end))
+		if (!gspell_text_region_iterator_get_subregion (&intersect_iter,
+								&start,
+								&end))
 		{
 			return;
 		}
 
 		check_subregion (spell, &start, &end);
 
-		gtk_text_region_subtract (spell->scan_region, &start, &end);
+		gspell_text_region_subtract (spell->scan_region, &start, &end);
 
-		gtk_text_region_iterator_next (&intersect_iter);
+		gspell_text_region_iterator_next (&intersect_iter);
 	}
 
-	gtk_text_region_destroy (intersect);
+	gspell_text_region_destroy (intersect);
 
 	if (is_text_region_empty (spell->scan_region))
 	{
-		gtk_text_region_destroy (spell->scan_region);
+		gspell_text_region_destroy (spell->scan_region);
 		spell->scan_region = NULL;
 	}
 }
@@ -367,10 +369,10 @@ add_subregion_to_scan (GspellInlineCheckerTextBuffer *spell,
 {
 	if (spell->scan_region == NULL)
 	{
-		spell->scan_region = gtk_text_region_new (spell->buffer);
+		spell->scan_region = gspell_text_region_new (spell->buffer);
 	}
 
-	gtk_text_region_add (spell->scan_region, start, end);
+	gspell_text_region_add (spell->scan_region, start, end);
 }
 
 static void
@@ -1080,7 +1082,7 @@ _gspell_inline_checker_text_buffer_dispose (GObject *object)
 
 	if (spell->scan_region != NULL)
 	{
-		gtk_text_region_destroy (spell->scan_region);
+		gspell_text_region_destroy (spell->scan_region);
 		spell->scan_region = NULL;
 	}
 

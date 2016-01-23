@@ -1,5 +1,7 @@
+/* Do not edit: this file is generated from https://git.gnome.org/browse/gtksourceview/plain/gtksourceview/gtktextregion.c */
+
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- * gtktextregion.h - GtkTextMark based region utility functions
+ * gspell-text-region.h - GtkTextMark based region utility functions
  * This file is part of GtkSourceView
  *
  * Copyright (C) 2002 Gustavo Giráldez <gustavo.giraldez@gmx.net>
@@ -19,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "gtktextregion.h"
+#include "gspell-text-region.h"
 
 #undef ENABLE_DEBUG
 /*
@@ -37,16 +39,16 @@ typedef struct _Subregion {
 	GtkTextMark *end;
 } Subregion;
 
-struct _GtkTextRegion {
+struct _GspellTextRegion {
 	GtkTextBuffer *buffer;
 	GList         *subregions;
 	guint32        time_stamp;
 };
 
-typedef struct _GtkTextRegionIteratorReal GtkTextRegionIteratorReal;
+typedef struct _GspellTextRegionIteratorReal GspellTextRegionIteratorReal;
 
-struct _GtkTextRegionIteratorReal {
-	GtkTextRegion *region;
+struct _GspellTextRegionIteratorReal {
+	GspellTextRegion *region;
 	guint32        region_time_stamp;
 
 	GList         *subregions;
@@ -62,7 +64,7 @@ struct _GtkTextRegionIteratorReal {
    the text iter or which is the leftmost; else return the rightmost
    subregion */
 static GList *
-find_nearest_subregion (GtkTextRegion     *region,
+find_nearest_subregion (GspellTextRegion     *region,
 			const GtkTextIter *iter,
 			GList             *begin,
 			gboolean           leftmost,
@@ -109,14 +111,14 @@ find_nearest_subregion (GtkTextRegion     *region,
    Public interface
    ---------------------------------------------------------------------- */
 
-GtkTextRegion *
-gtk_text_region_new (GtkTextBuffer *buffer)
+GspellTextRegion *
+gspell_text_region_new (GtkTextBuffer *buffer)
 {
-	GtkTextRegion *region;
+	GspellTextRegion *region;
 
 	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (buffer), NULL);
 
-	region = g_slice_new (GtkTextRegion);
+	region = g_slice_new (GspellTextRegion);
 	region->subregions = NULL;
 	region->time_stamp = 0;
 
@@ -129,7 +131,7 @@ gtk_text_region_new (GtkTextBuffer *buffer)
 }
 
 void
-gtk_text_region_destroy (GtkTextRegion *region)
+gspell_text_region_destroy (GspellTextRegion *region)
 {
 	g_return_if_fail (region != NULL);
 
@@ -152,11 +154,11 @@ gtk_text_region_destroy (GtkTextRegion *region)
 		region->buffer = NULL;
 	}
 
-	g_slice_free (GtkTextRegion, region);
+	g_slice_free (GspellTextRegion, region);
 }
 
 GtkTextBuffer *
-gtk_text_region_get_buffer (GtkTextRegion *region)
+gspell_text_region_get_buffer (GspellTextRegion *region)
 {
 	g_return_val_if_fail (region != NULL, NULL);
 
@@ -164,7 +166,7 @@ gtk_text_region_get_buffer (GtkTextRegion *region)
 }
 
 static void
-gtk_text_region_clear_zero_length_subregions (GtkTextRegion *region)
+gspell_text_region_clear_zero_length_subregions (GspellTextRegion *region)
 {
 	GtkTextIter start, end;
 	GList *node;
@@ -193,7 +195,7 @@ gtk_text_region_clear_zero_length_subregions (GtkTextRegion *region)
 }
 
 void
-gtk_text_region_add (GtkTextRegion     *region,
+gspell_text_region_add (GspellTextRegion     *region,
 		     const GtkTextIter *_start,
 		     const GtkTextIter *_end)
 {
@@ -211,7 +213,7 @@ gtk_text_region_add (GtkTextRegion     *region,
 	end = *_end;
 
 	DEBUG (g_print ("---\n"));
-	DEBUG (gtk_text_region_debug_print (region));
+	DEBUG (gspell_text_region_debug_print (region));
 	DEBUG (g_message ("region_add (%d, %d)",
 			  gtk_text_iter_get_offset (&start),
 			  gtk_text_iter_get_offset (&end)));
@@ -279,11 +281,11 @@ gtk_text_region_add (GtkTextRegion     *region,
 
 	++region->time_stamp;
 
-	DEBUG (gtk_text_region_debug_print (region));
+	DEBUG (gspell_text_region_debug_print (region));
 }
 
 void
-gtk_text_region_subtract (GtkTextRegion     *region,
+gspell_text_region_subtract (GspellTextRegion     *region,
 			  const GtkTextIter *_start,
 			  const GtkTextIter *_end)
 {
@@ -305,7 +307,7 @@ gtk_text_region_subtract (GtkTextRegion     *region,
 	end = *_end;
 
 	DEBUG (g_print ("---\n"));
-	DEBUG (gtk_text_region_debug_print (region));
+	DEBUG (gspell_text_region_debug_print (region));
 	DEBUG (g_message ("region_substract (%d, %d)",
 			  gtk_text_iter_get_offset (&start),
 			  gtk_text_iter_get_offset (&end)));
@@ -404,16 +406,16 @@ gtk_text_region_subtract (GtkTextRegion     *region,
 
 	++region->time_stamp;
 
-	DEBUG (gtk_text_region_debug_print (region));
+	DEBUG (gspell_text_region_debug_print (region));
 
 	/* now get rid of empty subregions */
-	gtk_text_region_clear_zero_length_subregions (region);
+	gspell_text_region_clear_zero_length_subregions (region);
 
-	DEBUG (gtk_text_region_debug_print (region));
+	DEBUG (gspell_text_region_debug_print (region));
 }
 
 gint
-gtk_text_region_subregions (GtkTextRegion *region)
+gspell_text_region_subregions (GspellTextRegion *region)
 {
 	g_return_val_if_fail (region != NULL, 0);
 
@@ -421,7 +423,7 @@ gtk_text_region_subregions (GtkTextRegion *region)
 }
 
 gboolean
-gtk_text_region_nth_subregion (GtkTextRegion *region,
+gspell_text_region_nth_subregion (GspellTextRegion *region,
 			       guint          subregion,
 			       GtkTextIter   *start,
 			       GtkTextIter   *end)
@@ -447,8 +449,8 @@ gtk_text_region_nth_subregion (GtkTextRegion *region,
 	return TRUE;
 }
 
-GtkTextRegion *
-gtk_text_region_intersect (GtkTextRegion     *region,
+GspellTextRegion *
+gspell_text_region_intersect (GspellTextRegion     *region,
 			   const GtkTextIter *_start,
 			   const GtkTextIter *_end)
 {
@@ -456,7 +458,7 @@ gtk_text_region_intersect (GtkTextRegion     *region,
 	GtkTextIter sr_start_iter, sr_end_iter;
 	Subregion *sr, *new_sr;
 	gboolean done;
-	GtkTextRegion *new_region;
+	GspellTextRegion *new_region;
 	GtkTextIter start, end;
 
 	g_return_val_if_fail (region != NULL && _start != NULL && _end != NULL, NULL);
@@ -479,7 +481,7 @@ gtk_text_region_intersect (GtkTextRegion     *region,
 	if (start_node == NULL || end_node == NULL || end_node == start_node->prev)
 		return NULL;
 
-	new_region = gtk_text_region_new (region->buffer);
+	new_region = gspell_text_region_new (region->buffer);
 	done = FALSE;
 
 	sr = start_node->data;
@@ -555,7 +557,7 @@ gtk_text_region_intersect (GtkTextRegion     *region,
 }
 
 static gboolean
-check_iterator (GtkTextRegionIteratorReal *real)
+check_iterator (GspellTextRegionIteratorReal *real)
 {
 	if ((real->region == NULL) ||
 	    (real->region_time_stamp != real->region->time_stamp))
@@ -572,16 +574,16 @@ check_iterator (GtkTextRegionIteratorReal *real)
 }
 
 void
-gtk_text_region_get_iterator (GtkTextRegion         *region,
-			      GtkTextRegionIterator *iter,
-			      guint                  start)
+gspell_text_region_get_iterator (GspellTextRegion         *region,
+                              GspellTextRegionIterator *iter,
+                              guint                  start)
 {
-	GtkTextRegionIteratorReal *real;
+	GspellTextRegionIteratorReal *real;
 
 	g_return_if_fail (region != NULL);
 	g_return_if_fail (iter != NULL);
 
-	real = (GtkTextRegionIteratorReal *)iter;
+	real = (GspellTextRegionIteratorReal *)iter;
 
 	/* region->subregions may be NULL, -> end iter */
 
@@ -591,26 +593,26 @@ gtk_text_region_get_iterator (GtkTextRegion         *region,
 }
 
 gboolean
-gtk_text_region_iterator_is_end (GtkTextRegionIterator *iter)
+gspell_text_region_iterator_is_end (GspellTextRegionIterator *iter)
 {
-	GtkTextRegionIteratorReal *real;
+	GspellTextRegionIteratorReal *real;
 
 	g_return_val_if_fail (iter != NULL, FALSE);
 
-	real = (GtkTextRegionIteratorReal *)iter;
+	real = (GspellTextRegionIteratorReal *)iter;
 	g_return_val_if_fail (check_iterator (real), FALSE);
 
 	return (real->subregions == NULL);
 }
 
 gboolean
-gtk_text_region_iterator_next (GtkTextRegionIterator *iter)
+gspell_text_region_iterator_next (GspellTextRegionIterator *iter)
 {
-	GtkTextRegionIteratorReal *real;
+	GspellTextRegionIteratorReal *real;
 
 	g_return_val_if_fail (iter != NULL, FALSE);
 
-	real = (GtkTextRegionIteratorReal *)iter;
+	real = (GspellTextRegionIteratorReal *)iter;
 	g_return_val_if_fail (check_iterator (real), FALSE);
 
 	if (real->subregions != NULL)
@@ -625,16 +627,16 @@ gtk_text_region_iterator_next (GtkTextRegionIterator *iter)
 }
 
 gboolean
-gtk_text_region_iterator_get_subregion (GtkTextRegionIterator *iter,
+gspell_text_region_iterator_get_subregion (GspellTextRegionIterator *iter,
 					GtkTextIter           *start,
 					GtkTextIter           *end)
 {
-	GtkTextRegionIteratorReal *real;
+	GspellTextRegionIteratorReal *real;
 	Subregion *sr;
 
 	g_return_val_if_fail (iter != NULL, FALSE);
 
-	real = (GtkTextRegionIteratorReal *)iter;
+	real = (GspellTextRegionIteratorReal *)iter;
 	g_return_val_if_fail (check_iterator (real), FALSE);
 	g_return_val_if_fail (real->subregions != NULL, FALSE);
 
@@ -660,7 +662,7 @@ gtk_text_region_iterator_get_subregion (GtkTextRegionIterator *iter,
 }
 
 void
-gtk_text_region_debug_print (GtkTextRegion *region)
+gspell_text_region_debug_print (GspellTextRegion *region)
 {
 	GList *l;
 
