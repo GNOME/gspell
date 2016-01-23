@@ -23,8 +23,8 @@ IGNORE_HFILES =					\
 	gspell-buffer-notifier.h		\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-osx.h				\
-	gspell-utils.h				\
-	gtktextregion.h
+	gspell-text-region.h			\
+	gspell-utils.h
 
 # Extra options to supply to gtkdoc-mkdb
 MKDB_OPTIONS = --xml-mode --output-format=xml
