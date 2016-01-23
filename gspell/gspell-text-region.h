@@ -33,7 +33,7 @@ typedef struct _GspellTextRegionIterator	GspellTextRegionIterator;
 
 struct _GspellTextRegionIterator {
 	/* GspellTextRegionIterator is an opaque datatype; ignore all these fields.
-	 * Initialize the iter with gspell_text_region_get_iterator
+	 * Initialize the iter with _gspell_text_region_get_iterator
 	 * function
 	 */
 	/*< private >*/
@@ -43,57 +43,57 @@ struct _GspellTextRegionIterator {
 };
 
 G_GNUC_INTERNAL
-GspellTextRegion *gspell_text_region_new                          (GtkTextBuffer *buffer);
+GspellTextRegion *_gspell_text_region_new                          (GtkTextBuffer *buffer);
 
 G_GNUC_INTERNAL
-void           gspell_text_region_destroy                      (GspellTextRegion *region);
+void           _gspell_text_region_destroy                      (GspellTextRegion *region);
 
 G_GNUC_INTERNAL
-GtkTextBuffer *gspell_text_region_get_buffer                   (GspellTextRegion *region);
+GtkTextBuffer *_gspell_text_region_get_buffer                   (GspellTextRegion *region);
 
 G_GNUC_INTERNAL
-void           gspell_text_region_add                          (GspellTextRegion     *region,
+void           _gspell_text_region_add                          (GspellTextRegion     *region,
 							     const GtkTextIter *_start,
 							     const GtkTextIter *_end);
 
 G_GNUC_INTERNAL
-void           gspell_text_region_subtract                     (GspellTextRegion     *region,
+void           _gspell_text_region_subtract                     (GspellTextRegion     *region,
 							     const GtkTextIter *_start,
 							     const GtkTextIter *_end);
 
 G_GNUC_INTERNAL
-gint           gspell_text_region_subregions                   (GspellTextRegion *region);
+gint           _gspell_text_region_subregions                   (GspellTextRegion *region);
 
 G_GNUC_INTERNAL
-gboolean       gspell_text_region_nth_subregion                (GspellTextRegion *region,
+gboolean       _gspell_text_region_nth_subregion                (GspellTextRegion *region,
 							     guint          subregion,
 							     GtkTextIter   *start,
 							     GtkTextIter   *end);
 
 G_GNUC_INTERNAL
-GspellTextRegion *gspell_text_region_intersect                    (GspellTextRegion     *region,
+GspellTextRegion *_gspell_text_region_intersect                    (GspellTextRegion     *region,
 							     const GtkTextIter *_start,
 							     const GtkTextIter *_end);
 
 G_GNUC_INTERNAL
-void           gspell_text_region_get_iterator                 (GspellTextRegion         *region,
+void           _gspell_text_region_get_iterator                 (GspellTextRegion         *region,
                                                              GspellTextRegionIterator *iter,
                                                              guint                  start);
 
 G_GNUC_INTERNAL
-gboolean       gspell_text_region_iterator_is_end              (GspellTextRegionIterator *iter);
+gboolean       _gspell_text_region_iterator_is_end              (GspellTextRegionIterator *iter);
 
 /* Returns FALSE if iterator is the end iterator */
 G_GNUC_INTERNAL
-gboolean       gspell_text_region_iterator_next	            (GspellTextRegionIterator *iter);
+gboolean       _gspell_text_region_iterator_next	            (GspellTextRegionIterator *iter);
 
 G_GNUC_INTERNAL
-gboolean       gspell_text_region_iterator_get_subregion       (GspellTextRegionIterator *iter,
+gboolean       _gspell_text_region_iterator_get_subregion       (GspellTextRegionIterator *iter,
 							     GtkTextIter           *start,
 							     GtkTextIter           *end);
 
 G_GNUC_INTERNAL
-void           gspell_text_region_debug_print                  (GspellTextRegion *region);
+void           _gspell_text_region_debug_print                  (GspellTextRegion *region);
 
 G_END_DECLS
 

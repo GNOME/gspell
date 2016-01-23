@@ -227,16 +227,16 @@ is_text_region_empty (GspellTextRegion *region)
 		return TRUE;
 	}
 
-	gspell_text_region_get_iterator (region, &region_iter, 0);
+	_gspell_text_region_get_iterator (region, &region_iter, 0);
 
-	while (!gspell_text_region_iterator_is_end (&region_iter))
+	while (!_gspell_text_region_iterator_is_end (&region_iter))
 	{
 		GtkTextIter region_start;
 		GtkTextIter region_end;
 
-		if (!gspell_text_region_iterator_get_subregion (&region_iter,
-								&region_start,
-								&region_end))
+		if (!_gspell_text_region_iterator_get_subregion (&region_iter,
+								 &region_start,
+								 &region_end))
 		{
 			return TRUE;
 		}
@@ -246,7 +246,7 @@ is_text_region_empty (GspellTextRegion *region)
 			return FALSE;
 		}
 
-		gspell_text_region_iterator_next (&region_iter);
+		_gspell_text_region_iterator_next (&region_iter);
 	}
 
 	return TRUE;
@@ -268,41 +268,41 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 
 	get_visible_region (view, &visible_start, &visible_end);
 
-	intersect = gspell_text_region_intersect (spell->scan_region,
-						 &visible_start,
-						 &visible_end);
+	intersect = _gspell_text_region_intersect (spell->scan_region,
+						   &visible_start,
+						   &visible_end);
 
 	if (intersect == NULL)
 	{
 		return;
 	}
 
-	gspell_text_region_get_iterator (intersect, &intersect_iter, 0);
+	_gspell_text_region_get_iterator (intersect, &intersect_iter, 0);
 
-	while (!gspell_text_region_iterator_is_end (&intersect_iter))
+	while (!_gspell_text_region_iterator_is_end (&intersect_iter))
 	{
 		GtkTextIter start;
 		GtkTextIter end;
 
-		if (!gspell_text_region_iterator_get_subregion (&intersect_iter,
-								&start,
-								&end))
+		if (!_gspell_text_region_iterator_get_subregion (&intersect_iter,
+								 &start,
+								 &end))
 		{
 			return;
 		}
 
 		check_subregion (spell, &start, &end);
 
-		gspell_text_region_subtract (spell->scan_region, &start, &end);
+		_gspell_text_region_subtract (spell->scan_region, &start, &end);
 
-		gspell_text_region_iterator_next (&intersect_iter);
+		_gspell_text_region_iterator_next (&intersect_iter);
 	}
 
-	gspell_text_region_destroy (intersect);
+	_gspell_text_region_destroy (intersect);
 
 	if (is_text_region_empty (spell->scan_region))
 	{
-		gspell_text_region_destroy (spell->scan_region);
+		_gspell_text_region_destroy (spell->scan_region);
 		spell->scan_region = NULL;
 	}
 }
@@ -369,10 +369,10 @@ add_subregion_to_scan (GspellInlineCheckerTextBuffer *spell,
 {
 	if (spell->scan_region == NULL)
 	{
-		spell->scan_region = gspell_text_region_new (spell->buffer);
+		spell->scan_region = _gspell_text_region_new (spell->buffer);
 	}
 
-	gspell_text_region_add (spell->scan_region, start, end);
+	_gspell_text_region_add (spell->scan_region, start, end);
 }
 
 static void
@@ -1082,7 +1082,7 @@ _gspell_inline_checker_text_buffer_dispose (GObject *object)
 
 	if (spell->scan_region != NULL)
 	{
-		gspell_text_region_destroy (spell->scan_region);
+		_gspell_text_region_destroy (spell->scan_region);
 		spell->scan_region = NULL;
 	}
 

@@ -23,7 +23,7 @@ update_file () {
         -e '/gtksourcetypes-private.h/d' \
         -e 's/GTK_SOURCE_INTERNAL/G_GNUC_INTERNAL/g' \
         -e 's/gtktextregion/gspell-text-region/g' \
-        -e 's/gtk_text_region/gspell_text_region/g' \
+        -e 's/gtk_text_region/_gspell_text_region/g' \
         -e 's/GtkTextRegion/GspellTextRegion/g' \
         -e 's/GTK_TEXT_REGION/GSPELL_TEXT_REGION/g' >> "${_dest}"
 }
