@@ -84,23 +84,19 @@ gspell-resources.c: $(xml_res) $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(s
 
 CLEANFILES = $(BUILT_SOURCES)
 
-# Mac OSX convenience library and ldflags
 if OS_OSX
-noinst_LTLIBRARIES = libosx.la
+libgspell_1_la_LDFLAGS += \
+	-framework Cocoa
 
-libosx_la_LDFLAGS =		\
-	-framework Cocoa	\
-	$(GTK_MAC_LIBS)
+libgspell_1_la_CFLAGS = \
+	-xobjective-c
 
-libosx_la_CFLAGS =		\
-	-xobjective-c		\
-	$(GTK_MAC_CFLAGS)
-
-libosx_la_SOURCES =	\
-	gspell-osx.c	\
+gspell_private_headers += \
 	gspell-osx.h
 
-libgspell_1_la_LIBADD += libosx.la
+gspell_private_c_files += \
+	gspell-osx.c
+
 endif # OS_OSX
 
 if HAVE_INTROSPECTION
