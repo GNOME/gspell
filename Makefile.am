@@ -1,4 +1,4 @@
-SUBDIRS = gspell po docs tests
+SUBDIRS = gspell po docs tests testsuite
 
 pkgconfig_DATA = gspell-1.pc
 

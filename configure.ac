@@ -187,6 +187,7 @@ AC_CONFIG_FILES([
 	gspell/resources/Makefile
 	po/Makefile.in
 	tests/Makefile
+	testsuite/Makefile
 ])
 
 AC_OUTPUT
