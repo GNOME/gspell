@@ -28,7 +28,7 @@
 
     <chapter>
       <title>Inline Checkers</title>
-      <xi:include href="xml/inline-checker-text.xml"/>
+      <xi:include href="xml/inline-checker-text-view.xml"/>
     </chapter>
 
     <chapter>

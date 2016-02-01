@@ -24,7 +24,7 @@
 
 #include <gspell/gspell-checker.h>
 #include <gspell/gspell-checker-dialog.h>
-#include <gspell/gspell-inline-checker-text.h>
+#include <gspell/gspell-inline-checker-text-view.h>
 #include <gspell/gspell-language.h>
 #include <gspell/gspell-language-chooser.h>
 #include <gspell/gspell-language-chooser-button.h>

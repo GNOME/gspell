@@ -46,15 +46,15 @@ gspell_text_buffer_get_spell_checker
 </SECTION>
 
 <SECTION>
-<FILE>inline-checker-text</FILE>
-<TITLE>GspellInlineCheckerText</TITLE>
-GspellInlineCheckerText
+<FILE>inline-checker-text-view</FILE>
+<TITLE>GspellInlineCheckerTextView</TITLE>
+GspellInlineCheckerTextView
 gspell_text_view_get_inline_checker
-gspell_inline_checker_text_set_enabled
-gspell_inline_checker_text_get_enabled
+gspell_inline_checker_text_view_set_enabled
+gspell_inline_checker_text_view_get_enabled
 <SUBSECTION Standard>
-GSPELL_TYPE_INLINE_CHECKER_TEXT
-GspellInlineCheckerTextClass
+GSPELL_TYPE_INLINE_CHECKER_TEXT_VIEW
+GspellInlineCheckerTextViewClass
 </SECTION>
 
 <SECTION>

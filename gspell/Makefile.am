@@ -19,7 +19,7 @@ gspell_public_headers =				\
 	gspell.h				\
 	gspell-checker.h			\
 	gspell-checker-dialog.h			\
-	gspell-inline-checker-text.h		\
+	gspell-inline-checker-text-view.h	\
 	gspell-language.h			\
 	gspell-language-chooser.h		\
 	gspell-language-chooser-button.h	\
@@ -31,7 +31,7 @@ gspell_public_headers =				\
 gspell_public_c_files =				\
 	gspell-checker.c			\
 	gspell-checker-dialog.c			\
-	gspell-inline-checker-text.c		\
+	gspell-inline-checker-text-view.c	\
 	gspell-language.c			\
 	gspell-language-chooser.c		\
 	gspell-language-chooser-button.c	\
