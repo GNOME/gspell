@@ -79,13 +79,13 @@ GSPELL_TYPE_NAVIGATOR
 </SECTION>
 
 <SECTION>
-<FILE>navigator-text</FILE>
-<TITLE>GspellNavigatorText</TITLE>
-GspellNavigatorText
-gspell_navigator_text_new
+<FILE>navigator-text-view</FILE>
+<TITLE>GspellNavigatorTextView</TITLE>
+GspellNavigatorTextView
+gspell_navigator_text_view_new
 <SUBSECTION Standard>
-GSPELL_TYPE_NAVIGATOR_TEXT
-GspellNavigatorTextClass
+GSPELL_TYPE_NAVIGATOR_TEXT_VIEW
+GspellNavigatorTextViewClass
 </SECTION>
 
 <SECTION>

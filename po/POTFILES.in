@@ -9,7 +9,7 @@ gspell/gspell-language-chooser.c
 gspell/gspell-language-chooser-button.c
 gspell/gspell-language-chooser-dialog.c
 gspell/gspell-navigator.c
-gspell/gspell-navigator-text.c
+gspell/gspell-navigator-text-view.c
 gspell/gspell-osx.c
 gspell/gspell-text-buffer.c
 gspell/gspell-utils.c

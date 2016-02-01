@@ -35,7 +35,7 @@
       <title>External Checkers</title>
       <xi:include href="xml/checker-dialog.xml"/>
       <xi:include href="xml/navigator.xml"/>
-      <xi:include href="xml/navigator-text.xml"/>
+      <xi:include href="xml/navigator-text-view.xml"/>
     </chapter>
 
     <chapter>

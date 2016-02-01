@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,8 +17,8 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_NAVIGATOR_TEXT_H__
-#define __GSPELL_NAVIGATOR_TEXT_H__
+#ifndef __GSPELL_NAVIGATOR_TEXT_VIEW_H__
+#define __GSPELL_NAVIGATOR_TEXT_VIEW_H__
 
 #if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -30,12 +30,12 @@
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_NAVIGATOR_TEXT (gspell_navigator_text_get_type ())
-G_DECLARE_DERIVABLE_TYPE (GspellNavigatorText, gspell_navigator_text,
-			  GSPELL, NAVIGATOR_TEXT,
+#define GSPELL_TYPE_NAVIGATOR_TEXT_VIEW (gspell_navigator_text_view_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellNavigatorTextView, gspell_navigator_text_view,
+			  GSPELL, NAVIGATOR_TEXT_VIEW,
 			  GObject)
 
-struct _GspellNavigatorTextClass
+struct _GspellNavigatorTextViewClass
 {
 	GObjectClass parent_class;
 
@@ -43,10 +43,10 @@ struct _GspellNavigatorTextClass
 	gpointer padding[8];
 };
 
-GspellNavigator *	gspell_navigator_text_new		(GtkTextView *view);
+GspellNavigator *	gspell_navigator_text_view_new		(GtkTextView *view);
 
 G_END_DECLS
 
-#endif /* __GSPELL_NAVIGATOR_TEXT_H__ */
+#endif /* __GSPELL_NAVIGATOR_TEXT_VIEW_H__ */
 
 /* ex:set ts=8 noet: */

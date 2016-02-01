@@ -23,7 +23,7 @@
  * SECTION:navigator
  * @Short_description: Interface to navigate through misspelled words
  * @Title: GspellNavigator
- * @See_also: #GspellNavigatorText, #GspellCheckerDialog
+ * @See_also: #GspellNavigatorTextView, #GspellCheckerDialog
  *
  * #GspellNavigator is an interface to navigate through misspelled words,
  * and correct the mistakes.
