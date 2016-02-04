@@ -39,6 +39,8 @@ test_check_word (void)
 	correctly_spelled = gspell_checker_check_word (checker, "tkbqzat", -1, &error);
 	g_assert_no_error (error);
 	g_assert_false (correctly_spelled);
+
+	g_object_unref (checker);
 }
 
 gint
