@@ -54,20 +54,31 @@ gspell_private_c_files =			\
 	gspell-text-region.c			\
 	gspell-utils.c
 
-lib_LTLIBRARIES = libgspell-1.la
+# Helper Libtool library, so that the private functions can be used in unit
+# tests.
+noinst_LTLIBRARIES = libgspell-core.la
 
-libgspell_1_la_SOURCES =		\
-	$(gspell_public_headers)	\
-	$(gspell_public_c_files)	\
+libgspell_core_la_SOURCES =		\
+	$(gspell_private_c_files)	\
 	$(gspell_private_headers)	\
-	$(gspell_private_c_files)
+	$(gspell_public_c_files)	\
+	$(gspell_public_headers)
 
-# do not distribute generated files
-nodist_libgspell_1_la_SOURCES = \
+# Do not distribute generated files.
+nodist_libgspell_core_la_SOURCES = \
 	$(BUILT_SOURCES)
 
-libgspell_1_la_LIBADD =	\
-	$(DEP_LIBS)	\
+libgspell_core_la_LDFLAGS = \
+	-no-undefined
+
+# The real library.
+lib_LTLIBRARIES = libgspell-1.la
+
+libgspell_1_la_SOURCES =
+
+libgspell_1_la_LIBADD =		\
+	libgspell-core.la	\
+	$(DEP_LIBS)		\
 	$(GTK_MAC_LIBS)
 
 libgspell_1_la_LDFLAGS =			\
