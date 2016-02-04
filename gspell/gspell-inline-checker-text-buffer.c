@@ -57,8 +57,6 @@ enum
 	PROP_BUFFER,
 };
 
-#define ENABLE_DEBUG 0
-
 #define INLINE_CHECKER_TEXT_BUFFER_KEY	"GspellInlineCheckerTextBufferID"
 #define SUGGESTION_KEY			"GspellInlineSuggestionID"
 
@@ -311,32 +309,17 @@ static void
 check_visible_region (GspellInlineCheckerTextBuffer *spell)
 {
 	GSList *l;
-#if ENABLE_DEBUG
-	GTimer *timer;
-#endif
 
 	if (spell->scan_region == NULL)
 	{
 		return;
 	}
 
-#if ENABLE_DEBUG
-	timer = g_timer_new ();
-#endif
-
 	for (l = spell->views; l != NULL; l = l->next)
 	{
 		GtkTextView *view = GTK_TEXT_VIEW (l->data);
 		check_visible_region_in_view (spell, view);
 	}
-
-#if ENABLE_DEBUG
-	g_print ("%s() executed in %lf seconds\n",
-		 G_STRFUNC,
-		 g_timer_elapsed (timer, NULL));
-
-	g_timer_destroy (timer);
-#endif
 }
 
 static gboolean
