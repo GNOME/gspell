@@ -15,4 +15,7 @@ UNIT_TEST_PROGS =
 UNIT_TEST_PROGS += test-checker
 test_checker_SOURCES = test-checker.c
 
+UNIT_TEST_PROGS += test-inline-checker-text-buffer
+test_inline_checker_text_buffer_SOURCES = test-inline-checker-text-buffer.c
+
 -include $(top_srcdir)/git.mk
