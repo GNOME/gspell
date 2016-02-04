@@ -36,15 +36,25 @@ G_DECLARE_FINAL_TYPE (GspellInlineCheckerTextBuffer, _gspell_inline_checker_text
 
 G_GNUC_INTERNAL
 GspellInlineCheckerTextBuffer *
-	_gspell_inline_checker_text_buffer_new		(GtkTextBuffer *buffer);
+	_gspell_inline_checker_text_buffer_new			(GtkTextBuffer *buffer);
 
 G_GNUC_INTERNAL
-void	_gspell_inline_checker_text_buffer_attach_view	(GspellInlineCheckerTextBuffer *spell,
-							 GtkTextView                   *view);
+void	_gspell_inline_checker_text_buffer_attach_view		(GspellInlineCheckerTextBuffer *spell,
+								 GtkTextView                   *view);
 
 G_GNUC_INTERNAL
-void	_gspell_inline_checker_text_buffer_detach_view	(GspellInlineCheckerTextBuffer *spell,
-							 GtkTextView                   *view);
+void	_gspell_inline_checker_text_buffer_detach_view		(GspellInlineCheckerTextBuffer *spell,
+								 GtkTextView                   *view);
+
+/* For unit tests */
+
+G_GNUC_INTERNAL
+void	_gspell_inline_checker_text_buffer_set_unit_test_mode	(GspellInlineCheckerTextBuffer *spell,
+								 gboolean                       unit_test_mode);
+
+G_GNUC_INTERNAL
+GtkTextTag *
+	_gspell_inline_checker_text_buffer_get_highlight_tag	(GspellInlineCheckerTextBuffer *spell);
 
 #endif  /* __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__ */
 

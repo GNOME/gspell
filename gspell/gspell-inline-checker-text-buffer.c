@@ -49,6 +49,14 @@ struct _GspellInlineCheckerTextBuffer
 
 	GspellTextRegion *scan_region;
 	guint timeout_id;
+
+	/* If the unit test mode is enabled, there is no timeouts, and the whole
+	 * buffer is scanned synchronously.
+	 * The unit test mode tries to follow as most as possible the same code
+	 * paths as the real code paths, otherwise the unit tests would be
+	 * useless. As such, the function names reflect the real code paths.
+	 */
+	guint unit_test_mode : 1;
 };
 
 enum
@@ -264,7 +272,15 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		return;
 	}
 
-	get_visible_region (view, &visible_start, &visible_end);
+	if (view != NULL)
+	{
+		get_visible_region (view, &visible_start, &visible_end);
+	}
+	else
+	{
+		g_assert_true (spell->unit_test_mode);
+		gtk_text_buffer_get_bounds (spell->buffer, &visible_start, &visible_end);
+	}
 
 	intersect = _gspell_text_region_intersect (spell->scan_region,
 						   &visible_start,
@@ -315,6 +331,12 @@ check_visible_region (GspellInlineCheckerTextBuffer *spell)
 		return;
 	}
 
+	if (spell->unit_test_mode)
+	{
+		check_visible_region_in_view (spell, NULL);
+		return;
+	}
+
 	for (l = spell->views; l != NULL; l = l->next)
 	{
 		GtkTextView *view = GTK_TEXT_VIEW (l->data);
@@ -338,11 +360,19 @@ install_timeout (GspellInlineCheckerTextBuffer *spell,
 	if (spell->timeout_id != 0)
 	{
 		g_source_remove (spell->timeout_id);
+		spell->timeout_id = 0;
 	}
 
-	spell->timeout_id = g_timeout_add (duration,
-					   (GSourceFunc) timeout_cb,
-					   spell);
+	if (spell->unit_test_mode)
+	{
+		timeout_cb (spell);
+	}
+	else
+	{
+		spell->timeout_id = g_timeout_add (duration,
+						   (GSourceFunc) timeout_cb,
+						   spell);
+	}
 }
 
 static void
@@ -1185,6 +1215,32 @@ _gspell_inline_checker_text_buffer_detach_view (GspellInlineCheckerTextBuffer *s
 	g_signal_handlers_disconnect_by_data (view, spell);
 
 	spell->views = g_slist_remove (spell->views, view);
+}
+
+void
+_gspell_inline_checker_text_buffer_set_unit_test_mode (GspellInlineCheckerTextBuffer *spell,
+						       gboolean                       unit_test_mode)
+{
+	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_TEXT_BUFFER (spell));
+
+	spell->unit_test_mode = unit_test_mode != FALSE;
+
+	if (spell->timeout_id != 0)
+	{
+		g_source_remove (spell->timeout_id);
+		spell->timeout_id = 0;
+		timeout_cb (spell);
+	}
+
+	check_visible_region (spell);
+}
+
+GtkTextTag *
+_gspell_inline_checker_text_buffer_get_highlight_tag (GspellInlineCheckerTextBuffer *spell)
+{
+	g_return_val_if_fail (GSPELL_IS_INLINE_CHECKER_TEXT_BUFFER (spell), NULL);
+
+	return spell->highlight_tag;
 }
 
 /* ex:set ts=8 noet: */
