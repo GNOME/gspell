@@ -101,7 +101,7 @@ check_word (GspellInlineCheckerTextBuffer *spell,
 	if (error != NULL)
 	{
 		g_warning ("Inline spell checker: %s", error->message);
-		g_error_free (error);
+		g_clear_error (&error);
 	}
 
 	if (!correctly_spelled)

@@ -252,8 +252,7 @@ goto_next (GspellCheckerDialog *dialog)
 	if (error != NULL)
 	{
 		show_error (dialog, error);
-		g_error_free (error);
-		error = NULL;
+		g_clear_error (&error);
 	}
 	else if (found)
 	{

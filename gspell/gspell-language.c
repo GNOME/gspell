@@ -248,7 +248,7 @@ iso_codes_parse (const GMarkupParser *parser,
 	if (error != NULL)
 	{
 		g_warning ("%s: %s", basename, error->message);
-		g_error_free (error);
+		g_clear_error (&error);
 	}
 }
 
