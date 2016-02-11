@@ -291,6 +291,12 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		return;
 	}
 
+	if (is_text_region_empty (intersect))
+	{
+		_gspell_text_region_destroy (intersect);
+		return;
+	}
+
 	_gspell_text_region_get_iterator (intersect, &intersect_iter, 0);
 
 	while (!_gspell_text_region_iterator_is_end (&intersect_iter))
@@ -318,6 +324,14 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 	{
 		_gspell_text_region_destroy (spell->scan_region);
 		spell->scan_region = NULL;
+	}
+
+	if (view != NULL)
+	{
+		/* FIXME properly. Workaround for bug in GtkTextView:
+		 * https://bugzilla.gnome.org/show_bug.cgi?id=612772
+		 */
+		gtk_widget_queue_draw (GTK_WIDGET (view));
 	}
 }
 
