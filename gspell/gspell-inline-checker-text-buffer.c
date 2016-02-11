@@ -302,7 +302,7 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 								 &start,
 								 &end))
 		{
-			return;
+			break;
 		}
 
 		check_subregion (spell, &start, &end);
