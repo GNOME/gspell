@@ -30,6 +30,8 @@ create_buffer (void)
 	buffer = gtk_text_buffer_new (NULL);
 
 	lang = gspell_language_lookup ("en_US");
+	g_assert (lang != NULL);
+
 	checker = gspell_checker_new (lang);
 	gspell_text_buffer_set_spell_checker (buffer, checker);
 	g_object_unref (checker);
