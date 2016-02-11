@@ -130,6 +130,90 @@ test_whole_buffer (void)
 	g_object_unref (buffer);
 }
 
+static void
+test_text_insertion (void)
+{
+	GtkTextBuffer *buffer;
+	GspellInlineCheckerTextBuffer *inline_checker;
+	GtkTextIter iter;
+
+	buffer = create_buffer ();
+	inline_checker = _gspell_inline_checker_text_buffer_new (buffer);
+	_gspell_inline_checker_text_buffer_set_unit_test_mode (inline_checker, TRUE);
+
+	gtk_text_buffer_get_start_iter (buffer, &iter);
+	gtk_text_buffer_insert (buffer, &iter, "Hello jlyxdt, grrimbl?\nNo, not really today.", -1);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 6, 12,
+				 14, 21,
+				 -1);
+
+	/* Modify a word: correctly spelled -> misspelled. */
+	gtk_text_buffer_get_start_iter (buffer, &iter);
+	gtk_text_buffer_insert (buffer, &iter, "ZK", -1);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 7,
+				 8, 14,
+				 16, 23,
+				 -1);
+
+	/* Insert new misspelled word. */
+	gtk_text_buffer_get_start_iter (buffer, &iter);
+	gtk_text_buffer_insert (buffer, &iter, "Tst ", -1);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 3,
+				 4, 11,
+				 12, 18,
+				 20, 27,
+				 -1);
+
+	/* Modify word: misspelled -> correctly spelled. */
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 1);
+	gtk_text_buffer_insert (buffer, &iter, "e", -1);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 5, 12,
+				 13, 19,
+				 21, 28,
+				 -1);
+
+	/* Have two collapsed correctly spelled words ("Testagain"). */
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 4);
+	gtk_text_buffer_insert (buffer, &iter, "again", -1);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 9,
+				 10, 17,
+				 18, 24,
+				 26, 33,
+				 -1);
+
+	/* Test neighbor words: "Testagain" -> "Test again". */
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 4);
+	gtk_text_buffer_insert (buffer, &iter, " ", -1);
+
+	/* FIXME */
+#if 0
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 11, 18,
+				 19, 25,
+				 27, 34,
+				 -1);
+#endif
+
+	g_object_unref (inline_checker);
+	g_object_unref (buffer);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -138,6 +222,9 @@ main (gint    argc,
 
 	g_test_add_func ("/inline-checker-text-buffer/whole-buffer",
 			 test_whole_buffer);
+
+	g_test_add_func ("/inline-checker-text-buffer/text-insertion",
+			 test_text_insertion);
 
 	return g_test_run ();
 }
