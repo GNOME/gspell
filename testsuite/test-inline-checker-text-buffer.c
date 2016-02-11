@@ -294,6 +294,58 @@ test_text_deletion (void)
 	g_object_unref (buffer);
 }
 
+static void
+test_current_word (void)
+{
+	GtkTextBuffer *buffer;
+	GspellInlineCheckerTextBuffer *inline_checker;
+	GtkTextIter iter;
+
+	buffer = create_buffer ();
+	inline_checker = _gspell_inline_checker_text_buffer_new (buffer);
+	_gspell_inline_checker_text_buffer_set_unit_test_mode (inline_checker, TRUE);
+
+	gtk_text_buffer_get_start_iter (buffer, &iter);
+	gtk_text_buffer_insert (buffer, &iter, "Hella", -1);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	gtk_text_buffer_insert (buffer, &iter, " ", -1);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 5,
+				 -1);
+
+	gtk_text_buffer_backspace (buffer, &iter, FALSE, TRUE);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	gtk_text_buffer_backspace (buffer, &iter, FALSE, TRUE);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	gtk_text_buffer_insert (buffer, &iter, "o", -1);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	gtk_text_buffer_insert (buffer, &iter, " ", -1);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	gtk_text_buffer_insert (buffer, &iter, "nrst", -1);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	/* Cursor movement -> misspelled word highlighted. */
+	gtk_text_iter_backward_cursor_position (&iter);
+	gtk_text_buffer_move_mark (buffer,
+				   gtk_text_buffer_get_insert (buffer),
+				   &iter);
+
+	/* Buffer content: "Hello nrst". */
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 6, 10,
+				 -1);
+
+	g_object_unref (inline_checker);
+	g_object_unref (buffer);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -308,6 +360,9 @@ main (gint    argc,
 
 	g_test_add_func ("/inline-checker-text-buffer/text-deletion",
 			 test_text_deletion);
+
+	g_test_add_func ("/inline-checker-text-buffer/current-word",
+			 test_current_word);
 
 	return g_test_run ();
 }
