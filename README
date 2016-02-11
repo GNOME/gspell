@@ -1,5 +1,5 @@
-gspell - a spell-checking library for GTK+
-==========================================
+gspell - a spell-checking library for GTK+ applications
+=======================================================
 
 This is version 0.2.4 of gspell.
 
@@ -33,31 +33,21 @@ gspell follows the GNOME release schedule.
 
 gspell 0.1.x should be installed alongside GNOME 3.18.
 
-gspell 0.2.x versions correspond to GNOME 3.19 versions. The API can change
-between 0.2.x versions. The 0.2 development cycle will lead to the 0.3 version
-or 1.0.
+gspell 0.2.x versions correspond to GNOME 3.19 versions. The API can now be
+considered stable and the 0.2 series will lead to the 1.0 version, which will
+be released at the same time as GNOME 3.20 in March 2016.
 
-
-WARNING - API (un)stability
----------------------------
-
-The API is *not* yet stable! There can be API or ABI breaks at any time!
-You should *not* use this library unless you know what you do!
-
-API stability will be guaranteed only when the 1.0 version is released. But the
-1.0 version will *not* be completely parallel-installable with the previous
-versions, only the libtool version will be bumped.
-
-The 1.0 version will be released when it's ready, hopefully at the same time as
-GNOME 3.20 in March 2016.
+Warning: the 1.0 version will *not* be completely parallel-installable with the
+0.1 version, only the libtool version will be bumped. Using the 0.1 version is
+highly discouraged.
 
 
 Dependencies
 ------------
 
-* Enchant >= 1.6.0
 * GLib >= 2.44
 * GTK+ >= 3.16
+* Enchant >= 1.6.0
 * iso-codes
 
 
