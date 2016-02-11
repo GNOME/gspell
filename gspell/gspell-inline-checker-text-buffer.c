@@ -413,6 +413,20 @@ insert_text_after_cb (GtkTextBuffer                 *buffer,
 	start = end = *location;
 	gtk_text_iter_backward_chars (&start, g_utf8_strlen (text, length));
 
+	/* Include neighbor words */
+
+	if (gtk_text_iter_ends_word (&start) ||
+	    (gtk_text_iter_inside_word (&start) &&
+	     !gtk_text_iter_starts_word (&start)))
+	{
+		gtk_text_iter_backward_word_start (&start);
+	}
+
+	if (gtk_text_iter_inside_word (&end))
+	{
+		gtk_text_iter_forward_word_end (&end);
+	}
+
 	add_subregion_to_scan (spell, &start, &end);
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }

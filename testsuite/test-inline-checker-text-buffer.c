@@ -200,15 +200,12 @@ test_text_insertion (void)
 	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 4);
 	gtk_text_buffer_insert (buffer, &iter, " ", -1);
 
-	/* FIXME */
-#if 0
 	check_highlighted_words (buffer,
 				 inline_checker,
 				 11, 18,
 				 19, 25,
 				 27, 34,
 				 -1);
-#endif
 
 	g_object_unref (inline_checker);
 	g_object_unref (buffer);
