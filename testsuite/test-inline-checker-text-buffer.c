@@ -211,6 +211,89 @@ test_text_insertion (void)
 	g_object_unref (buffer);
 }
 
+static void
+test_text_deletion (void)
+{
+	GtkTextBuffer *buffer;
+	GspellInlineCheckerTextBuffer *inline_checker;
+	GtkTextIter start;
+	GtkTextIter end;
+
+	buffer = create_buffer ();
+	gtk_text_buffer_set_text (buffer, "Test againnn againnn.", -1);
+
+	inline_checker = _gspell_inline_checker_text_buffer_new (buffer);
+	_gspell_inline_checker_text_buffer_set_unit_test_mode (inline_checker, TRUE);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 5, 12,
+				 13, 20,
+				 -1);
+
+	/* Modify end of word: misspelled -> still misspelled.
+	 * First "againnn" -> "againn"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 11);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 12);
+	gtk_text_buffer_delete (buffer, &start, &end);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 5, 11,
+				 12, 19,
+				 -1);
+
+	/* Modify end of word: misspelled -> correctly spelled.
+	 * "againn" -> "again"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 10);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 11);
+	gtk_text_buffer_delete (buffer, &start, &end);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 11, 18,
+				 -1);
+
+	/* Modify middle of word: misspelled -> correctly spelled.
+	 * Second "agai[nn]n" -> "again"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 15);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 17);
+	gtk_text_buffer_delete (buffer, &start, &end);
+
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	/* Modify word: correctly spelled -> misspelled.
+	 * Second "again" -> "agan"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 14);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 15);
+	gtk_text_buffer_delete (buffer, &start, &end);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 11, 15,
+				 -1);
+
+	/* Collapse two correctly spelled words to form a misspelled word.
+	 * "Test again" -> "Testagain"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 4);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 5);
+	gtk_text_buffer_delete (buffer, &start, &end);
+
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 9,
+				 10, 14,
+				 -1);
+
+	g_object_unref (inline_checker);
+	g_object_unref (buffer);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -222,6 +305,9 @@ main (gint    argc,
 
 	g_test_add_func ("/inline-checker-text-buffer/text-insertion",
 			 test_text_insertion);
+
+	g_test_add_func ("/inline-checker-text-buffer/text-deletion",
+			 test_text_deletion);
 
 	return g_test_run ();
 }
