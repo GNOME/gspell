@@ -23,6 +23,7 @@ IGNORE_HFILES =					\
 	gspell-buffer-notifier.h		\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-osx.h				\
+	gspell-text-iter.h			\
 	gspell-text-region.h			\
 	gspell-utils.h
 
