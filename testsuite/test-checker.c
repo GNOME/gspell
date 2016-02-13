@@ -34,11 +34,37 @@ test_check_word (void)
 
 	correctly_spelled = gspell_checker_check_word (checker, "hello", -1, &error);
 	g_assert_no_error (error);
-	g_assert_true (correctly_spelled);
+	g_assert (correctly_spelled);
 
 	correctly_spelled = gspell_checker_check_word (checker, "tkbqzat", -1, &error);
 	g_assert_no_error (error);
-	g_assert_false (correctly_spelled);
+	g_assert (!correctly_spelled);
+
+	g_object_unref (checker);
+}
+
+static void
+test_apostrophes (void)
+{
+	const GspellLanguage *lang;
+	GspellChecker *checker;
+	gboolean correctly_spelled;
+	gunichar apostrophe_char;
+	GError *error = NULL;
+
+	lang = gspell_language_lookup ("en_US");
+	g_assert (lang != NULL);
+
+	checker = gspell_checker_new (lang);
+
+	/* Apostrophe U+0027 */
+
+	apostrophe_char = g_utf8_get_char ("'");
+	g_assert_cmpint (apostrophe_char, ==, '\'');
+
+	correctly_spelled = gspell_checker_check_word (checker, "doesn't", -1, &error);
+	g_assert_no_error (error);
+	g_assert (correctly_spelled);
 
 	g_object_unref (checker);
 }
@@ -50,6 +76,7 @@ main (gint    argc,
 	gtk_test_init (&argc, &argv);
 
 	g_test_add_func ("/checker/check_word", test_check_word);
+	g_test_add_func ("/checker/apostrophes", test_apostrophes);
 
 	return g_test_run ();
 }
