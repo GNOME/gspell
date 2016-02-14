@@ -8,6 +8,15 @@
     <property name="title" translatable="yes">Check Spelling</property>
     <property name="resizable">False</property>
     <property name="type_hint">dialog</property>
+
+    <!-- Modal because it is not supported to edit the buffer during a spell
+         checking with the CheckerDialog. What if we modify directly in the
+         buffer the word being spell checked, and then we click on the Change
+         button? there is now a critical message if the word is no longer the
+         same. See the thoughts at:
+         https://bugzilla.gnome.org/show_bug.cgi?id=761923 -->
+    <property name="modal">True</property>
+
     <child internal-child="vbox">
       <object class="GtkBox" id="content">
         <property name="visible">True</property>
