@@ -1,3 +1,14 @@
+News in 0.2.4
+-------------
+* Fix compilation on Mac OS X
+* Write the first unit tests
+* Inline checker for GtkTextView:
+	* fix bug with neighbor words
+	* fix underline drawing issue
+	* don't check current word while typing
+* Other code improvements
+* Translation updates
+
 News in 0.2.3
 -------------
 * GspellLanguage: code improvements, write API documentation and add
