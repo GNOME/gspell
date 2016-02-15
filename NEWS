@@ -9,6 +9,11 @@ News in 0.2.4
 * Other code improvements
 * Translation updates
 
+API changes:
+* Rename the GspellInlineCheckerText class to GspellInlineCheckerTextView
+* Rename the GspellNavigatorText class to GspellNavigatorTextView
+to have more intelligible names.
+
 News in 0.2.3
 -------------
 * GspellLanguage: code improvements, write API documentation and add
