@@ -1,0 +1,103 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Jordi Mas i Hernàndez, <jmas@softcatala.org>, 2016
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-27 15:18+0100\n"
+"PO-Revision-Date: 2016-02-27 15:18+0100\n"
+"Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
+"Language-Team: ca_ES <tradgnome@softcatala.net>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../gspell/gspell-checker.c:394
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "S'ha produït un error en comprovar l'ortografia de la paraula «%s»: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: ../gspell/gspell-checker-dialog.c:147
+#: ../gspell/gspell-inline-checker-text-buffer.c:690
+msgid "(no suggested words)"
+msgstr "(cap paraula suggerida)"
+
+#: ../gspell/gspell-checker-dialog.c:232
+msgid "Error:"
+msgstr "Error:"
+
+#: ../gspell/gspell-checker-dialog.c:268
+msgid "Completed spell checking"
+msgstr "S'ha completat la comprovació d'ortografia"
+
+#: ../gspell/gspell-checker-dialog.c:272
+msgid "No misspelled words"
+msgstr "Cap paraula mal escrita"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: ../gspell/gspell-checker-dialog.c:501
+msgid "(correct spelling)"
+msgstr "(ortografia correcta)"
+
+#: ../gspell/gspell-checker-dialog.c:639
+msgid "Suggestions"
+msgstr "Suggeriments"
+
+#: ../gspell/gspell-inline-checker-text-buffer.c:713
+msgid "_More..."
+msgstr "_Més..."
+
+#. Ignore all
+#: ../gspell/gspell-inline-checker-text-buffer.c:753
+msgid "_Ignore All"
+msgstr "_Ignora-ho tot"
+
+#. Add to Dictionary
+#: ../gspell/gspell-inline-checker-text-buffer.c:762
+msgid "_Add"
+msgstr "_Afegeix"
+
+#. Prepend suggestions
+#: ../gspell/gspell-inline-checker-text-buffer.c:799
+msgid "_Spelling Suggestions..."
+msgstr "_Suggeriments d'ortografia..."
+
+#. Translators: %s is the language ISO code.
+#: ../gspell/gspell-language.c:280
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Desconeguda (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: ../gspell/gspell-language.c:297 ../gspell/gspell-language.c:306
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../gspell/gspell-language-chooser-button.c:81
+msgid "No language selected"
+msgstr "No s'ha seleccionat cap llenguatge"
+
+#: ../gspell/gspell-navigator-text-view.c:306
+msgid ""
+"Spell checker error: no language set. It's maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Error del corrector ortogràfic: no hi ha cap llengua configurada. Això pot ser degut a que no hi ha diccionaris instal·lats."
