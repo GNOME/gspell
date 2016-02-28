@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,16 +28,15 @@
 #include <glib/gi18n-lib.h>
 #include "gconstructor.h"
 
-#ifdef G_HAS_CONSTRUCTORS
+#ifdef G_OS_WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 
-# ifdef G_DEFINE_CONSTRUCTOR_NEEDS_PRAGMA
-#  pragma G_DEFINE_CONSTRUCTOR_PRAGMA_ARGS(gspell_init)
-# endif
-G_DEFINE_CONSTRUCTOR (gspell_init)
+HMODULE gspell_dll;
+#endif /* G_OS_WIN32 */
 
-# ifdef OS_OSX
-
-# include <Cocoa/Cocoa.h>
+#ifdef OS_OSX
+#include <Cocoa/Cocoa.h>
 
 static gchar *
 dirs_os_x_get_bundle_resource_dir (void)
@@ -87,15 +86,14 @@ dirs_os_x_get_locale_dir (void)
 
 	return ret;
 }
-
-# endif /* OS_OSX */
+#endif /* OS_OSX */
 
 static gchar *
 get_locale_dir (void)
 {
 	gchar *locale_dir;
 
-# ifdef G_OS_WIN32
+#if defined (G_OS_WIN32)
 	gchar *win32_dir;
 
 	win32_dir = g_win32_get_package_installation_directory_of_module (NULL);
@@ -103,11 +101,11 @@ get_locale_dir (void)
 	locale_dir = g_build_filename (win32_dir, "share", "locale", NULL);
 
 	g_free (win32_dir);
-# elif defined (OS_OSX)
+#elif defined (OS_OSX)
 	locale_dir = dirs_os_x_get_locale_dir ();
-# else
+#else
 	locale_dir = g_build_filename (DATADIR, "locale", NULL);
-# endif
+#endif
 
 	return locale_dir;
 }
@@ -124,8 +122,48 @@ gspell_init (void)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 }
 
+#if defined (G_OS_WIN32)
+
+BOOL WINAPI DllMain (HINSTANCE hinstDLL,
+		     DWORD     fdwReason,
+		     LPVOID    lpvReserved);
+
+BOOL WINAPI
+DllMain (HINSTANCE hinstDLL,
+	 DWORD     fdwReason,
+	 LPVOID    lpvReserved)
+{
+	switch (fdwReason)
+	{
+		case DLL_PROCESS_ATTACH:
+			gspell_dll = hinstDLL;
+			gspell_init ();
+			break;
+
+		case DLL_THREAD_DETACH:
+		default:
+			/* do nothing */
+			break;
+	}
+
+	return TRUE;
+}
+
+#elif defined (G_HAS_CONSTRUCTORS)
+
+#  ifdef G_DEFINE_CONSTRUCTOR_NEEDS_PRAGMA
+#    pragma G_DEFINE_CONSTRUCTOR_PRAGMA_ARGS(gspell_init_ctor)
+#  endif
+G_DEFINE_CONSTRUCTOR (gspell_init_ctor)
+
+static void
+gspell_init_ctor (void)
+{
+	gspell_init ();
+}
+
 #else
-# error Your platform/compiler is missing constructor support
-#endif /* G_HAS_CONSTRUCTORS */
+#  error Your platform/compiler is missing constructor support
+#endif
 
 /* ex:set ts=8 noet: */
