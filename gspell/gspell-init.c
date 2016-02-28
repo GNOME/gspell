@@ -152,12 +152,12 @@ DllMain (HINSTANCE hinstDLL,
 #elif defined (G_HAS_CONSTRUCTORS)
 
 #  ifdef G_DEFINE_CONSTRUCTOR_NEEDS_PRAGMA
-#    pragma G_DEFINE_CONSTRUCTOR_PRAGMA_ARGS(gspell_init_ctor)
+#    pragma G_DEFINE_CONSTRUCTOR_PRAGMA_ARGS(gspell_constructor)
 #  endif
-G_DEFINE_CONSTRUCTOR (gspell_init_ctor)
+G_DEFINE_CONSTRUCTOR (gspell_constructor)
 
 static void
-gspell_init_ctor (void)
+gspell_constructor (void)
 {
 	gspell_init ();
 }
