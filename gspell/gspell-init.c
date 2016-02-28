@@ -96,7 +96,7 @@ get_locale_dir (void)
 #if defined (G_OS_WIN32)
 	gchar *win32_dir;
 
-	win32_dir = g_win32_get_package_installation_directory_of_module (NULL);
+	win32_dir = g_win32_get_package_installation_directory_of_module (gspell_dll);
 
 	locale_dir = g_build_filename (win32_dir, "share", "locale", NULL);
 
