@@ -703,6 +703,10 @@ gspell_checker_dialog_init (GspellCheckerDialog *dialog)
  * @parent: transient parent of the dialog.
  * @navigator: the #GspellNavigator to use.
  *
+ * Creates a new #GspellCheckerDialog. The #GspellCheckerDialog will own a
+ * reference to @navigator, so you can release your reference if you no longer
+ * need it.
+ *
  * Returns: a new #GspellCheckerDialog widget.
  */
 GtkWidget *
