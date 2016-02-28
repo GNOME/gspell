@@ -27,6 +27,7 @@
 #include <glib.h>
 #include <glib/gi18n-lib.h>
 #include "gconstructor.h"
+#include "gspell-buffer-notifier.h"
 
 #ifdef G_OS_WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -122,6 +123,18 @@ gspell_init (void)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 }
 
+static void
+gspell_finalize (void)
+{
+	GspellBufferNotifier *notifier;
+
+	/* Destroy singleton, to have less garbage in the output of memory
+	 * debugging tools.
+	 */
+	notifier = _gspell_buffer_notifier_get_instance ();
+	g_object_unref (notifier);
+}
+
 #if defined (G_OS_WIN32)
 
 BOOL WINAPI DllMain (HINSTANCE hinstDLL,
@@ -141,6 +154,9 @@ DllMain (HINSTANCE hinstDLL,
 			break;
 
 		case DLL_THREAD_DETACH:
+			gspell_finalize ();
+			break;
+
 		default:
 			/* do nothing */
 			break;
@@ -160,6 +176,17 @@ static void
 gspell_constructor (void)
 {
 	gspell_init ();
+}
+
+#  ifdef G_DEFINE_DESTRUCTOR_NEEDS_PRAGMA
+#    pragma G_DEFINE_DESTRUCTOR_PRAGMA_ARGS(gspell_destructor)
+#  endif
+G_DEFINE_DESTRUCTOR (gspell_destructor)
+
+static void
+gspell_destructor (void)
+{
+	gspell_finalize ();
 }
 
 #else

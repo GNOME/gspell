@@ -72,6 +72,10 @@ _gspell_buffer_notifier_get_instance (void)
 	if (instance == NULL)
 	{
 		instance = g_object_new (GSPELL_TYPE_BUFFER_NOTIFIER, NULL);
+
+		/* In case the caller unrefs the instance. */
+		g_object_add_weak_pointer (G_OBJECT (instance),
+					   (gpointer *) &instance);
 	}
 
 	return instance;
