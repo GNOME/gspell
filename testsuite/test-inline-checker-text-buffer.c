@@ -344,7 +344,9 @@ test_current_word (void)
 				 6, 10,
 				 -1);
 
-	/* Delete the 'e' programmatically, not at the cursor position. */
+	/* Delete the 'e' programmatically, not at the cursor position.
+	 * Hello -> Hllo
+	 */
 	gtk_text_buffer_get_iter_at_offset (buffer, &start, 1);
 	gtk_text_buffer_get_iter_at_offset (buffer, &end, 2);
 	gtk_text_buffer_delete (buffer, &start, &end);
@@ -352,6 +354,16 @@ test_current_word (void)
 				 inline_checker,
 				 0, 4,
 				 5, 9, /* "nrst" still highlighted */
+				 -1);
+
+	/* Insert 'e' programmatically, not at the cursor position.
+	 * Hllo -> Hello
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 1);
+	gtk_text_buffer_insert (buffer, &iter, "e", -1);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 6, 10, /* "nrst" still highlighted */
 				 -1);
 
 	g_object_unref (inline_checker);
