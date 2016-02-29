@@ -300,6 +300,8 @@ test_current_word (void)
 	GtkTextBuffer *buffer;
 	GspellInlineCheckerTextBuffer *inline_checker;
 	GtkTextIter iter;
+	GtkTextIter start;
+	GtkTextIter end;
 
 	buffer = create_buffer ();
 	inline_checker = _gspell_inline_checker_text_buffer_new (buffer);
@@ -332,14 +334,24 @@ test_current_word (void)
 
 	/* Cursor movement -> misspelled word highlighted. */
 	gtk_text_iter_backward_cursor_position (&iter);
-	gtk_text_buffer_move_mark (buffer,
-				   gtk_text_buffer_get_insert (buffer),
-				   &iter);
+	gtk_text_buffer_place_cursor (buffer, &iter);
 
-	/* Buffer content: "Hello nrst". */
+	/* Buffer content: "Hello nrst".
+	 * Cursor position: between 's' and 't'.
+	 */
 	check_highlighted_words (buffer,
 				 inline_checker,
 				 6, 10,
+				 -1);
+
+	/* Delete the 'e' programmatically, not at the cursor position. */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 1);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 2);
+	gtk_text_buffer_delete (buffer, &start, &end);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 4,
+				 5, 9, /* "nrst" still highlighted */
 				 -1);
 
 	g_object_unref (inline_checker);

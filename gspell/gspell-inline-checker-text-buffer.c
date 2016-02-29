@@ -521,11 +521,11 @@ delete_range_after_cb (GtkTextBuffer                 *buffer,
 	GtkTextIter start_adjusted;
 	GtkTextIter end_adjusted;
 
+	g_return_if_fail (gtk_text_iter_equal (start, end));
+
+	/* Adjust iters */
 	start_adjusted = *start;
 	end_adjusted = *end;
-
-	/* Just to be sure. Normally start == end. */
-	gtk_text_iter_order (&start_adjusted, &end_adjusted);
 
 	if (gtk_text_iter_ends_word (&start_adjusted) ||
 	    (gtk_text_iter_inside_word (&start_adjusted) &&
@@ -539,7 +539,22 @@ delete_range_after_cb (GtkTextBuffer                 *buffer,
 		gtk_text_iter_forward_word_end (&end_adjusted);
 	}
 
-	spell->check_current_word = FALSE;
+	/* Check current word? */
+	if (gtk_text_buffer_get_has_selection (buffer))
+	{
+		spell->check_current_word = TRUE;
+	}
+	else
+	{
+		GtkTextIter cursor_pos;
+
+		gtk_text_buffer_get_iter_at_mark (buffer,
+						  &cursor_pos,
+						  gtk_text_buffer_get_insert (buffer));
+
+		spell->check_current_word = !gtk_text_iter_equal (start, &cursor_pos);
+	}
+
 	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }
