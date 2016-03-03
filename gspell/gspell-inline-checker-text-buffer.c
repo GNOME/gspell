@@ -353,6 +353,13 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 			_gspell_text_region_subtract (intersect,
 						      &current_word_start,
 						      &current_word_end);
+
+			/* Be sure that the current word will be re-checked
+			 * later when it will no longer be the current word.
+			 */
+			_gspell_text_region_add (spell->scan_region,
+						 &current_word_start,
+						 &current_word_end);
 		}
 	}
 
