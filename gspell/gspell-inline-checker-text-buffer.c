@@ -375,6 +375,8 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 	{
 		GtkTextIter start;
 		GtkTextIter end;
+		GtkTextIter orig_start;
+		GtkTextIter orig_end;
 
 		if (!_gspell_text_region_iterator_get_subregion (&intersect_iter,
 								 &start,
@@ -383,7 +385,17 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 			break;
 		}
 
+		orig_start = start;
+		orig_end = end;
+
 		check_subregion (spell, &start, &end);
+
+		/* Ensure that we don't have an infinite loop. We must subtract
+		 * from scan_region at least [start, end], otherwise we will
+		 * re-check the same subregion again and again.
+		 */
+		g_assert (gtk_text_iter_compare (&start, &orig_start) <= 0);
+		g_assert (gtk_text_iter_compare (&orig_end, &end) <= 0);
 
 		_gspell_text_region_subtract (spell->scan_region, &start, &end);
 
