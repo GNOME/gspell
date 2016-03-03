@@ -586,6 +586,35 @@ insert_text_after_cb (GtkTextBuffer                 *buffer,
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }
 
+/* Same reasoning as for the ::insert-text signal. */
+static void
+delete_range_before_cb (GtkTextBuffer                 *buffer,
+			GtkTextIter                   *start,
+			GtkTextIter                   *end,
+			GspellInlineCheckerTextBuffer *spell)
+{
+	GtkTextIter start_adjusted;
+	GtkTextIter end_adjusted;
+
+	/* Adjust iters */
+	start_adjusted = *start;
+	end_adjusted = *end;
+
+	if (gtk_text_iter_ends_word (&start_adjusted) ||
+	    (gtk_text_iter_inside_word (&start_adjusted) &&
+	     !gtk_text_iter_starts_word (&start_adjusted)))
+	{
+		gtk_text_iter_backward_word_start (&start_adjusted);
+	}
+
+	if (gtk_text_iter_inside_word (&end_adjusted))
+	{
+		gtk_text_iter_forward_word_end (&end_adjusted);
+	}
+
+	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
+}
+
 static void
 delete_range_after_cb (GtkTextBuffer                 *buffer,
 		       GtkTextIter                   *start,
@@ -1154,6 +1183,12 @@ set_buffer (GspellInlineCheckerTextBuffer *spell,
 				 G_CALLBACK (insert_text_after_cb),
 				 spell,
 				 G_CONNECT_AFTER);
+
+	g_signal_connect_object (buffer,
+				 "delete-range",
+				 G_CALLBACK (delete_range_before_cb),
+				 spell,
+				 0);
 
 	g_signal_connect_object (buffer,
 				 "delete-range",
