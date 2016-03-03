@@ -70,6 +70,12 @@ enum
 	PROP_BUFFER,
 };
 
+typedef enum
+{
+	ADJUST_MODE_STRICTLY_INSIDE_WORD,
+	ADJUST_MODE_INCLUDE_NEIGHBORS,
+} AdjustMode;
+
 #define INLINE_CHECKER_TEXT_BUFFER_KEY	"GspellInlineCheckerTextBufferID"
 #define SUGGESTION_KEY			"GspellInlineSuggestionID"
 
@@ -127,6 +133,46 @@ check_word (GspellInlineCheckerTextBuffer *spell,
 }
 
 static void
+adjust_iters (GtkTextIter *start,
+	      GtkTextIter *end,
+	      AdjustMode   mode)
+{
+	switch (mode)
+	{
+		case ADJUST_MODE_STRICTLY_INSIDE_WORD:
+			if (gtk_text_iter_inside_word (start) &&
+			    !gtk_text_iter_starts_word (start))
+			{
+				gtk_text_iter_backward_word_start (start);
+			}
+
+			if (gtk_text_iter_inside_word (end) &&
+			    !gtk_text_iter_starts_word (end))
+			{
+				gtk_text_iter_forward_word_end (end);
+			}
+			break;
+
+		case ADJUST_MODE_INCLUDE_NEIGHBORS:
+			if (gtk_text_iter_ends_word (start) ||
+			    (gtk_text_iter_inside_word (start) &&
+			     !gtk_text_iter_starts_word (start)))
+			{
+				gtk_text_iter_backward_word_start (start);
+			}
+
+			if (gtk_text_iter_inside_word (end))
+			{
+				gtk_text_iter_forward_word_end (end);
+			}
+			break;
+
+		default:
+			g_assert_not_reached ();
+	}
+}
+
+static void
 check_subregion (GspellInlineCheckerTextBuffer *spell,
 		 GtkTextIter                   *start,
 		 GtkTextIter                   *end)
@@ -135,17 +181,7 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 
 	g_assert_cmpint (gtk_text_iter_compare (start, end), <=, 0);
 
-	if (gtk_text_iter_inside_word (start) &&
-	    !gtk_text_iter_starts_word (start))
-	{
-		gtk_text_iter_backward_word_start (start);
-	}
-
-	if (gtk_text_iter_inside_word (end) &&
-	    !gtk_text_iter_starts_word (end))
-	{
-		gtk_text_iter_forward_word_end (end);
-	}
+	adjust_iters (start, end, ADJUST_MODE_STRICTLY_INSIDE_WORD);
 
 	gtk_text_buffer_remove_tag (spell->buffer,
 				    spell->highlight_tag,
@@ -270,7 +306,6 @@ get_current_word_boundaries (GtkTextBuffer *buffer,
 			     GtkTextIter   *current_word_end)
 {
 	GtkTextIter insert_iter;
-	gboolean found = FALSE;
 
 	g_assert (current_word_start != NULL);
 	g_assert (current_word_end != NULL);
@@ -285,22 +320,12 @@ get_current_word_boundaries (GtkTextBuffer *buffer,
 					  gtk_text_buffer_get_insert (buffer));
 
 	*current_word_start = insert_iter;
-	if (gtk_text_iter_ends_word (current_word_start) ||
-	    (gtk_text_iter_inside_word (current_word_start) &&
-	     !gtk_text_iter_starts_word (current_word_start)))
-	{
-		gtk_text_iter_backward_word_start (current_word_start);
-		found = TRUE;
-	}
-
 	*current_word_end = insert_iter;
-	if (gtk_text_iter_inside_word (current_word_end))
-	{
-		gtk_text_iter_forward_word_end (current_word_end);
-		found = TRUE;
-	}
 
-	return found;
+	adjust_iters (current_word_start, current_word_end, ADJUST_MODE_INCLUDE_NEIGHBORS);
+
+	return (!gtk_text_iter_equal (current_word_start, &insert_iter) ||
+		!gtk_text_iter_equal (current_word_end, &insert_iter));
 }
 
 static void
@@ -515,20 +540,7 @@ insert_text_before_cb (GtkTextBuffer                 *buffer,
 
 	start = *location;
 	end = *location;
-
-	/* Adjust iters */
-	if (gtk_text_iter_ends_word (&start) ||
-	    (gtk_text_iter_inside_word (&start) &&
-	     !gtk_text_iter_starts_word (&start)))
-	{
-		gtk_text_iter_backward_word_start (&start);
-	}
-
-	if (gtk_text_iter_inside_word (&end))
-	{
-		gtk_text_iter_forward_word_end (&end);
-	}
-
+	adjust_iters (&start, &end, ADJUST_MODE_INCLUDE_NEIGHBORS);
 	add_subregion_to_scan (spell, &start, &end);
 
 	/* Don't install_timeout(), it will anyway be called in
@@ -550,21 +562,12 @@ insert_text_after_cb (GtkTextBuffer                 *buffer,
 	GtkTextIter start;
 	GtkTextIter end;
 
-	start = end = *location;
+	start = *location;
+	end = *location;
 	gtk_text_iter_backward_chars (&start, g_utf8_strlen (text, length));
 
-	/* Adjust iters */
-	if (gtk_text_iter_ends_word (&start) ||
-	    (gtk_text_iter_inside_word (&start) &&
-	     !gtk_text_iter_starts_word (&start)))
-	{
-		gtk_text_iter_backward_word_start (&start);
-	}
-
-	if (gtk_text_iter_inside_word (&end))
-	{
-		gtk_text_iter_forward_word_end (&end);
-	}
+	adjust_iters (&start, &end, ADJUST_MODE_INCLUDE_NEIGHBORS);
+	add_subregion_to_scan (spell, &start, &end);
 
 	/* Check current word? */
 	if (gtk_text_buffer_get_has_selection (buffer))
@@ -582,7 +585,6 @@ insert_text_after_cb (GtkTextBuffer                 *buffer,
 		spell->check_current_word = !gtk_text_iter_equal (location, &cursor_pos);
 	}
 
-	add_subregion_to_scan (spell, &start, &end);
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }
 
@@ -596,22 +598,9 @@ delete_range_before_cb (GtkTextBuffer                 *buffer,
 	GtkTextIter start_adjusted;
 	GtkTextIter end_adjusted;
 
-	/* Adjust iters */
 	start_adjusted = *start;
 	end_adjusted = *end;
-
-	if (gtk_text_iter_ends_word (&start_adjusted) ||
-	    (gtk_text_iter_inside_word (&start_adjusted) &&
-	     !gtk_text_iter_starts_word (&start_adjusted)))
-	{
-		gtk_text_iter_backward_word_start (&start_adjusted);
-	}
-
-	if (gtk_text_iter_inside_word (&end_adjusted))
-	{
-		gtk_text_iter_forward_word_end (&end_adjusted);
-	}
-
+	adjust_iters (&start_adjusted, &end_adjusted, ADJUST_MODE_INCLUDE_NEIGHBORS);
 	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
 }
 
@@ -626,21 +615,10 @@ delete_range_after_cb (GtkTextBuffer                 *buffer,
 
 	g_return_if_fail (gtk_text_iter_equal (start, end));
 
-	/* Adjust iters */
 	start_adjusted = *start;
 	end_adjusted = *end;
-
-	if (gtk_text_iter_ends_word (&start_adjusted) ||
-	    (gtk_text_iter_inside_word (&start_adjusted) &&
-	     !gtk_text_iter_starts_word (&start_adjusted)))
-	{
-		gtk_text_iter_backward_word_start (&start_adjusted);
-	}
-
-	if (gtk_text_iter_inside_word (&end_adjusted))
-	{
-		gtk_text_iter_forward_word_end (&end_adjusted);
-	}
+	adjust_iters (&start_adjusted, &end_adjusted, ADJUST_MODE_INCLUDE_NEIGHBORS);
+	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
 
 	/* Check current word? */
 	if (gtk_text_buffer_get_has_selection (buffer))
@@ -658,7 +636,6 @@ delete_range_after_cb (GtkTextBuffer                 *buffer,
 		spell->check_current_word = !gtk_text_iter_equal (start, &cursor_pos);
 	}
 
-	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }
 
