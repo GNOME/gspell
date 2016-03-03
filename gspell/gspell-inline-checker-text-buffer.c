@@ -499,6 +499,47 @@ recheck_all (GspellInlineCheckerTextBuffer *spell)
 	check_visible_region (spell);
 }
 
+/* The word boundaries are not necessarily the same before and after a text
+ * insertion or deletion. We need the broader boundaries, so we connect to the
+ * signal without and with the AFTER flag.
+ */
+static void
+insert_text_before_cb (GtkTextBuffer                 *buffer,
+		       GtkTextIter                   *location,
+		       gchar                         *text,
+		       gint                           length,
+		       GspellInlineCheckerTextBuffer *spell)
+{
+	GtkTextIter start;
+	GtkTextIter end;
+
+	start = *location;
+	end = *location;
+
+	/* Adjust iters */
+	if (gtk_text_iter_ends_word (&start) ||
+	    (gtk_text_iter_inside_word (&start) &&
+	     !gtk_text_iter_starts_word (&start)))
+	{
+		gtk_text_iter_backward_word_start (&start);
+	}
+
+	if (gtk_text_iter_inside_word (&end))
+	{
+		gtk_text_iter_forward_word_end (&end);
+	}
+
+	add_subregion_to_scan (spell, &start, &end);
+
+	/* Don't install_timeout(), it will anyway be called in
+	 * insert_text_after_cb(). If install_timeout() is called here, it is a
+	 * problem for the unit test mode because the subregion would be scanned
+	 * directly, but we need to wait that the text is inserted, otherwise
+	 * this can give different results (since the word boundaries are not
+	 * necessarily the same).
+	 */
+}
+
 static void
 insert_text_after_cb (GtkTextBuffer                 *buffer,
 		      GtkTextIter                   *location,
@@ -512,7 +553,7 @@ insert_text_after_cb (GtkTextBuffer                 *buffer,
 	start = end = *location;
 	gtk_text_iter_backward_chars (&start, g_utf8_strlen (text, length));
 
-	/* Include neighbor words */
+	/* Adjust iters */
 	if (gtk_text_iter_ends_word (&start) ||
 	    (gtk_text_iter_inside_word (&start) &&
 	     !gtk_text_iter_starts_word (&start)))
@@ -1101,6 +1142,12 @@ set_buffer (GspellInlineCheckerTextBuffer *spell,
 	g_object_set_data (G_OBJECT (buffer),
 			   INLINE_CHECKER_TEXT_BUFFER_KEY,
 			   spell);
+
+	g_signal_connect_object (buffer,
+				 "insert-text",
+				 G_CALLBACK (insert_text_before_cb),
+				 spell,
+				 0);
 
 	g_signal_connect_object (buffer,
 				 "insert-text",
