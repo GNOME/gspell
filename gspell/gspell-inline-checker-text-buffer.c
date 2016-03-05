@@ -29,6 +29,7 @@
 #include "gspell-checker.h"
 #include "gspell-buffer-notifier.h"
 #include "gspell-text-buffer.h"
+#include "gspell-text-iter.h"
 #include "gspell-text-region.h"
 #include "gspell-utils.h"
 
@@ -102,8 +103,8 @@ check_word (GspellInlineCheckerTextBuffer *spell,
 		return;
 	}
 
-	if (!gtk_text_iter_starts_word (start) ||
-	    !gtk_text_iter_ends_word (end))
+	if (!_gspell_text_iter_starts_word (start) ||
+	    !_gspell_text_iter_ends_word (end))
 	{
 		g_warning ("Spell checking: @start and @end must delimit a word");
 		return;
@@ -140,30 +141,30 @@ adjust_iters (GtkTextIter *start,
 	switch (mode)
 	{
 		case ADJUST_MODE_STRICTLY_INSIDE_WORD:
-			if (gtk_text_iter_inside_word (start) &&
-			    !gtk_text_iter_starts_word (start))
+			if (_gspell_text_iter_inside_word (start) &&
+			    !_gspell_text_iter_starts_word (start))
 			{
-				gtk_text_iter_backward_word_start (start);
+				_gspell_text_iter_backward_word_start (start);
 			}
 
-			if (gtk_text_iter_inside_word (end) &&
-			    !gtk_text_iter_starts_word (end))
+			if (_gspell_text_iter_inside_word (end) &&
+			    !_gspell_text_iter_starts_word (end))
 			{
-				gtk_text_iter_forward_word_end (end);
+				_gspell_text_iter_forward_word_end (end);
 			}
 			break;
 
 		case ADJUST_MODE_INCLUDE_NEIGHBORS:
-			if (gtk_text_iter_ends_word (start) ||
-			    (gtk_text_iter_inside_word (start) &&
-			     !gtk_text_iter_starts_word (start)))
+			if (_gspell_text_iter_ends_word (start) ||
+			    (_gspell_text_iter_inside_word (start) &&
+			     !_gspell_text_iter_starts_word (start)))
 			{
-				gtk_text_iter_backward_word_start (start);
+				_gspell_text_iter_backward_word_start (start);
 			}
 
-			if (gtk_text_iter_inside_word (end))
+			if (_gspell_text_iter_inside_word (end))
 			{
-				gtk_text_iter_forward_word_end (end);
+				_gspell_text_iter_forward_word_end (end);
 			}
 			break;
 
@@ -189,9 +190,9 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 				    end);
 
 	word_start = *start;
-	if (!gtk_text_iter_starts_word (&word_start))
+	if (!_gspell_text_iter_starts_word (&word_start))
 	{
-		gtk_text_iter_forward_word_end (&word_start);
+		_gspell_text_iter_forward_word_end (&word_start);
 
 		/* Didn't move, there is no words after @start_adjusted. */
 		if (gtk_text_iter_equal (&word_start, start))
@@ -199,8 +200,8 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 			return;
 		}
 
-		gtk_text_iter_backward_word_start (&word_start);
-		g_assert (gtk_text_iter_starts_word (&word_start));
+		_gspell_text_iter_backward_word_start (&word_start);
+		g_assert (_gspell_text_iter_starts_word (&word_start));
 		g_assert_cmpint (gtk_text_iter_compare (start, &word_start), <, 0);
 	}
 
@@ -210,18 +211,18 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 		GtkTextIter word_end;
 		GtkTextIter next_word_start;
 
-		g_assert (gtk_text_iter_starts_word (&word_start));
+		g_assert (_gspell_text_iter_starts_word (&word_start));
 
 		word_end = word_start;
-		gtk_text_iter_forward_word_end (&word_end);
+		_gspell_text_iter_forward_word_end (&word_end);
 
 		g_assert_cmpint (gtk_text_iter_compare (&word_end, end), <=, 0);
 
 		check_word (spell, &word_start, &word_end);
 
 		next_word_start = word_end;
-		gtk_text_iter_forward_word_end (&next_word_start);
-		gtk_text_iter_backward_word_start (&next_word_start);
+		_gspell_text_iter_forward_word_end (&next_word_start);
+		_gspell_text_iter_backward_word_start (&next_word_start);
 
 		/* Make sure we've actually advanced (we don't advance if we
 		 * have just checked the last word of the buffer).
@@ -645,8 +646,8 @@ delete_range_before_cb (GtkTextBuffer                 *buffer,
 
 		if (is_backspace)
 		{
-			if (gtk_text_iter_inside_word (start) ||
-			    gtk_text_iter_ends_word (start))
+			if (_gspell_text_iter_inside_word (start) ||
+			    _gspell_text_iter_ends_word (start))
 			{
 				spell->check_current_word = FALSE;
 			}
@@ -657,8 +658,8 @@ delete_range_before_cb (GtkTextBuffer                 *buffer,
 		}
 		else if (is_delete)
 		{
-			if (gtk_text_iter_inside_word (end) ||
-			    gtk_text_iter_ends_word (end))
+			if (_gspell_text_iter_inside_word (end) ||
+			    _gspell_text_iter_ends_word (end))
 			{
 				spell->check_current_word = FALSE;
 			}
@@ -716,22 +717,22 @@ get_word_extents_at_click_position (GspellInlineCheckerTextBuffer *spell,
 
 	gtk_text_buffer_get_iter_at_mark (spell->buffer, &iter, spell->mark_click);
 
-	if (!gtk_text_iter_inside_word (&iter) &&
-	    !gtk_text_iter_ends_word (&iter))
+	if (!_gspell_text_iter_inside_word (&iter) &&
+	    !_gspell_text_iter_ends_word (&iter))
 	{
 		return FALSE;
 	}
 
 	*start = iter;
-	if (!gtk_text_iter_starts_word (start))
+	if (!_gspell_text_iter_starts_word (start))
 	{
-		gtk_text_iter_backward_word_start (start);
+		_gspell_text_iter_backward_word_start (start);
 	}
 
 	*end = iter;
-	if (!gtk_text_iter_ends_word (end))
+	if (!_gspell_text_iter_ends_word (end))
 	{
-		gtk_text_iter_forward_word_end (end);
+		_gspell_text_iter_forward_word_end (end);
 	}
 
 	return TRUE;
@@ -994,8 +995,8 @@ remove_tag_to_word (GspellInlineCheckerTextBuffer *spell,
 			break;
 		}
 
-		if (gtk_text_iter_starts_word (&match_start) &&
-		    gtk_text_iter_ends_word (&match_end))
+		if (_gspell_text_iter_starts_word (&match_start) &&
+		    _gspell_text_iter_ends_word (&match_end))
 		{
 			gtk_text_buffer_remove_tag (spell->buffer,
 						    spell->highlight_tag,

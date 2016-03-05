@@ -20,6 +20,7 @@
 
 #include "gspell-utils.h"
 #include <string.h>
+#include "gspell-text-iter.h"
 
 gboolean
 _gspell_utils_is_number (const gchar *text,
@@ -95,8 +96,8 @@ _gspell_utils_skip_no_spell_check (GtkTextTag        *no_spell_check_tag,
 			return FALSE;
 		}
 
-		gtk_text_iter_forward_word_end (start);
-		gtk_text_iter_backward_word_start (start);
+		_gspell_text_iter_forward_word_end (start);
+		_gspell_text_iter_backward_word_start (start);
 
 		if (gtk_text_iter_compare (start, &last) <= 0)
 		{

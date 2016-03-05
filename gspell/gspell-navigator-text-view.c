@@ -21,6 +21,7 @@
 #include "gspell-navigator-text-view.h"
 #include <glib/gi18n-lib.h>
 #include "gspell-text-buffer.h"
+#include "gspell-text-iter.h"
 #include "gspell-utils.h"
 
 /**
@@ -95,15 +96,15 @@ init_boundaries (GspellNavigatorTextView *navigator)
 		gtk_text_buffer_get_bounds (priv->buffer, &start, &end);
 	}
 
-	if (gtk_text_iter_inside_word (&start) &&
-	    !gtk_text_iter_starts_word (&start))
+	if (_gspell_text_iter_inside_word (&start) &&
+	    !_gspell_text_iter_starts_word (&start))
 	{
-		gtk_text_iter_backward_word_start (&start);
+		_gspell_text_iter_backward_word_start (&start);
 	}
 
-	if (gtk_text_iter_inside_word (&end))
+	if (_gspell_text_iter_inside_word (&end))
 	{
-		gtk_text_iter_forward_word_end (&end);
+		_gspell_text_iter_forward_word_end (&end);
 	}
 
 	priv->start_boundary = gtk_text_buffer_create_mark (priv->buffer, NULL, &start, TRUE);
@@ -345,12 +346,12 @@ gspell_navigator_text_view_goto_next (GspellNavigator  *navigator,
 		gboolean correctly_spelled;
 		GError *error = NULL;
 
-		if (!gtk_text_iter_starts_word (&word_start))
+		if (!_gspell_text_iter_starts_word (&word_start))
 		{
 			GtkTextIter iter;
 
 			iter = word_start;
-			gtk_text_iter_forward_word_end (&word_start);
+			_gspell_text_iter_forward_word_end (&word_start);
 
 			if (gtk_text_iter_equal (&iter, &word_start))
 			{
@@ -358,7 +359,7 @@ gspell_navigator_text_view_goto_next (GspellNavigator  *navigator,
 				return FALSE;
 			}
 
-			gtk_text_iter_backward_word_start (&word_start);
+			_gspell_text_iter_backward_word_start (&word_start);
 		}
 
 		if (!_gspell_utils_skip_no_spell_check (no_spell_check_tag, &word_start, &end))
@@ -366,10 +367,10 @@ gspell_navigator_text_view_goto_next (GspellNavigator  *navigator,
 			return FALSE;
 		}
 
-		g_return_val_if_fail (gtk_text_iter_starts_word (&word_start), FALSE);
+		g_return_val_if_fail (_gspell_text_iter_starts_word (&word_start), FALSE);
 
 		word_end = word_start;
-		gtk_text_iter_forward_word_end (&word_end);
+		_gspell_text_iter_forward_word_end (&word_end);
 
 		if (gtk_text_iter_compare (&end, &word_end) < 0)
 		{
@@ -489,8 +490,8 @@ gspell_navigator_text_view_change_all (GspellNavigator *navigator,
 			break;
 		}
 
-		if (gtk_text_iter_starts_word (&match_start) &&
-		    gtk_text_iter_ends_word (&match_end))
+		if (_gspell_text_iter_starts_word (&match_start) &&
+		    _gspell_text_iter_ends_word (&match_end))
 		{
 			gtk_text_buffer_delete (priv->buffer, &match_start, &match_end);
 			gtk_text_buffer_insert (priv->buffer, &match_end, change_to, -1);
