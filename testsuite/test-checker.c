@@ -18,6 +18,7 @@
  */
 
 #include <gspell/gspell.h>
+#include "gspell/gspell-utils.h"
 
 static void
 test_check_word (void)
@@ -63,6 +64,24 @@ test_apostrophes (void)
 	g_assert_cmpint (apostrophe_char, ==, '\'');
 
 	correctly_spelled = gspell_checker_check_word (checker, "doesn't", -1, &error);
+	g_assert_no_error (error);
+	g_assert (correctly_spelled);
+
+	/* Modifier Letter Apostrophe U+02BC */
+
+	apostrophe_char = g_utf8_get_char ("\xCA\xBC");
+	g_assert_cmpint (apostrophe_char, ==, _GSPELL_MODIFIER_LETTER_APOSTROPHE);
+
+	correctly_spelled = gspell_checker_check_word (checker, "doesn\xCA\xBCt", -1, &error);
+	g_assert_no_error (error);
+	g_assert (correctly_spelled);
+
+	/* Right Single Quotation Mark U+2019 */
+
+	apostrophe_char = g_utf8_get_char ("\xE2\x80\x99");
+	g_assert_cmpint (apostrophe_char, ==, _GSPELL_RIGHT_SINGLE_QUOTATION_MARK);
+
+	correctly_spelled = gspell_checker_check_word (checker, "doesn\xE2\x80\x99t", -1, &error);
 	g_assert_no_error (error);
 	g_assert (correctly_spelled);
 

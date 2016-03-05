@@ -113,4 +113,40 @@ _gspell_utils_skip_no_spell_check (GtkTextTag        *no_spell_check_tag,
 	return TRUE;
 }
 
+/**
+ * _gspell_utils_str_replace:
+ * @string: a string
+ * @search: the search string
+ * @replacement: the replacement string
+ *
+ * Replaces all occurences of @search by @replacement.
+ *
+ * Returns: A newly allocated string with the replacements. Free with g_free().
+ */
+gchar *
+_gspell_utils_str_replace (const gchar *string,
+                           const gchar *search,
+                           const gchar *replacement)
+{
+	gchar **chunks;
+	gchar *ret;
+
+	g_return_val_if_fail (string != NULL, NULL);
+	g_return_val_if_fail (search != NULL, NULL);
+	g_return_val_if_fail (replacement != NULL, NULL);
+
+	chunks = g_strsplit (string, search, -1);
+	if (chunks != NULL && chunks[0] != NULL)
+	{
+		ret = g_strjoinv (replacement, chunks);
+	}
+	else
+	{
+		ret = g_strdup (string);
+	}
+
+	g_strfreev (chunks);
+	return ret;
+}
+
 /* ex:set ts=8 noet: */

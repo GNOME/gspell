@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2010 - Jesse van den Kieboom
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,6 +25,10 @@
 
 G_BEGIN_DECLS
 
+/* gunichar decimal value of unicode apostrophe characters. */
+#define _GSPELL_MODIFIER_LETTER_APOSTROPHE (700) /* U+02BC */
+#define _GSPELL_RIGHT_SINGLE_QUOTATION_MARK (8217) /* U+2019 */
+
 G_GNUC_INTERNAL
 gboolean	_gspell_utils_is_number			(const gchar *text,
 							 gssize       text_length);
@@ -36,6 +40,11 @@ G_GNUC_INTERNAL
 gboolean	_gspell_utils_skip_no_spell_check	(GtkTextTag        *no_spell_check_tag,
 							 GtkTextIter       *start,
 							 const GtkTextIter *end);
+
+G_GNUC_INTERNAL
+gchar *		_gspell_utils_str_replace		(const gchar *string,
+							 const gchar *search,
+							 const gchar *replacement);
 
 G_END_DECLS
 

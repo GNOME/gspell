@@ -18,6 +18,7 @@
  */
 
 #include "gspell-text-iter.h"
+#include "gspell-utils.h"
 
 /* The same functions as the gtk_text_iter_* equivalents, but take into account
  * word contractions with an apostrophe. For example "doesn't", which is a
@@ -51,7 +52,9 @@ is_apostrophe (const GtkTextIter *iter)
 
 	ch = gtk_text_iter_get_char (iter);
 
-	return ch == '\'';
+	return (ch == '\'' ||
+		ch == _GSPELL_MODIFIER_LETTER_APOSTROPHE ||
+		ch == _GSPELL_RIGHT_SINGLE_QUOTATION_MARK);
 }
 
 gboolean
