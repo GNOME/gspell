@@ -391,7 +391,7 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 	if (is_text_region_empty (intersect))
 	{
 		_gspell_text_region_destroy (intersect);
-		return;
+		goto out;
 	}
 
 	_gspell_text_region_get_iterator (intersect, &intersect_iter, 0);
@@ -435,6 +435,7 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		spell->scan_region = NULL;
 	}
 
+out:
 	if (view != NULL)
 	{
 		/* FIXME properly. Workaround for bug in GtkTextView:
