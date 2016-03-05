@@ -8,7 +8,7 @@
 # Andras Timar <timar at gnome dot hu>, 2001, 2002, 2003.
 # Gabor Sari <saga at gnome dot hu>, 2003.
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016.
 # Mate Ory <orymate at gmail dot com>, 2006, 2007, 2008.
 # Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015, 2016.
 msgid ""
@@ -16,18 +16,18 @@ msgstr ""
 "Project-Id-Version: gspell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-19 21:53+0000\n"
-"PO-Revision-Date: 2016-03-04 23:23+0100\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
-"Language-Team: Hungarian <openscope at googlegroups dot com>\n"
+"POT-Creation-Date: 2016-03-04 22:24+0000\n"
+"PO-Revision-Date: 2016-03-05 10:59+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 
-#: gspell/gspell-checker.c:466
+#: gspell/gspell-checker.c:394
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Hiba a(z) „%s” szó helyesírásának ellenőrzésekor: %s"
@@ -37,19 +37,20 @@ msgstr "Hiba a(z) „%s” szó helyesírásának ellenőrzésekor: %s"
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:577
+#: gspell/gspell-checker-dialog.c:147
+#: gspell/gspell-inline-checker-text-buffer.c:785
 msgid "(no suggested words)"
 msgstr "(nincs javasolt szó)"
 
-#: gspell/gspell-checker-dialog.c:237
+#: gspell/gspell-checker-dialog.c:232
 msgid "Error:"
 msgstr "Hiba:"
 
-#: gspell/gspell-checker-dialog.c:274
+#: gspell/gspell-checker-dialog.c:268
 msgid "Completed spell checking"
 msgstr "Helyesírás-ellenőrzés kész"
 
-#: gspell/gspell-checker-dialog.c:278
+#: gspell/gspell-checker-dialog.c:272
 msgid "No misspelled words"
 msgstr "Nincs hibás szó"
 
@@ -57,65 +58,54 @@ msgstr "Nincs hibás szó"
 #. * Spelling" dialog if the current word
 #. * isn't misspelled.
 #.
-#: gspell/gspell-checker-dialog.c:507
+#: gspell/gspell-checker-dialog.c:501
 msgid "(correct spelling)"
 msgstr "(helyes írásmód)"
 
-#: gspell/gspell-checker-dialog.c:645
+#: gspell/gspell-checker-dialog.c:639
 msgid "Suggestions"
 msgstr "Javaslatok"
 
-#: gspell/gspell-inline-checker-gtv.c:600
+#: gspell/gspell-inline-checker-text-buffer.c:808
 msgid "_More..."
 msgstr "_Több…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-gtv.c:640
+#: gspell/gspell-inline-checker-text-buffer.c:848
 msgid "_Ignore All"
 msgstr "Mindet á_tugorja"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-gtv.c:649
+#: gspell/gspell-inline-checker-text-buffer.c:857
 msgid "_Add"
 msgstr "Hozzá_adás"
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-gtv.c:686
+#: gspell/gspell-inline-checker-text-buffer.c:894
 msgid "_Spelling Suggestions..."
 msgstr "_Helyesírási javaslatok…"
 
-#. Translators: the first %s is the language name, and
-#. * the second %s is the locale name. Example:
-#. * "French (France)"
-#.
-#: gspell/gspell-language.c:359 gspell/gspell-language.c:365
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#. Translators: this refers to an unknown language code
-#. * (one which isn't in our built-in list).
-#.
-#: gspell/gspell-language.c:374
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:280
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Ismeretlen (%s)"
 
-#. Translators: this refers the Default language used by the
-#. * spell checker
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
 #.
-#: gspell/gspell-language.c:486
+#: gspell/gspell-language.c:297 gspell/gspell-language.c:306
+#, c-format
 msgctxt "language"
-msgid "Default"
-msgstr "Alapértelmezett"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:78
+#: gspell/gspell-language-chooser-button.c:81
 msgid "No language selected"
 msgstr "Nincs nyelv kiválasztva"
 
-#: gspell/gspell-navigator-gtv.c:334
+#: gspell/gspell-navigator-text-view.c:306
 msgid ""
 "Spell checker error: no language set. It's maybe because no dictionaries are "
 "installed."
@@ -127,47 +117,47 @@ msgstr ""
 msgid "Check Spelling"
 msgstr "Helyesírás-ellenőrzés"
 
-#: gspell/resources/checker-dialog.ui:27
+#: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
 msgstr "Hibásan írt szó:"
 
-#: gspell/resources/checker-dialog.ui:40
+#: gspell/resources/checker-dialog.ui:49
 msgid "word"
 msgstr "szó"
 
-#: gspell/resources/checker-dialog.ui:57
+#: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
 msgstr "_Erre:"
 
-#: gspell/resources/checker-dialog.ui:82
+#: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
 msgstr "_Szó ellenőrzése"
 
-#: gspell/resources/checker-dialog.ui:112
+#: gspell/resources/checker-dialog.ui:121
 msgid "_Suggestions:"
 msgstr "_Javaslatok:"
 
-#: gspell/resources/checker-dialog.ui:125
+#: gspell/resources/checker-dialog.ui:134
 msgid "_Ignore"
 msgstr "_Kihagyás"
 
-#: gspell/resources/checker-dialog.ui:139
+#: gspell/resources/checker-dialog.ui:148
 msgid "Ignore _All"
 msgstr "Mi_ndet kihagyja"
 
-#: gspell/resources/checker-dialog.ui:153
+#: gspell/resources/checker-dialog.ui:162
 msgid "Cha_nge"
 msgstr "Mó_dosítás"
 
-#: gspell/resources/checker-dialog.ui:169
+#: gspell/resources/checker-dialog.ui:178
 msgid "Change A_ll"
 msgstr "M_indet módosítja"
 
-#: gspell/resources/checker-dialog.ui:187
+#: gspell/resources/checker-dialog.ui:196
 msgid "User dictionary:"
 msgstr "Felhasználói szótár:"
 
-#: gspell/resources/checker-dialog.ui:199
+#: gspell/resources/checker-dialog.ui:208
 msgid "Add w_ord"
 msgstr "Szó hozzá_adása"
 
@@ -175,15 +165,22 @@ msgstr "Szó hozzá_adása"
 msgid "Set Language"
 msgstr "Nyelv megadása"
 
-#: gspell/resources/language-dialog.ui:22
-msgid "Select the _language of the current document."
-msgstr "Válassza ki az aktuális _dokumentum nyelvét"
+#: gspell/resources/language-dialog.ui:20
+#| msgid "Completed spell checking"
+msgid "Select the spell checking _language."
+msgstr "Helyesírás-ellenőrzés _nyelvének kiválasztása."
 
-#: gspell/resources/language-dialog.ui:63
+#: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: gspell/resources/language-dialog.ui:70
+#: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "_Kijelölés"
 
+#~ msgctxt "language"
+#~ msgid "Default"
+#~ msgstr "Alapértelmezett"
+
+#~ msgid "Select the _language of the current document."
+#~ msgstr "Válassza ki az aktuális _dokumentum nyelvét"
