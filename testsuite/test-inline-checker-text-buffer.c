@@ -39,6 +39,20 @@ create_buffer (void)
 	return buffer;
 }
 
+static void
+insert_text_one_char_at_a_time (GtkTextBuffer *buffer,
+				GtkTextIter   *iter,
+				const gchar   *text)
+{
+	const gchar *p;
+
+	/* Assumes it's only ASCII characters. */
+	for (p = text; p != NULL && *p != '\0'; p++)
+	{
+		gtk_text_buffer_insert (buffer, iter, p, 1);
+	}
+}
+
 /*
  * check_highlighted_words:
  * @buffer:
@@ -308,7 +322,7 @@ test_current_word (void)
 	_gspell_inline_checker_text_buffer_set_unit_test_mode (inline_checker, TRUE);
 
 	gtk_text_buffer_get_start_iter (buffer, &iter);
-	gtk_text_buffer_insert (buffer, &iter, "Hella", -1);
+	insert_text_one_char_at_a_time (buffer, &iter, "Hella");
 	check_highlighted_words (buffer, inline_checker, -1);
 
 	gtk_text_buffer_insert (buffer, &iter, " ", -1);
@@ -329,14 +343,14 @@ test_current_word (void)
 	gtk_text_buffer_insert (buffer, &iter, " ", -1);
 	check_highlighted_words (buffer, inline_checker, -1);
 
-	gtk_text_buffer_insert (buffer, &iter, "nrst", -1);
+	insert_text_one_char_at_a_time (buffer, &iter, "nrst");
 	check_highlighted_words (buffer, inline_checker, -1);
 
 	/* Cursor movement -> misspelled word highlighted. */
 	gtk_text_iter_backward_cursor_position (&iter);
 	gtk_text_buffer_place_cursor (buffer, &iter);
 
-	/* Buffer content: "Hello nrst".
+	/* Buffer content: "Hello nrs|t".
 	 * Cursor position: between 's' and 't'.
 	 */
 	check_highlighted_words (buffer,
@@ -345,7 +359,7 @@ test_current_word (void)
 				 -1);
 
 	/* Delete the 'e' programmatically, not at the cursor position.
-	 * Hello -> Hllo
+	 * "Hello nrs|t" -> "Hllo nrs|t"
 	 */
 	gtk_text_buffer_get_iter_at_offset (buffer, &start, 1);
 	gtk_text_buffer_get_iter_at_offset (buffer, &end, 2);
@@ -357,13 +371,43 @@ test_current_word (void)
 				 -1);
 
 	/* Insert 'e' programmatically, not at the cursor position.
-	 * Hllo -> Hello
+	 * "Hllo nrs|t" -> "Hello nrs|t"
 	 */
 	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 1);
 	gtk_text_buffer_insert (buffer, &iter, "e", -1);
 	check_highlighted_words (buffer,
 				 inline_checker,
 				 6, 10, /* "nrst" still highlighted */
+				 -1);
+
+	/* Delete "nrst" programmatically.
+	 * "Hello nrs|t" -> "Hello |"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 6);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 10);
+	gtk_text_buffer_delete (buffer, &start, &end);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	/* Insert several chars at once at the cursor position (e.g. a paste).
+	 * "Hello |" -> "Hello nrstkw|"
+	 */
+	gtk_text_buffer_get_end_iter (buffer, &iter);
+	gtk_text_buffer_insert (buffer, &iter, "nrstkw", -1);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 6, 12,
+				 -1);
+
+	/* Insert a comma to split a word in two.
+	 * "Hello nrs|tkw" -> "Hello nrs,|tkw"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 9);
+	gtk_text_buffer_place_cursor (buffer, &iter);
+	gtk_text_buffer_insert (buffer, &iter, ",", -1);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 6, 9,
+				 10, 13, /* "tkw" also highlighted */
 				 -1);
 
 	g_object_unref (inline_checker);

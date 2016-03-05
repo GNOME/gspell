@@ -559,18 +559,37 @@ insert_text_after_cb (GtkTextBuffer                 *buffer,
 		      gint                           length,
 		      GspellInlineCheckerTextBuffer *spell)
 {
+	glong n_chars;
 	GtkTextIter start;
 	GtkTextIter end;
 
+	n_chars = g_utf8_strlen (text, length);
+
 	start = *location;
 	end = *location;
-	gtk_text_iter_backward_chars (&start, g_utf8_strlen (text, length));
+	gtk_text_iter_backward_chars (&start, n_chars);
 
 	adjust_iters (&start, &end, ADJUST_MODE_INCLUDE_NEIGHBORS);
 	add_subregion_to_scan (spell, &start, &end);
 
 	/* Check current word? */
-	if (gtk_text_buffer_get_has_selection (buffer))
+
+	/* If more than one character is inserted, it's probably not a normal
+	 * keypress, e.g. a clipboard paste or DND. So it's better to check the
+	 * current word in that case, to know ASAP if the word is correctly
+	 * spelled.
+	 * The same if e.g. a space or punctuation is inserted: in that case we
+	 * are not editing the current word. Maybe a word has been split in two,
+	 * in which case the word on the left will anyway be checked, so it's
+	 * better to know directly whether the word on the right is correctly
+	 * spelled as well, so we know if we need to edit it or not.
+	 * And if there is a selection, it means that the text was inserted
+	 * programmatically, so the user is not editing the current word
+	 * manually.
+	 */
+	if (n_chars > 1 ||
+	    !g_unichar_isalnum (g_utf8_get_char (text)) ||
+	    gtk_text_buffer_get_has_selection (buffer))
 	{
 		spell->check_current_word = TRUE;
 	}
