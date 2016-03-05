@@ -622,6 +622,57 @@ delete_range_before_cb (GtkTextBuffer                 *buffer,
 	end_adjusted = *end;
 	adjust_iters (&start_adjusted, &end_adjusted, ADJUST_MODE_INCLUDE_NEIGHBORS);
 	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
+
+	/* Check current word? */
+	if (gtk_text_buffer_get_has_selection (buffer) ||
+	    gtk_text_iter_get_line (start) != gtk_text_iter_get_line (end) ||
+	    (gtk_text_iter_get_line_offset (end) - gtk_text_iter_get_line_offset (start)) > 1)
+	{
+		spell->check_current_word = TRUE;
+	}
+	else
+	{
+		GtkTextIter cursor_pos;
+		gboolean is_backspace;
+		gboolean is_delete;
+
+		gtk_text_buffer_get_iter_at_mark (buffer,
+						  &cursor_pos,
+						  gtk_text_buffer_get_insert (buffer));
+
+		is_backspace = gtk_text_iter_equal (&cursor_pos, end);
+		is_delete = gtk_text_iter_equal (&cursor_pos, start);
+
+		if (is_backspace)
+		{
+			if (gtk_text_iter_inside_word (start) ||
+			    gtk_text_iter_ends_word (start))
+			{
+				spell->check_current_word = FALSE;
+			}
+			else
+			{
+				spell->check_current_word = TRUE;
+			}
+		}
+		else if (is_delete)
+		{
+			if (gtk_text_iter_inside_word (end) ||
+			    gtk_text_iter_ends_word (end))
+			{
+				spell->check_current_word = FALSE;
+			}
+			else
+			{
+				spell->check_current_word = TRUE;
+			}
+		}
+		/* Text deleted programmatically. */
+		else
+		{
+			spell->check_current_word = TRUE;
+		}
+	}
 }
 
 static void
@@ -639,22 +690,6 @@ delete_range_after_cb (GtkTextBuffer                 *buffer,
 	end_adjusted = *end;
 	adjust_iters (&start_adjusted, &end_adjusted, ADJUST_MODE_INCLUDE_NEIGHBORS);
 	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
-
-	/* Check current word? */
-	if (gtk_text_buffer_get_has_selection (buffer))
-	{
-		spell->check_current_word = TRUE;
-	}
-	else
-	{
-		GtkTextIter cursor_pos;
-
-		gtk_text_buffer_get_iter_at_mark (buffer,
-						  &cursor_pos,
-						  gtk_text_buffer_get_insert (buffer));
-
-		spell->check_current_word = !gtk_text_iter_equal (start, &cursor_pos);
-	}
 
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 }

@@ -331,10 +331,10 @@ test_current_word (void)
 				 0, 5,
 				 -1);
 
-	gtk_text_buffer_backspace (buffer, &iter, FALSE, TRUE);
+	gtk_text_buffer_backspace (buffer, &iter, TRUE, TRUE);
 	check_highlighted_words (buffer, inline_checker, -1);
 
-	gtk_text_buffer_backspace (buffer, &iter, FALSE, TRUE);
+	gtk_text_buffer_backspace (buffer, &iter, TRUE, TRUE);
 	check_highlighted_words (buffer, inline_checker, -1);
 
 	gtk_text_buffer_insert (buffer, &iter, "o", -1);
@@ -408,6 +408,60 @@ test_current_word (void)
 				 inline_checker,
 				 6, 9,
 				 10, 13, /* "tkw" also highlighted */
+				 -1);
+
+	/* Delete selection.
+	 * " H|el|llo " -> " H|llo "
+	 */
+	gtk_text_buffer_set_text (buffer, " Helllo ", -1);
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 2);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 4);
+	gtk_text_buffer_select_range (buffer, &start, &end);
+	gtk_text_buffer_delete (buffer, &start, &end);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 1, 5,
+				 -1);
+
+	/* Backspace at end of word.
+	 * " Hllo |" -> " Hllo|"
+	 */
+	gtk_text_buffer_get_end_iter (buffer, &iter);
+	gtk_text_buffer_place_cursor (buffer, &iter);
+	gtk_text_buffer_backspace (buffer, &iter, TRUE, TRUE);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	/* Backspace before a word.
+	 * " |Hllo" -> "|Hllo"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 1);
+	gtk_text_buffer_place_cursor (buffer, &iter);
+	gtk_text_buffer_backspace (buffer, &iter, TRUE, TRUE);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 4,
+				 -1);
+
+	/* Delete at beginning of word.
+	 * "| Hllo " -> "|Hllo "
+	 */
+	gtk_text_buffer_set_text (buffer, " Hllo ", -1);
+	gtk_text_buffer_get_start_iter (buffer, &start);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 1);
+	gtk_text_buffer_place_cursor (buffer, &start);
+	gtk_text_buffer_delete (buffer, &start, &end);
+	check_highlighted_words (buffer, inline_checker, -1);
+
+	/* Delete after a word.
+	 * "Hllo| " -> "Hllo|"
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 4);
+	gtk_text_buffer_get_end_iter (buffer, &end);
+	gtk_text_buffer_place_cursor (buffer, &start);
+	gtk_text_buffer_delete (buffer, &start, &end);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 4,
 				 -1);
 
 	g_object_unref (inline_checker);
