@@ -36,7 +36,7 @@ AC_SUBST(GSPELL_LT_VERSION)
 enchant_req=1.6.0
 iso_codes_req=0.35
 glib_req=2.44
-gtk_req=3.16
+gtk_req=3.19.11
 
 AC_CONFIG_SRCDIR([gspell/gspell-checker.c])
 AC_CONFIG_HEADER([config.h])

@@ -46,7 +46,7 @@ Dependencies
 ------------
 
 * GLib >= 2.44
-* GTK+ >= 3.16
+* GTK+ >= 3.19.11
 * Enchant >= 1.6.0
 * iso-codes
 
