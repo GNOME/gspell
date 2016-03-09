@@ -127,6 +127,10 @@ GOBJECT_INTROSPECTION_CHECK([1.42.0])
 AX_REQUIRE_DEFINED([VAPIGEN_CHECK])
 VAPIGEN_CHECK
 
+# Code coverage for unit tests
+AX_REQUIRE_DEFINED([AX_CODE_COVERAGE])
+AX_CODE_COVERAGE()
+
 # check for osx platform
 AC_MSG_CHECKING([for Mac OS X platform])
 case "$host" in
@@ -199,4 +203,5 @@ Configuration:
 	Compiler:		${CC}
 	GObject introspection:	${found_introspection}
 	Vala:			${enable_vala}
+	Code coverage:		${enable_code_coverage}
 "

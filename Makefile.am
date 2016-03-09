@@ -23,6 +23,7 @@ MAINTAINERCLEANFILES = \
 	m4/ax_append_link_flags.m4 \
 	m4/ax_check_compile_flag.m4 \
 	m4/ax_check_link_flag.m4 \
+	m4/ax_code_coverage.m4 \
 	m4/ax_compiler_flags_cflags.m4 \
 	m4/ax_compiler_flags_gir.m4 \
 	m4/ax_compiler_flags_ldflags.m4 \
@@ -75,5 +76,7 @@ MAINTAINERCLEANFILES = \
 	test-driver
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+
+@CODE_COVERAGE_RULES@
 
 -include $(top_srcdir)/git.mk

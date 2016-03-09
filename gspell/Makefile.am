@@ -1,5 +1,7 @@
 SUBDIRS = resources
 
+@CODE_COVERAGE_RULES@
+
 AM_CPPFLAGS =				\
 	-DDATADIR=\""$(datadir)"\"	\
 	-DG_LOG_DOMAIN=\"gspell\"	\
@@ -7,10 +9,9 @@ AM_CPPFLAGS =				\
 	-I$(top_builddir)		\
 	-I$(top_srcdir)			\
 	$(WARN_CFLAGS)			\
+	$(CODE_COVERAGE_CPPFLAGS)	\
 	$(DEP_CFLAGS)			\
 	$(GTK_MAC_CFLAGS)
-
-AM_LDFLAGS = $(WARN_LDFLAGS)
 
 BUILT_SOURCES =			\
 	gspell-resources.c
@@ -70,8 +71,13 @@ libgspell_core_la_SOURCES =		\
 nodist_libgspell_core_la_SOURCES = \
 	$(BUILT_SOURCES)
 
-libgspell_core_la_LDFLAGS = \
-	-no-undefined
+libgspell_core_la_CFLAGS = \
+	$(CODE_COVERAGE_CFLAGS)
+
+libgspell_core_la_LDFLAGS =		\
+	-no-undefined			\
+	$(WARN_LDFLAGS)			\
+	$(CODE_COVERAGE_LDFLAGS)
 
 # The real library.
 lib_LTLIBRARIES = libgspell-1.la
@@ -83,10 +89,15 @@ libgspell_1_la_LIBADD =		\
 	$(DEP_LIBS)		\
 	$(GTK_MAC_LIBS)
 
+libgspell_1_la_CFLAGS = \
+	$(CODE_COVERAGE_CFLAGS)
+
 libgspell_1_la_LDFLAGS =			\
 	-version-info $(GSPELL_LT_VERSION)	\
 	-no-undefined				\
-	-export-symbols-regex "^gspell_.*"
+	-export-symbols-regex "^gspell_.*"	\
+	$(WARN_LDFLAGS)				\
+	$(CODE_COVERAGE_LDFLAGS)
 
 libgspell_1_includedir = $(includedir)/gspell-1/gspell
 libgspell_1_include_HEADERS = $(gspell_public_headers)
@@ -101,7 +112,7 @@ if OS_OSX
 libgspell_1_la_LDFLAGS += \
 	-framework Cocoa
 
-libgspell_1_la_CFLAGS = \
+libgspell_1_la_CFLAGS += \
 	-xobjective-c
 
 gspell_private_headers += \
