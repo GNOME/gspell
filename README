@@ -5,26 +5,12 @@ This is version 0.2.5 of gspell.
 
 gspell provides a flexible API to add spell checking to a GTK+ application.
 
-Announcement and why this library has been created:
-
-    https://blogs.gnome.org/swilmet/2015/09/16/introducing-gspell-a-new-spell-checking-library/
-
 The gspell library is free software and is released under the terms of the GNU
 LGPL version 2.1 or later. See the file 'COPYING' for more information.
 
 The official web site is:
 
     https://wiki.gnome.org/Projects/gspell
-
-You can download the latest gspell tarball from:
-
-    https://download.gnome.org/sources/gspell/
-
-Bugs and feature requests should be reported in bugzilla, but please search the
-database before filing a new bug:
-
-    https://bugzilla.gnome.org/page.cgi?id=browse.html&product=gspell
-
 
 About versions
 --------------
@@ -41,7 +27,6 @@ Warning: the 1.0 version will *not* be completely parallel-installable with the
 0.1 version, only the libtool version will be bumped. Using the 0.1 version is
 highly discouraged.
 
-
 Dependencies
 ------------
 
@@ -49,7 +34,6 @@ Dependencies
 * GTK+ >= 3.19.11
 * Enchant >= 1.6.0
 * iso-codes
-
 
 Installation from a tarball
 ---------------------------
@@ -63,14 +47,12 @@ Simple install procedure:
 
 See the file 'INSTALL' for more detailed information.
 
-
 Installation from Git
 ---------------------
 
 It is recommended to use Jhbuild:
 
     https://wiki.gnome.org/Projects/Jhbuild
-
 
 How to contribute
 -----------------
