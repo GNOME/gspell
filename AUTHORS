@@ -8,5 +8,6 @@ Jesse van den Kieboom
 Ignacio Casal Quinteiro
 Sébastien Wilmet
 
-The GspellInlineCheckerText originally comes from GtkSpell, which was written by:
+The inline checker for GtkTextView originally comes from an old version of
+GtkSpell, which was written by:
 Evan Martin
