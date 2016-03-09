@@ -20,6 +20,27 @@
 #include "gspell/gspell-utils.h"
 
 static void
+test_is_number (void)
+{
+	gboolean is_number;
+
+	is_number = _gspell_utils_is_number ("123", -1);
+	g_assert (is_number);
+
+	is_number = _gspell_utils_is_number ("123", 3);
+	g_assert (is_number);
+
+	is_number = _gspell_utils_is_number ("123a4", 3);
+	g_assert (is_number);
+
+	is_number = _gspell_utils_is_number ("123a4", -1);
+	g_assert (!is_number);
+
+	is_number = _gspell_utils_is_number ("h4ck1ng", -1);
+	g_assert (!is_number);
+}
+
+static void
 test_str_replace (void)
 {
 	gchar *result;
@@ -86,6 +107,7 @@ main (gint    argc,
 {
 	gtk_test_init (&argc, &argv);
 
+	g_test_add_func ("/utils/is_number", test_is_number);
 	g_test_add_func ("/utils/str_replace", test_str_replace);
 	g_test_add_func ("/utils/str_to_ascii_apostrophe", test_str_to_ascii_apostrophe);
 
