@@ -468,6 +468,60 @@ test_current_word (void)
 	g_object_unref (buffer);
 }
 
+static void
+test_apostrophes (void)
+{
+	GtkTextBuffer *buffer;
+	GspellInlineCheckerTextBuffer *inline_checker;
+	GtkTextIter iter;
+	GtkTextIter start;
+	GtkTextIter end;
+
+	buffer = create_buffer ();
+	inline_checker = _gspell_inline_checker_text_buffer_new (buffer);
+	_gspell_inline_checker_text_buffer_set_unit_test_mode (inline_checker, TRUE);
+
+	gtk_text_buffer_set_text (buffer, "jlvd't ", -1);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 6,
+				 -1);
+
+	/* Delete the 't'.
+	 * Note that the apostrophe is no longer highlighted.
+	 * This works because we connect to the ::delete-range signal with and
+	 * without the AFTER flag, to get the broader word boundaries.
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &start, 5);
+	gtk_text_buffer_get_iter_at_offset (buffer, &end, 6);
+	gtk_text_buffer_delete (buffer, &start, &end);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 4,
+				 -1);
+
+	gtk_text_buffer_set_text (buffer, "jlvd't ", -1);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 6,
+				 -1);
+
+	/* Insert a space after the apostrophe.
+	 * Note that the apostrophe is no longer highlighted.
+	 * This works because we connect to the ::insert-text signal with and
+	 * without the AFTER flag, to get the broader word boundaries.
+	 */
+	gtk_text_buffer_get_iter_at_offset (buffer, &iter, 5);
+	gtk_text_buffer_insert (buffer, &iter, " ", -1);
+	check_highlighted_words (buffer,
+				 inline_checker,
+				 0, 4,
+				 -1);
+
+	g_object_unref (inline_checker);
+	g_object_unref (buffer);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -485,6 +539,9 @@ main (gint    argc,
 
 	g_test_add_func ("/inline-checker-text-buffer/current-word",
 			 test_current_word);
+
+	g_test_add_func ("/inline-checker-text-buffer/apostrophes",
+			 test_apostrophes);
 
 	return g_test_run ();
 }
