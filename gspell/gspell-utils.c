@@ -149,4 +149,48 @@ _gspell_utils_str_replace (const gchar *string,
 	return ret;
 }
 
+/* Replaces unicode (non-ascii) apostrophes by the ascii apostrophe.
+ * Because with unicode apostrophes, the word is marked as misspelled. It should
+ * probably be fixed in hunspell, aspell, etc.
+ * Returns: %TRUE if @result has been set, %FALSE if @word must be used
+ * (to avoid a malloc).
+ */
+gboolean
+_gspell_utils_str_to_ascii_apostrophe (const gchar  *word,
+				       gssize        word_length,
+				       gchar       **result)
+{
+	gchar *word_to_free = NULL;
+	const gchar *nul_terminated_word;
+
+	g_return_val_if_fail (word != NULL, FALSE);
+	g_return_val_if_fail (word_length >= -1, FALSE);
+	g_return_val_if_fail (result != NULL, FALSE);
+
+	if (g_utf8_strchr (word, word_length, _GSPELL_MODIFIER_LETTER_APOSTROPHE) == NULL &&
+	    g_utf8_strchr (word, word_length, _GSPELL_RIGHT_SINGLE_QUOTATION_MARK) == NULL)
+	{
+		return FALSE;
+	}
+
+	if (word_length == -1)
+	{
+		nul_terminated_word = word;
+	}
+	else
+	{
+		word_to_free = g_strndup (word, word_length);
+		nul_terminated_word = word_to_free;
+	}
+
+	*result = _gspell_utils_str_replace (nul_terminated_word, "\xCA\xBC", "'");
+
+	g_free (word_to_free);
+	word_to_free = *result;
+	*result = _gspell_utils_str_replace (*result, "\xE2\x80\x99", "'");
+
+	g_free (word_to_free);
+	return TRUE;
+}
+
 /* ex:set ts=8 noet: */

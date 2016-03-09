@@ -334,46 +334,6 @@ gspell_checker_get_language (GspellChecker *checker)
 	return priv->active_lang;
 }
 
-/* Replaces unicode (non-ascii) apostrophes by the ascii apostrophe.
- * Because with unicode apostrophes, the word is marked as misspelled. It should
- * probably be fixed in hunspell, aspell, etc.
- * Returns: %TRUE if @sanitzed_word has been set, %FALSE is @word must be used
- * (to avoid a malloc).
- */
-static gboolean
-sanitize_word (const gchar  *word,
-	       gssize        word_length,
-	       gchar       **sanitized_word)
-{
-	gchar *word_to_free = NULL;
-	const gchar *nul_terminated_word;
-
-	if (g_utf8_strchr (word, word_length, _GSPELL_MODIFIER_LETTER_APOSTROPHE) == NULL &&
-	    g_utf8_strchr (word, word_length, _GSPELL_RIGHT_SINGLE_QUOTATION_MARK) == NULL)
-	{
-		return FALSE;
-	}
-
-	if (word_length == -1)
-	{
-		nul_terminated_word = word;
-	}
-	else
-	{
-		word_to_free = g_strndup (word, word_length);
-		nul_terminated_word = word_to_free;
-	}
-
-	*sanitized_word = _gspell_utils_str_replace (nul_terminated_word, "\xCA\xBC", "'");
-
-	g_free (word_to_free);
-	word_to_free = *sanitized_word;
-	*sanitized_word = _gspell_utils_str_replace (*sanitized_word, "\xE2\x80\x99", "'");
-
-	g_free (word_to_free);
-	return TRUE;
-}
-
 /**
  * gspell_checker_check_word:
  * @checker: a #GspellChecker.
@@ -414,7 +374,7 @@ gspell_checker_check_word (GspellChecker  *checker,
 		return TRUE;
 	}
 
-	if (sanitize_word (word, word_length, &sanitized_word))
+	if (_gspell_utils_str_to_ascii_apostrophe (word, word_length, &sanitized_word))
 	{
 		enchant_result = enchant_dict_check (priv->dict, sanitized_word, -1);
 		g_free (sanitized_word);
@@ -483,7 +443,7 @@ gspell_checker_get_suggestions (GspellChecker *checker,
 		return NULL;
 	}
 
-	if (sanitize_word (word, word_length, &sanitized_word))
+	if (_gspell_utils_str_to_ascii_apostrophe (word, word_length, &sanitized_word))
 	{
 		suggestions = enchant_dict_suggest (priv->dict, sanitized_word, -1, NULL);
 		g_free (sanitized_word);

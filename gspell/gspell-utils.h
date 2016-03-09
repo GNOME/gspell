@@ -46,6 +46,11 @@ gchar *		_gspell_utils_str_replace		(const gchar *string,
 							 const gchar *search,
 							 const gchar *replacement);
 
+G_GNUC_INTERNAL
+gboolean	_gspell_utils_str_to_ascii_apostrophe	(const gchar  *word,
+							 gssize        word_length,
+							 gchar       **result);
+
 G_END_DECLS
 
 #endif /* __GSPELL_UTILS_H__ */
