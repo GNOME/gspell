@@ -2,8 +2,11 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.64)
 
+# Package version of the form 'major.minor.micro'.
+m4_define(gspell_package_version, 0.2.5)
+
 AC_INIT([gspell],
-	[0.2.5],
+	[gspell_package_version],
 	[https://bugzilla.gnome.org/enter_bug.cgi?product=gspell],
 	[gspell],
 	[https://wiki.gnome.org/Projects/gspell])
@@ -13,9 +16,11 @@ AX_IS_RELEASE([git-directory])
 
 # Libtool versioning
 #
-# For development releases, keep the same numbers.
+# For development releases (if the minor package version is odd), keep the same
+# Libtool version.
 #
-# For stable releases, apply the following algorithm step by step:
+# For a new minor stable release (when incrementing the minor package version
+# to an even number), apply the following algorithm step by step:
 # 1. If the library source code has changed at all since the last
 #    update, then increment REVISION.
 # 2. If any exported functions or data have been added, removed, or
@@ -25,6 +30,9 @@ AX_IS_RELEASE([git-directory])
 #    public release, increment AGE.
 # 4. If any exported functions or data have been removed since the last
 #    public release, set AGE to 0.
+#
+# When incrementing the API version (usually for a new major package version),
+# set CURRENT, REVISION and AGE to 0 since it's like a new library.
 
 GSPELL_LT_CURRENT=0
 GSPELL_LT_REVISION=0
