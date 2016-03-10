@@ -40,6 +40,10 @@ GSPELL_LT_AGE=0
 GSPELL_LT_VERSION="$GSPELL_LT_CURRENT:$GSPELL_LT_REVISION:$GSPELL_LT_AGE"
 AC_SUBST(GSPELL_LT_VERSION)
 
+# API version, used for parallel installability.
+GSPELL_API_VERSION=1
+AC_SUBST(GSPELL_API_VERSION)
+
 # Dependencies
 enchant_req=1.6.0
 glib_req=2.44
@@ -112,7 +116,7 @@ fi
 # i18n
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.4])
-AC_SUBST([GETTEXT_PACKAGE], [gspell-1])
+AC_SUBST([GETTEXT_PACKAGE], [gspell-$GSPELL_API_VERSION])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Define to the gettext package name.])
 
 # Documentation
