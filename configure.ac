@@ -42,7 +42,6 @@ AC_SUBST(GSPELL_LT_VERSION)
 
 # Dependencies
 enchant_req=1.6.0
-iso_codes_req=0.35
 glib_req=2.44
 gtk_req=3.19.11
 
@@ -64,21 +63,21 @@ AX_REQUIRE_DEFINED([PKG_INSTALLDIR])
 PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
 
-# needed on osx
+# Needed on Mac OS X
 AC_PROG_OBJC
 
 # Initialize libtool
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
 
-# Pull glib-compile-resources & co.
+# Pull GLib utility
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
 # Compile warnings
 AX_REQUIRE_DEFINED([AX_COMPILER_FLAGS])
 AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS])
 
-# pkg-config
+# Dynamic linking dependencies
 AX_REQUIRE_DEFINED([AX_PKG_CHECK_MODULES])
 AX_PKG_CHECK_MODULES([DEP],
 		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req],
@@ -86,7 +85,7 @@ AX_PKG_CHECK_MODULES([DEP],
 
 # iso-codes
 AX_REQUIRE_DEFINED([PKG_CHECK_EXISTS])
-PKG_CHECK_EXISTS([iso-codes >= $iso_codes_req],
+PKG_CHECK_EXISTS([iso-codes],
 		 [have_iso_codes=yes],
 		 [have_iso_codes=no])
 
@@ -139,7 +138,7 @@ VAPIGEN_CHECK
 AX_REQUIRE_DEFINED([AX_CODE_COVERAGE])
 AX_CODE_COVERAGE()
 
-# check for osx platform
+# Check for Mac OS X platform
 AC_MSG_CHECKING([for Mac OS X platform])
 case "$host" in
   *-*-darwin*)
@@ -152,7 +151,7 @@ esac
 AC_MSG_RESULT([$platform_osx])
 AM_CONDITIONAL(PLATFORM_OSX, test "$platform_osx" = "yes")
 
-# check for native osx
+# Check for native Mac OS X
 gdk_targets=`$PKG_CONFIG --variable=targets gdk-3.0`
 
 gdk_windowing="x11"
