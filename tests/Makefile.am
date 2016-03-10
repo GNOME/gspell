@@ -10,9 +10,9 @@ noinst_PROGRAMS = $(TEST_PROGS)
 
 TEST_PROGS = test-spell
 test_spell_SOURCES = test-spell.c
-test_spell_LDADD =				\
-	$(top_builddir)/gspell/libgspell-1.la	\
-	$(DEP_LIBS)				\
+test_spell_LDADD =							\
+	$(top_builddir)/gspell/libgspell-@GSPELL_API_VERSION@.la	\
+	$(DEP_LIBS)							\
 	$(GTK_MAC_LIBS)
 
 -include $(top_srcdir)/git.mk

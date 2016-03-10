@@ -80,27 +80,27 @@ libgspell_core_la_LDFLAGS =		\
 	$(CODE_COVERAGE_LDFLAGS)
 
 # The real library.
-lib_LTLIBRARIES = libgspell-1.la
+lib_LTLIBRARIES = libgspell-@GSPELL_API_VERSION@.la
 
-libgspell_1_la_SOURCES =
+libgspell_@GSPELL_API_VERSION@_la_SOURCES =
 
-libgspell_1_la_LIBADD =		\
-	libgspell-core.la	\
-	$(DEP_LIBS)		\
+libgspell_@GSPELL_API_VERSION@_la_LIBADD =	\
+	libgspell-core.la			\
+	$(DEP_LIBS)				\
 	$(GTK_MAC_LIBS)
 
-libgspell_1_la_CFLAGS = \
+libgspell_@GSPELL_API_VERSION@_la_CFLAGS =	\
 	$(CODE_COVERAGE_CFLAGS)
 
-libgspell_1_la_LDFLAGS =			\
+libgspell_@GSPELL_API_VERSION@_la_LDFLAGS =	\
 	-version-info $(GSPELL_LT_VERSION)	\
 	-no-undefined				\
 	-export-symbols-regex "^gspell_.*"	\
 	$(WARN_LDFLAGS)				\
 	$(CODE_COVERAGE_LDFLAGS)
 
-libgspell_1_includedir = $(includedir)/gspell-1/gspell
-libgspell_1_include_HEADERS = $(gspell_public_headers)
+libgspell_includedir = $(includedir)/gspell-@GSPELL_API_VERSION@/gspell
+libgspell_include_HEADERS = $(gspell_public_headers)
 
 xml_res = $(srcdir)/resources/gspell.gresource.xml
 gspell-resources.c: $(xml_res) $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/resources --generate-dependencies $(xml_res))
@@ -109,10 +109,10 @@ gspell-resources.c: $(xml_res) $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(s
 CLEANFILES = $(BUILT_SOURCES)
 
 if OS_OSX
-libgspell_1_la_LDFLAGS += \
+libgspell_@GSPELL_API_VERSION@_la_LDFLAGS += \
 	-framework Cocoa
 
-libgspell_1_la_CFLAGS += \
+libgspell_@GSPELL_API_VERSION@_la_CFLAGS += \
 	-xobjective-c
 
 gspell_private_headers += \
@@ -125,35 +125,35 @@ endif # OS_OSX
 
 if HAVE_INTROSPECTION
 -include $(INTROSPECTION_MAKEFILE)
-INTROSPECTION_GIRS = Gspell-1.gir
+INTROSPECTION_GIRS = Gspell-@GSPELL_API_VERSION@.gir
 
 INTROSPECTION_SCANNER_ENV = CC="$(CC)"
 
-Gspell-1.gir: libgspell-1.la $(BUILT_SOURCES)
+Gspell-@GSPELL_API_VERSION@.gir: libgspell-@GSPELL_API_VERSION@.la $(BUILT_SOURCES)
 INTROSPECTION_SCANNER_ARGS =		\
 	-I$(top_srcdir)			\
 	-I$(top_builddir)		\
 	--c-include=gspell/gspell.h	\
 	--warn-all
-Gspell_1_gir_NAMESPACE = Gspell
-Gspell_1_gir_VERSION = 1
-Gspell_1_gir_CFLAGS = $(DEP_CFLAGS)
-Gspell_1_gir_SCANNERFLAGS = $(WARN_SCANNERFLAGS)
-Gspell_1_gir_LIBS = libgspell-1.la
-Gspell_1_gir_FILES =			\
+Gspell_@GSPELL_API_VERSION@_gir_NAMESPACE = Gspell
+Gspell_@GSPELL_API_VERSION@_gir_VERSION = @GSPELL_API_VERSION@
+Gspell_@GSPELL_API_VERSION@_gir_CFLAGS = $(DEP_CFLAGS)
+Gspell_@GSPELL_API_VERSION@_gir_SCANNERFLAGS = $(WARN_SCANNERFLAGS)
+Gspell_@GSPELL_API_VERSION@_gir_LIBS = libgspell-@GSPELL_API_VERSION@.la
+Gspell_@GSPELL_API_VERSION@_gir_FILES =	\
 	$(gspell_public_headers)	\
 	$(gspell_public_c_files)	\
 	$(BUILT_SOURCES)
 
-Gspell_1_gir_INCLUDES = Gtk-3.0
-Gspell_1_gir_PACKAGES = gtk+-3.0
-Gspell_1_gir_EXPORT_PACKAGES = gspell-1
+Gspell_@GSPELL_API_VERSION@_gir_INCLUDES = Gtk-3.0
+Gspell_@GSPELL_API_VERSION@_gir_PACKAGES = gtk+-3.0
+Gspell_@GSPELL_API_VERSION@_gir_EXPORT_PACKAGES = gspell-@GSPELL_API_VERSION@
 
 girdir = $(datadir)/gir-1.0
-gir_DATA = Gspell-1.gir
+gir_DATA = Gspell-@GSPELL_API_VERSION@.gir
 
 typelibdir = $(libdir)/girepository-1.0
-typelib_DATA = Gspell-1.typelib
+typelib_DATA = Gspell-@GSPELL_API_VERSION@.typelib
 
 CLEANFILES +=		\
 	$(gir_DATA)	\
@@ -164,24 +164,24 @@ endif # HAVE_INTROSPECTION
 if ENABLE_VAPIGEN
 -include $(VAPIGEN_MAKEFILE)
 
-gspell-1.vapi: Gspell-1.gir
+gspell-@GSPELL_API_VERSION@.vapi: Gspell-@GSPELL_API_VERSION@.gir
 
-VAPIGEN_VAPIS = gspell-1.vapi
+VAPIGEN_VAPIS = gspell-@GSPELL_API_VERSION@.vapi
 
-gspell_1_vapi_DEPS = gtk+-3.0
+gspell_@GSPELL_API_VERSION@_vapi_DEPS = gtk+-3.0
 
-gspell-1.deps:
-	$(AM_V_GEN) for pkg in $(gspell_1_vapi_DEPS); do \
+gspell-@GSPELL_API_VERSION@.deps:
+	$(AM_V_GEN) for pkg in $(gspell_@GSPELL_API_VERSION@_vapi_DEPS); do \
 		echo $$pkg >> $@; \
 	done
 
-gspell_1_vapi_METADATADIRS = $(srcdir)
-gspell_1_vapi_FILES = Gspell-1.gir
+gspell_@GSPELL_API_VERSION@_vapi_METADATADIRS = $(srcdir)
+gspell_@GSPELL_API_VERSION@_vapi_FILES = Gspell-@GSPELL_API_VERSION@.gir
 
 vapidir = $(datadir)/vala/vapi
-vapi_DATA =		\
-	gspell-1.vapi	\
-	gspell-1.deps
+vapi_DATA =					\
+	gspell-@GSPELL_API_VERSION@.vapi	\
+	gspell-@GSPELL_API_VERSION@.deps
 
 CLEANFILES += $(vapi_DATA)
 
