@@ -1,9 +1,8 @@
 SUBDIRS = gspell po docs tests testsuite
 
-pkgconfig_DATA = gspell-1.pc
-
-EXTRA_DIST = \
-	gspell-1.pc.in
+pkgconfig_DATA = gspell-$(GSPELL_API_VERSION).pc
+DISTCLEANFILES = $(pkgconfig_DATA)
+EXTRA_DIST = gspell.pc.in
 
 MAINTAINERCLEANFILES = \
 	ABOUT-NLS \

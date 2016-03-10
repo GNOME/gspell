@@ -194,7 +194,7 @@ fi
 
 # Output files
 AC_CONFIG_FILES([
-	gspell-1.pc
+	gspell-$GSPELL_API_VERSION.pc:gspell.pc.in
 	Makefile
 	docs/Makefile
 	docs/reference/Makefile
