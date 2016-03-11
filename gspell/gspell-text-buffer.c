@@ -151,16 +151,6 @@ gspell_text_buffer_init (GspellTextBuffer *gspell_buffer)
 {
 }
 
-static GspellTextBuffer *
-gspell_text_buffer_new (GtkTextBuffer *gtk_buffer)
-{
-	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (gtk_buffer), NULL);
-
-	return g_object_new (GSPELL_TYPE_TEXT_BUFFER,
-			     "buffer", gtk_buffer,
-			     NULL);
-}
-
 /**
  * gspell_text_buffer_get_from_gtk_text_buffer:
  * @gtk_buffer: a #GtkTextBuffer.
@@ -183,18 +173,20 @@ gspell_text_buffer_get_from_gtk_text_buffer (GtkTextBuffer *gtk_buffer)
 	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (gtk_buffer), NULL);
 
 	gspell_buffer = g_object_get_data (G_OBJECT (gtk_buffer), GSPELL_TEXT_BUFFER_KEY);
-	if (gspell_buffer != NULL)
+
+	if (gspell_buffer == NULL)
 	{
-		g_return_val_if_fail (GSPELL_IS_TEXT_BUFFER (gspell_buffer), NULL);
-		return gspell_buffer;
+		gspell_buffer = g_object_new (GSPELL_TYPE_TEXT_BUFFER,
+					      "buffer", gtk_buffer,
+					      NULL);
+
+		g_object_set_data_full (G_OBJECT (gtk_buffer),
+					GSPELL_TEXT_BUFFER_KEY,
+					gspell_buffer,
+					g_object_unref);
 	}
 
-	gspell_buffer = gspell_text_buffer_new (gtk_buffer);
-	g_object_set_data_full (G_OBJECT (gtk_buffer),
-				GSPELL_TEXT_BUFFER_KEY,
-				gspell_buffer,
-				g_object_unref);
-
+	g_return_val_if_fail (GSPELL_IS_TEXT_BUFFER (gspell_buffer), NULL);
 	return gspell_buffer;
 }
 
