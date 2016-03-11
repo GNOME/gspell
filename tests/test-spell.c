@@ -36,8 +36,13 @@ G_DEFINE_TYPE (TestSpell, test_spell, GTK_TYPE_GRID)
 static GspellChecker *
 get_spell_checker (TestSpell *spell)
 {
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer (spell->view);
-	return gspell_text_buffer_get_spell_checker (buffer);
+	GtkTextBuffer *gtk_buffer;
+	GspellTextBuffer *gspell_buffer;
+
+	gtk_buffer = gtk_text_view_get_buffer (spell->view);
+	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
+
+	return gspell_text_buffer_get_spell_checker (gspell_buffer);
 }
 
 static void
@@ -70,18 +75,22 @@ static void
 change_buffer_button_clicked_cb (GtkButton *change_buffer_button,
 				 TestSpell *spell)
 {
-	GtkTextBuffer *old_buffer;
-	GtkTextBuffer *new_buffer;
+	GtkTextBuffer *old_gtk_buffer;
+	GtkTextBuffer *new_gtk_buffer;
+	GspellTextBuffer *old_gspell_buffer;
+	GspellTextBuffer *new_gspell_buffer;
 	GspellChecker *checker;
 
-	old_buffer = gtk_text_view_get_buffer (spell->view);
-	checker = gspell_text_buffer_get_spell_checker (old_buffer);
+	old_gtk_buffer = gtk_text_view_get_buffer (spell->view);
+	old_gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (old_gtk_buffer);
+	checker = gspell_text_buffer_get_spell_checker (old_gspell_buffer);
 
-	new_buffer = gtk_text_buffer_new (NULL);
-	gspell_text_buffer_set_spell_checker (new_buffer, checker);
+	new_gtk_buffer = gtk_text_buffer_new (NULL);
+	new_gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (new_gtk_buffer);
+	gspell_text_buffer_set_spell_checker (new_gspell_buffer, checker);
 
-	gtk_text_view_set_buffer (spell->view, new_buffer);
-	g_object_unref (new_buffer);
+	gtk_text_view_set_buffer (spell->view, new_gtk_buffer);
+	g_object_unref (new_gtk_buffer);
 }
 
 static GtkWidget *
@@ -157,14 +166,16 @@ static void
 test_spell_init (TestSpell *spell)
 {
 	GtkWidget *scrolled_window;
-	GtkTextBuffer *buffer;
+	GtkTextBuffer *gtk_buffer;
+	GspellTextBuffer *gspell_buffer;
 	GspellChecker *checker;
 
 	spell->view = GTK_TEXT_VIEW (gtk_text_view_new ());
-	buffer = gtk_text_view_get_buffer (spell->view);
+	gtk_buffer = gtk_text_view_get_buffer (spell->view);
 
 	checker = gspell_checker_new (NULL);
-	gspell_text_buffer_set_spell_checker (buffer, checker);
+	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
+	gspell_text_buffer_set_spell_checker (gspell_buffer, checker);
 	g_object_unref (checker);
 
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (spell),

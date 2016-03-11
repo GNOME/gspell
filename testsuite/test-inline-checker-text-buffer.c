@@ -23,20 +23,22 @@
 static GtkTextBuffer *
 create_buffer (void)
 {
-	GtkTextBuffer *buffer;
+	GtkTextBuffer *gtk_buffer;
+	GspellTextBuffer *gspell_buffer;
 	const GspellLanguage *lang;
 	GspellChecker *checker;
 
-	buffer = gtk_text_buffer_new (NULL);
+	gtk_buffer = gtk_text_buffer_new (NULL);
+	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
 
 	lang = gspell_language_lookup ("en_US");
 	g_assert (lang != NULL);
 
 	checker = gspell_checker_new (lang);
-	gspell_text_buffer_set_spell_checker (buffer, checker);
+	gspell_text_buffer_set_spell_checker (gspell_buffer, checker);
 	g_object_unref (checker);
 
-	return buffer;
+	return gtk_buffer;
 }
 
 static void

@@ -27,7 +27,6 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include "gspell-checker.h"
-#include "gspell-buffer-notifier.h"
 #include "gspell-text-buffer.h"
 #include "gspell-text-iter.h"
 #include "gspell-text-region.h"
@@ -1172,16 +1171,16 @@ set_spell_checker (GspellInlineCheckerTextBuffer *spell,
 }
 
 static void
-text_buffer_checker_changed_cb (GspellBufferNotifier          *notifier,
-				GtkTextBuffer                 *buffer,
-				GspellChecker                 *new_checker,
-				GspellInlineCheckerTextBuffer *spell)
+spell_checker_notify_cb (GspellTextBuffer              *gspell_buffer,
+			 GParamSpec                    *pspec,
+			 GspellInlineCheckerTextBuffer *spell)
 {
-	if (spell->buffer == buffer)
-	{
-		set_spell_checker (spell, new_checker);
-		recheck_all (spell);
-	}
+	GspellChecker *new_checker;
+
+	new_checker = gspell_text_buffer_get_spell_checker (gspell_buffer);
+	set_spell_checker (spell, new_checker);
+
+	recheck_all (spell);
 }
 
 static void
@@ -1190,8 +1189,8 @@ set_buffer (GspellInlineCheckerTextBuffer *spell,
 {
 	GtkTextTagTable *tag_table;
 	GtkTextIter start;
+	GspellTextBuffer *gspell_buffer;
 	GspellChecker *checker;
-	GspellBufferNotifier *notifier;
 
 	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
 	g_return_if_fail (spell->buffer == NULL);
@@ -1278,13 +1277,13 @@ set_buffer (GspellInlineCheckerTextBuffer *spell,
 	gtk_text_buffer_get_start_iter (spell->buffer, &start);
 	spell->mark_click = gtk_text_buffer_create_mark (spell->buffer, NULL, &start, TRUE);
 
-	checker = gspell_text_buffer_get_spell_checker (spell->buffer);
+	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (spell->buffer);
+	checker = gspell_text_buffer_get_spell_checker (gspell_buffer);
 	set_spell_checker (spell, checker);
 
-	notifier = _gspell_buffer_notifier_get_instance ();
-	g_signal_connect_object (notifier,
-				 "text-buffer-checker-changed",
-				 G_CALLBACK (text_buffer_checker_changed_cb),
+	g_signal_connect_object (gspell_buffer,
+				 "notify::spell-checker",
+				 G_CALLBACK (spell_checker_notify_cb),
 				 spell,
 				 0);
 

@@ -276,6 +276,7 @@ gspell_navigator_text_view_goto_next (GspellNavigator  *navigator,
 				      GError          **error_p)
 {
 	GspellNavigatorTextViewPrivate *priv;
+	GspellTextBuffer *gspell_buffer;
 	GspellChecker *spell_checker;
 	GtkTextIter word_start;
 	GtkTextIter end;
@@ -286,7 +287,8 @@ gspell_navigator_text_view_goto_next (GspellNavigator  *navigator,
 	g_assert ((priv->word_start == NULL && priv->word_end == NULL) ||
 		  (priv->word_start != NULL && priv->word_end != NULL));
 
-	spell_checker = gspell_text_buffer_get_spell_checker (priv->buffer);
+	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (priv->buffer);
+	spell_checker = gspell_text_buffer_get_spell_checker (gspell_buffer);
 
 	if (spell_checker == NULL)
 	{

@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,10 +27,23 @@
 #include <gspell/gspell-checker.h>
 #include <gtk/gtk.h>
 
-void		gspell_text_buffer_set_spell_checker	(GtkTextBuffer *buffer,
-							 GspellChecker *checker);
+G_BEGIN_DECLS
 
-GspellChecker *	gspell_text_buffer_get_spell_checker	(GtkTextBuffer *buffer);
+#define GSPELL_TYPE_TEXT_BUFFER (gspell_text_buffer_get_type ())
+G_DECLARE_FINAL_TYPE (GspellTextBuffer, gspell_text_buffer,
+		      GSPELL, TEXT_BUFFER,
+		      GObject)
+
+GspellTextBuffer *	gspell_text_buffer_get_from_gtk_text_buffer	(GtkTextBuffer *gtk_buffer);
+
+GtkTextBuffer *		gspell_text_buffer_get_buffer			(GspellTextBuffer *gspell_buffer);
+
+GspellChecker *		gspell_text_buffer_get_spell_checker		(GspellTextBuffer *gspell_buffer);
+
+void			gspell_text_buffer_set_spell_checker		(GspellTextBuffer *gspell_buffer,
+									 GspellChecker    *spell_checker);
+
+G_END_DECLS
 
 #endif /* __GSPELL_TEXT_BUFFER_H__ */
 

@@ -40,9 +40,14 @@ gspell_language_get_type
 
 <SECTION>
 <FILE>text-buffer</FILE>
-<TITLE>GtkTextBuffer support</TITLE>
-gspell_text_buffer_set_spell_checker
+<TITLE>GspellTextBuffer</TITLE>
+GspellTextBuffer
+gspell_text_buffer_get_from_gtk_text_buffer
+gspell_text_buffer_get_buffer
 gspell_text_buffer_get_spell_checker
+gspell_text_buffer_set_spell_checker
+<SUBSECTION Standard>
+GSPELL_TYPE_TEXT_BUFFER
 </SECTION>
 
 <SECTION>

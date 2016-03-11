@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,77 +18,235 @@
  */
 
 #include "gspell-text-buffer.h"
-#include "gspell-buffer-notifier.h"
 
 /**
  * SECTION:text-buffer
- * @Title: GtkTextBuffer support
- * @See_also: #GspellChecker
+ * @Title: GspellTextBuffer
  *
- * Spell checking support for #GtkTextBuffer.
+ * #GspellTextBuffer extends the #GtkTextBuffer class without subclassing it,
+ * because the GtkSourceView library has already a #GtkTextBuffer subclass.
  */
 
-#define SPELL_CHECKER_KEY "gspell-text-buffer-spell-checker-key"
+struct _GspellTextBuffer
+{
+	GObject parent;
+
+	GtkTextBuffer *buffer;
+	GspellChecker *spell_checker;
+};
+
+enum
+{
+	PROP_0,
+	PROP_BUFFER,
+	PROP_SPELL_CHECKER,
+};
+
+#define GSPELL_TEXT_BUFFER_KEY "gspell-text-buffer-key"
+
+G_DEFINE_TYPE (GspellTextBuffer, gspell_text_buffer, G_TYPE_OBJECT)
+
+static void
+gspell_text_buffer_get_property (GObject    *object,
+				 guint       prop_id,
+				 GValue     *value,
+				 GParamSpec *pspec)
+{
+	GspellTextBuffer *gspell_buffer = GSPELL_TEXT_BUFFER (object);
+
+	switch (prop_id)
+	{
+		case PROP_BUFFER:
+			g_value_set_object (value, gspell_text_buffer_get_buffer (gspell_buffer));
+			break;
+
+		case PROP_SPELL_CHECKER:
+			g_value_set_object (value, gspell_text_buffer_get_spell_checker (gspell_buffer));
+			break;
+
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+			break;
+	}
+}
+
+static void
+gspell_text_buffer_set_property (GObject      *object,
+				 guint         prop_id,
+				 const GValue *value,
+				 GParamSpec   *pspec)
+{
+	GspellTextBuffer *gspell_buffer = GSPELL_TEXT_BUFFER (object);
+
+	switch (prop_id)
+	{
+		case PROP_BUFFER:
+			g_assert (gspell_buffer->buffer == NULL);
+			gspell_buffer->buffer = g_value_get_object (value);
+			break;
+
+		case PROP_SPELL_CHECKER:
+			gspell_text_buffer_set_spell_checker (gspell_buffer, g_value_get_object (value));
+			break;
+
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+			break;
+	}
+}
+
+static void
+gspell_text_buffer_dispose (GObject *object)
+{
+	GspellTextBuffer *gspell_buffer = GSPELL_TEXT_BUFFER (object);
+
+	gspell_buffer->buffer = NULL;
+	g_clear_object (&gspell_buffer->spell_checker);
+
+	G_OBJECT_CLASS (gspell_text_buffer_parent_class)->dispose (object);
+}
+
+static void
+gspell_text_buffer_class_init (GspellTextBufferClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+	object_class->get_property = gspell_text_buffer_get_property;
+	object_class->set_property = gspell_text_buffer_set_property;
+	object_class->dispose = gspell_text_buffer_dispose;
+
+	/**
+	 * GspellTextBuffer:buffer:
+	 *
+	 * The #GtkTextBuffer.
+	 */
+	g_object_class_install_property (object_class,
+					 PROP_BUFFER,
+					 g_param_spec_object ("buffer",
+							      "Buffer",
+							      "",
+							      GTK_TYPE_TEXT_BUFFER,
+							      G_PARAM_READWRITE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_STRINGS));
+
+	/**
+	 * GspellTextBuffer:spell-checker:
+	 *
+	 * The #GspellChecker.
+	 */
+	g_object_class_install_property (object_class,
+					 PROP_SPELL_CHECKER,
+					 g_param_spec_object ("spell-checker",
+							      "Spell Checker",
+							      "",
+							      GSPELL_TYPE_CHECKER,
+							      G_PARAM_READWRITE |
+							      G_PARAM_STATIC_STRINGS));
+}
+
+static void
+gspell_text_buffer_init (GspellTextBuffer *gspell_buffer)
+{
+}
+
+static GspellTextBuffer *
+gspell_text_buffer_new (GtkTextBuffer *gtk_buffer)
+{
+	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (gtk_buffer), NULL);
+
+	return g_object_new (GSPELL_TYPE_TEXT_BUFFER,
+			     "buffer", gtk_buffer,
+			     NULL);
+}
 
 /**
- * gspell_text_buffer_set_spell_checker:
- * @buffer: a #GtkTextBuffer.
- * @checker: (nullable): a #GspellChecker, or %NULL to unset the spell checker.
+ * gspell_text_buffer_get_from_gtk_text_buffer:
+ * @gtk_buffer: a #GtkTextBuffer.
  *
- * Associates a spell checker to a #GtkTextBuffer. The @buffer will own a
- * reference to @checker, so you can release your reference to @checker if you
- * no longer need it.
+ * Returns the #GspellTextBuffer of @gtk_buffer. The returned object is
+ * guaranteed to be the same for the lifetime of @gtk_buffer.
+ *
+ * Returns: (transfer none): the #GspellTextBuffer of @gtk_buffer.
  */
-void
-gspell_text_buffer_set_spell_checker (GtkTextBuffer *buffer,
-				      GspellChecker *checker)
+/* Yes I know, the function name is a bit long. But at least there is no
+ * possible confusions. Other names that came to my mind:
+ * - get_from_buffer(), but it's confusing: which buffer is it?
+ * - get_from_sibling(): less clear.
+ */
+GspellTextBuffer *
+gspell_text_buffer_get_from_gtk_text_buffer (GtkTextBuffer *gtk_buffer)
 {
-	GspellBufferNotifier *notifier;
+	GspellTextBuffer *gspell_buffer;
 
-	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
-	g_return_if_fail (checker == NULL || GSPELL_IS_CHECKER (checker));
+	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (gtk_buffer), NULL);
 
-	if (checker != NULL)
+	gspell_buffer = g_object_get_data (G_OBJECT (gtk_buffer), GSPELL_TEXT_BUFFER_KEY);
+	if (gspell_buffer != NULL)
 	{
-		g_object_set_data_full (G_OBJECT (buffer),
-					SPELL_CHECKER_KEY,
-					g_object_ref (checker),
-					g_object_unref);
-	}
-	else
-	{
-		g_object_set_data (G_OBJECT (buffer),
-				   SPELL_CHECKER_KEY,
-				   NULL);
+		g_return_val_if_fail (GSPELL_IS_TEXT_BUFFER (gspell_buffer), NULL);
+		return gspell_buffer;
 	}
 
-	notifier = _gspell_buffer_notifier_get_instance ();
-	_gspell_buffer_notifier_text_buffer_checker_changed (notifier, buffer, checker);
+	gspell_buffer = gspell_text_buffer_new (gtk_buffer);
+	g_object_set_data_full (G_OBJECT (gtk_buffer),
+				GSPELL_TEXT_BUFFER_KEY,
+				gspell_buffer,
+				g_object_unref);
+
+	return gspell_buffer;
+}
+
+/**
+ * gspell_text_buffer_get_buffer:
+ * @gspell_buffer: a #GspellTextBuffer.
+ *
+ * Returns: (transfer none): the #GtkTextBuffer of @gspell_buffer.
+ */
+GtkTextBuffer *
+gspell_text_buffer_get_buffer (GspellTextBuffer *gspell_buffer)
+{
+	g_return_val_if_fail (GSPELL_IS_TEXT_BUFFER (gspell_buffer), NULL);
+
+	return gspell_buffer->buffer;
 }
 
 /**
  * gspell_text_buffer_get_spell_checker:
- * @buffer: a #GtkTextBuffer.
+ * @gspell_buffer: a #GspellTextBuffer.
  *
- * Returns: (nullable) (transfer none): the associated #GspellChecker if one has
- * been set, or %NULL.
+ * Returns: (nullable) (transfer none): the #GspellChecker if one has been set,
+ *   or %NULL.
  */
 GspellChecker *
-gspell_text_buffer_get_spell_checker (GtkTextBuffer *buffer)
+gspell_text_buffer_get_spell_checker (GspellTextBuffer *gspell_buffer)
 {
-	gpointer data;
+	g_return_val_if_fail (GSPELL_IS_TEXT_BUFFER (gspell_buffer), NULL);
 
-	g_return_val_if_fail (GTK_IS_TEXT_BUFFER (buffer), NULL);
+	return gspell_buffer->spell_checker;
+}
 
-	data = g_object_get_data (G_OBJECT (buffer), SPELL_CHECKER_KEY);
+/**
+ * gspell_text_buffer_set_spell_checker:
+ * @gspell_buffer: a #GspellTextBuffer.
+ * @spell_checker: (nullable): a #GspellChecker, or %NULL to unset the spell
+ *   checker.
+ *
+ * Sets a #GspellChecker to a #GspellTextBuffer. The @gspell_buffer will own a
+ * reference to @spell_checker, so you can release your reference to
+ * @spell_checker if you no longer need it.
+ */
+void
+gspell_text_buffer_set_spell_checker (GspellTextBuffer *gspell_buffer,
+				      GspellChecker    *spell_checker)
+{
+	g_return_if_fail (GSPELL_IS_TEXT_BUFFER (gspell_buffer));
+	g_return_if_fail (spell_checker == NULL || GSPELL_IS_CHECKER (spell_checker));
 
-	if (data == NULL)
+	if (g_set_object (&gspell_buffer->spell_checker, spell_checker))
 	{
-		return NULL;
+		g_object_notify (G_OBJECT (gspell_buffer), "spell-checker");
 	}
-
-	g_return_val_if_fail (GSPELL_IS_CHECKER (data), NULL);
-	return data;
 }
 
 /* ex:set ts=8 noet: */
