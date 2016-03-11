@@ -22,6 +22,7 @@
 /**
  * SECTION:text-buffer
  * @Title: GspellTextBuffer
+ * @Short_description: Spell checking support for GtkTextBuffer
  *
  * #GspellTextBuffer extends the #GtkTextBuffer class without subclassing it,
  * because the GtkSourceView library has already a #GtkTextBuffer subclass.
