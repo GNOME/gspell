@@ -17,8 +17,8 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_INLINE_CHECKER_TEXT_VIEW_H__
-#define __GSPELL_INLINE_CHECKER_TEXT_VIEW_H__
+#ifndef __GSPELL_TEXT_VIEW_H__
+#define __GSPELL_TEXT_VIEW_H__
 
 #if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -28,12 +28,12 @@
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_INLINE_CHECKER_TEXT_VIEW (gspell_inline_checker_text_view_get_type ())
-G_DECLARE_DERIVABLE_TYPE (GspellInlineCheckerTextView, gspell_inline_checker_text_view,
-			  GSPELL, INLINE_CHECKER_TEXT_VIEW,
+#define GSPELL_TYPE_TEXT_VIEW (gspell_text_view_get_type ())
+G_DECLARE_DERIVABLE_TYPE (GspellTextView, gspell_text_view,
+			  GSPELL, TEXT_VIEW,
 			  GObject)
 
-struct _GspellInlineCheckerTextViewClass
+struct _GspellTextViewClass
 {
 	GObjectClass parent_class;
 
@@ -41,16 +41,15 @@ struct _GspellInlineCheckerTextViewClass
 	gpointer padding[8];
 };
 
-GspellInlineCheckerTextView *
-		gspell_text_view_get_inline_checker		(GtkTextView *view);
+GspellTextView *	gspell_text_view_get_inline_checker	(GtkTextView *gtk_view);
 
-void		gspell_inline_checker_text_view_set_enabled	(GspellInlineCheckerTextView *inline_checker,
-								 gboolean                     enabled);
+void			gspell_text_view_set_enabled		(GspellTextView *gspell_view,
+								 gboolean        enabled);
 
-gboolean	gspell_inline_checker_text_view_get_enabled	(GspellInlineCheckerTextView *inline_checker);
+gboolean		gspell_text_view_get_enabled		(GspellTextView *gspell_view);
 
 G_END_DECLS
 
-#endif /* __GSPELL_INLINE_CHECKER_TEXT_VIEW_H__ */
+#endif /* __GSPELL_TEXT_VIEW_H__ */
 
 /* ex:set ts=8 noet: */

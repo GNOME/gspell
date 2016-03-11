@@ -20,26 +20,26 @@ gspell_public_headers =				\
 	gspell.h				\
 	gspell-checker.h			\
 	gspell-checker-dialog.h			\
-	gspell-inline-checker-text-view.h	\
 	gspell-language.h			\
 	gspell-language-chooser.h		\
 	gspell-language-chooser-button.h	\
 	gspell-language-chooser-dialog.h	\
 	gspell-navigator.h			\
 	gspell-navigator-text-view.h		\
-	gspell-text-buffer.h
+	gspell-text-buffer.h			\
+	gspell-text-view.h
 
 gspell_public_c_files =				\
 	gspell-checker.c			\
 	gspell-checker-dialog.c			\
-	gspell-inline-checker-text-view.c	\
 	gspell-language.c			\
 	gspell-language-chooser.c		\
 	gspell-language-chooser-button.c	\
 	gspell-language-chooser-dialog.c	\
 	gspell-navigator.c			\
 	gspell-navigator-text-view.c		\
-	gspell-text-buffer.c
+	gspell-text-buffer.c			\
+	gspell-text-view.c
 
 gspell_private_headers =			\
 	gconstructor.h				\

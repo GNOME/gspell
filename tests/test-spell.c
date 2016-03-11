@@ -103,7 +103,7 @@ get_sidebar (TestSpell *spell)
 	GtkWidget *change_buffer_button;
 	GspellChecker *checker;
 	const GspellLanguage *language;
-	GspellInlineCheckerTextView *inline_checker;
+	GspellTextView *inline_checker;
 
 	sidebar = gtk_grid_new ();
 

@@ -51,15 +51,15 @@ GSPELL_TYPE_TEXT_BUFFER
 </SECTION>
 
 <SECTION>
-<FILE>inline-checker-text-view</FILE>
-<TITLE>GspellInlineCheckerTextView</TITLE>
-GspellInlineCheckerTextView
+<FILE>text-view</FILE>
+<TITLE>GspellTextView</TITLE>
+GspellTextView
 gspell_text_view_get_inline_checker
-gspell_inline_checker_text_view_set_enabled
-gspell_inline_checker_text_view_get_enabled
+gspell_text_view_get_enabled
+gspell_text_view_set_enabled
 <SUBSECTION Standard>
-GSPELL_TYPE_INLINE_CHECKER_TEXT_VIEW
-GspellInlineCheckerTextViewClass
+GSPELL_TYPE_TEXT_VIEW
+GspellTextViewClass
 </SECTION>
 
 <SECTION>
