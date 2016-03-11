@@ -257,7 +257,7 @@ gspell_text_view_init (GspellTextView *gspell_view)
 }
 
 /**
- * gspell_text_view_get_inline_checker:
+ * gspell_text_view_get_from_gtk_text_view:
  * @gtk_view: a #GtkTextView.
  *
  * Returns the #GspellTextView of @gtk_view. The returned object is guaranteed
@@ -266,7 +266,7 @@ gspell_text_view_init (GspellTextView *gspell_view)
  * Returns: (transfer none): the #GspellTextView of @gtk_view.
  */
 GspellTextView *
-gspell_text_view_get_inline_checker (GtkTextView *gtk_view)
+gspell_text_view_get_from_gtk_text_view (GtkTextView *gtk_view)
 {
 	GspellTextView *gspell_view;
 

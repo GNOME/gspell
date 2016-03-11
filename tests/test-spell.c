@@ -142,7 +142,7 @@ get_sidebar (TestSpell *spell)
 	gtk_container_add (GTK_CONTAINER (sidebar),
 			   highlight_checkbutton);
 
-	inline_checker = gspell_text_view_get_inline_checker (spell->view);
+	inline_checker = gspell_text_view_get_from_gtk_text_view (spell->view);
 	g_object_bind_property (highlight_checkbutton, "active",
 				inline_checker, "enabled",
 				G_BINDING_DEFAULT);

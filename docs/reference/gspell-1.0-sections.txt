@@ -54,7 +54,7 @@ GSPELL_TYPE_TEXT_BUFFER
 <FILE>text-view</FILE>
 <TITLE>GspellTextView</TITLE>
 GspellTextView
-gspell_text_view_get_inline_checker
+gspell_text_view_get_from_gtk_text_view
 gspell_text_view_get_enabled
 gspell_text_view_set_enabled
 <SUBSECTION Standard>
