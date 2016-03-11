@@ -34,6 +34,9 @@
  * It is not mandatory to navigate through all the text. Depending on the
  * context, an implementation could spell check only the current page, or the
  * selection, etc.
+ *
+ * For #GtkTextView, see the #GspellNavigatorTextView implementation of this
+ * interface.
  */
 
 G_DEFINE_INTERFACE (GspellNavigator, gspell_navigator, G_TYPE_OBJECT)
