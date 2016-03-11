@@ -41,12 +41,12 @@ struct _GspellTextViewClass
 	gpointer padding[8];
 };
 
-GspellTextView *	gspell_text_view_get_from_gtk_text_view	(GtkTextView *gtk_view);
+GspellTextView *	gspell_text_view_get_from_gtk_text_view		(GtkTextView *gtk_view);
 
-void			gspell_text_view_set_enabled		(GspellTextView *gspell_view,
-								 gboolean        enabled);
+gboolean		gspell_text_view_get_inline_spell_checking	(GspellTextView *gspell_view);
 
-gboolean		gspell_text_view_get_enabled		(GspellTextView *gspell_view);
+void			gspell_text_view_set_inline_spell_checking	(GspellTextView *gspell_view,
+									 gboolean        enable);
 
 G_END_DECLS
 

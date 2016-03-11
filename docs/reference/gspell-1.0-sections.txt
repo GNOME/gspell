@@ -55,8 +55,8 @@ GSPELL_TYPE_TEXT_BUFFER
 <TITLE>GspellTextView</TITLE>
 GspellTextView
 gspell_text_view_get_from_gtk_text_view
-gspell_text_view_get_enabled
-gspell_text_view_set_enabled
+gspell_text_view_get_inline_spell_checking
+gspell_text_view_set_inline_spell_checking
 <SUBSECTION Standard>
 GSPELL_TYPE_TEXT_VIEW
 GspellTextViewClass

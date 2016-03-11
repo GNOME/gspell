@@ -58,7 +58,7 @@ enum
 {
 	PROP_0,
 	PROP_VIEW,
-	PROP_ENABLED,
+	PROP_INLINE_SPELL_CHECKING,
 };
 
 #define GSPELL_TEXT_VIEW_KEY "gspell-text-view-key"
@@ -159,8 +159,8 @@ gspell_text_view_get_property (GObject    *object,
 			g_value_set_object (value, priv->view);
 			break;
 
-		case PROP_ENABLED:
-			g_value_set_boolean (value, gspell_text_view_get_enabled (gspell_view));
+		case PROP_INLINE_SPELL_CHECKING:
+			g_value_set_boolean (value, gspell_text_view_get_inline_spell_checking (gspell_view));
 			break;
 
 		default:
@@ -183,8 +183,8 @@ gspell_text_view_set_property (GObject      *object,
 			set_view (gspell_view, g_value_get_object (value));
 			break;
 
-		case PROP_ENABLED:
-			gspell_text_view_set_enabled (gspell_view, g_value_get_boolean (value));
+		case PROP_INLINE_SPELL_CHECKING:
+			gspell_text_view_set_inline_spell_checking (gspell_view, g_value_get_boolean (value));
 			break;
 
 		default:
@@ -237,14 +237,14 @@ gspell_text_view_class_init (GspellTextViewClass *klass)
 							      G_PARAM_STATIC_STRINGS));
 
 	/**
-	 * GspellTextView:enabled:
+	 * GspellTextView:inline-spell-checking:
 	 *
 	 * Whether the inline spell checking is enabled.
 	 */
 	g_object_class_install_property (object_class,
-					 PROP_ENABLED,
-					 g_param_spec_boolean ("enabled",
-							       "Enabled",
+					 PROP_INLINE_SPELL_CHECKING,
+					 g_param_spec_boolean ("inline-spell-checking",
+							       "Inline Spell Checking",
 							       "",
 							       FALSE,
 							       G_PARAM_READWRITE |
@@ -291,45 +291,13 @@ gspell_text_view_get_from_gtk_text_view (GtkTextView *gtk_view)
 }
 
 /**
- * gspell_text_view_set_enabled:
- * @gspell_view: a #GspellTextView.
- * @enabled: the new state.
- *
- * Enables or disables the inline spell checking.
- */
-void
-gspell_text_view_set_enabled (GspellTextView *gspell_view,
-			      gboolean        enabled)
-{
-	g_return_if_fail (GSPELL_IS_TEXT_VIEW (gspell_view));
-
-	enabled = enabled != FALSE;
-
-	if (enabled == gspell_text_view_get_enabled (gspell_view))
-	{
-		return;
-	}
-
-	if (enabled)
-	{
-		create_inline_checker (gspell_view);
-	}
-	else
-	{
-		destroy_inline_checker (gspell_view);
-	}
-
-	g_object_notify (G_OBJECT (gspell_view), "enabled");
-}
-
-/**
- * gspell_text_view_get_enabled:
+ * gspell_text_view_get_inline_spell_checking:
  * @gspell_view: a #GspellTextView.
  *
  * Returns: whether the inline spell checking is enabled.
  */
 gboolean
-gspell_text_view_get_enabled (GspellTextView *gspell_view)
+gspell_text_view_get_inline_spell_checking (GspellTextView *gspell_view)
 {
 	GspellTextViewPrivate *priv;
 
@@ -338,6 +306,38 @@ gspell_text_view_get_enabled (GspellTextView *gspell_view)
 	priv = gspell_text_view_get_instance_private (gspell_view);
 
 	return priv->inline_checker != NULL;
+}
+
+/**
+ * gspell_text_view_set_inline_spell_checking:
+ * @gspell_view: a #GspellTextView.
+ * @enable: the new state.
+ *
+ * Enables or disables the inline spell checking.
+ */
+void
+gspell_text_view_set_inline_spell_checking (GspellTextView *gspell_view,
+					    gboolean        enable)
+{
+	g_return_if_fail (GSPELL_IS_TEXT_VIEW (gspell_view));
+
+	enable = enable != FALSE;
+
+	if (enable == gspell_text_view_get_inline_spell_checking (gspell_view))
+	{
+		return;
+	}
+
+	if (enable)
+	{
+		create_inline_checker (gspell_view);
+	}
+	else
+	{
+		destroy_inline_checker (gspell_view);
+	}
+
+	g_object_notify (G_OBJECT (gspell_view), "inline-spell-checking");
 }
 
 /* ex:set ts=8 noet: */

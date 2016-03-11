@@ -103,7 +103,7 @@ get_sidebar (TestSpell *spell)
 	GtkWidget *change_buffer_button;
 	GspellChecker *checker;
 	const GspellLanguage *language;
-	GspellTextView *inline_checker;
+	GspellTextView *gspell_view;
 
 	sidebar = gtk_grid_new ();
 
@@ -142,9 +142,9 @@ get_sidebar (TestSpell *spell)
 	gtk_container_add (GTK_CONTAINER (sidebar),
 			   highlight_checkbutton);
 
-	inline_checker = gspell_text_view_get_from_gtk_text_view (spell->view);
+	gspell_view = gspell_text_view_get_from_gtk_text_view (spell->view);
 	g_object_bind_property (highlight_checkbutton, "active",
-				inline_checker, "enabled",
+				gspell_view, "inline-spell-checking",
 				G_BINDING_DEFAULT);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (highlight_checkbutton), TRUE);
