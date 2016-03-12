@@ -149,16 +149,12 @@ gspell_text_view_get_property (GObject    *object,
 			       GValue     *value,
 			       GParamSpec *pspec)
 {
-	GspellTextView *gspell_view;
-	GspellTextViewPrivate *priv;
-
-	gspell_view = GSPELL_TEXT_VIEW (object);
-	priv = gspell_text_view_get_instance_private (gspell_view);
+	GspellTextView *gspell_view = GSPELL_TEXT_VIEW (object);
 
 	switch (prop_id)
 	{
 		case PROP_VIEW:
-			g_value_set_object (value, priv->view);
+			g_value_set_object (value, gspell_text_view_get_view (gspell_view));
 			break;
 
 		case PROP_INLINE_SPELL_CHECKING:
@@ -293,6 +289,23 @@ gspell_text_view_get_from_gtk_text_view (GtkTextView *gtk_view)
 }
 
 /**
+ * gspell_text_view_get_view:
+ * @gspell_view: a #GspellTextView.
+ *
+ * Returns: (transfer none): the #GtkTextView of @gspell_view.
+ */
+GtkTextView *
+gspell_text_view_get_view (GspellTextView *gspell_view)
+{
+	GspellTextViewPrivate *priv;
+
+	g_return_val_if_fail (GSPELL_IS_TEXT_VIEW (gspell_view), NULL);
+
+	priv = gspell_text_view_get_instance_private (gspell_view);
+	return priv->view;
+}
+
+/**
  * gspell_text_view_get_inline_spell_checking:
  * @gspell_view: a #GspellTextView.
  *
@@ -306,7 +319,6 @@ gspell_text_view_get_inline_spell_checking (GspellTextView *gspell_view)
 	g_return_val_if_fail (GSPELL_IS_TEXT_VIEW (gspell_view), FALSE);
 
 	priv = gspell_text_view_get_instance_private (gspell_view);
-
 	return priv->inline_checker != NULL;
 }
 
