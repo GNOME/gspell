@@ -27,6 +27,8 @@
 
 #include <gtk/gtk.h>
 
+G_BEGIN_DECLS
+
 #define GSPELL_TYPE_INLINE_CHECKER_TEXT_BUFFER (_gspell_inline_checker_text_buffer_get_type ())
 
 G_GNUC_INTERNAL
@@ -55,6 +57,8 @@ void	_gspell_inline_checker_text_buffer_set_unit_test_mode	(GspellInlineCheckerT
 G_GNUC_INTERNAL
 GtkTextTag *
 	_gspell_inline_checker_text_buffer_get_highlight_tag	(GspellInlineCheckerTextBuffer *spell);
+
+G_END_DECLS
 
 #endif  /* __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__ */
 
