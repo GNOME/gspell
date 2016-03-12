@@ -32,8 +32,10 @@ insttest_PROGRAMS = $(UNIT_TEST_PROGS)
 
 %.test: %$(EXEEXT) Makefile
 	$(AM_V_GEN) (echo '[Test]' > $@.tmp; \
-	echo 'Type=session' >> $@.tmp; \
+	echo 'Description=gspell test' >> $@.tmp; \
 	echo 'Exec=$(insttestdir)/$<' >> $@.tmp; \
+	echo 'Type=session' >> $@.tmp; \
+	echo 'Output=TAP' >> $@.tmp; \
 	mv $@.tmp $@)
 
 test_files = $(UNIT_TEST_PROGS:=.test)
