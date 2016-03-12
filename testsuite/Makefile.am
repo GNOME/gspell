@@ -26,4 +26,23 @@ test_text_iter_SOURCES = test-text-iter.c
 UNIT_TEST_PROGS += test-utils
 test_utils_SOURCES = test-utils.c
 
+if INSTALLED_TESTS
+insttestdir = $(libexecdir)/installed-tests/$(PACKAGE)
+insttest_PROGRAMS = $(UNIT_TEST_PROGS)
+
+%.test: %$(EXEEXT) Makefile
+	$(AM_V_GEN) (echo '[Test]' > $@.tmp; \
+	echo 'Type=session' >> $@.tmp; \
+	echo 'Exec=$(insttestdir)/$<' >> $@.tmp; \
+	mv $@.tmp $@)
+
+test_files = $(UNIT_TEST_PROGS:=.test)
+
+DISTCLEANFILES = $(test_files)
+
+testmetadir = $(datadir)/installed-tests/$(PACKAGE)
+testmeta_DATA = $(test_files)
+
+endif # INSTALLED_TESTS
+
 -include $(top_srcdir)/git.mk

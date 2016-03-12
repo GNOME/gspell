@@ -130,6 +130,14 @@ GTK_PREFIX="`$PKG_CONFIG --variable=prefix gtk+-3.0`"
 AC_SUBST(GLIB_PREFIX)
 AC_SUBST(GTK_PREFIX)
 
+# Installed Tests for gnome continuous integration
+AC_ARG_ENABLE(installed_tests,
+	      AS_HELP_STRING([--enable-installed-tests],
+			     [Install test programs (default: no)]),,
+	      [enable_installed_tests=no])
+
+AM_CONDITIONAL(INSTALLED_TESTS, test "x$enable_installed_tests" = "xyes")
+
 # Introspection
 AX_REQUIRE_DEFINED([GOBJECT_INTROSPECTION_CHECK])
 GOBJECT_INTROSPECTION_CHECK([1.42.0])
