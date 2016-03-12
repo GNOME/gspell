@@ -43,8 +43,10 @@ struct _GspellCheckerDialogClass
 	gpointer padding[8];
 };
 
-GtkWidget *	gspell_checker_dialog_new		(GtkWindow       *parent,
-							 GspellNavigator *navigator);
+GtkWidget *		gspell_checker_dialog_new			(GtkWindow       *parent,
+									 GspellNavigator *navigator);
+
+GspellNavigator *	gspell_checker_dialog_get_spell_navigator	(GspellCheckerDialog *dialog);
 
 G_END_DECLS
 

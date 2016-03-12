@@ -67,6 +67,7 @@ GspellTextViewClass
 <TITLE>GspellCheckerDialog</TITLE>
 GspellCheckerDialog
 gspell_checker_dialog_new
+gspell_checker_dialog_get_spell_navigator
 <SUBSECTION Standard>
 GSPELL_TYPE_CHECKER_DIALOG
 </SECTION>

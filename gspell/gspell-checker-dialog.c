@@ -290,14 +290,12 @@ gspell_checker_dialog_get_property (GObject    *object,
 				    GValue     *value,
 				    GParamSpec *pspec)
 {
-	GspellCheckerDialogPrivate *priv;
-
-	priv = gspell_checker_dialog_get_instance_private (GSPELL_CHECKER_DIALOG (object));
+	GspellCheckerDialog *dialog = GSPELL_CHECKER_DIALOG (object);
 
 	switch (prop_id)
 	{
 		case PROP_SPELL_NAVIGATOR:
-			g_value_set_object (value, priv->navigator);
+			g_value_set_object (value, gspell_checker_dialog_get_spell_navigator (dialog));
 			break;
 
 		default:
@@ -717,6 +715,23 @@ gspell_checker_dialog_new (GtkWindow       *parent,
 			     "use-header-bar", TRUE,
 			     "spell-navigator", navigator,
 			     NULL);
+}
+
+/**
+ * gspell_checker_dialog_get_spell_navigator:
+ * @dialog: a #GspellCheckerDialog.
+ *
+ * Returns: (transfer none): the #GspellNavigator used.
+ */
+GspellNavigator *
+gspell_checker_dialog_get_spell_navigator (GspellCheckerDialog *dialog)
+{
+	GspellCheckerDialogPrivate *priv;
+
+	g_return_val_if_fail (GSPELL_IS_CHECKER_DIALOG (dialog), NULL);
+
+	priv = gspell_checker_dialog_get_instance_private (dialog);
+	return priv->navigator;
 }
 
 /* ex:set ts=8 noet: */
