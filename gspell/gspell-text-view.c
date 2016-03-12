@@ -139,6 +139,8 @@ set_view (GspellTextView *gspell_view,
 				 G_CALLBACK (notify_buffer_cb),
 				 gspell_view,
 				 0);
+
+	g_object_notify (G_OBJECT (gspell_view), "view");
 }
 
 static void
