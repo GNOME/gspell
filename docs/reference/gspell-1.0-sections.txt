@@ -7,8 +7,8 @@ GspellChecker
 GspellCheckerError
 GSPELL_CHECKER_ERROR
 gspell_checker_new
-gspell_checker_set_language
 gspell_checker_get_language
+gspell_checker_set_language
 gspell_checker_check_word
 gspell_checker_get_suggestions
 gspell_checker_add_word_to_personal
