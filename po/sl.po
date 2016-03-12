@@ -2,15 +2,15 @@
 # Copyright (C) 2016 gspell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gspell package.
 #
-# Matej Urbančič <mateju@svn.gnome.org>, 2016.
+# Matej Urbančič <mateju@svn.gnome.org>, 2016
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gspell master\n"
+"Project-Id-Version: gspell gspell-0-1\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-11 18:20+0000\n"
-"PO-Revision-Date: 2016-03-11 22:28+0100\n"
+"POT-Creation-Date: 2016-03-12 11:25+0000\n"
+"PO-Revision-Date: 2016-03-12 11:25+0000\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -22,85 +22,95 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 1.8.4\n"
 
-#: gspell/gspell-checker.c:403
+#: gspell/gspell-checker.c:466
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
-msgstr "Prišlo je do napake med preverjanjem črkovanja besede “%s”: %s"
+msgstr ""
 
 #. Translators: Displayed in the "Check Spelling"
 #. * dialog if there are no suggestions for the current
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:840
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:577
 msgid "(no suggested words)"
-msgstr "(ni predlaganih besed)"
+msgstr ""
 
-#: gspell/gspell-checker-dialog.c:232
+#: gspell/gspell-checker-dialog.c:237
 msgid "Error:"
 msgstr "Napaka:"
 
-#: gspell/gspell-checker-dialog.c:268
+#: gspell/gspell-checker-dialog.c:274
 msgid "Completed spell checking"
-msgstr "Preverjanje črkovanja je končano"
+msgstr ""
 
-#: gspell/gspell-checker-dialog.c:272
+#: gspell/gspell-checker-dialog.c:278
 msgid "No misspelled words"
-msgstr "Ni napačno črkovanih besed"
+msgstr ""
 
 #. Translators: Displayed in the "Check
 #. * Spelling" dialog if the current word
 #. * isn't misspelled.
 #.
-#: gspell/gspell-checker-dialog.c:501
+#: gspell/gspell-checker-dialog.c:507
 msgid "(correct spelling)"
-msgstr "(pravilno črkovanje)"
+msgstr ""
 
-#: gspell/gspell-checker-dialog.c:639
+#: gspell/gspell-checker-dialog.c:645
 msgid "Suggestions"
-msgstr "Predlogi"
+msgstr ""
 
-#: gspell/gspell-inline-checker-text-buffer.c:863
+#: gspell/gspell-inline-checker-gtv.c:600
 msgid "_More..."
-msgstr "_Več ..."
+msgstr ""
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:903
+#: gspell/gspell-inline-checker-gtv.c:640
 msgid "_Ignore All"
-msgstr "_Prezri vse"
+msgstr ""
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:912
+#: gspell/gspell-inline-checker-gtv.c:649
 msgid "_Add"
-msgstr "_Dodaj"
+msgstr ""
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:949
+#: gspell/gspell-inline-checker-gtv.c:686
 msgid "_Spelling Suggestions..."
-msgstr "Črkovalni _predlogi ..."
+msgstr ""
 
-#. Translators: %s is the language ISO code.
-#: gspell/gspell-language.c:280
-#, c-format
-msgctxt "language"
-msgid "Unknown (%s)"
-msgstr "Neznan nabor (%s)"
-
-#. Translators: The first %s is the language name, and the
-#. * second is the country name. Example: "French (France)".
+#. Translators: the first %s is the language name, and
+#. * the second %s is the locale name. Example:
+#. * "French (France)"
 #.
-#: gspell/gspell-language.c:297 gspell/gspell-language.c:306
+#: gspell/gspell-language.c:359 gspell/gspell-language.c:365
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
 msgstr ""
 
-#: gspell/gspell-language-chooser-button.c:81
-msgid "No language selected"
-msgstr "Ni izbranega jezika"
+#. Translators: this refers to an unknown language code
+#. * (one which isn't in our built-in list).
+#.
+#: gspell/gspell-language.c:374
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr ""
 
-#: gspell/gspell-navigator-text-view.c:309
+#. Translators: this refers the Default language used by the
+#. * spell checker
+#.
+#: gspell/gspell-language.c:486
+msgctxt "language"
+msgid "Default"
+msgstr ""
+
+#: gspell/gspell-language-chooser-button.c:78
+msgid "No language selected"
+msgstr ""
+
+#: gspell/gspell-navigator-gtv.c:334
 msgid ""
 "Spell checker error: no language set. It's maybe because no dictionaries are "
 "installed."
@@ -108,64 +118,64 @@ msgstr ""
 
 #: gspell/resources/checker-dialog.ui:8
 msgid "Check Spelling"
-msgstr "Preveri črkovanje"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:36
+#: gspell/resources/checker-dialog.ui:27
 msgid "Misspelled word:"
-msgstr "Napačno črkovana beseda:"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:49
+#: gspell/resources/checker-dialog.ui:40
 msgid "word"
-msgstr "beseda"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:66
+#: gspell/resources/checker-dialog.ui:57
 msgid "Change _to:"
-msgstr "Spremeni _v:"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:91
+#: gspell/resources/checker-dialog.ui:82
 msgid "Check _Word"
-msgstr "Preveri _besedo"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:121
+#: gspell/resources/checker-dialog.ui:112
 msgid "_Suggestions:"
-msgstr "P_redlogi:"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:134
+#: gspell/resources/checker-dialog.ui:125
 msgid "_Ignore"
-msgstr "_Prezri"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:148
+#: gspell/resources/checker-dialog.ui:139
 msgid "Ignore _All"
-msgstr "Prezri _vse"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:162
+#: gspell/resources/checker-dialog.ui:153
 msgid "Cha_nge"
-msgstr "Spreme_ni"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:178
+#: gspell/resources/checker-dialog.ui:169
 msgid "Change A_ll"
-msgstr "Spremeni v_se"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:196
+#: gspell/resources/checker-dialog.ui:187
 msgid "User dictionary:"
-msgstr "Uporabniški slovar:"
+msgstr ""
 
-#: gspell/resources/checker-dialog.ui:208
+#: gspell/resources/checker-dialog.ui:199
 msgid "Add w_ord"
-msgstr "Dodaj _besedo"
+msgstr ""
 
 #: gspell/resources/language-dialog.ui:8
 msgid "Set Language"
-msgstr "Nastavi jezik"
-
-#: gspell/resources/language-dialog.ui:20
-msgid "Select the spell checking _language."
 msgstr ""
 
-#: gspell/resources/language-dialog.ui:61
-msgid "_Cancel"
-msgstr "Pre_kliči"
+#: gspell/resources/language-dialog.ui:22
+msgid "Select the _language of the current document."
+msgstr ""
 
-#: gspell/resources/language-dialog.ui:68
+#: gspell/resources/language-dialog.ui:63
+msgid "_Cancel"
+msgstr ""
+
+#: gspell/resources/language-dialog.ui:70
 msgid "_Select"
-msgstr "_Izberi"
+msgstr ""
