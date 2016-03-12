@@ -520,7 +520,7 @@ gspell_navigator_iface_init (gpointer g_iface,
  * gspell_navigator_text_view_new:
  * @view: a #GtkTextView.
  *
- * Returns: (transfer full): a new #GspellNavigatorTextView object.
+ * Returns: (transfer floating): a new #GspellNavigatorTextView floating object.
  */
 GspellNavigator *
 gspell_navigator_text_view_new (GtkTextView *view)
