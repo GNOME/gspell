@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,7 @@
  * interface.
  */
 
-G_DEFINE_INTERFACE (GspellNavigator, gspell_navigator, G_TYPE_OBJECT)
+G_DEFINE_INTERFACE (GspellNavigator, gspell_navigator, G_TYPE_INITIALLY_UNOWNED)
 
 static gboolean
 gspell_navigator_goto_next_default (GspellNavigator  *navigator,

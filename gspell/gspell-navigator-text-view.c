@@ -73,7 +73,7 @@ static void gspell_navigator_iface_init (gpointer g_iface, gpointer iface_data);
 
 G_DEFINE_TYPE_WITH_CODE (GspellNavigatorTextView,
 			 gspell_navigator_text_view,
-			 G_TYPE_OBJECT,
+			 G_TYPE_INITIALLY_UNOWNED,
 			 G_ADD_PRIVATE (GspellNavigatorTextView)
 			 G_IMPLEMENT_INTERFACE (GSPELL_TYPE_NAVIGATOR,
 						gspell_navigator_iface_init))

@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 #define GSPELL_TYPE_NAVIGATOR (gspell_navigator_get_type ())
 G_DECLARE_INTERFACE (GspellNavigator, gspell_navigator,
 		     GSPELL, NAVIGATOR,
-		     GObject)
+		     GInitiallyUnowned)
 
 struct _GspellNavigatorInterface
 {

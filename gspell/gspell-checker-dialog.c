@@ -100,7 +100,7 @@ set_navigator (GspellCheckerDialog *dialog,
 	priv = gspell_checker_dialog_get_instance_private (dialog);
 
 	g_return_if_fail (priv->navigator == NULL);
-	priv->navigator = g_object_ref (navigator);
+	priv->navigator = g_object_ref_sink (navigator);
 
 	g_object_notify (G_OBJECT (dialog), "spell-navigator");
 }
@@ -702,10 +702,6 @@ gspell_checker_dialog_init (GspellCheckerDialog *dialog)
  * gspell_checker_dialog_new:
  * @parent: transient parent of the dialog.
  * @navigator: the #GspellNavigator to use.
- *
- * Creates a new #GspellCheckerDialog. The #GspellCheckerDialog will own a
- * reference to @navigator, so you can release your reference if you no longer
- * need it.
  *
  * Returns: a new #GspellCheckerDialog widget.
  */
