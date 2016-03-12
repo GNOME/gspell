@@ -136,14 +136,12 @@ gspell_navigator_text_view_get_property (GObject    *object,
 					 GValue     *value,
 					 GParamSpec *pspec)
 {
-	GspellNavigatorTextViewPrivate *priv;
-
-	priv = gspell_navigator_text_view_get_instance_private (GSPELL_NAVIGATOR_TEXT_VIEW (object));
+	GspellNavigatorTextView *navigator = GSPELL_NAVIGATOR_TEXT_VIEW (object);
 
 	switch (prop_id)
 	{
 		case PROP_VIEW:
-			g_value_set_object (value, priv->view);
+			g_value_set_object (value, gspell_navigator_text_view_get_view (navigator));
 			break;
 
 		default:
@@ -530,6 +528,23 @@ gspell_navigator_text_view_new (GtkTextView *view)
 	return g_object_new (GSPELL_TYPE_NAVIGATOR_TEXT_VIEW,
 			     "view", view,
 			     NULL);
+}
+
+/**
+ * gspell_navigator_text_view_get_view:
+ * @navigator: a #GspellNavigatorTextView.
+ *
+ * Returns: (transfer none): the #GtkTextView.
+ */
+GtkTextView *
+gspell_navigator_text_view_get_view (GspellNavigatorTextView *navigator)
+{
+	GspellNavigatorTextViewPrivate *priv;
+
+	g_return_val_if_fail (GSPELL_IS_NAVIGATOR_TEXT_VIEW (navigator), NULL);
+
+	priv = gspell_navigator_text_view_get_instance_private (navigator);
+	return priv->view;
 }
 
 /* ex:set ts=8 noet: */

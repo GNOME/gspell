@@ -45,6 +45,8 @@ struct _GspellNavigatorTextViewClass
 
 GspellNavigator *	gspell_navigator_text_view_new		(GtkTextView *view);
 
+GtkTextView *		gspell_navigator_text_view_get_view	(GspellNavigatorTextView *navigator);
+
 G_END_DECLS
 
 #endif /* __GSPELL_NAVIGATOR_TEXT_VIEW_H__ */

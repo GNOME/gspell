@@ -90,6 +90,7 @@ GSPELL_TYPE_NAVIGATOR
 <TITLE>GspellNavigatorTextView</TITLE>
 GspellNavigatorTextView
 gspell_navigator_text_view_new
+gspell_navigator_text_view_get_view
 <SUBSECTION Standard>
 GSPELL_TYPE_NAVIGATOR_TEXT_VIEW
 GspellNavigatorTextViewClass
