@@ -27,7 +27,7 @@ UNIT_TEST_PROGS += test-utils
 test_utils_SOURCES = test-utils.c
 
 if INSTALLED_TESTS
-insttestdir = $(libexecdir)/installed-tests/$(PACKAGE)
+insttestdir = $(libexecdir)/installed-tests/$(PACKAGE)-@GSPELL_API_VERSION@
 insttest_PROGRAMS = $(UNIT_TEST_PROGS)
 
 %.test: %$(EXEEXT) Makefile
@@ -42,7 +42,7 @@ test_files = $(UNIT_TEST_PROGS:=.test)
 
 DISTCLEANFILES = $(test_files)
 
-testmetadir = $(datadir)/installed-tests/$(PACKAGE)
+testmetadir = $(datadir)/installed-tests/$(PACKAGE)-@GSPELL_API_VERSION@
 testmeta_DATA = $(test_files)
 
 endif # INSTALLED_TESTS
