@@ -1,3 +1,10 @@
+News in 0.2.6
+-------------
+* Fix builddir != srcdir issue (it occurred only in Git, not in tarballs
+  normally)
+* Install tests in <...>/installed-tests/gspell-1/ instead of gspell/, to
+  follow the parallel installability convention.
+
 News in 0.2.5
 -------------
 * Inline checker: improve current word handling
