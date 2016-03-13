@@ -1,3 +1,18 @@
+News in 0.2.5
+-------------
+* Inline checker: improve current word handling
+* Support words with apostrophes, like "doesn't"
+* Write more unit tests
+* Improvements to the build system (use a GSPELL_API_VERSION variable)
+* Add missing getter functions
+* Installed tests support
+* Translation updates
+
+API changes:
+* Have a GspellTextBuffer class
+* Rename GspellInlineCheckerTextView -> GspellTextView
+* The GspellNavigator interface now requires GInitiallyUnowned instead of GObject
+
 News in 0.2.4
 -------------
 * Fix compilation on Mac OS X
