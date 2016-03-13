@@ -41,6 +41,7 @@ GSPELL_LT_VERSION="$GSPELL_LT_CURRENT:$GSPELL_LT_REVISION:$GSPELL_LT_AGE"
 AC_SUBST(GSPELL_LT_VERSION)
 
 # API version, used for parallel installability.
+# Not used in po/, it causes a builddir != srcdir build issue.
 GSPELL_API_VERSION=1
 AC_SUBST(GSPELL_API_VERSION)
 
