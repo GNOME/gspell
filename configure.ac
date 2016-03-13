@@ -206,7 +206,6 @@ AC_CONFIG_FILES([
 	Makefile
 	docs/Makefile
 	docs/reference/gspell-docs.xml
-	docs/reference/gspell-${GSPELL_API_VERSION}.0-sections.txt:docs/reference/gspell-sections.txt.in
 	docs/reference/Makefile
 	gspell/Makefile
 	gspell/resources/Makefile
