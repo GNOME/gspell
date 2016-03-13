@@ -8,7 +8,7 @@
 ]>
 <book id="index">
   <bookinfo>
-    <title>gspell 1 Reference Manual</title>
+    <title>gspell @GSPELL_API_VERSION@ Reference Manual</title>
     <releaseinfo>for gspell &package_version;</releaseinfo>
   </bookinfo>
 

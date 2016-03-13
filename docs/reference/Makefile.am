@@ -1,6 +1,14 @@
 ## Process this file with automake to produce Makefile.in
 AUTOMAKE_OPTIONS = 1.6
 
+EXTRA_DIST =			\
+	gspell-docs.xml.in	\
+	gspell-sections.txt.in
+
+DISTCLEANFILES =					\
+	gspell-docs.xml					\
+	gspell-@GSPELL_API_VERSION@.0-sections.txt
+
 # The name of the module.
 # For library-web, it's simpler if the DOC_MODULE follows the scheme:
 # $name-$major.$minor

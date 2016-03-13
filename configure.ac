@@ -202,9 +202,11 @@ fi
 
 # Output files
 AC_CONFIG_FILES([
-	gspell-$GSPELL_API_VERSION.pc:gspell.pc.in
+	gspell-${GSPELL_API_VERSION}.pc:gspell.pc.in
 	Makefile
 	docs/Makefile
+	docs/reference/gspell-docs.xml
+	docs/reference/gspell-${GSPELL_API_VERSION}.0-sections.txt:docs/reference/gspell-sections.txt.in
 	docs/reference/Makefile
 	gspell/Makefile
 	gspell/resources/Makefile
