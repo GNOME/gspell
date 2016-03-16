@@ -1,0 +1,130 @@
+# Occitan translation of gspell.
+# Copyright (C) 1998-2014 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gspell package.
+# Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell HEAD\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gspell&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-13 08:54+0000\n"
+"PO-Revision-Date: 2016-03-16 19:46+0200\n"
+"Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
+"Language-Team: Tot En Òc\n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Verificar l'ortografia"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Mot mal ortografiat :"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "mot"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "Remplaçar _per :"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "_Verificar lo mot"
+
+#: gspell/resources/checker-dialog.ui:121
+msgid "_Suggestions:"
+msgstr "_Suggestions :"
+
+#: gspell/resources/checker-dialog.ui:134
+msgid "_Ignore"
+msgstr "_Ignorar"
+
+#: gspell/resources/checker-dialog.ui:148
+msgid "Ignore _All"
+msgstr "Ignorar tot_jorn"
+
+#: gspell/resources/checker-dialog.ui:162
+msgid "Cha_nge"
+msgstr "Re_mplaçar"
+
+#: gspell/resources/checker-dialog.ui:178
+msgid "Change A_ll"
+msgstr "Remplaçar _tot"
+
+#: gspell/resources/checker-dialog.ui:196
+msgid "User dictionary:"
+msgstr "Diccionari de l'utilizaire :"
+
+#: gspell/resources/checker-dialog.ui:208
+msgid "Add w_ord"
+msgstr "A_pondre lo mot"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Definir la lenga"
+
+#: gspell/resources/language-dialog.ui:20
+#| msgid "Completed spell checking"
+msgid "Select the spell checking _language."
+msgstr "Seleccionar la _lenga per la verificacion orthografica."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "A_nullar"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Seleccionar"
+
+#~ msgid "Error when checking the spelling of word “%s”: %s"
+#~ msgstr "Error pendent la vérification de l'orthographe del mot « %s » : %s"
+
+#~ msgid "(no suggested words)"
+#~ msgstr "(aucun mot suggéré)"
+
+#~ msgid "Error:"
+#~ msgstr "Error :"
+
+#~ msgid "No misspelled words"
+#~ msgstr "Aucun mot mal orthographié"
+
+#~ msgid "(correct spelling)"
+#~ msgstr "(Orthographe correcte)"
+
+#~ msgid "Suggestions"
+#~ msgstr "Suggestions"
+
+#~ msgid "_More..."
+#~ msgstr "_Plus..."
+
+#~ msgid "_Ignòra All"
+#~ msgstr "_Ignorar tout"
+
+#~ msgid "_Add"
+#~ msgstr "A_pondre"
+
+#~ msgid "_Spelling Suggestions..."
+#~ msgstr "_Suggestions d'aurthographes..."
+
+#~ msgctxt "language"
+#~ msgid "%s (%s)"
+#~ msgstr "%s (%s)"
+
+#~ msgctxt "language"
+#~ msgid "Unknown (%s)"
+#~ msgstr "Desconeguda (%s)"
+
+#~ msgctxt "language"
+#~ msgid "Default"
+#~ msgstr "Per defaut"
+
+#~ msgid "Select the _language of the current document."
+#~ msgstr "Seleccionatz la _langue del document actual."
