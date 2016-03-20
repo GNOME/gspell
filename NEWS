@@ -1,3 +1,9 @@
+News in 1.0.0
+-------------
+* The API is now stable. Future 1.x stable versions will be backward compatible
+  with the 1.0 version.
+* Translation updates
+
 News in 0.2.6
 -------------
 * Fix builddir != srcdir issue (it occurred only in Git, not in tarballs
