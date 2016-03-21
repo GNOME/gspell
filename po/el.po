@@ -34,9 +34,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-08-29 00:53+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-16 11:25+0000\n"
+"PO-Revision-Date: 2016-03-21 19:52+0200\n"
 "Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
 "Language-Team: www.gnome.gr\n"
 "Language: el\n"
@@ -44,120 +45,140 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Project-Style: gnome\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:403
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Σφάλμα κατά τον έλεγχο ορθογραφίας της λέξης “%s”: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:147
+#: gspell/gspell-inline-checker-text-buffer.c:840
 msgid "(no suggested words)"
-msgstr "(όχι προτεινόμενες λέξεις)"
+msgstr "(καθόλου προτεινόμενες λέξεις)"
 
-#: gspell/gspell-checker-dialog.c:237
+#: gspell/gspell-checker-dialog.c:232
 msgid "Error:"
 msgstr "Σφάλμα:"
 
-#: gspell/gspell-checker-dialog.c:274
+#: gspell/gspell-checker-dialog.c:268
 msgid "Completed spell checking"
 msgstr "Ο έλεγχος ορθογραφίας ολοκληρώθηκε"
 
-#: gspell/gspell-checker-dialog.c:278
+#: gspell/gspell-checker-dialog.c:272
 msgid "No misspelled words"
 msgstr "Δεν υπάρχουν ανορθόγραφες λέξεις"
 
-#: gspell/gspell-checker-dialog.c:507
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:499
 msgid "(correct spelling)"
 msgstr "(διόρθωση ορθογραφίας)"
 
-#: gspell/gspell-checker-dialog.c:645
+#: gspell/gspell-checker-dialog.c:637
 msgid "Suggestions"
 msgstr "Συμβουλές"
 
-#: gspell/gspell-inline-checker-gtv.c:595
+#: gspell/gspell-inline-checker-text-buffer.c:863
 msgid "_More..."
 msgstr "_Περισσότερα..."
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#. Ignore all
+#: gspell/gspell-inline-checker-text-buffer.c:903
 msgid "_Ignore All"
 msgstr "_Αγνόηση όλων"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-inline-checker-text-buffer.c:912
 msgid "_Add"
-msgstr "_Προσθήκη"
+msgstr "Π_ροσθήκη"
 
-#: gspell/gspell-inline-checker-gtv.c:681
+#. Prepend suggestions
+#: gspell/gspell-inline-checker-text-buffer.c:949
 msgid "_Spelling Suggestions..."
 msgstr "_Συμβουλές ορθογραφίας..."
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language.c:369
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:280
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Άγνωστο (%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:297 gspell/gspell-language.c:306
+#, c-format
 msgctxt "language"
-msgid "Default"
-msgstr "Προεπιλεγμένη"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:78
+#: gspell/gspell-language-chooser-button.c:81
 msgid "No language selected"
+msgstr "Δεν επιλέχθηκε γλώσσα"
+
+#: gspell/gspell-navigator-text-view.c:307
+msgid ""
+"Spell checker error: no language set. It's maybe because no dictionaries are "
+"installed."
 msgstr ""
+"Σφάλμα ορθογραφικού ελέγχου: δεν ορίστηκε γλώσσα. Είναι ίσως επειδή τα "
+"λεξικά δεν είναι εγκαταστημένα."
 
 #: gspell/resources/checker-dialog.ui:8
 msgid "Check Spelling"
 msgstr "Έλεγχος ορθογραφίας"
 
-#: gspell/resources/checker-dialog.ui:27
+#: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
 msgstr "Ανορθόγραφη λέξη:"
 
-#: gspell/resources/checker-dialog.ui:40
+#: gspell/resources/checker-dialog.ui:49
 msgid "word"
 msgstr "λέξη"
 
-#: gspell/resources/checker-dialog.ui:57
+#: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
 msgstr "Αλλαγή _σε:"
 
-#: gspell/resources/checker-dialog.ui:82
+#: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
 msgstr "Έλεγχος _λέξης"
 
-#: gspell/resources/checker-dialog.ui:112
+#: gspell/resources/checker-dialog.ui:121
 msgid "_Suggestions:"
 msgstr "_Συμβουλές:"
 
-#: gspell/resources/checker-dialog.ui:125
+#: gspell/resources/checker-dialog.ui:134
 msgid "_Ignore"
 msgstr "Α_γνόηση"
 
-#: gspell/resources/checker-dialog.ui:139
+#: gspell/resources/checker-dialog.ui:148
 msgid "Ignore _All"
 msgstr "Αγνόηση ό_λων"
 
-#: gspell/resources/checker-dialog.ui:153
+#: gspell/resources/checker-dialog.ui:162
 msgid "Cha_nge"
-msgstr "Αλλα_γή"
+msgstr "_Αλλαγή"
 
-#: gspell/resources/checker-dialog.ui:169
+#: gspell/resources/checker-dialog.ui:178
 msgid "Change A_ll"
 msgstr "Αλλαγή ό_λων"
 
-#: gspell/resources/checker-dialog.ui:187
+#: gspell/resources/checker-dialog.ui:196
 msgid "User dictionary:"
 msgstr "Λεξικό χρήστη:"
 
-#: gspell/resources/checker-dialog.ui:199
+#: gspell/resources/checker-dialog.ui:208
 msgid "Add w_ord"
 msgstr "Προσθήκη λέ_ξης"
 
@@ -165,14 +186,21 @@ msgstr "Προσθήκη λέ_ξης"
 msgid "Set Language"
 msgstr "Ορισμός γλώσσας"
 
-#: gspell/resources/language-dialog.ui:22
-msgid "Select the _language of the current document."
-msgstr "Επιλέξτε τη γ_λώσσα του τρέχοντος εγγράφου."
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Επιλέξτε τη γλ_ώσσα ορθογραφικού ελέγχου."
 
-#: gspell/resources/language-dialog.ui:63
+#: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
-#: gspell/resources/language-dialog.ui:70
+#: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "_Επιλογή"
+
+#~ msgctxt "language"
+#~ msgid "Default"
+#~ msgstr "Προεπιλεγμένη"
+
+#~ msgid "Select the _language of the current document."
+#~ msgstr "Επιλέξτε τη γ_λώσσα του τρέχοντος εγγράφου."
