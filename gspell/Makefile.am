@@ -43,6 +43,7 @@ gspell_public_c_files =				\
 
 gspell_private_headers =			\
 	gconstructor.h				\
+	gspell-init.h				\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-text-iter.h			\
 	gspell-text-region.h			\

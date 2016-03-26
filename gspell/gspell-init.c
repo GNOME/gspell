@@ -24,16 +24,13 @@
  */
 
 #include "config.h"
-#include <glib.h>
+#include "gspell-init.h"
 #include <glib/gi18n-lib.h>
 #include "gconstructor.h"
 
 #ifdef G_OS_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-
-HMODULE gspell_dll;
-#endif /* G_OS_WIN32 */
+static HMODULE gspell_dll;
+#endif
 
 #ifdef OS_OSX
 #include <Cocoa/Cocoa.h>
@@ -147,6 +144,12 @@ DllMain (HINSTANCE hinstDLL,
 	}
 
 	return TRUE;
+}
+
+HMODULE
+_gspell_init_get_dll (void)
+{
+	return gspell_dll;
 }
 
 #elif defined (G_HAS_CONSTRUCTORS)

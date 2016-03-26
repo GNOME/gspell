@@ -24,6 +24,7 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
+#include "gspell-init.h"
 
 #ifdef OS_OSX
 #include "gspell-osx.h"
@@ -62,44 +63,16 @@ G_DEFINE_BOXED_TYPE (GspellLanguage,
 		     gspell_language_copy,
 		     gspell_language_free)
 
-#ifdef G_OS_WIN32
-
-#ifdef DATADIR
-#undef DATADIR
-#endif
-
-#include <shlobj.h>
-static HMODULE hmodule;
-
-BOOL WINAPI
-DllMain (HINSTANCE hinstDLL,
-         DWORD     fdwReason,
-         LPVOID    lpvReserved);
-
-BOOL WINAPI
-DllMain (HINSTANCE hinstDLL,
-	 DWORD     fdwReason,
-	 LPVOID    lpvReserved)
-{
-	switch (fdwReason)
-	{
-		case DLL_PROCESS_ATTACH:
-			hmodule = hinstDLL;
-			break;
-	}
-
-	return TRUE;
-}
-
-#endif /* G_OS_WIN32 */
-
 static gchar *
 get_iso_codes_prefix (void)
 {
 	gchar *prefix = NULL;
 
 #ifdef G_OS_WIN32
-	prefix = g_win32_get_package_installation_directory_of_module ((gpointer) hmodule);
+	HMODULE gspell_dll;
+
+	gspell_dll = _gspell_init_get_dll ();
+	prefix = g_win32_get_package_installation_directory_of_module ((gpointer) gspell_dll);
 #endif
 
 	if (prefix == NULL)
