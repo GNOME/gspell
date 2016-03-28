@@ -1,42 +1,46 @@
 # Serbian translation of gspell
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2015.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2016.
 # This file is distributed under the same license as the gspell package.
 # Горан Ракић <grakic@devbase.net>
 # Данило Шеган <danilo@prevod.org>, 2005.
 # Игор Несторовић <igor@prevod.org>, 2005.
 # Бранко Кокановић <branko.kokanovic@gmail.com>, 2010.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2015.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2016.
 # Милош Поповић <gpopac@gmail.com>, 2015.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-09-22 11:19+0200\n"
-"Last-Translator: Милош Поповић <gpopac@gmail.com>\n"
-"Language-Team: српски <gnome-sr@googlegroups.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gspell&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-03-27 22:42+0000\n"
+"PO-Revision-Date: 2016-03-28 18:09+0200\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
-"X-Generator: Gtranslator 2.91.6\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:466
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Грешка приликом провере писања за реч „%s“: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:577
 msgid "(no suggested words)"
 msgstr "(нема предлога речи)"
 
 #: gspell/gspell-checker-dialog.c:237
 msgid "Error:"
-msgstr "_Грешка:"
+msgstr "Грешка:"
 
 #: gspell/gspell-checker-dialog.c:274
 msgid "Completed spell checking"
@@ -46,6 +50,10 @@ msgstr "Провера писања је завршена"
 msgid "No misspelled words"
 msgstr "Нема погрешно написаних речи"
 
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
 #: gspell/gspell-checker-dialog.c:507
 msgid "(correct spelling)"
 msgstr "(исправно писање)"
@@ -54,46 +62,67 @@ msgstr "(исправно писање)"
 msgid "Suggestions"
 msgstr "Предлози"
 
-#: gspell/gspell-inline-checker-gtv.c:595
+#: gspell/gspell-inline-checker-gtv.c:600
 msgid "_More..."
 msgstr "Да_ље..."
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#. Ignore all
+#: gspell/gspell-inline-checker-gtv.c:640
 msgid "_Ignore All"
 msgstr "_Занемари све"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-inline-checker-gtv.c:649
 msgid "_Add"
 msgstr "_Додај"
 
-#: gspell/gspell-inline-checker-gtv.c:681
+#. Prepend suggestions
+#: gspell/gspell-inline-checker-gtv.c:686
 msgid "_Spelling Suggestions..."
 msgstr "Предлози провере пи_сања..."
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
+#. Translators: the first %s is the language name, and
+#. * the second %s is the locale name. Example:
+#. * "French (France)"
+#.
+#: gspell/gspell-language.c:359 gspell/gspell-language.c:365
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gspell/gspell-language.c:369
+#. Translators: this refers to an unknown language code
+#. * (one which isn't in our built-in list).
+#.
+#: gspell/gspell-language.c:374
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Непознат (%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: this refers the Default language used by the
+#. * spell checker
+#.
+#: gspell/gspell-language.c:486
 msgctxt "language"
 msgid "Default"
 msgstr "Основни"
 
 #: gspell/gspell-language-chooser-button.c:78
 msgid "No language selected"
+msgstr "Није изабран језик"
+
+#: gspell/gspell-navigator-gtv.c:334
+msgid ""
+"Spell checker error: no language set. It's maybe because no dictionaries are "
+"installed."
 msgstr ""
+"Грешка провере писања: језик није изабран. Вероватно да није инсталиран "
+"ниједан речник."
 
 #: gspell/resources/checker-dialog.ui:8
 msgid "Check Spelling"
-msgstr "Провери писање"
+msgstr "Провера писања"
 
 #: gspell/resources/checker-dialog.ui:27
 msgid "Misspelled word:"
@@ -121,15 +150,15 @@ msgstr "_Занемари"
 
 #: gspell/resources/checker-dialog.ui:139
 msgid "Ignore _All"
-msgstr "_Занемари све"
+msgstr "Занемари _све"
 
 #: gspell/resources/checker-dialog.ui:153
 msgid "Cha_nge"
-msgstr "Изме_ни"
+msgstr "_Измени"
 
 #: gspell/resources/checker-dialog.ui:169
 msgid "Change A_ll"
-msgstr "И_змени све"
+msgstr "Измени _све"
 
 #: gspell/resources/checker-dialog.ui:187
 msgid "User dictionary:"
@@ -141,11 +170,11 @@ msgstr "Д_одај реч"
 
 #: gspell/resources/language-dialog.ui:8
 msgid "Set Language"
-msgstr "Поставите језик"
+msgstr "Подесите језик"
 
 #: gspell/resources/language-dialog.ui:22
 msgid "Select the _language of the current document."
-msgstr "Изабери је_зик тренутног документа."
+msgstr "Изабери је_зик текућег документа."
 
 #: gspell/resources/language-dialog.ui:63
 msgid "_Cancel"
