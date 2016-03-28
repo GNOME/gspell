@@ -221,6 +221,7 @@ Configuration:
 
 	Source code location:	${srcdir}
 	Compiler:		${CC}
+	Documentation:		${enable_gtk_doc}
 	GObject introspection:	${found_introspection}
 	Vala:			${enable_vala}
 	Code coverage:		${enable_code_coverage}
