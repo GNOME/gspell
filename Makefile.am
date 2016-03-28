@@ -71,7 +71,6 @@ MAINTAINERCLEANFILES = \
 	m4/wint_t.m4 \
 	m4/xsize.m4 \
 	missing \
-	po/stamp-po \
 	test-driver
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
