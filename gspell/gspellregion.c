@@ -24,7 +24,7 @@
 
 #include "gspellregion.h"
 
-/**
+/*
  * SECTION:region
  * @Short_description: Region utility
  * @Title: GspellRegion
@@ -298,7 +298,7 @@ _gspell_region_class_init (GspellRegionClass *klass)
 	object_class->set_property = _gspell_region_set_property;
 	object_class->dispose = _gspell_region_dispose;
 
-	/**
+	/*
 	 * GspellRegion:buffer:
 	 *
 	 * The #GtkTextBuffer. The #GspellRegion has a weak reference to the
@@ -323,7 +323,7 @@ _gspell_region_init (GspellRegion *region)
 {
 }
 
-/**
+/*
  * _gspell_region_new:
  * @buffer: a #GtkTextBuffer.
  *
@@ -340,7 +340,7 @@ _gspell_region_new (GtkTextBuffer *buffer)
 			     NULL);
 }
 
-/**
+/*
  * _gspell_region_get_buffer:
  * @region: a #GspellRegion.
  *
@@ -398,7 +398,7 @@ _gspell_region_clear_zero_length_subregions (GspellRegion *region)
 	}
 }
 
-/**
+/*
  * _gspell_region_add:
  * @region: a #GspellRegion.
  * @_start: the start of the subregion.
@@ -522,7 +522,7 @@ _gspell_region_add (GspellRegion   *region,
 	DEBUG (print_region (region));
 }
 
-/**
+/*
  * _gspell_region_subtract:
  * @region: a #GspellRegion.
  * @_start: the start of the subregion.
@@ -696,7 +696,7 @@ _gspell_region_subtract (GspellRegion   *region,
 	DEBUG (print_region (region));
 }
 
-/**
+/*
  * _gspell_region_is_empty:
  * @region: (nullable): a #GspellRegion, or %NULL.
  *
@@ -747,7 +747,7 @@ _gspell_region_is_empty (GspellRegion *region)
 	return TRUE;
 }
 
-/**
+/*
  * _gspell_region_get_bounds:
  * @region: a #GspellRegion.
  * @start: (out) (optional): iterator to initialize with the start of @region,
@@ -795,7 +795,7 @@ _gspell_region_get_bounds (GspellRegion *region,
 	return TRUE;
 }
 
-/**
+/*
  * _gspell_region_intersect:
  * @region: a #GspellRegion.
  * @_start: the start of the subregion.
@@ -993,7 +993,7 @@ invalid:
 	return FALSE;
 }
 
-/**
+/*
  * _gspell_region_get_start_region_iter:
  * @region: a #GspellRegion.
  * @iter: (out): iterator to initialize to the first subregion.
@@ -1023,7 +1023,7 @@ _gspell_region_get_start_region_iter (GspellRegion     *region,
 	real->region_timestamp = priv->timestamp;
 }
 
-/**
+/*
  * _gspell_region_iter_is_end:
  * @iter: a #GspellRegionIter.
  *
@@ -1043,7 +1043,7 @@ _gspell_region_iter_is_end (GspellRegionIter *iter)
 	return real->subregions == NULL;
 }
 
-/**
+/*
  * _gspell_region_iter_next:
  * @iter: a #GspellRegionIter.
  *
@@ -1072,7 +1072,7 @@ _gspell_region_iter_next (GspellRegionIter *iter)
 	return FALSE;
 }
 
-/**
+/*
  * _gspell_region_iter_get_subregion:
  * @iter: a #GspellRegionIter.
  * @start: (out) (optional): iterator to initialize with the subregion start, or %NULL.
@@ -1126,7 +1126,7 @@ _gspell_region_iter_get_subregion (GspellRegionIter *iter,
 	return TRUE;
 }
 
-/**
+/*
  * _gspell_region_to_string:
  * @region: a #GspellRegion.
  *
