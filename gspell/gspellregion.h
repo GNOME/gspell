@@ -44,7 +44,7 @@ struct _GspellRegionClass
 	gpointer padding[8];
 };
 
-/**
+/*
  * GspellRegionIter:
  *
  * #GspellRegionIter is an opaque datatype; ignore all its fields.

@@ -22,6 +22,7 @@ update_file () {
         -e '/gtksourceversion.h/d' \
         -e 's/GTK_SOURCE_AVAILABLE_IN_3_22/G_GNUC_INTERNAL/g' \
         -e 's/gtksourceregion/gspellregion/g' \
+	-e 's#/\*\*#/*#g' \
         -e 's/GTK_SOURCE/GSPELL/g' \
         -e 's/GtkSourceRegion/GspellRegion/g' \
         -e 's/gtk_source_region/_gspell_region/g' >> "${_dest}"
