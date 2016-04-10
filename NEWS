@@ -1,3 +1,8 @@
+News in 1.0.1
+-------------
+* Fix build on win32
+* Translation updates
+
 News in 1.0.0
 -------------
 * The API is now stable. Future 1.x stable versions will be backward compatible
