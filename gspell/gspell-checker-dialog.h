@@ -18,10 +18,10 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_CHECKER_DIALOG_H__
-#define __GSPELL_CHECKER_DIALOG_H__
+#ifndef GSPELL_CHECKER_DIALOG_H
+#define GSPELL_CHECKER_DIALOG_H
 
-#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
 #endif
 
@@ -50,6 +50,6 @@ GspellNavigator *	gspell_checker_dialog_get_spell_navigator	(GspellCheckerDialog
 
 G_END_DECLS
 
-#endif  /* __GSPELL_CHECKER_DIALOG_H__ */
+#endif  /* GSPELL_CHECKER_DIALOG_H */
 
 /* ex:set ts=8 noet: */

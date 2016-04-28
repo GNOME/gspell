@@ -22,8 +22,8 @@
  * Copyright 2002 - Evan Martin
  */
 
-#ifndef __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__
-#define __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__
+#ifndef GSPELL_INLINE_CHECKER_TEXT_BUFFER_H
+#define GSPELL_INLINE_CHECKER_TEXT_BUFFER_H
 
 #include <gtk/gtk.h>
 
@@ -60,6 +60,6 @@ GtkTextTag *
 
 G_END_DECLS
 
-#endif  /* __GSPELL_INLINE_CHECKER_TEXT_BUFFER_H__ */
+#endif  /* GSPELL_INLINE_CHECKER_TEXT_BUFFER_H */
 
 /* ex:set ts=8 noet: */

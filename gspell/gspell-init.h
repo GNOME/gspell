@@ -18,8 +18,8 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_INIT_H__
-#define __GSPELL_INIT_H__
+#ifndef GSPELL_INIT_H
+#define GSPELL_INIT_H
 
 #include <glib.h>
 
@@ -32,6 +32,6 @@ HMODULE _gspell_init_get_dll (void);
 
 #endif /* G_OS_WIN32 */
 
-#endif /* __GSPELL_INIT_H__ */
+#endif /* GSPELL_INIT_H */
 
 /* ex:set ts=8 noet: */

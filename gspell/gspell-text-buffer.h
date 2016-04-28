@@ -17,10 +17,10 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_TEXT_BUFFER_H__
-#define __GSPELL_TEXT_BUFFER_H__
+#ifndef GSPELL_TEXT_BUFFER_H
+#define GSPELL_TEXT_BUFFER_H
 
-#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
 #endif
 
@@ -45,6 +45,6 @@ void			gspell_text_buffer_set_spell_checker		(GspellTextBuffer *gspell_buffer,
 
 G_END_DECLS
 
-#endif /* __GSPELL_TEXT_BUFFER_H__ */
+#endif /* GSPELL_TEXT_BUFFER_H */
 
 /* ex:set ts=8 noet: */

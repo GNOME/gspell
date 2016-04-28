@@ -17,10 +17,10 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_NAVIGATOR_TEXT_VIEW_H__
-#define __GSPELL_NAVIGATOR_TEXT_VIEW_H__
+#ifndef GSPELL_NAVIGATOR_TEXT_VIEW_H
+#define GSPELL_NAVIGATOR_TEXT_VIEW_H
 
-#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
 #endif
 
@@ -49,6 +49,6 @@ GtkTextView *		gspell_navigator_text_view_get_view	(GspellNavigatorTextView *nav
 
 G_END_DECLS
 
-#endif /* __GSPELL_NAVIGATOR_TEXT_VIEW_H__ */
+#endif /* GSPELL_NAVIGATOR_TEXT_VIEW_H */
 
 /* ex:set ts=8 noet: */

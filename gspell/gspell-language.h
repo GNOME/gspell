@@ -24,10 +24,10 @@
  * partly on Epiphany's code.
  */
 
-#ifndef __GSPELL_LANGUAGE_H__
-#define __GSPELL_LANGUAGE_H__
+#ifndef GSPELL_LANGUAGE_H
+#define GSPELL_LANGUAGE_H
 
-#if !defined (__GSPELL_H_INSIDE__) && !defined (GSPELL_COMPILATION)
+#if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
 #endif
 
@@ -62,6 +62,6 @@ void		gspell_language_free			(GspellLanguage *language);
 
 G_END_DECLS
 
-#endif /* __GSPELL_LANGUAGE_H__ */
+#endif /* GSPELL_LANGUAGE_H */
 
 /* ex:set ts=8 noet: */

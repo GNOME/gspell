@@ -17,10 +17,10 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GSPELL_H__
-#define __GSPELL_H__
+#ifndef GSPELL_H
+#define GSPELL_H
 
-#define __GSPELL_H_INSIDE__
+#define GSPELL_H_INSIDE
 
 #include <gspell/gspell-checker.h>
 #include <gspell/gspell-checker-dialog.h>
@@ -33,8 +33,8 @@
 #include <gspell/gspell-text-buffer.h>
 #include <gspell/gspell-text-view.h>
 
-#undef __GSPELL_H_INSIDE__
+#undef GSPELL_H_INSIDE
 
-#endif /* __GSPELL_H__ */
+#endif /* GSPELL_H */
 
 /* ex:set ts=8 noet: */
