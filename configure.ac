@@ -225,4 +225,5 @@ Configuration:
 	GObject introspection:	${found_introspection}
 	Vala:			${enable_vala}
 	Code coverage:		${enable_code_coverage}
+	Installed tests:	${enable_installed_tests}
 "
