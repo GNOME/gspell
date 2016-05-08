@@ -38,8 +38,9 @@
  * #GtkTextTag added to the buffer.
  *
  * You need to call gspell_text_buffer_set_spell_checker() to associate a
- * #GspellChecker to the #GtkTextBuffer. #GtkTextView:buffer changes are
- * handled, as well as #GspellChecker changes.
+ * #GspellChecker to the #GtkTextBuffer. #GspellTextView handles automatically
+ * changes to the following properties: #GtkTextView:buffer,
+ * #GspellTextBuffer:spell-checker and #GspellChecker:language.
  *
  * Note that #GspellTextView extends the #GtkTextView class but without
  * subclassing it, because the GtkSourceView library has already a #GtkTextView
