@@ -134,7 +134,7 @@ get_sidebar (TestSpell *spell)
 
 	g_object_bind_property (language_button, "language",
 				checker, "language",
-				G_BINDING_DEFAULT);
+				G_BINDING_BIDIRECTIONAL);
 
 	/* Checkbutton to activate the inline spell checker */
 	highlight_checkbutton = gtk_check_button_new_with_mnemonic ("_Highlight Misspelled Words");
@@ -142,6 +142,8 @@ get_sidebar (TestSpell *spell)
 			   highlight_checkbutton);
 
 	gspell_view = gspell_text_view_get_from_gtk_text_view (spell->view);
+	gspell_text_view_set_enable_language_menu (gspell_view, TRUE);
+
 	g_object_bind_property (highlight_checkbutton, "active",
 				gspell_view, "inline-spell-checking",
 				G_BINDING_DEFAULT);

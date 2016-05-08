@@ -876,10 +876,9 @@ get_suggestion_menu (GspellInlineCheckerTextBuffer *spell,
 	return top_menu;
 }
 
-static void
-populate_popup_cb (GtkTextView                   *view,
-		   GtkMenu                       *menu,
-		   GspellInlineCheckerTextBuffer *spell)
+void
+_gspell_inline_checker_text_buffer_populate_popup (GspellInlineCheckerTextBuffer *spell,
+						   GtkMenu                       *menu)
 {
 	GtkWidget *menu_item;
 	GtkTextIter start;
@@ -895,11 +894,6 @@ populate_popup_cb (GtkTextView                   *view,
 	{
 		return;
 	}
-
-	/* Prepend separator */
-	menu_item = gtk_separator_menu_item_new ();
-	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
-	gtk_widget_show (menu_item);
 
 	/* Prepend suggestions */
 	menu_item = gtk_menu_item_new_with_mnemonic (_("_Spelling Suggestions..."));
@@ -1406,12 +1400,6 @@ _gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *s
 	g_signal_connect_object (view,
 				 "popup-menu",
 				 G_CALLBACK (popup_menu_cb),
-				 spell,
-				 0);
-
-	g_signal_connect_object (view,
-				 "populate-popup",
-				 G_CALLBACK (populate_popup_cb),
 				 spell,
 				 0);
 

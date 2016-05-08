@@ -48,6 +48,10 @@ G_GNUC_INTERNAL
 void	_gspell_inline_checker_text_buffer_detach_view		(GspellInlineCheckerTextBuffer *spell,
 								 GtkTextView                   *view);
 
+G_GNUC_INTERNAL
+void	_gspell_inline_checker_text_buffer_populate_popup	(GspellInlineCheckerTextBuffer *spell,
+								 GtkMenu                       *menu);
+
 /* For unit tests */
 
 G_GNUC_INTERNAL

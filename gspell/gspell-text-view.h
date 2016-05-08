@@ -50,6 +50,11 @@ gboolean		gspell_text_view_get_inline_spell_checking	(GspellTextView *gspell_vie
 void			gspell_text_view_set_inline_spell_checking	(GspellTextView *gspell_view,
 									 gboolean        enable);
 
+gboolean		gspell_text_view_get_enable_language_menu	(GspellTextView *gspell_view);
+
+void			gspell_text_view_set_enable_language_menu	(GspellTextView *gspell_view,
+									 gboolean        enable_language_menu);
+
 G_END_DECLS
 
 #endif /* GSPELL_TEXT_VIEW_H */
