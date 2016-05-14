@@ -41,7 +41,11 @@ GSPELL_LT_VERSION="$GSPELL_LT_CURRENT:$GSPELL_LT_REVISION:$GSPELL_LT_AGE"
 AC_SUBST(GSPELL_LT_VERSION)
 
 # API version, used for parallel installability.
-# Not used in po/, it causes a builddir != srcdir build issue.
+# Not used in:
+# - po/Makevars
+# - the docs/reference/gspell-1.0-sections.txt filename
+# Because as far as I've tested, it is not easily feasible to not hardcode the
+# API version in those places (swilmet).
 GSPELL_API_VERSION=1
 AC_SUBST(GSPELL_API_VERSION)
 
