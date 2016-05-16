@@ -153,22 +153,71 @@ activate_language_cb (GtkWidget      *menu_item,
 	gspell_checker_set_language (checker, lang);
 }
 
+static const GspellLanguage *
+get_active_language (GspellTextView *gspell_view)
+{
+	GspellTextViewPrivate *priv;
+	GtkTextBuffer *gtk_buffer;
+	GspellTextBuffer *gspell_buffer;
+	GspellChecker *checker;
+
+	priv = gspell_text_view_get_instance_private (gspell_view);
+
+	if (priv->view == NULL)
+	{
+		return NULL;
+	}
+
+	gtk_buffer = gtk_text_view_get_buffer (priv->view);
+	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
+	checker = gspell_text_buffer_get_spell_checker (gspell_buffer);
+
+	return gspell_checker_get_language (checker);
+}
+
 static GtkWidget *
 get_language_menu (GspellTextView *gspell_view)
 {
 	GtkWidget *menu;
+	const GspellLanguage *active_lang;
 	const GList *languages;
 	const GList *l;
 
 	menu = gtk_menu_new ();
 
+	active_lang = get_active_language (gspell_view);
+
 	languages = gspell_language_get_available ();
 	for (l = languages; l != NULL; l = l->next)
 	{
-		GtkWidget *menu_item;
 		const GspellLanguage *lang = l->data;
+		const gchar *lang_name;
+		GtkWidget *menu_item;
 
-		menu_item = gtk_menu_item_new_with_label (gspell_language_get_name (lang));
+		lang_name = gspell_language_get_name (lang);
+
+		if (lang == active_lang)
+		{
+			/* Do not create a group. Just mark the current language
+			 * as active.
+			 *
+			 * With a group, the first language in the list gets
+			 * activated, which changes the GspellChecker language
+			 * before we arrive to the active_lang.
+			 *
+			 * Also, having a bullet only for the active_lang is
+			 * sufficient (to be like in Firefox), the menu is
+			 * anyway ephemeral. No need to have an empty bullet for
+			 * all the other languages.
+			 */
+			menu_item = gtk_radio_menu_item_new_with_label (NULL, lang_name);
+			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menu_item), TRUE);
+		}
+		else
+		{
+			menu_item = gtk_menu_item_new_with_label (lang_name);
+		}
+
 		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
 		g_object_set_data (G_OBJECT (menu_item),
