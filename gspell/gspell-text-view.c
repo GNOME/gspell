@@ -293,11 +293,14 @@ set_view (GspellTextView *gspell_view,
 				 gspell_view,
 				 0);
 
+	/* G_CONNECT_AFTER, so when menu items are prepended, they have more
+	 * chances to be the first in the menu.
+	 */
 	g_signal_connect_object (priv->view,
 				 "populate-popup",
 				 G_CALLBACK (populate_popup_cb),
 				 gspell_view,
-				 0);
+				 G_CONNECT_AFTER);
 
 	g_object_notify (G_OBJECT (gspell_view), "view");
 }
