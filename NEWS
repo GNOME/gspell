@@ -1,3 +1,20 @@
+News in 1.1.1
+-------------
+This is an unstable release in the 1.1 development cycle. The 1.2 stable
+version will be released at the same time as GNOME 3.22.
+
+* New API: inline checker: add an option to select the language from the
+  context menu (right-click menu)
+* Fix gtk-doc build issue
+* Update GtkTextRegion -> GtkSourceRegion (utility class copied from the
+  GtkSourceView library)
+* Translation updates
+
+News in 1.0.1
+-------------
+* Fix build on win32
+* Translation updates
+
 News in 1.0.0
 -------------
 * The API is now stable. Future 1.x stable versions will be backward compatible
