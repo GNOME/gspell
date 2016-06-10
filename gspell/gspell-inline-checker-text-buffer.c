@@ -395,7 +395,7 @@ out:
 	if (view != NULL)
 	{
 		/* FIXME properly. Workaround for bug in GtkTextView:
-		 * https://bugzilla.gnome.org/show_bug.cgi?id=612772
+		 * https://bugzilla.gnome.org/show_bug.cgi?id=763741
 		 */
 		gtk_widget_queue_draw (GTK_WIDGET (view));
 	}
