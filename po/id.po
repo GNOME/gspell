@@ -1,0 +1,169 @@
+# Indonesian translation for gspell.
+# Copyright (C) 2016 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+# Andika Triwidada <atriwidada@gnome.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell gspell-1-0\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-06-10 14:15+0000\n"
+"PO-Revision-Date: 2016-06-13 22:14+0700\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: gspell/gspell-checker.c:403
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Galat ketika memeriksa ejaan kata \"%s\": %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:147
+#: gspell/gspell-inline-checker-text-buffer.c:840
+msgid "(no suggested words)"
+msgstr "(tidak ada kata yang disarankan)"
+
+#: gspell/gspell-checker-dialog.c:232
+msgid "Error:"
+msgstr "Galat:"
+
+#: gspell/gspell-checker-dialog.c:268
+msgid "Completed spell checking"
+msgstr "Pemeriksaan ejaan selesai"
+
+#: gspell/gspell-checker-dialog.c:272
+msgid "No misspelled words"
+msgstr "Tiada kata yang salah eja"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:499
+msgid "(correct spelling)"
+msgstr "(ejaan yang benar)"
+
+#: gspell/gspell-checker-dialog.c:637
+msgid "Suggestions"
+msgstr "Saran"
+
+#: gspell/gspell-inline-checker-text-buffer.c:863
+msgid "_More..."
+msgstr "_Lebih Lanjut..."
+
+#. Ignore all
+#: gspell/gspell-inline-checker-text-buffer.c:903
+msgid "_Ignore All"
+msgstr "Aba_ikan Semua"
+
+#. Add to Dictionary
+#: gspell/gspell-inline-checker-text-buffer.c:912
+msgid "_Add"
+msgstr "T_ambah"
+
+#. Prepend suggestions
+#: gspell/gspell-inline-checker-text-buffer.c:949
+msgid "_Spelling Suggestions..."
+msgstr "_Saran Ejaan..."
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:253
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Tak dikenal (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language-chooser-button.c:81
+msgid "No language selected"
+msgstr "Tidak ada bahasa yang dipilih"
+
+#: gspell/gspell-navigator-text-view.c:307
+msgid ""
+"Spell checker error: no language set. It's maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Galat pemeriksa ejaan: tidak ada bahasa yang ditata. Mungkin ini karena "
+"tidak ada kamus yang dipasang."
+
+#: gspell/resources/checker-dialog.ui:8
+msgid "Check Spelling"
+msgstr "Periksa Ejaan"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Kata yang salah eja:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "kata"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "Ubah _ke:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "_Periksa Kata"
+
+#: gspell/resources/checker-dialog.ui:121
+msgid "_Suggestions:"
+msgstr "_Saran:"
+
+#: gspell/resources/checker-dialog.ui:134
+msgid "_Ignore"
+msgstr "Aba_ikan"
+
+#: gspell/resources/checker-dialog.ui:148
+msgid "Ignore _All"
+msgstr "_Abaikan Semua"
+
+#: gspell/resources/checker-dialog.ui:162
+msgid "Cha_nge"
+msgstr "Uba_h"
+
+#: gspell/resources/checker-dialog.ui:178
+msgid "Change A_ll"
+msgstr "Ubah _Semua"
+
+#: gspell/resources/checker-dialog.ui:196
+msgid "User dictionary:"
+msgstr "Kamus pengguna:"
+
+#: gspell/resources/checker-dialog.ui:208
+msgid "Add w_ord"
+msgstr "Tambah _kata"
+
+#: gspell/resources/language-dialog.ui:8
+msgid "Set Language"
+msgstr "Atur Bahasa"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Pi_lih bahasa yang diperiksa ejaannya."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_Batal"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Pilih"
