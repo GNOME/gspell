@@ -47,10 +47,7 @@ HTML_IMAGES =
 content_files =
 
 # Extra options to supply to gtkdoc-fixref
-FIXXREF_OPTIONS =							\
-	--extra-dir=$(GLIB_PREFIX)/share/gtk-doc/html/gobject		\
-	--extra-dir=$(GLIB_PREFIX)/share/gtk-doc/html/glib		\
-	--extra-dir=$(GTK_PREFIX)/share/gtk-doc/html/gtk3
+FIXXREF_OPTIONS =
 
 # CFLAGS and LDFLAGS for compiling gtkdoc-scangobj with your library.
 # Only needed if you are using gtkdoc-scangobj to dynamically query widget
