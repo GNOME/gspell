@@ -33,6 +33,8 @@
 #include <gspell/gspell-text-buffer.h>
 #include <gspell/gspell-text-view.h>
 
+#include <gspell/gspell-enum-types.h>
+
 #undef GSPELL_H_INSIDE
 
 #endif /* GSPELL_H */

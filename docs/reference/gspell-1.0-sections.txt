@@ -19,6 +19,8 @@ gspell_checker_set_correction
 GspellCheckerClass
 GSPELL_TYPE_CHECKER
 gspell_checker_error_quark
+GSPELL_TYPE_CHECKER_ERROR
+gspell_checker_error_get_type
 </SECTION>
 
 <SECTION>

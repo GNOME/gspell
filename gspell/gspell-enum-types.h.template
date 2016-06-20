@@ -1,0 +1,30 @@
+/*** BEGIN file-header ***/
+#ifndef GSPELL_ENUM_TYPES_H
+#define GSPELL_ENUM_TYPES_H
+
+#if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
+
+#include <glib-object.h>
+
+G_BEGIN_DECLS
+
+/*** END file-header ***/
+
+/*** BEGIN file-production ***/
+/* Enumerations from "@filename@" */
+
+/*** END file-production ***/
+
+/*** BEGIN enumeration-production ***/
+#define GSPELL_TYPE_@ENUMSHORT@ (@enum_name@_get_type())
+GType @enum_name@_get_type (void);
+
+/*** END enumeration-production ***/
+
+/*** BEGIN file-tail ***/
+G_END_DECLS
+
+#endif /* GSPELL_ENUM_TYPES_H */
+/*** END file-tail ***/

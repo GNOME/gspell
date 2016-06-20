@@ -13,9 +13,6 @@ AM_CPPFLAGS =				\
 	$(DEP_CFLAGS)			\
 	$(GTK_MAC_CFLAGS)
 
-BUILT_SOURCES =			\
-	gspell-resources.c
-
 gspell_public_headers =				\
 	gspell.h				\
 	gspell-checker.h			\
@@ -55,6 +52,17 @@ gspell_private_c_files =			\
 	gspell-inline-checker-text-buffer.c	\
 	gspell-text-iter.c			\
 	gspell-utils.c
+
+gspell_built_public_headers =		\
+	gspell-enum-types.h
+
+gspell_built_public_c_files =		\
+	gspell-enum-types.c
+
+BUILT_SOURCES =				\
+	gspell-resources.c		\
+	$(gspell_built_public_c_files)	\
+	$(gspell_built_public_headers)
 
 # Helper Libtool library, so that the private functions can be used in unit
 # tests.
@@ -100,10 +108,23 @@ libgspell_@GSPELL_API_VERSION@_la_LDFLAGS =	\
 
 libgspell_includedir = $(includedir)/gspell-@GSPELL_API_VERSION@/gspell
 libgspell_include_HEADERS = $(gspell_public_headers)
+nodist_libgspell_include_HEADERS = $(gspell_built_public_headers)
 
 xml_res = $(srcdir)/resources/gspell.gresource.xml
 gspell-resources.c: $(xml_res) $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/resources --generate-dependencies $(xml_res))
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir)/resources --generate-source $(xml_res)
+
+ENUM_TYPES = $(gspell_public_headers)
+
+gspell-enum-types.h: gspell-enum-types.h.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.h.template $(ENUM_TYPES)) > $@
+
+gspell-enum-types.c: gspell-enum-types.c.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.c.template $(ENUM_TYPES)) > $@
+
+EXTRA_DIST =				\
+	gspell-enum-types.c.template	\
+	gspell-enum-types.h.template
 
 CLEANFILES = $(BUILT_SOURCES)
 
@@ -142,7 +163,8 @@ Gspell_@GSPELL_API_VERSION@_gir_LIBS = libgspell-@GSPELL_API_VERSION@.la
 Gspell_@GSPELL_API_VERSION@_gir_FILES =	\
 	$(gspell_public_headers)	\
 	$(gspell_public_c_files)	\
-	$(BUILT_SOURCES)
+	$(gspell_built_public_headers)	\
+	$(gspell_built_public_c_files)
 
 Gspell_@GSPELL_API_VERSION@_gir_INCLUDES = Gtk-3.0
 Gspell_@GSPELL_API_VERSION@_gir_PACKAGES = gtk+-3.0
