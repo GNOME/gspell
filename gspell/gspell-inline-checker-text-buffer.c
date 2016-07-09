@@ -87,6 +87,58 @@ typedef enum
 
 G_DEFINE_TYPE (GspellInlineCheckerTextBuffer, _gspell_inline_checker_text_buffer, G_TYPE_OBJECT)
 
+/* FIXME properly. Workaround for bug in GtkTextView:
+ * https://bugzilla.gnome.org/show_bug.cgi?id=763741
+ */
+static void
+queue_draw_hack (GspellInlineCheckerTextBuffer *spell)
+{
+	GSList *l;
+
+	for (l = spell->views; l != NULL; l = l->next)
+	{
+		GtkWidget *view = GTK_WIDGET (l->data);
+		gtk_widget_queue_draw (view);
+	}
+}
+
+/* Remove the highlight_tag only if present. If gtk_text_buffer_remove_tag() is
+ * called when the tag is not present, GtkTextView anyway queues a redraw, which
+ * we want to avoid (it can lead to an infinite loop).
+ */
+static void
+remove_highlight_tag_if_present (GspellInlineCheckerTextBuffer *spell,
+				 const GtkTextIter             *start,
+				 const GtkTextIter             *end)
+{
+	gboolean remove = FALSE;
+
+	if (gtk_text_iter_has_tag (start, spell->highlight_tag))
+	{
+		remove = TRUE;
+	}
+	else
+	{
+		GtkTextIter iter = *start;
+
+		if (gtk_text_iter_forward_to_tag_toggle (&iter, spell->highlight_tag) &&
+		    gtk_text_iter_compare (&iter, end) < 0)
+		{
+			remove = TRUE;
+		}
+	}
+
+	if (remove)
+	{
+		gtk_text_buffer_remove_tag (spell->buffer,
+					    spell->highlight_tag,
+					    start,
+					    end);
+
+		queue_draw_hack (spell);
+	}
+}
+
 static void
 check_word (GspellInlineCheckerTextBuffer *spell,
 	    const GtkTextIter             *start,
@@ -315,8 +367,9 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 					      &visible_start,
 					      &visible_end);
 
-	if (intersect == NULL)
+	if (_gspell_region_is_empty (intersect))
 	{
+		g_clear_object (&intersect);
 		return;
 	}
 
@@ -329,10 +382,9 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 						 &current_word_start,
 						 &current_word_end))
 		{
-			gtk_text_buffer_remove_tag (spell->buffer,
-						    spell->highlight_tag,
-						    &current_word_start,
-						    &current_word_end);
+			remove_highlight_tag_if_present (spell,
+							 &current_word_start,
+							 &current_word_end);
 
 			_gspell_region_subtract (intersect,
 						 &current_word_start,
@@ -344,13 +396,13 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 			_gspell_region_add (spell->scan_region,
 					    &current_word_start,
 					    &current_word_end);
-		}
-	}
 
-	if (_gspell_region_is_empty (intersect))
-	{
-		g_clear_object (&intersect);
-		goto out;
+			if (_gspell_region_is_empty (intersect))
+			{
+				g_clear_object (&intersect);
+				return;
+			}
+		}
 	}
 
 	_gspell_region_get_start_region_iter (intersect, &intersect_iter);
@@ -391,14 +443,7 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		g_clear_object (&spell->scan_region);
 	}
 
-out:
-	if (view != NULL)
-	{
-		/* FIXME properly. Workaround for bug in GtkTextView:
-		 * https://bugzilla.gnome.org/show_bug.cgi?id=763741
-		 */
-		gtk_widget_queue_draw (GTK_WIDGET (view));
-	}
+	queue_draw_hack (spell);
 }
 
 static void
