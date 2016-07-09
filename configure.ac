@@ -52,7 +52,7 @@ AC_SUBST(GSPELL_API_VERSION)
 # Dependencies
 enchant_req=1.6.0
 glib_req=2.44
-gtk_req=3.19.11
+gtk_req=3.20
 
 AC_CONFIG_SRCDIR([gspell/gspell-checker.c])
 AC_CONFIG_HEADER([config.h])

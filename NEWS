@@ -1,3 +1,9 @@
+News in 1.0.3
+-------------
+* Inline checker: fix constant redrawing of the GtkTextView when the current
+  word is not checked.
+* Added Indonesian translation
+
 News in 1.0.2
 -------------
 * Fix gtk-doc build issue
