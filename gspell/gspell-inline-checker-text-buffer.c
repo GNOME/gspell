@@ -1006,6 +1006,8 @@ remove_tag_to_word (GspellInlineCheckerTextBuffer *spell,
 
 		iter = match_end;
 	}
+
+	queue_draw_hack (spell);
 }
 
 static void
