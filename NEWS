@@ -1,3 +1,13 @@
+News in 1.1.2
+-------------
+This is an unstable release in the 1.1 development cycle. The 1.2 stable
+version will be released at the same time as GNOME 3.22.
+
+* Inline checker: fix constant redrawing of the GtkTextView when the current
+  word is not checked.
+* Generate enum types
+* Translation updates
+
 News in 1.1.1
 -------------
 This is an unstable release in the 1.1 development cycle. The 1.2 stable
