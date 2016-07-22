@@ -73,7 +73,7 @@ MAINTAINERCLEANFILES = \
 	missing \
 	test-driver
 
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+AM_DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
 
 @CODE_COVERAGE_RULES@
 
