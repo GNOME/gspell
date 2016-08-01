@@ -1,5 +1,9 @@
 SUBDIRS = gspell po docs tests testsuite
 
+@CODE_COVERAGE_RULES@
+
+AM_DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+
 pkgconfig_DATA = gspell-$(GSPELL_API_VERSION).pc
 DISTCLEANFILES = $(pkgconfig_DATA)
 EXTRA_DIST = gspell.pc.in
@@ -72,9 +76,5 @@ MAINTAINERCLEANFILES = \
 	m4/xsize.m4 \
 	missing \
 	test-driver
-
-AM_DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
-
-@CODE_COVERAGE_RULES@
 
 -include $(top_srcdir)/git.mk
