@@ -10,8 +10,6 @@ AM_LDFLAGS = $(WARN_LDFLAGS)
 LDADD = $(top_builddir)/gspell/libgspell-core.la	\
 	$(DEP_LIBS)
 
-noinst_PROGRAMS = $(UNIT_TEST_PROGS)
-TESTS = $(UNIT_TEST_PROGS)
 UNIT_TEST_PROGS =
 
 UNIT_TEST_PROGS += test-checker
@@ -25,6 +23,9 @@ test_text_iter_SOURCES = test-text-iter.c
 
 UNIT_TEST_PROGS += test-utils
 test_utils_SOURCES = test-utils.c
+
+noinst_PROGRAMS = $(UNIT_TEST_PROGS)
+TESTS = $(UNIT_TEST_PROGS)
 
 if INSTALLED_TESTS
 insttestdir = $(libexecdir)/installed-tests/$(PACKAGE)-@GSPELL_API_VERSION@
