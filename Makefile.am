@@ -2,7 +2,7 @@ SUBDIRS = gspell po docs tests testsuite
 
 @CODE_COVERAGE_RULES@
 
-AM_DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+AM_DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-introspection --enable-vala
 
 pkgconfig_DATA = gspell-$(GSPELL_API_VERSION).pc
 DISTCLEANFILES = $(pkgconfig_DATA)
