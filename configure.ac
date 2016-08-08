@@ -210,6 +210,7 @@ AC_CONFIG_FILES([
 	Makefile
 	docs/Makefile
 	docs/reference/gspell-docs.xml
+	docs/reference/intro.xml
 	docs/reference/Makefile
 	gspell/Makefile
 	gspell/resources/Makefile

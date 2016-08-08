@@ -16,6 +16,20 @@
   </para>
 
   <refsect1>
+    <title>pkg-config name</title>
+    <para>
+      The pkg-config name of the gspell library is: <code>gspell-@GSPELL_API_VERSION@</code>
+    </para>
+    <para>
+      To compile a program that uses gspell, you can for example use the
+      following command:
+    </para>
+    <para>
+      <code>$ gcc hello.c `pkg-config --cflags --libs gspell-@GSPELL_API_VERSION@` -o hello</code>
+    </para>
+  </refsect1>
+
+  <refsect1>
     <title>How to enable inline spell checking in a GtkTextView</title>
     <para>
       See the <link linkend="gspell-text-view-basic-setup"><function>gspell_text_view_basic_setup()</function></link>

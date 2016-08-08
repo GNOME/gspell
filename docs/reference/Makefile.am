@@ -64,7 +64,12 @@ MAINTAINERCLEANFILES =			\
 # include common portion ...
 include $(top_srcdir)/gtk-doc.make
 
-EXTRA_DIST += gspell-docs.xml.in
-DISTCLEANFILES = gspell-docs.xml
+EXTRA_DIST +=			\
+	gspell-docs.xml.in	\
+	intro.xml.in
+
+DISTCLEANFILES =		\
+	gspell-docs.xml		\
+	intro.xml
 
 -include $(top_srcdir)/git.mk
