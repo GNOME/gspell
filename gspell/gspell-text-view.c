@@ -37,15 +37,19 @@
  * to add the misspelled word to the session dictionary. And an “Add” item to
  * add the word to the personal dictionary.
  *
+ * For a basic use-case, there is the gspell_text_view_basic_setup() convenience
+ * function.
+ *
  * The spell is checked only on the visible region of the #GtkTextView. Note
  * that if a same #GtkTextBuffer is used for several views, the misspelled words
  * are visible in all views, because the highlighting is achieved with a
  * #GtkTextTag added to the buffer.
  *
- * You need to call gspell_text_buffer_set_spell_checker() to associate a
- * #GspellChecker to the #GtkTextBuffer. #GspellTextView handles automatically
- * changes to the following properties: #GtkTextView:buffer,
- * #GspellTextBuffer:spell-checker and #GspellChecker:language.
+ * If you don't use the gspell_text_view_basic_setup() function, you need to
+ * call gspell_text_buffer_set_spell_checker() to associate a #GspellChecker to
+ * the #GtkTextBuffer. #GspellTextView handles automatically changes to the
+ * following properties: #GtkTextView:buffer, #GspellTextBuffer:spell-checker
+ * and #GspellChecker:language.
  *
  * Note that #GspellTextView extends the #GtkTextView class but without
  * subclassing it, because the GtkSourceView library has already a #GtkTextView
@@ -473,6 +477,68 @@ gspell_text_view_get_from_gtk_text_view (GtkTextView *gtk_view)
 
 	g_return_val_if_fail (GSPELL_IS_TEXT_VIEW (gspell_view), NULL);
 	return gspell_view;
+}
+
+/**
+ * gspell_text_view_basic_setup:
+ * @gspell_view: a #GspellTextView.
+ *
+ * This function is a convenience function that does the following:
+ * - Set a spell checker. The language chosen is the one returned by
+ *   gspell_language_get_default().
+ * - Set the #GspellTextView:inline-spell-checking property to %TRUE.
+ * - Set the #GspellTextView:enable-language-menu property to %TRUE.
+ *
+ * Example:
+ * |[
+ * GtkTextView *gtk_view;
+ * GspellTextView *gspell_view;
+ *
+ * gspell_view = gspell_text_view_get_from_gtk_text_view (gtk_view);
+ * gspell_text_view_basic_setup (gspell_view);
+ * ]|
+ *
+ * This is equivalent to:
+ * |[
+ * GtkTextView *gtk_view;
+ * GspellTextView *gspell_view;
+ * GspellChecker *checker;
+ * GtkTextBuffer *gtk_buffer;
+ * GspellTextBuffer *gspell_buffer;
+ *
+ * checker = gspell_checker_new (NULL);
+ * gtk_buffer = gtk_text_view_get_buffer (gtk_view);
+ * gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
+ * gspell_text_buffer_set_spell_checker (gspell_buffer, checker);
+ * g_object_unref (checker);
+ *
+ * gspell_view = gspell_text_view_get_from_gtk_text_view (gtk_view);
+ * gspell_text_view_set_inline_spell_checking (gspell_view, TRUE);
+ * gspell_text_view_set_enable_language_menu (gspell_view, TRUE);
+ * ]|
+ *
+ * Since: 1.2
+ */
+void
+gspell_text_view_basic_setup (GspellTextView *gspell_view)
+{
+	GspellTextViewPrivate *priv;
+	GspellChecker *checker;
+	GtkTextBuffer *gtk_buffer;
+	GspellTextBuffer *gspell_buffer;
+
+	g_return_if_fail (GSPELL_IS_TEXT_VIEW (gspell_view));
+
+	priv = gspell_text_view_get_instance_private (gspell_view);
+
+	checker = gspell_checker_new (NULL);
+	gtk_buffer = gtk_text_view_get_buffer (priv->view);
+	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
+	gspell_text_buffer_set_spell_checker (gspell_buffer, checker);
+	g_object_unref (checker);
+
+	gspell_text_view_set_inline_spell_checking (gspell_view, TRUE);
+	gspell_text_view_set_enable_language_menu (gspell_view, TRUE);
 }
 
 /**

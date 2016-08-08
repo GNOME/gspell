@@ -43,6 +43,8 @@ struct _GspellTextViewClass
 
 GspellTextView *	gspell_text_view_get_from_gtk_text_view		(GtkTextView *gtk_view);
 
+void			gspell_text_view_basic_setup			(GspellTextView *gspell_view);
+
 GtkTextView *		gspell_text_view_get_view			(GspellTextView *gspell_view);
 
 gboolean		gspell_text_view_get_inline_spell_checking	(GspellTextView *gspell_view);
