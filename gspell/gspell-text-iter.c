@@ -20,39 +20,41 @@
 #include "gspell-text-iter.h"
 #include "gspell-utils.h"
 
-/* The same functions as the gtk_text_iter_* equivalents, but take into account
- * word contractions with an apostrophe. For example "doesn't", which is a
- * contraction of the two words "does not".
+/* The same functions as the gtk_text_iter_* equivalents, but take into account:
+ * - Word contractions with an apostrophe. For example "doesn't", which is a
+ *   contraction of the two words "does not".
+ * - Componds with words separated by dashes. For example "spell-checking".
  *
- * When to include an apostrophe in a word? The heuristic is that the apostrophe
- * must be surrounded by a pango-defined word on *each* side of the apostrophe.
- * In other words, there must be a word end on the left side and a word start on
- * the right side.
+ * When to include an apostrophe or a dash in a word? The heuristic is that the
+ * apostrophe must be surrounded by a pango-defined word on *each* side of the
+ * apostrophe.  In other words, there must be a word end on the left side and a
+ * word start on the right side.
  *
- * Note that with that rule, a word can contain several apostrophes, like
- * "rock'n'roll". Usually such a word would be considered as misspelled, but
- * it's important to take every apostrophes, otherwise the word boundaries would
- * change depending on the GtkTextIter location, which would lead to bugs.
+ * Note that with that rule, a word can contain several apostrophes or dashes,
+ * like "rock'n'roll". Usually such a word would be considered as misspelled,
+ * but it's important to take every apostrophes, otherwise the word boundaries
+ * would change depending on the GtkTextIter location, which would lead to bugs.
  *
  * Possible improvement: support words like "doin'" or "'til". That is, if the
  * "internal" word ("doin" or "til") is surrounded by only one apostrophe, take
  * the apostrophe. The implementation would be slightly more complicated, since
  * a function behavior depends on the other side of the word.
  *
- * If the following Pango bug is fixed, normally the gtk_text_iter_* functions
- * can be used directly.
+ * If the following Pango bug is fixed, the gtk_text_iter_* functions can maybe
+ * be used directly.
  * FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=97545
  * "Make pango_default_break follow Unicode TR #29"
  */
 
 static gboolean
-is_apostrophe (const GtkTextIter *iter)
+is_apostrophe_or_dash (const GtkTextIter *iter)
 {
 	gunichar ch;
 
 	ch = gtk_text_iter_get_char (iter);
 
-	return (ch == '\'' ||
+	return (ch == '-' ||
+		ch == '\'' ||
 		ch == _GSPELL_MODIFIER_LETTER_APOSTROPHE ||
 		ch == _GSPELL_RIGHT_SINGLE_QUOTATION_MARK);
 }
@@ -66,7 +68,7 @@ _gspell_text_iter_forward_word_end (GtkTextIter *iter)
 	{
 		GtkTextIter next_char;
 
-		if (!is_apostrophe (iter))
+		if (!is_apostrophe_or_dash (iter))
 		{
 			return TRUE;
 		}
@@ -95,7 +97,7 @@ _gspell_text_iter_backward_word_start (GtkTextIter *iter)
 		GtkTextIter prev_char = *iter;
 
 		if (!gtk_text_iter_backward_char (&prev_char) ||
-		    !is_apostrophe (&prev_char) ||
+		    !is_apostrophe_or_dash (&prev_char) ||
 		    !gtk_text_iter_ends_word (&prev_char))
 		{
 			return TRUE;
@@ -125,7 +127,7 @@ _gspell_text_iter_starts_word (const GtkTextIter *iter)
 		return TRUE;
 	}
 
-	if (is_apostrophe (&prev_char) &&
+	if (is_apostrophe_or_dash (&prev_char) &&
 	    gtk_text_iter_ends_word (&prev_char))
 	{
 		return FALSE;
@@ -154,7 +156,7 @@ _gspell_text_iter_ends_word (const GtkTextIter *iter)
 	next_char = *iter;
 	gtk_text_iter_forward_char (&next_char);
 
-	if (is_apostrophe (iter) &&
+	if (is_apostrophe_or_dash (iter) &&
 	    gtk_text_iter_starts_word (&next_char))
 	{
 		return FALSE;
@@ -174,7 +176,7 @@ _gspell_text_iter_inside_word (const GtkTextIter *iter)
 	}
 
 	if (gtk_text_iter_ends_word (iter) &&
-	    is_apostrophe (iter))
+	    is_apostrophe_or_dash (iter))
 	{
 		GtkTextIter next_char = *iter;
 		gtk_text_iter_forward_char (&next_char);

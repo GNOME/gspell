@@ -88,6 +88,30 @@ test_apostrophes (void)
 	g_object_unref (checker);
 }
 
+static void
+test_dashes (void)
+{
+	const GspellLanguage *lang;
+	GspellChecker *checker;
+	gboolean correctly_spelled;
+	GError *error = NULL;
+
+	lang = gspell_language_lookup ("en_US");
+	g_assert (lang != NULL);
+
+	checker = gspell_checker_new (lang);
+
+	correctly_spelled = gspell_checker_check_word (checker, "spell-checking", -1, &error);
+	g_assert_no_error (error);
+	g_assert (correctly_spelled);
+
+	correctly_spelled = gspell_checker_check_word (checker, "nrst-auie", -1, &error);
+	g_assert_no_error (error);
+	g_assert (!correctly_spelled);
+
+	g_object_unref (checker);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -96,6 +120,7 @@ main (gint    argc,
 
 	g_test_add_func ("/checker/check_word", test_check_word);
 	g_test_add_func ("/checker/apostrophes", test_apostrophes);
+	g_test_add_func ("/checker/dashes", test_dashes);
 
 	return g_test_run ();
 }

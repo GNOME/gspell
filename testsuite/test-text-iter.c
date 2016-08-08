@@ -81,6 +81,31 @@ test_forward_word_end (void)
 	}
 	check_word_move (TRUE, " rock'n'roll ", 12, 12, FALSE);
 	check_word_move (TRUE, " rock'n'roll", 0, 12, FALSE);
+
+	/* Dashes */
+	for (i = 0; i <= 5; i++)
+	{
+		check_word_move (TRUE, " as-is ", i, 6, TRUE);
+	}
+	check_word_move (TRUE, " as-is ", 6, 6, FALSE);
+	check_word_move (TRUE, " as-is", 0, 6, FALSE);
+
+	/* In "as-", the word boundaries should be around "as". */
+	for (i = 0; i <= 2; i++)
+	{
+		check_word_move (TRUE, " as- ", i, 3, TRUE);
+	}
+	check_word_move (TRUE, " as- ", 3, 3, FALSE);
+	check_word_move (TRUE, " as- ", 4, 4, FALSE);
+	check_word_move (TRUE, " as- ", 5, 5, FALSE);
+
+	/* Several dashes in the same word. */
+	for (i = 0; i <= 11; i++)
+	{
+		check_word_move (TRUE, " rock-n-roll ", i, 12, TRUE);
+	}
+	check_word_move (TRUE, " rock-n-roll ", 12, 12, FALSE);
+	check_word_move (TRUE, " rock-n-roll", 0, 12, FALSE);
 }
 
 static void
@@ -111,6 +136,31 @@ test_backward_word_start (void)
 	}
 	check_word_move (FALSE, " rock'n'roll ", 1, 1, FALSE);
 	check_word_move (FALSE, " rock'n'roll ", 0, 0, FALSE);
+
+	/* Dashes */
+	for (i = 7; i >= 2; i--)
+	{
+		check_word_move (FALSE, " as-is ", i, 1, TRUE);
+	}
+	check_word_move (FALSE, " as-is ", 1, 1, FALSE);
+	check_word_move (FALSE, " as-is ", 0, 0, FALSE);
+
+	/* In "-as", the word boundaries should be around "as". */
+	for (i = 5; i >= 3; i--)
+	{
+		check_word_move (FALSE, " -as ", i, 2, TRUE);
+	}
+	check_word_move (FALSE, " -as ", 2, 2, FALSE);
+	check_word_move (FALSE, " -as ", 1, 1, FALSE);
+	check_word_move (FALSE, " -as ", 0, 0, FALSE);
+
+	/* Several dashes in the same word. */
+	for (i = 13; i >= 2; i--)
+	{
+		check_word_move (FALSE, " rock-n-roll ", i, 1, TRUE);
+	}
+	check_word_move (FALSE, " rock-n-roll ", 1, 1, FALSE);
+	check_word_move (FALSE, " rock-n-roll ", 0, 0, FALSE);
 }
 
 static void
