@@ -363,9 +363,9 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		gtk_text_buffer_get_bounds (spell->buffer, &visible_start, &visible_end);
 	}
 
-	intersect = _gspell_region_intersect (spell->scan_region,
-					      &visible_start,
-					      &visible_end);
+	intersect = _gspell_region_intersect_subregion (spell->scan_region,
+							&visible_start,
+							&visible_end);
 
 	if (_gspell_region_is_empty (intersect))
 	{
@@ -386,16 +386,16 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 							 &current_word_start,
 							 &current_word_end);
 
-			_gspell_region_subtract (intersect,
-						 &current_word_start,
-						 &current_word_end);
+			_gspell_region_subtract_subregion (intersect,
+							   &current_word_start,
+							   &current_word_end);
 
 			/* Be sure that the current word will be re-checked
 			 * later when it will no longer be the current word.
 			 */
-			_gspell_region_add (spell->scan_region,
-					    &current_word_start,
-					    &current_word_end);
+			_gspell_region_add_subregion (spell->scan_region,
+						      &current_word_start,
+						      &current_word_end);
 
 			if (_gspell_region_is_empty (intersect))
 			{
@@ -431,7 +431,7 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		g_assert (gtk_text_iter_compare (&start, &orig_start) <= 0);
 		g_assert (gtk_text_iter_compare (&orig_end, &end) <= 0);
 
-		_gspell_region_subtract (spell->scan_region, &start, &end);
+		_gspell_region_subtract_subregion (spell->scan_region, &start, &end);
 
 		_gspell_region_iter_next (&intersect_iter);
 	}
@@ -510,7 +510,7 @@ add_subregion_to_scan (GspellInlineCheckerTextBuffer *spell,
 		spell->scan_region = _gspell_region_new (spell->buffer);
 	}
 
-	_gspell_region_add (spell->scan_region, start, end);
+	_gspell_region_add_subregion (spell->scan_region, start, end);
 }
 
 static void

@@ -130,10 +130,10 @@ enum
 {
 	PROP_0,
 	PROP_BUFFER,
-	LAST_PROP
+	N_PROPERTIES
 };
 
-static GParamSpec *properties[LAST_PROP];
+static GParamSpec *properties[N_PROPERTIES];
 
 G_DEFINE_TYPE_WITH_PRIVATE (GspellRegion, _gspell_region, G_TYPE_OBJECT)
 
@@ -315,7 +315,7 @@ _gspell_region_class_init (GspellRegionClass *klass)
 				     G_PARAM_CONSTRUCT_ONLY |
 				     G_PARAM_STATIC_STRINGS);
 
-	g_object_class_install_properties (object_class, LAST_PROP, properties);
+	g_object_class_install_properties (object_class, N_PROPERTIES, properties);
 }
 
 static void
@@ -399,7 +399,7 @@ _gspell_region_clear_zero_length_subregions (GspellRegion *region)
 }
 
 /*
- * _gspell_region_add:
+ * _gspell_region_add_subregion:
  * @region: a #GspellRegion.
  * @_start: the start of the subregion.
  * @_end: the end of the subregion.
@@ -409,9 +409,9 @@ _gspell_region_clear_zero_length_subregions (GspellRegion *region)
  * Since: 3.22
  */
 void
-_gspell_region_add (GspellRegion   *region,
-		       const GtkTextIter *_start,
-		       const GtkTextIter *_end)
+_gspell_region_add_subregion (GspellRegion   *region,
+				 const GtkTextIter *_start,
+				 const GtkTextIter *_end)
 {
 	GspellRegionPrivate *priv;
 	GList *start_node;
@@ -523,7 +523,63 @@ _gspell_region_add (GspellRegion   *region,
 }
 
 /*
- * _gspell_region_subtract:
+ * _gspell_region_add_region:
+ * @region: a #GspellRegion.
+ * @region_to_add: (nullable): the #GspellRegion to add to @region, or %NULL.
+ *
+ * Adds @region_to_add to @region. @region_to_add is not modified.
+ *
+ * Since: 3.22
+ */
+void
+_gspell_region_add_region (GspellRegion *region,
+			      GspellRegion *region_to_add)
+{
+	GspellRegionIter iter;
+	GtkTextBuffer *region_buffer;
+	GtkTextBuffer *region_to_add_buffer;
+
+	g_return_if_fail (GSPELL_IS_REGION (region));
+	g_return_if_fail (region_to_add == NULL || GSPELL_IS_REGION (region_to_add));
+
+	if (region_to_add == NULL)
+	{
+		return;
+	}
+
+	region_buffer = _gspell_region_get_buffer (region);
+	region_to_add_buffer = _gspell_region_get_buffer (region_to_add);
+	g_return_if_fail (region_buffer == region_to_add_buffer);
+
+	if (region_buffer == NULL)
+	{
+		return;
+	}
+
+	_gspell_region_get_start_region_iter (region_to_add, &iter);
+
+	while (!_gspell_region_iter_is_end (&iter))
+	{
+		GtkTextIter subregion_start;
+		GtkTextIter subregion_end;
+
+		if (!_gspell_region_iter_get_subregion (&iter,
+							   &subregion_start,
+							   &subregion_end))
+		{
+			break;
+		}
+
+		_gspell_region_add_subregion (region,
+						 &subregion_start,
+						 &subregion_end);
+
+		_gspell_region_iter_next (&iter);
+	}
+}
+
+/*
+ * _gspell_region_subtract_subregion:
  * @region: a #GspellRegion.
  * @_start: the start of the subregion.
  * @_end: the end of the subregion.
@@ -533,9 +589,9 @@ _gspell_region_add (GspellRegion   *region,
  * Since: 3.22
  */
 void
-_gspell_region_subtract (GspellRegion   *region,
-			    const GtkTextIter *_start,
-			    const GtkTextIter *_end)
+_gspell_region_subtract_subregion (GspellRegion   *region,
+				      const GtkTextIter *_start,
+				      const GtkTextIter *_end)
 {
 	GspellRegionPrivate *priv;
 	GList *start_node;
@@ -697,6 +753,59 @@ _gspell_region_subtract (GspellRegion   *region,
 }
 
 /*
+ * _gspell_region_subtract_region:
+ * @region: a #GspellRegion.
+ * @region_to_subtract: (nullable): the #GspellRegion to subtract from
+ *   @region, or %NULL.
+ *
+ * Subtracts @region_to_subtract from @region. @region_to_subtract is not
+ * modified.
+ *
+ * Since: 3.22
+ */
+void
+_gspell_region_subtract_region (GspellRegion *region,
+				   GspellRegion *region_to_subtract)
+{
+	GtkTextBuffer *region_buffer;
+	GtkTextBuffer *region_to_subtract_buffer;
+	GspellRegionIter iter;
+
+	g_return_if_fail (GSPELL_IS_REGION (region));
+	g_return_if_fail (region_to_subtract == NULL || GSPELL_IS_REGION (region_to_subtract));
+
+	region_buffer = _gspell_region_get_buffer (region);
+	region_to_subtract_buffer = _gspell_region_get_buffer (region_to_subtract);
+	g_return_if_fail (region_buffer == region_to_subtract_buffer);
+
+	if (region_buffer == NULL)
+	{
+		return;
+	}
+
+	_gspell_region_get_start_region_iter (region_to_subtract, &iter);
+
+	while (!_gspell_region_iter_is_end (&iter))
+	{
+		GtkTextIter subregion_start;
+		GtkTextIter subregion_end;
+
+		if (!_gspell_region_iter_get_subregion (&iter,
+							   &subregion_start,
+							   &subregion_end))
+		{
+			break;
+		}
+
+		_gspell_region_subtract_subregion (region,
+						      &subregion_start,
+						      &subregion_end);
+
+		_gspell_region_iter_next (&iter);
+	}
+}
+
+/*
  * _gspell_region_is_empty:
  * @region: (nullable): a #GspellRegion, or %NULL.
  *
@@ -717,9 +826,10 @@ _gspell_region_is_empty (GspellRegion *region)
 
 	/* A #GspellRegion can contain empty subregions. So checking the
 	 * number of subregions is not sufficient.
-	 * When calling _gspell_region_add() with equal iters, the subregion
-	 * is not added. But when a subregion becomes empty, due to text
-	 * deletion, the subregion is not removed from the #GspellRegion.
+	 * When calling _gspell_region_add_subregion() with equal iters, the
+	 * subregion is not added. But when a subregion becomes empty, due to
+	 * text deletion, the subregion is not removed from the
+	 * #GspellRegion.
 	 */
 
 	_gspell_region_get_start_region_iter (region, &region_iter);
@@ -796,22 +906,22 @@ _gspell_region_get_bounds (GspellRegion *region,
 }
 
 /*
- * _gspell_region_intersect:
+ * _gspell_region_intersect_subregion:
  * @region: a #GspellRegion.
  * @_start: the start of the subregion.
  * @_end: the end of the subregion.
  *
- * Computes the intersection between @region and the subregion delimited by
- * @_start and @_end.
+ * Returns the intersection between @region and the subregion delimited by
+ * @_start and @_end. @region is not modified.
  *
  * Returns: (transfer full) (nullable): the intersection as a new
  *   #GspellRegion.
  * Since: 3.22
  */
 GspellRegion *
-_gspell_region_intersect (GspellRegion   *region,
-			     const GtkTextIter *_start,
-			     const GtkTextIter *_end)
+_gspell_region_intersect_subregion (GspellRegion   *region,
+				       const GtkTextIter *_start,
+				       const GtkTextIter *_end)
 {
 	GspellRegionPrivate *priv;
 	GspellRegion *new_region;
@@ -966,6 +1076,87 @@ _gspell_region_intersect (GspellRegion   *region,
 
 	new_priv->subregions = g_list_reverse (new_priv->subregions);
 	return new_region;
+}
+
+/*
+ * _gspell_region_intersect_region:
+ * @region1: (nullable): a #GspellRegion, or %NULL.
+ * @region2: (nullable): a #GspellRegion, or %NULL.
+ *
+ * Returns the intersection between @region1 and @region2. @region1 and
+ * @region2 are not modified.
+ *
+ * Returns: (transfer full) (nullable): the intersection as a #GspellRegion
+ *   object.
+ * Since: 3.22
+ */
+GspellRegion *
+_gspell_region_intersect_region (GspellRegion *region1,
+				    GspellRegion *region2)
+{
+	GtkTextBuffer *region1_buffer;
+	GtkTextBuffer *region2_buffer;
+	GspellRegion *full_intersect = NULL;
+	GspellRegionIter region2_iter;
+
+	g_return_val_if_fail (region1 == NULL || GSPELL_IS_REGION (region1), NULL);
+	g_return_val_if_fail (region2 == NULL || GSPELL_IS_REGION (region2), NULL);
+
+	if (region1 == NULL && region2 == NULL)
+	{
+		return NULL;
+	}
+	if (region1 == NULL)
+	{
+		return g_object_ref (region2);
+	}
+	if (region2 == NULL)
+	{
+		return g_object_ref (region1);
+	}
+
+	region1_buffer = _gspell_region_get_buffer (region1);
+	region2_buffer = _gspell_region_get_buffer (region2);
+	g_return_val_if_fail (region1_buffer == region2_buffer, NULL);
+
+	if (region1_buffer == NULL)
+	{
+		return NULL;
+	}
+
+	_gspell_region_get_start_region_iter (region2, &region2_iter);
+
+	while (!_gspell_region_iter_is_end (&region2_iter))
+	{
+		GtkTextIter subregion2_start;
+		GtkTextIter subregion2_end;
+		GspellRegion *sub_intersect;
+
+		if (!_gspell_region_iter_get_subregion (&region2_iter,
+							   &subregion2_start,
+							   &subregion2_end))
+		{
+			break;
+		}
+
+		sub_intersect = _gspell_region_intersect_subregion (region1,
+								       &subregion2_start,
+								       &subregion2_end);
+
+		if (full_intersect == NULL)
+		{
+			full_intersect = sub_intersect;
+		}
+		else
+		{
+			_gspell_region_add_region (full_intersect, sub_intersect);
+			g_clear_object (&sub_intersect);
+		}
+
+		_gspell_region_iter_next (&region2_iter);
+	}
+
+	return full_intersect;
 }
 
 static gboolean

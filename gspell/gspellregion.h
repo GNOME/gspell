@@ -22,8 +22,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef __GSPELL_REGION_H__
-#define __GSPELL_REGION_H__
+#ifndef GSPELL_REGION_H
+#define GSPELL_REGION_H
 
 #include <gtk/gtk.h>
 
@@ -68,19 +68,31 @@ G_GNUC_INTERNAL
 GtkTextBuffer *		_gspell_region_get_buffer		(GspellRegion *region);
 
 G_GNUC_INTERNAL
-void			_gspell_region_add			(GspellRegion   *region,
+void			_gspell_region_add_subregion		(GspellRegion   *region,
 								 const GtkTextIter *_start,
 								 const GtkTextIter *_end);
 
 G_GNUC_INTERNAL
-void			_gspell_region_subtract		(GspellRegion   *region,
+void			_gspell_region_add_region		(GspellRegion *region,
+								 GspellRegion *region_to_add);
+
+G_GNUC_INTERNAL
+void			_gspell_region_subtract_subregion	(GspellRegion   *region,
 								 const GtkTextIter *_start,
 								 const GtkTextIter *_end);
 
 G_GNUC_INTERNAL
-GspellRegion *	_gspell_region_intersect		(GspellRegion   *region,
+void			_gspell_region_subtract_region	(GspellRegion *region,
+								 GspellRegion *region_to_subtract);
+
+G_GNUC_INTERNAL
+GspellRegion *	_gspell_region_intersect_subregion	(GspellRegion   *region,
 								 const GtkTextIter *_start,
 								 const GtkTextIter *_end);
+
+G_GNUC_INTERNAL
+GspellRegion *	_gspell_region_intersect_region	(GspellRegion *region1,
+								 GspellRegion *region2);
 
 G_GNUC_INTERNAL
 gboolean		_gspell_region_is_empty		(GspellRegion *region);
@@ -110,4 +122,4 @@ gchar *			_gspell_region_to_string		(GspellRegion *region);
 
 G_END_DECLS
 
-#endif /* __GSPELL_REGION_H__ */
+#endif /* GSPELL_REGION_H */
