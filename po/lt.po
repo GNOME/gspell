@@ -9,15 +9,15 @@
 # Vytautas Povilaitis <punktyras@nkm.lt>, 2007.
 # Gintautas Miliauskas <gintas@akl.lt>, 2007, 2008, 2010.
 # Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2011, 2012.
-# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014, 2015.
+# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-13 17:00+0000\n"
-"PO-Revision-Date: 2016-02-14 21:32+0200\n"
+"POT-Creation-Date: 2016-05-16 13:17+0000\n"
+"PO-Revision-Date: 2016-08-15 13:22+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: gspell/gspell-checker.c:403
 #, c-format
@@ -39,7 +39,7 @@ msgstr "Klaida tikrinant žodžio „%s“ rašybą: %s"
 #.
 #. No suggestions. Put something in the menu anyway...
 #: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:840
+#: gspell/gspell-inline-checker-text-buffer.c:796
 msgid "(no suggested words)"
 msgstr "(pasiūlymų nėra)"
 
@@ -67,27 +67,27 @@ msgstr "(teisinga rašyba)"
 msgid "Suggestions"
 msgstr "Pasiūlymai"
 
-#: gspell/gspell-inline-checker-text-buffer.c:863
+#: gspell/gspell-inline-checker-text-buffer.c:819
 msgid "_More..."
 msgstr "_Daugiau..."
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:903
+#: gspell/gspell-inline-checker-text-buffer.c:859
 msgid "_Ignore All"
 msgstr "_Ignoruoti visus"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:912
+#: gspell/gspell-inline-checker-text-buffer.c:868
 msgid "_Add"
 msgstr "_Pridėti"
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:949
+#: gspell/gspell-inline-checker-text-buffer.c:899
 msgid "_Spelling Suggestions..."
 msgstr "_Rašybos pasiūlymai..."
 
 #. Translators: %s is the language ISO code.
-#: gspell/gspell-language.c:280
+#: gspell/gspell-language.c:253
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -96,7 +96,7 @@ msgstr "Nežinomas (%s)"
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)".
 #.
-#: gspell/gspell-language.c:297 gspell/gspell-language.c:306
+#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -113,6 +113,12 @@ msgid ""
 msgstr ""
 "Rašybos tikrinimo klaida: nepasirinkta kalba. Taip gali būti, jei nėra "
 "įdiegtų žodynų."
+
+#. Prepend language sub-menu
+#: gspell/gspell-text-view.c:261
+#| msgid "Set Language"
+msgid "_Language"
+msgstr "_Kalba"
 
 #: gspell/resources/checker-dialog.ui:8
 msgid "Check Spelling"
