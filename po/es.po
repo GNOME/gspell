@@ -14,14 +14,14 @@
 # Leandro Machacón <leandroman@gemail.com>, 2010.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013, 2014, 2015., 2016.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-16 13:17+0000\n"
+"POT-Creation-Date: 2016-07-13 17:02+0000\n"
 "PO-Revision-Date: 2016-05-26 12:59+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
@@ -43,7 +43,7 @@ msgstr "Error al comprobar la ortografía de la palabra «%s»: %s"
 #.
 #. No suggestions. Put something in the menu anyway...
 #: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-inline-checker-text-buffer.c:841
 msgid "(no suggested words)"
 msgstr "(no hay palabras sugeridas)"
 
@@ -71,22 +71,22 @@ msgstr "(ortografía correcta)"
 msgid "Suggestions"
 msgstr "Sugerencias"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
+#: gspell/gspell-inline-checker-text-buffer.c:864
 msgid "_More..."
 msgstr "_Más…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-inline-checker-text-buffer.c:904
 msgid "_Ignore All"
 msgstr "_Ignorar todo"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-inline-checker-text-buffer.c:913
 msgid "_Add"
 msgstr "_Añadir"
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
+#: gspell/gspell-inline-checker-text-buffer.c:944
 msgid "_Spelling Suggestions..."
 msgstr "_Sugerencias de ortografía…"
 
@@ -120,7 +120,6 @@ msgstr ""
 
 #. Prepend language sub-menu
 #: gspell/gspell-text-view.c:261
-#| msgid "Set Language"
 msgid "_Language"
 msgstr "_Idioma"
 
