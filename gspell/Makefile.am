@@ -88,13 +88,15 @@ libgspell_core_la_SOURCES =		\
 nodist_libgspell_core_la_SOURCES = \
 	$(BUILT_SOURCES)
 
-libgspell_core_la_CFLAGS = \
+libgspell_core_la_LIBADD =	\
+	$(CODE_COVERAGE_LIBS)
+
+libgspell_core_la_CFLAGS =	\
 	$(CODE_COVERAGE_CFLAGS)
 
-libgspell_core_la_LDFLAGS =		\
-	-no-undefined			\
-	$(WARN_LDFLAGS)			\
-	$(CODE_COVERAGE_LDFLAGS)
+libgspell_core_la_LDFLAGS =	\
+	-no-undefined		\
+	$(WARN_LDFLAGS)
 
 # The real library.
 lib_LTLIBRARIES = libgspell-@GSPELL_API_VERSION@.la
@@ -104,7 +106,8 @@ libgspell_@GSPELL_API_VERSION@_la_SOURCES =
 libgspell_@GSPELL_API_VERSION@_la_LIBADD =	\
 	libgspell-core.la			\
 	$(DEP_LIBS)				\
-	$(GTK_MAC_LIBS)
+	$(GTK_MAC_LIBS)				\
+	$(CODE_COVERAGE_LIBS)
 
 libgspell_@GSPELL_API_VERSION@_la_CFLAGS =	\
 	$(CODE_COVERAGE_CFLAGS)
@@ -113,8 +116,7 @@ libgspell_@GSPELL_API_VERSION@_la_LDFLAGS =	\
 	-version-info $(GSPELL_LT_VERSION)	\
 	-no-undefined				\
 	-export-symbols-regex "^gspell_.*"	\
-	$(WARN_LDFLAGS)				\
-	$(CODE_COVERAGE_LDFLAGS)
+	$(WARN_LDFLAGS)
 
 libgspell_includedir = $(includedir)/gspell-@GSPELL_API_VERSION@/gspell
 libgspell_include_HEADERS = $(gspell_public_headers)
