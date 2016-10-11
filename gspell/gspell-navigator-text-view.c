@@ -305,7 +305,7 @@ gspell_navigator_text_view_goto_next (GspellNavigator  *navigator,
 			     GSPELL_CHECKER_ERROR_NO_LANGUAGE_SET,
 			     "%s",
 			     _("Spell checker error: no language set. "
-			       "It's maybe because no dictionaries are installed."));
+			       "It’s maybe because no dictionaries are installed."));
 
 		return FALSE;
 	}

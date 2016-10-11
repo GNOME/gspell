@@ -861,7 +861,7 @@ get_suggestion_menu (GspellInlineCheckerTextBuffer *spell,
 				menu_item = gtk_separator_menu_item_new ();
 				gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
-				menu_item = gtk_menu_item_new_with_mnemonic (_("_More..."));
+				menu_item = gtk_menu_item_new_with_mnemonic (_("_More…"));
 				gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
 
 				menu = gtk_menu_new ();
@@ -941,7 +941,7 @@ _gspell_inline_checker_text_buffer_populate_popup (GspellInlineCheckerTextBuffer
 	}
 
 	/* Prepend suggestions */
-	menu_item = gtk_menu_item_new_with_mnemonic (_("_Spelling Suggestions..."));
+	menu_item = gtk_menu_item_new_with_mnemonic (_("_Spelling Suggestions…"));
 	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
 
 	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
