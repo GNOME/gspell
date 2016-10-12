@@ -1,0 +1,47 @@
+# Croatian translation for gtkspell
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the gtkspell package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkspell\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2016-01-07 10:18+0000\n"
+"PO-Revision-Date: 2010-03-22 21:10+0000\n"
+"Last-Translator: Saša Teković <Unknown>\n"
+"Language-Team: Croatian <hr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-09-15 11:39+0000\n"
+"X-Generator: Launchpad (build 18186)\n"
+
+#: ../gtkspell/gtkspell.c:356
+msgid "<i>(no suggestions)</i>"
+msgstr "<i>(nema sugestije)</i>"
+
+#: ../gtkspell/gtkspell.c:368
+msgid "More..."
+msgstr "Više..."
+
+#. + Add to Dictionary
+#: ../gtkspell/gtkspell.c:388
+#, c-format
+msgid "Add \"%s\" to Dictionary"
+msgstr "Dodaj \"%s\" u Rječnik"
+
+#. - Ignore All
+#: ../gtkspell/gtkspell.c:399
+msgid "Ignore All"
+msgstr "Zanemari sve"
+
+#. on top: language selection
+#: ../gtkspell/gtkspell.c:494
+msgid "Languages"
+msgstr "Jezici"
+
+#: ../gtkspell/gtkspell.c:584
+#, c-format
+msgid "enchant error for language: %s"
+msgstr "začarana greška za jezik: %s"
