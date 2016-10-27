@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,28 +17,33 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GSPELL_H
-#define GSPELL_H
+#ifndef GSPELL_ENTRY_H
+#define GSPELL_ENTRY_H
 
-#define GSPELL_H_INSIDE
+#if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
+#error "Only <gspell/gspell.h> can be included directly."
+#endif
 
-#include <gspell/gspell-checker.h>
-#include <gspell/gspell-checker-dialog.h>
-#include <gspell/gspell-entry.h>
-#include <gspell/gspell-entry-buffer.h>
-#include <gspell/gspell-language.h>
-#include <gspell/gspell-language-chooser.h>
-#include <gspell/gspell-language-chooser-button.h>
-#include <gspell/gspell-language-chooser-dialog.h>
-#include <gspell/gspell-navigator.h>
-#include <gspell/gspell-navigator-text-view.h>
-#include <gspell/gspell-text-buffer.h>
-#include <gspell/gspell-text-view.h>
+#include <gtk/gtk.h>
 
-#include <gspell/gspell-enum-types.h>
+G_BEGIN_DECLS
 
-#undef GSPELL_H_INSIDE
+#define GSPELL_TYPE_ENTRY (gspell_entry_get_type ())
+G_DECLARE_FINAL_TYPE (GspellEntry, gspell_entry,
+		      GSPELL, ENTRY,
+		      GObject)
 
-#endif /* GSPELL_H */
+GspellEntry *	gspell_entry_get_from_gtk_entry		(GtkEntry *gtk_entry);
+
+GtkEntry *	gspell_entry_get_entry			(GspellEntry *gspell_entry);
+
+gboolean	gspell_entry_get_inline_spell_checking	(GspellEntry *gspell_entry);
+
+void		gspell_entry_set_inline_spell_checking	(GspellEntry *gspell_entry,
+							 gboolean     enable);
+
+G_END_DECLS
+
+#endif /* GSPELL_ENTRY_H */
 
 /* ex:set ts=8 noet: */

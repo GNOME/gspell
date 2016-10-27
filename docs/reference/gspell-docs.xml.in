@@ -46,6 +46,7 @@
     <chapter>
       <title>GtkEntry Support</title>
       <xi:include href="xml/entry-buffer.xml"/>
+      <xi:include href="xml/entry.xml"/>
     </chapter>
   </part>
 
