@@ -132,3 +132,15 @@ gspell_language_chooser_dialog_new
 <SUBSECTION Standard>
 GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG
 </SECTION>
+
+<SECTION>
+<FILE>entry-buffer</FILE>
+<TITLE>GspellEntryBuffer</TITLE>
+GspellEntryBuffer
+gspell_entry_buffer_get_from_gtk_entry_buffer
+gspell_entry_buffer_get_buffer
+gspell_entry_buffer_get_spell_checker
+gspell_entry_buffer_set_spell_checker
+<SUBSECTION Standard>
+GSPELL_TYPE_ENTRY_BUFFER
+</SECTION>
