@@ -18,6 +18,7 @@
  */
 
 #include "gspell-entry.h"
+#include "gspell-entry-utils.h"
 
 /**
  * SECTION:entry
@@ -51,10 +52,35 @@ enum
 
 G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
 
+static gboolean
+remove_underlines_filter (PangoAttribute *attr,
+			  gpointer        user_data)
+{
+	return (attr->klass->type == PANGO_ATTR_UNDERLINE ||
+		attr->klass->type == PANGO_ATTR_UNDERLINE_COLOR);
+}
+
 static void
-apply_underline (GspellEntry *gspell_entry,
-		 guint        byte_start,
-		 guint        byte_end)
+remove_all_underlines (GspellEntry *gspell_entry)
+{
+	PangoAttrList *attr_list;
+
+	attr_list = gtk_entry_get_attributes (gspell_entry->entry);
+
+	if (attr_list == NULL)
+	{
+		return;
+	}
+
+	pango_attr_list_filter (attr_list,
+				remove_underlines_filter,
+				NULL);
+}
+
+static void
+insert_underline (GspellEntry *gspell_entry,
+		  guint        byte_start,
+		  guint        byte_end)
 {
 	PangoAttribute *attr_underline;
 	PangoAttribute *attr_underline_color;
@@ -70,21 +96,69 @@ apply_underline (GspellEntry *gspell_entry,
 
 	attr_list = gtk_entry_get_attributes (gspell_entry->entry);
 
-	if (attr_list != NULL)
-	{
-		pango_attr_list_change (attr_list, attr_underline);
-		pango_attr_list_change (attr_list, attr_underline_color);
-	}
-	else
+	if (attr_list == NULL)
 	{
 		attr_list = pango_attr_list_new ();
-
-		pango_attr_list_change (attr_list, attr_underline);
-		pango_attr_list_change (attr_list, attr_underline_color);
-
 		gtk_entry_set_attributes (gspell_entry->entry, attr_list);
 		pango_attr_list_unref (attr_list);
 	}
+
+	/* Do not use pango_attr_list_change(), because all previous underlines
+	 * are anyway removed by remove_all_underlines().
+	 */
+	pango_attr_list_insert (attr_list, attr_underline);
+	pango_attr_list_insert (attr_list, attr_underline_color);
+}
+
+static void
+recheck_all (GspellEntry *gspell_entry)
+{
+	PangoAttrList *attr_list;
+	GSList *words;
+	GSList *l;
+
+	words = _gspell_entry_utils_get_words (gspell_entry->entry);
+
+	for (l = words; l != NULL; l = l->next)
+	{
+		GspellEntryWord *cur_word = l->data;
+
+		insert_underline (gspell_entry,
+				  cur_word->byte_start,
+				  cur_word->byte_end);
+	}
+
+	g_slist_free_full (words, _gspell_entry_word_free);
+
+	/* If more attributes have been added to an existing PangoAttrList,
+	 * GtkEntry doesn't know that the :attributes property has been
+	 * modified. Without this code, GtkEntry can become buggy, especially
+	 * with multi-byte characters (displaying them as unknown char boxes).
+	 */
+	attr_list = gtk_entry_get_attributes (gspell_entry->entry);
+	gtk_entry_set_attributes (gspell_entry->entry, attr_list);
+}
+
+/* Connect to the ::changed signal before/after, so that other features (in
+ * other libraries or apps) can insert other underline attributes (e.g. for
+ * grammar checking) in another phase of the ::changed signal emission.
+ *
+ * But the GtkEntry API is not as nice as the GtkTextView API for inserting
+ * tags, setting priorities on them, etc. So, do the best that we can with the
+ * current GtkEntry API. If you find a better solution...
+ */
+static void
+changed_before_cb (GtkEditable *editable,
+		   GspellEntry *gspell_entry)
+{
+	remove_all_underlines (gspell_entry);
+}
+
+static void
+changed_after_cb (GtkEditable *editable,
+		  GspellEntry *gspell_entry)
+{
+	recheck_all (gspell_entry);
 }
 
 static void
@@ -96,7 +170,15 @@ set_entry (GspellEntry *gspell_entry,
 	g_assert (gspell_entry->entry == NULL);
 	gspell_entry->entry = gtk_entry;
 
-	apply_underline (gspell_entry, 0, 3);
+	g_signal_connect (gtk_entry,
+			  "changed",
+			  G_CALLBACK (changed_before_cb),
+			  gspell_entry);
+
+	g_signal_connect_after (gtk_entry,
+				"changed",
+				G_CALLBACK (changed_after_cb),
+				gspell_entry);
 
 	g_object_notify (G_OBJECT (gspell_entry), "entry");
 }
