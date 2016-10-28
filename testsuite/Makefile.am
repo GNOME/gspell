@@ -26,6 +26,9 @@ UNIT_TEST_PROGS =
 UNIT_TEST_PROGS += test-checker
 test_checker_SOURCES = test-checker.c
 
+UNIT_TEST_PROGS += test-entry
+test_entry_SOURCES = test-entry.c
+
 UNIT_TEST_PROGS += test-inline-checker-text-buffer
 test_inline_checker_text_buffer_SOURCES = test-inline-checker-text-buffer.c
 
