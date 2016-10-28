@@ -15,9 +15,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-13 17:02+0000\n"
-"PO-Revision-Date: 2016-08-15 10:20+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-10-28 04:43+0000\n"
+"PO-Revision-Date: 2016-10-28 17:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -67,7 +68,7 @@ msgid "Suggestions"
 msgstr "Podpowiedzi"
 
 #: gspell/gspell-inline-checker-text-buffer.c:864
-msgid "_More..."
+msgid "_More…"
 msgstr "_Więcej…"
 
 #. Ignore all
@@ -82,7 +83,7 @@ msgstr "_Dodaj"
 
 #. Prepend suggestions
 #: gspell/gspell-inline-checker-text-buffer.c:944
-msgid "_Spelling Suggestions..."
+msgid "_Spelling Suggestions…"
 msgstr "_Podpowiedzi pisowni…"
 
 #. Translators: %s is the language ISO code.
@@ -107,14 +108,14 @@ msgstr "Nie wybrano języka"
 
 #: gspell/gspell-navigator-text-view.c:307
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Błąd sprawdzania pisowni: nie ustawiono języka. Być może żadne słowniki nie "
 "są zainstalowane."
 
 #. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
+#: gspell/gspell-text-view.c:265
 msgid "_Language"
 msgstr "_Język"
 
