@@ -38,6 +38,10 @@ struct _GspellEntry
 	GObject parent;
 
 	GtkEntry *entry;
+
+	gulong notify_attributes_handler_id;
+	guint notify_attributes_idle_id;
+
 	guint inline_spell_checking : 1;
 };
 
@@ -51,6 +55,19 @@ enum
 #define GSPELL_ENTRY_KEY "gspell-entry-key"
 
 G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
+
+static void
+set_attributes (GspellEntry   *gspell_entry,
+		PangoAttrList *attributes)
+{
+	g_signal_handler_block (gspell_entry->entry,
+				gspell_entry->notify_attributes_handler_id);
+
+	gtk_entry_set_attributes (gspell_entry->entry, attributes);
+
+	g_signal_handler_unblock (gspell_entry->entry,
+				  gspell_entry->notify_attributes_handler_id);
+}
 
 static gboolean
 remove_underlines_filter (PangoAttribute *attr,
@@ -99,7 +116,7 @@ insert_underline (GspellEntry *gspell_entry,
 	if (attr_list == NULL)
 	{
 		attr_list = pango_attr_list_new ();
-		gtk_entry_set_attributes (gspell_entry->entry, attr_list);
+		set_attributes (gspell_entry, attr_list);
 		pango_attr_list_unref (attr_list);
 	}
 
@@ -136,7 +153,7 @@ recheck_all (GspellEntry *gspell_entry)
 	 * with multi-byte characters (displaying them as unknown char boxes).
 	 */
 	attr_list = gtk_entry_get_attributes (gspell_entry->entry);
-	gtk_entry_set_attributes (gspell_entry->entry, attr_list);
+	set_attributes (gspell_entry, attr_list);
 }
 
 /* Connect to the ::changed signal before/after, so that other features (in
@@ -161,6 +178,36 @@ changed_after_cb (GtkEditable *editable,
 	recheck_all (gspell_entry);
 }
 
+static gboolean
+notify_attributes_idle_cb (gpointer user_data)
+{
+	GspellEntry *gspell_entry = GSPELL_ENTRY (user_data);
+
+	/* Re-apply our attributes. Do it in an idle function, to not be inside
+	 * a notify::attributes signal emission. If we call recheck_all() during
+	 * the signal emission, there is an infinite loop.
+	 */
+	recheck_all (gspell_entry);
+
+	gspell_entry->notify_attributes_idle_id = 0;
+	return G_SOURCE_REMOVE;
+}
+
+static void
+notify_attributes_cb (GtkEntry    *gtk_entry,
+		      GParamSpec  *pspec,
+		      GspellEntry *gspell_entry)
+{
+	if (gspell_entry->notify_attributes_idle_id == 0)
+	{
+		gspell_entry->notify_attributes_idle_id =
+			g_idle_add_full (G_PRIORITY_HIGH_IDLE,
+					 notify_attributes_idle_cb,
+					 gspell_entry,
+					 NULL);
+	}
+}
+
 static void
 set_entry (GspellEntry *gspell_entry,
 	   GtkEntry    *gtk_entry)
@@ -179,6 +226,13 @@ set_entry (GspellEntry *gspell_entry,
 				"changed",
 				G_CALLBACK (changed_after_cb),
 				gspell_entry);
+
+	g_assert (gspell_entry->notify_attributes_handler_id == 0);
+	gspell_entry->notify_attributes_handler_id =
+		g_signal_connect (gtk_entry,
+				  "notify::attributes",
+				  G_CALLBACK (notify_attributes_cb),
+				  gspell_entry);
 
 	g_object_notify (G_OBJECT (gspell_entry), "entry");
 }
@@ -237,6 +291,12 @@ gspell_entry_dispose (GObject *object)
 	GspellEntry *gspell_entry = GSPELL_ENTRY (object);
 
 	gspell_entry->entry = NULL;
+
+	if (gspell_entry->notify_attributes_idle_id != 0)
+	{
+		g_source_remove (gspell_entry->notify_attributes_idle_id);
+		gspell_entry->notify_attributes_idle_id = 0;
+	}
 
 	G_OBJECT_CLASS (gspell_entry_parent_class)->dispose (object);
 }

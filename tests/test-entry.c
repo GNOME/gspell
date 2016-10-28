@@ -63,11 +63,69 @@ create_entry (void)
 }
 
 static void
+bold_toggled_cb (GtkToggleButton *button,
+		 TestSpell       *spell)
+{
+	/* Do not care about other users of the GtkEntry:attributes property. An
+	 * application or another library might do something similar, but
+	 * GspellEntry should still work.
+	 */
+
+	if (gtk_toggle_button_get_active (button))
+	{
+		PangoAttribute *attr_bold;
+		PangoAttrList *attr_list;
+
+		attr_bold = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
+
+		attr_list = pango_attr_list_new ();
+		pango_attr_list_insert (attr_list, attr_bold);
+		gtk_entry_set_attributes (spell->entry, attr_list);
+		pango_attr_list_unref (attr_list);
+	}
+	else
+	{
+		gtk_entry_set_attributes (spell->entry, NULL);
+	}
+}
+
+static GtkWidget *
+create_sidebar (TestSpell *spell)
+{
+	GtkWidget *vgrid;
+	GtkWidget *bold_toggle_button;
+
+	vgrid = gtk_grid_new ();
+	gtk_grid_set_row_spacing (GTK_GRID (vgrid), 6);
+	gtk_orientable_set_orientation (GTK_ORIENTABLE (vgrid),
+					GTK_ORIENTATION_VERTICAL);
+
+	bold_toggle_button = gtk_toggle_button_new_with_label ("Bold");
+	gtk_container_add (GTK_CONTAINER (vgrid), bold_toggle_button);
+
+	g_signal_connect (bold_toggle_button,
+			  "toggled",
+			  G_CALLBACK (bold_toggled_cb),
+			  spell);
+
+	gtk_widget_show_all (vgrid);
+
+	return vgrid;
+}
+
+static void
 test_spell_init (TestSpell *spell)
 {
 	g_object_set (spell,
 		      "margin", 6,
 		      NULL);
+
+	gtk_grid_set_column_spacing (GTK_GRID (spell), 6);
+	gtk_orientable_set_orientation (GTK_ORIENTABLE (spell),
+					GTK_ORIENTATION_HORIZONTAL);
+
+	gtk_container_add (GTK_CONTAINER (spell),
+			   create_sidebar (spell));
 
 	spell->entry = create_entry ();
 	gtk_container_add (GTK_CONTAINER (spell),
