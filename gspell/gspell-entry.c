@@ -52,6 +52,42 @@ enum
 G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
 
 static void
+apply_underline (GspellEntry *gspell_entry,
+		 guint        byte_start,
+		 guint        byte_end)
+{
+	PangoAttribute *attr_underline;
+	PangoAttribute *attr_underline_color;
+	PangoAttrList *attr_list;
+
+	attr_underline = pango_attr_underline_new (PANGO_UNDERLINE_ERROR);
+	attr_underline->start_index = byte_start;
+	attr_underline->end_index = byte_end;
+
+	attr_underline_color = pango_attr_underline_color_new (65535, 0, 0);
+	attr_underline_color->start_index = byte_start;
+	attr_underline_color->end_index = byte_end;
+
+	attr_list = gtk_entry_get_attributes (gspell_entry->entry);
+
+	if (attr_list != NULL)
+	{
+		pango_attr_list_change (attr_list, attr_underline);
+		pango_attr_list_change (attr_list, attr_underline_color);
+	}
+	else
+	{
+		attr_list = pango_attr_list_new ();
+
+		pango_attr_list_change (attr_list, attr_underline);
+		pango_attr_list_change (attr_list, attr_underline_color);
+
+		gtk_entry_set_attributes (gspell_entry->entry, attr_list);
+		pango_attr_list_unref (attr_list);
+	}
+}
+
+static void
 set_entry (GspellEntry *gspell_entry,
 	   GtkEntry    *gtk_entry)
 {
@@ -59,6 +95,8 @@ set_entry (GspellEntry *gspell_entry,
 
 	g_assert (gspell_entry->entry == NULL);
 	gspell_entry->entry = gtk_entry;
+
+	apply_underline (gspell_entry, 0, 3);
 
 	g_object_notify (G_OBJECT (gspell_entry), "entry");
 }
