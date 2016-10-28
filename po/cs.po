@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: gspell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-16 13:17+0000\n"
-"PO-Revision-Date: 2016-06-02 10:41+0200\n"
+"POT-Creation-Date: 2016-10-28 04:43+0000\n"
+"PO-Revision-Date: 2016-10-28 09:22+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -43,7 +43,7 @@ msgstr "Chyba při kontrole pravopisu slova „%s“: %s"
 #.
 #. No suggestions. Put something in the menu anyway...
 #: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-inline-checker-text-buffer.c:841
 msgid "(no suggested words)"
 msgstr "(žádná navrhovaná slova)"
 
@@ -71,23 +71,23 @@ msgstr "(správný tvar)"
 msgid "Suggestions"
 msgstr "Návrhy"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
-msgid "_More..."
+#: gspell/gspell-inline-checker-text-buffer.c:864
+msgid "_More…"
 msgstr "Ví_ce…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-inline-checker-text-buffer.c:904
 msgid "_Ignore All"
 msgstr "_Ignorovat vše"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-inline-checker-text-buffer.c:913
 msgid "_Add"
 msgstr "Přid_at"
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
-msgid "_Spelling Suggestions..."
+#: gspell/gspell-inline-checker-text-buffer.c:944
+msgid "_Spelling Suggestions…"
 msgstr "Návrhy pravopi_su…"
 
 #. Translators: %s is the language ISO code.
@@ -112,14 +112,14 @@ msgstr "Není vybrán žádný jazyk"
 
 #: gspell/gspell-navigator-text-view.c:307
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Chyba kontroly pravopisu: není nastaven žádný jazyk. Důvodem může být, že "
 "nejsou nainstalovány žádné slovníky."
 
 #. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
+#: gspell/gspell-text-view.c:265
 msgid "_Language"
 msgstr "_Jazyk"
 
@@ -186,3 +186,4 @@ msgstr "_Zrušit"
 #: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "_Vybrat"
+
