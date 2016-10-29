@@ -12,6 +12,9 @@ LDADD =	$(top_builddir)/gspell/libgspell-@GSPELL_API_VERSION@.la	\
 
 TEST_PROGS =
 
+TEST_PROGS += test-entry
+test_entry_SOURCES = test-entry.c
+
 TEST_PROGS += test-spell
 test_spell_SOURCES = test-spell.c
 
