@@ -15,11 +15,11 @@ TEST_PROGS =
 TEST_PROGS += test-entry
 test_entry_SOURCES = test-entry.c
 
-TEST_PROGS += test-spell
-test_spell_SOURCES = test-spell.c
+TEST_PROGS += test-text-view
+test_text_view_SOURCES = test-text-view.c
 
-TEST_PROGS += test-spell-basic
-test_spell_basic_SOURCES = test-spell-basic.c
+TEST_PROGS += test-text-view-basic
+test_text_view_basic_SOURCES = test-text-view-basic.c
 
 noinst_PROGRAMS = $(TEST_PROGS)
 
