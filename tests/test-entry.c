@@ -49,6 +49,7 @@ create_entry (void)
 
 	gtk_entry = GTK_ENTRY (gtk_entry_new ());
 	gtk_widget_set_hexpand (GTK_WIDGET (gtk_entry), TRUE);
+	gtk_widget_set_valign (GTK_WIDGET (gtk_entry), GTK_ALIGN_START);
 
 	checker = gspell_checker_new (NULL);
 	gtk_buffer = gtk_entry_get_buffer (gtk_entry);
@@ -92,13 +93,23 @@ bold_toggled_cb (GtkToggleButton *button,
 static GtkWidget *
 create_sidebar (TestSpell *spell)
 {
+	GspellEntry *gspell_entry;
 	GtkWidget *vgrid;
+	GtkWidget *enable_toggle_button;
 	GtkWidget *bold_toggle_button;
 
 	vgrid = gtk_grid_new ();
 	gtk_grid_set_row_spacing (GTK_GRID (vgrid), 6);
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (vgrid),
 					GTK_ORIENTATION_VERTICAL);
+
+	enable_toggle_button = gtk_toggle_button_new_with_label ("Enable");
+	gtk_container_add (GTK_CONTAINER (vgrid), enable_toggle_button);
+
+	gspell_entry = gspell_entry_get_from_gtk_entry (spell->entry);
+	g_object_bind_property (gspell_entry, "inline-spell-checking",
+				enable_toggle_button, "active",
+				G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
 	bold_toggle_button = gtk_toggle_button_new_with_label ("Bold");
 	gtk_container_add (GTK_CONTAINER (vgrid), bold_toggle_button);
@@ -124,10 +135,11 @@ test_spell_init (TestSpell *spell)
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (spell),
 					GTK_ORIENTATION_HORIZONTAL);
 
+	spell->entry = create_entry ();
+
 	gtk_container_add (GTK_CONTAINER (spell),
 			   create_sidebar (spell));
 
-	spell->entry = create_entry ();
 	gtk_container_add (GTK_CONTAINER (spell),
 			   GTK_WIDGET (spell->entry));
 

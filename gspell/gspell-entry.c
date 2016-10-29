@@ -87,6 +87,21 @@ set_attributes (GspellEntry   *gspell_entry,
 				  gspell_entry->notify_attributes_handler_id);
 }
 
+static void
+update_attributes (GspellEntry *gspell_entry)
+{
+	PangoAttrList *attr_list;
+
+	/* If attributes have been added or removed from an existing
+	 * PangoAttrList, GtkEntry doesn't know that the :attributes property
+	 * has been modified. Without this code, GtkEntry can become buggy,
+	 * especially with multi-byte characters (displaying them as unknown
+	 * char boxes).
+	 */
+	attr_list = gtk_entry_get_attributes (gspell_entry->entry);
+	set_attributes (gspell_entry, attr_list);
+}
+
 static gboolean
 remove_underlines_filter (PangoAttribute *attr,
 			  gpointer        user_data)
@@ -110,6 +125,8 @@ remove_all_underlines (GspellEntry *gspell_entry)
 	pango_attr_list_filter (attr_list,
 				remove_underlines_filter,
 				NULL);
+
+	update_attributes (gspell_entry);
 }
 
 static void
@@ -149,9 +166,13 @@ static void
 recheck_all (GspellEntry *gspell_entry)
 {
 	GspellChecker *checker;
-	PangoAttrList *attr_list;
 	GSList *words;
 	GSList *l;
+
+	if (!gspell_entry->inline_spell_checking)
+	{
+		return;
+	}
 
 	checker = get_checker (gspell_entry);
 	if (checker == NULL ||
@@ -189,13 +210,7 @@ recheck_all (GspellEntry *gspell_entry)
 
 	g_slist_free_full (words, _gspell_entry_word_free);
 
-	/* If more attributes have been added to an existing PangoAttrList,
-	 * GtkEntry doesn't know that the :attributes property has been
-	 * modified. Without this code, GtkEntry can become buggy, especially
-	 * with multi-byte characters (displaying them as unknown char boxes).
-	 */
-	attr_list = gtk_entry_get_attributes (gspell_entry->entry);
-	set_attributes (gspell_entry, attr_list);
+	update_attributes (gspell_entry);
 }
 
 /* Connect to the ::changed signal before/after, so that other features (in
@@ -218,6 +233,15 @@ changed_after_cb (GtkEditable *editable,
 		  GspellEntry *gspell_entry)
 {
 	recheck_all (gspell_entry);
+}
+
+/* When the underlines need to be updated, call this function, so that all the
+ * underlines attributes are always removed in changed_before_cb().
+ */
+static void
+emit_changed_signal (GspellEntry *gspell_entry)
+{
+	g_signal_emit_by_name (gspell_entry->entry, "changed");
 }
 
 static gboolean
@@ -476,6 +500,7 @@ gspell_entry_set_inline_spell_checking (GspellEntry *gspell_entry,
 	if (gspell_entry->inline_spell_checking != enable)
 	{
 		gspell_entry->inline_spell_checking = enable;
+		emit_changed_signal (gspell_entry);
 		g_object_notify (G_OBJECT (gspell_entry), "inline-spell-checking");
 	}
 }
