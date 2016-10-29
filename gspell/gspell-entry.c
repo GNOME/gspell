@@ -18,6 +18,7 @@
  */
 
 #include "gspell-entry.h"
+#include "gspell-entry-buffer.h"
 #include "gspell-entry-utils.h"
 
 /**
@@ -55,6 +56,23 @@ enum
 #define GSPELL_ENTRY_KEY "gspell-entry-key"
 
 G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
+
+static GspellChecker *
+get_checker (GspellEntry *gspell_entry)
+{
+	GtkEntryBuffer *gtk_buffer;
+	GspellEntryBuffer *gspell_buffer;
+
+	gtk_buffer = gtk_entry_get_buffer (gspell_entry->entry);
+	if (gtk_buffer == NULL)
+	{
+		return NULL;
+	}
+
+	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+
+	return gspell_entry_buffer_get_spell_checker (gspell_buffer);
+}
 
 static void
 set_attributes (GspellEntry   *gspell_entry,
@@ -130,19 +148,43 @@ insert_underline (GspellEntry *gspell_entry,
 static void
 recheck_all (GspellEntry *gspell_entry)
 {
+	GspellChecker *checker;
 	PangoAttrList *attr_list;
 	GSList *words;
 	GSList *l;
+
+	checker = get_checker (gspell_entry);
+	if (checker == NULL ||
+	    gspell_checker_get_language (checker) == NULL)
+	{
+		return;
+	}
 
 	words = _gspell_entry_utils_get_words (gspell_entry->entry);
 
 	for (l = words; l != NULL; l = l->next)
 	{
 		GspellEntryWord *cur_word = l->data;
+		GError *error = NULL;
+		gboolean correctly_spelled;
 
-		insert_underline (gspell_entry,
-				  cur_word->byte_start,
-				  cur_word->byte_end);
+		correctly_spelled = gspell_checker_check_word (checker,
+							       cur_word->word_str, -1,
+							       &error);
+
+		if (error != NULL)
+		{
+			g_warning ("Inline spell checker: %s", error->message);
+			g_clear_error (&error);
+			break;
+		}
+
+		if (!correctly_spelled)
+		{
+			insert_underline (gspell_entry,
+					  cur_word->byte_start,
+					  cur_word->byte_end);
+		}
 	}
 
 	g_slist_free_full (words, _gspell_entry_word_free);
