@@ -18,6 +18,7 @@
  */
 
 #include "gspell-entry.h"
+#include "gspell-entry-private.h"
 #include "gspell-entry-buffer.h"
 #include "gspell-entry-utils.h"
 
@@ -39,6 +40,11 @@ struct _GspellEntry
 	GObject parent;
 
 	GtkEntry *entry;
+
+	/* List elements: GspellEntryWord*.
+	 * Used for unit tests.
+	 */
+	GSList *misspelled_words;
 
 	gulong notify_attributes_handler_id;
 	guint notify_attributes_idle_id;
@@ -163,11 +169,13 @@ insert_underline (GspellEntry *gspell_entry,
 }
 
 static void
-recheck_all (GspellEntry *gspell_entry)
+update_misspelled_words_list (GspellEntry *gspell_entry)
 {
 	GspellChecker *checker;
-	GSList *words;
-	GSList *l;
+	GSList *all_words;
+
+	g_slist_free_full (gspell_entry->misspelled_words, _gspell_entry_word_free);
+	gspell_entry->misspelled_words = NULL;
 
 	if (!gspell_entry->inline_spell_checking)
 	{
@@ -181,13 +189,13 @@ recheck_all (GspellEntry *gspell_entry)
 		return;
 	}
 
-	words = _gspell_entry_utils_get_words (gspell_entry->entry);
+	all_words = _gspell_entry_utils_get_words (gspell_entry->entry);
 
-	for (l = words; l != NULL; l = l->next)
+	while (all_words != NULL)
 	{
-		GspellEntryWord *cur_word = l->data;
-		GError *error = NULL;
+		GspellEntryWord *cur_word = all_words->data;
 		gboolean correctly_spelled;
+		GError *error = NULL;
 
 		correctly_spelled = gspell_checker_check_word (checker,
 							       cur_word->word_str, -1,
@@ -197,18 +205,44 @@ recheck_all (GspellEntry *gspell_entry)
 		{
 			g_warning ("Inline spell checker: %s", error->message);
 			g_clear_error (&error);
+			g_slist_free_full (all_words, _gspell_entry_word_free);
+			all_words = NULL;
 			break;
 		}
 
-		if (!correctly_spelled)
+		if (correctly_spelled)
 		{
-			insert_underline (gspell_entry,
-					  cur_word->byte_start,
-					  cur_word->byte_end);
+			_gspell_entry_word_free (cur_word);
 		}
+		else
+		{
+			gspell_entry->misspelled_words = g_slist_prepend (gspell_entry->misspelled_words,
+									  cur_word);
+		}
+
+		all_words = g_slist_delete_link (all_words, all_words);
 	}
 
-	g_slist_free_full (words, _gspell_entry_word_free);
+	g_assert (all_words == NULL);
+
+	gspell_entry->misspelled_words = g_slist_reverse (gspell_entry->misspelled_words);
+}
+
+static void
+recheck_all (GspellEntry *gspell_entry)
+{
+	GSList *l;
+
+	update_misspelled_words_list (gspell_entry);
+
+	for (l = gspell_entry->misspelled_words; l != NULL; l = l->next)
+	{
+		GspellEntryWord *cur_word = l->data;
+
+		insert_underline (gspell_entry,
+				  cur_word->byte_start,
+				  cur_word->byte_end);
+	}
 
 	update_attributes (gspell_entry);
 }
@@ -503,6 +537,17 @@ gspell_entry_set_inline_spell_checking (GspellEntry *gspell_entry,
 		emit_changed_signal (gspell_entry);
 		g_object_notify (G_OBJECT (gspell_entry), "inline-spell-checking");
 	}
+}
+
+/* For unit tests.
+ * Returns: (transfer none) (element-type GspellEntryWord).
+ */
+const GSList *
+_gspell_entry_get_misspelled_words (GspellEntry *gspell_entry)
+{
+	g_return_val_if_fail (GSPELL_IS_ENTRY (gspell_entry), NULL);
+
+	return gspell_entry->misspelled_words;
 }
 
 /* ex:set ts=8 noet: */
