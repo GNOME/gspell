@@ -40,6 +40,7 @@ struct _GspellEntry
 	GObject parent;
 
 	GtkEntry *entry;
+	GtkEntryBuffer *buffer;
 
 	/* List elements: GspellEntryWord*.
 	 * Used for unit tests.
@@ -278,14 +279,6 @@ emit_changed_signal (GspellEntry *gspell_entry)
 	g_signal_emit_by_name (gspell_entry->entry, "changed");
 }
 
-static void
-notify_buffer_cb (GtkEntry    *gtk_entry,
-		  GParamSpec  *pspec,
-		  GspellEntry *gspell_entry)
-{
-	emit_changed_signal (gspell_entry);
-}
-
 static gboolean
 notify_attributes_idle_cb (gpointer user_data)
 {
@@ -314,6 +307,66 @@ notify_attributes_cb (GtkEntry    *gtk_entry,
 					 gspell_entry,
 					 NULL);
 	}
+}
+
+static void
+notify_spell_checker_cb (GspellEntryBuffer *gspell_buffer,
+			 GParamSpec        *pspec,
+			 GspellEntry       *gspell_entry)
+{
+	emit_changed_signal (gspell_entry);
+}
+
+static void
+set_buffer (GspellEntry    *gspell_entry,
+	    GtkEntryBuffer *gtk_buffer)
+{
+	GspellEntryBuffer *gspell_buffer;
+
+	if (gspell_entry->buffer == gtk_buffer)
+	{
+		return;
+	}
+
+	if (gspell_entry->buffer != NULL)
+	{
+		gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gspell_entry->buffer);
+
+		g_signal_handlers_disconnect_by_func (gspell_buffer,
+						      notify_spell_checker_cb,
+						      gspell_entry);
+
+		g_object_unref (gspell_entry->buffer);
+	}
+
+	gspell_entry->buffer = gtk_buffer;
+
+	if (gspell_entry->buffer != NULL)
+	{
+		gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gspell_entry->buffer);
+
+		g_signal_connect (gspell_buffer,
+				  "notify::spell-checker",
+				  G_CALLBACK (notify_spell_checker_cb),
+				  gspell_entry);
+
+		g_object_ref (gspell_entry->buffer);
+	}
+}
+
+static void
+update_buffer (GspellEntry *gspell_entry)
+{
+	set_buffer (gspell_entry, gtk_entry_get_buffer (gspell_entry->entry));
+}
+
+static void
+notify_buffer_cb (GtkEntry    *gtk_entry,
+		  GParamSpec  *pspec,
+		  GspellEntry *gspell_entry)
+{
+	update_buffer (gspell_entry);
+	emit_changed_signal (gspell_entry);
 }
 
 static void
@@ -346,6 +399,8 @@ set_entry (GspellEntry *gspell_entry,
 				  "notify::attributes",
 				  G_CALLBACK (notify_attributes_cb),
 				  gspell_entry);
+
+	update_buffer (gspell_entry);
 
 	g_object_notify (G_OBJECT (gspell_entry), "entry");
 }
@@ -404,6 +459,7 @@ gspell_entry_dispose (GObject *object)
 	GspellEntry *gspell_entry = GSPELL_ENTRY (object);
 
 	gspell_entry->entry = NULL;
+	set_buffer (gspell_entry, NULL);
 
 	if (gspell_entry->notify_attributes_idle_id != 0)
 	{

@@ -232,6 +232,71 @@ test_buffer_change (void)
 	g_object_unref (gtk_entry);
 }
 
+static void
+test_spell_checker_change (void)
+{
+	GtkEntry *gtk_entry;
+	GspellEntry *gspell_entry;
+	gint i;
+
+	gtk_entry = GTK_ENTRY (gtk_entry_new ());
+	g_object_ref_sink (gtk_entry);
+
+	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+	gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+
+	for (i = 0; i < 2; i++)
+	{
+		GtkEntryBuffer *gtk_buffer;
+		GspellEntryBuffer *gspell_buffer;
+		GSList *expected_list;
+		const GSList *received_list;
+		const GspellLanguage *lang;
+		GspellChecker *checker;
+
+		gtk_buffer = gtk_entry_get_buffer (gtk_entry);
+		gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+
+		/* Not yet a spell checker */
+		gtk_entry_set_text (gtk_entry, "auienrst");
+		expected_list = NULL;
+		received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+		check_entry_word_list_equal (expected_list, received_list);
+
+		/* Set a spell checker */
+		lang = gspell_language_lookup ("en_US");
+		g_assert (lang != NULL);
+
+		checker = gspell_checker_new (lang);
+		gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
+		g_object_unref (checker);
+
+		expected_list = add_word (NULL, "auienrst", 0, 8);
+		received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+		check_entry_word_list_equal (expected_list, received_list);
+		free_word_list (expected_list);
+
+		/* Set NULL spell checker */
+		gspell_entry_buffer_set_spell_checker (gspell_buffer, NULL);
+		expected_list = NULL;
+		received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+		check_entry_word_list_equal (expected_list, received_list);
+
+		/* Change buffer for next iteration, to see if the signal
+		 * connection for spell-checker changes still works.
+		 */
+		{
+			GtkEntryBuffer *new_gtk_buffer;
+
+			new_gtk_buffer = gtk_entry_buffer_new (NULL, -1);
+			gtk_entry_set_buffer (gtk_entry, new_gtk_buffer);
+			g_object_unref (new_gtk_buffer);
+		}
+	}
+
+	g_object_unref (gtk_entry);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -241,6 +306,7 @@ main (gint    argc,
 	g_test_add_func ("/entry-utils/get-words", test_get_words);
 	g_test_add_func ("/entry/inline-spell-checking-property", test_inline_spell_checking_property);
 	g_test_add_func ("/entry/buffer-change", test_buffer_change);
+	g_test_add_func ("/entry/spell-checker-change", test_spell_checker_change);
 
 	return g_test_run ();
 }
