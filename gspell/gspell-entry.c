@@ -41,6 +41,7 @@ struct _GspellEntry
 
 	GtkEntry *entry;
 	GtkEntryBuffer *buffer;
+	GspellChecker *checker;
 
 	/* List elements: GspellEntryWord*.
 	 * Used for unit tests.
@@ -67,16 +68,14 @@ G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
 static GspellChecker *
 get_checker (GspellEntry *gspell_entry)
 {
-	GtkEntryBuffer *gtk_buffer;
 	GspellEntryBuffer *gspell_buffer;
 
-	gtk_buffer = gtk_entry_get_buffer (gspell_entry->entry);
-	if (gtk_buffer == NULL)
+	if (gspell_entry->buffer == NULL)
 	{
 		return NULL;
 	}
 
-	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gspell_entry->buffer);
 
 	return gspell_entry_buffer_get_spell_checker (gspell_buffer);
 }
@@ -310,10 +309,56 @@ notify_attributes_cb (GtkEntry    *gtk_entry,
 }
 
 static void
+notify_language_cb (GspellChecker *checker,
+		    GParamSpec    *pspec,
+		    GspellEntry   *gspell_entry)
+{
+	emit_changed_signal (gspell_entry);
+}
+
+static void
+set_checker (GspellEntry   *gspell_entry,
+	     GspellChecker *checker)
+{
+	if (gspell_entry->checker == checker)
+	{
+		return;
+	}
+
+	if (gspell_entry->checker != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (gspell_entry->checker,
+						      notify_language_cb,
+						      gspell_entry);
+
+		g_object_unref (gspell_entry->checker);
+	}
+
+	gspell_entry->checker = checker;
+
+	if (gspell_entry->checker != NULL)
+	{
+		g_signal_connect (gspell_entry->checker,
+				  "notify::language",
+				  G_CALLBACK (notify_language_cb),
+				  gspell_entry);
+
+		g_object_ref (gspell_entry->checker);
+	}
+}
+
+static void
+update_checker (GspellEntry *gspell_entry)
+{
+	set_checker (gspell_entry, get_checker (gspell_entry));
+}
+
+static void
 notify_spell_checker_cb (GspellEntryBuffer *gspell_buffer,
 			 GParamSpec        *pspec,
 			 GspellEntry       *gspell_entry)
 {
+	update_checker (gspell_entry);
 	emit_changed_signal (gspell_entry);
 }
 
@@ -352,6 +397,8 @@ set_buffer (GspellEntry    *gspell_entry,
 
 		g_object_ref (gspell_entry->buffer);
 	}
+
+	update_checker (gspell_entry);
 }
 
 static void
@@ -460,6 +507,7 @@ gspell_entry_dispose (GObject *object)
 
 	gspell_entry->entry = NULL;
 	set_buffer (gspell_entry, NULL);
+	set_checker (gspell_entry, NULL);
 
 	if (gspell_entry->notify_attributes_idle_id != 0)
 	{

@@ -20,6 +20,7 @@
 #include <gspell/gspell.h>
 #include "gspell/gspell-entry-utils.h"
 #include "gspell/gspell-entry-private.h"
+#include "gspell/gspell-checker-private.h"
 
 /* Returns: (transfer full) */
 static GtkEntry *
@@ -297,6 +298,48 @@ test_spell_checker_change (void)
 	g_object_unref (gtk_entry);
 }
 
+static void
+test_language_change (void)
+{
+	GtkEntry *gtk_entry;
+	GspellEntry *gspell_entry;
+	GtkEntryBuffer *gtk_buffer;
+	GspellEntryBuffer *gspell_buffer;
+	const GspellLanguage *lang;
+	GspellChecker *checker;
+	GSList *expected_list;
+	const GSList *received_list;
+
+	gtk_entry = GTK_ENTRY (gtk_entry_new ());
+	g_object_ref_sink (gtk_entry);
+
+	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+	gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+
+	gtk_buffer = gtk_entry_get_buffer (gtk_entry);
+	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+
+	lang = gspell_language_lookup ("en_US");
+	g_assert (lang != NULL);
+
+	checker = gspell_checker_new (lang);
+	gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
+
+	gtk_entry_set_text (gtk_entry, "auienrst");
+	expected_list = add_word (NULL, "auienrst", 0, 8);
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+
+	_gspell_checker_force_set_language (checker, NULL);
+	expected_list = NULL;
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+
+	g_object_unref (gtk_entry);
+	g_object_unref (checker);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -307,6 +350,7 @@ main (gint    argc,
 	g_test_add_func ("/entry/inline-spell-checking-property", test_inline_spell_checking_property);
 	g_test_add_func ("/entry/buffer-change", test_buffer_change);
 	g_test_add_func ("/entry/spell-checker-change", test_spell_checker_change);
+	g_test_add_func ("/entry/language-change", test_language_change);
 
 	return g_test_run ();
 }
