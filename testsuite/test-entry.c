@@ -17,7 +17,38 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <gspell/gspell.h>
 #include "gspell/gspell-entry-utils.h"
+#include "gspell/gspell-entry-private.h"
+
+/* Returns: (transfer full) */
+static GtkEntry *
+create_entry (void)
+{
+	GtkEntry *gtk_entry;
+	GtkEntryBuffer *gtk_buffer;
+	const GspellLanguage *lang;
+	GspellChecker *checker;
+	GspellEntryBuffer *gspell_buffer;
+	GspellEntry *gspell_entry;
+
+	gtk_entry = GTK_ENTRY (gtk_entry_new ());
+	g_object_ref_sink (gtk_entry);
+
+	lang = gspell_language_lookup ("en_US");
+	g_assert (lang != NULL);
+
+	checker = gspell_checker_new (lang);
+	gtk_buffer = gtk_entry_get_buffer (gtk_entry);
+	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+	gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
+	g_object_unref (checker);
+
+	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+	gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+
+	return gtk_entry;
+}
 
 static GSList *
 add_word (GSList      *list,
@@ -45,17 +76,20 @@ static void
 check_entry_word_equal (GspellEntryWord *word1,
 			GspellEntryWord *word2)
 {
+	g_assert (word1 != NULL);
+	g_assert (word2 != NULL);
+
 	g_assert_cmpstr (word1->word_str, ==, word2->word_str);
 	g_assert_cmpint (word1->byte_start, ==, word2->byte_start);
 	g_assert_cmpint (word1->byte_end, ==, word2->byte_end);
 }
 
 static void
-check_entry_word_list_equal (GSList *list1,
-			     GSList *list2)
+check_entry_word_list_equal (const GSList *list1,
+			     const GSList *list2)
 {
-	GSList *l1;
-	GSList *l2;
+	const GSList *l1;
+	const GSList *l2;
 
 	for (l1 = list1, l2 = list2;
 	     l1 != NULL && l2 != NULL;
@@ -125,6 +159,51 @@ test_get_words (void)
 	g_object_unref (entry);
 }
 
+static void
+test_inline_spell_checking_property (void)
+{
+	GtkEntry *gtk_entry;
+	GspellEntry *gspell_entry;
+	GSList *expected_list;
+	const GSList *received_list;
+
+	gtk_entry = create_entry ();
+	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+
+	expected_list = NULL;
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+
+	gspell_entry_set_inline_spell_checking (gspell_entry, FALSE);
+	expected_list = NULL;
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+
+	gtk_entry_set_text (gtk_entry, "auienrst");
+	expected_list = NULL;
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+
+	gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+	expected_list = add_word (NULL, "auienrst", 0, 8);
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+
+	gtk_entry_set_text (gtk_entry, "Hello Död");
+	expected_list = add_word (NULL, "Död", 6, 10);
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+
+	gspell_entry_set_inline_spell_checking (gspell_entry, FALSE);
+	expected_list = NULL;
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+
+	g_object_unref (gtk_entry);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -132,6 +211,7 @@ main (gint    argc,
 	gtk_test_init (&argc, &argv);
 
 	g_test_add_func ("/entry-utils/get-words", test_get_words);
+	g_test_add_func ("/entry/inline-spell-checking-property", test_inline_spell_checking_property);
 
 	return g_test_run ();
 }
