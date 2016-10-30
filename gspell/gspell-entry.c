@@ -278,6 +278,14 @@ emit_changed_signal (GspellEntry *gspell_entry)
 	g_signal_emit_by_name (gspell_entry->entry, "changed");
 }
 
+static void
+notify_buffer_cb (GtkEntry    *gtk_entry,
+		  GParamSpec  *pspec,
+		  GspellEntry *gspell_entry)
+{
+	emit_changed_signal (gspell_entry);
+}
+
 static gboolean
 notify_attributes_idle_cb (gpointer user_data)
 {
@@ -326,6 +334,11 @@ set_entry (GspellEntry *gspell_entry,
 				"changed",
 				G_CALLBACK (changed_after_cb),
 				gspell_entry);
+
+	g_signal_connect (gtk_entry,
+			  "notify::buffer",
+			  G_CALLBACK (notify_buffer_cb),
+			  gspell_entry);
 
 	g_assert (gspell_entry->notify_attributes_handler_id == 0);
 	gspell_entry->notify_attributes_handler_id =
