@@ -45,6 +45,7 @@ gspell_public_c_files =				\
 gspell_private_headers =			\
 	gconstructor.h				\
 	gspellregion.h				\
+	gspell-checker-private.h		\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
 	gspell-init.h				\

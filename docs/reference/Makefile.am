@@ -31,6 +31,7 @@ EXTRA_HFILES =						\
 IGNORE_HFILES =					\
 	gspell.h				\
 	gspellregion.h				\
+	gspell-checker-private.h		\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
 	gspell-init.h				\

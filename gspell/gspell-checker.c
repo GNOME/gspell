@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include "gspell-checker.h"
+#include "gspell-checker-private.h"
 #include <enchant.h>
 #include <glib/gi18n-lib.h>
 #include <string.h>
@@ -284,6 +285,25 @@ create_new_dictionary (GspellChecker *checker)
 	gspell_checker_add_word_to_session (checker, app_name, -1);
 }
 
+/* Used for unit tests. Useful to force a NULL language. */
+void
+_gspell_checker_force_set_language (GspellChecker        *checker,
+				    const GspellLanguage *language)
+{
+	GspellCheckerPrivate *priv;
+
+	g_return_if_fail (GSPELL_IS_CHECKER (checker));
+
+	priv = gspell_checker_get_instance_private (checker);
+
+	if (priv->active_lang != language)
+	{
+		priv->active_lang = language;
+		create_new_dictionary (checker);
+		g_object_notify (G_OBJECT (checker), "language");
+	}
+}
+
 /**
  * gspell_checker_set_language:
  * @checker: a #GspellChecker.
@@ -296,23 +316,14 @@ void
 gspell_checker_set_language (GspellChecker        *checker,
 			     const GspellLanguage *language)
 {
-	GspellCheckerPrivate *priv;
-
 	g_return_if_fail (GSPELL_IS_CHECKER (checker));
-
-	priv = gspell_checker_get_instance_private (checker);
 
 	if (language == NULL)
 	{
 		language = gspell_language_get_default ();
 	}
 
-	if (priv->active_lang != language)
-	{
-		priv->active_lang = language;
-		create_new_dictionary (checker);
-		g_object_notify (G_OBJECT (checker), "language");
-	}
+	_gspell_checker_force_set_language (checker, language);
 }
 
 /**
