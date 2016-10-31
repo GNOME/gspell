@@ -161,6 +161,51 @@ test_get_words (void)
 }
 
 static void
+test_init (void)
+{
+	GtkEntry *gtk_entry;
+	GtkEntryBuffer *gtk_buffer;
+	const GspellLanguage *lang;
+	GspellChecker *checker;
+	GspellEntryBuffer *gspell_buffer;
+	GspellEntry *gspell_entry;
+	GSList *expected_list;
+	const GSList *received_list;
+
+	gtk_entry = GTK_ENTRY (gtk_entry_new ());
+	g_object_ref_sink (gtk_entry);
+
+	/* Set initial text before initializing GspellEntry. */
+	gtk_entry_set_text (gtk_entry, "auienrst");
+
+	lang = gspell_language_lookup ("en_US");
+	g_assert (lang != NULL);
+
+	checker = gspell_checker_new (lang);
+	gtk_buffer = gtk_entry_get_buffer (gtk_entry);
+	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+	gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
+	g_object_unref (checker);
+
+	/* Test just after creating the GspellEntry.
+	 * The inline-spell-checking property is FALSE by default, so there are
+	 * no misspelled words.
+	 */
+	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+	expected_list = NULL;
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+
+	gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+	expected_list = add_word (NULL, "auienrst", 0, 8);
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+
+	g_object_unref (gtk_entry);
+}
+
+static void
 test_inline_spell_checking_property (void)
 {
 	GtkEntry *gtk_entry;
@@ -347,6 +392,7 @@ main (gint    argc,
 	gtk_test_init (&argc, &argv);
 
 	g_test_add_func ("/entry-utils/get-words", test_get_words);
+	g_test_add_func ("/entry/init", test_init);
 	g_test_add_func ("/entry/inline-spell-checking-property", test_inline_spell_checking_property);
 	g_test_add_func ("/entry/buffer-change", test_buffer_change);
 	g_test_add_func ("/entry/spell-checker-change", test_spell_checker_change);
