@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: gspell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-08-20 21:03+0000\n"
-"PO-Revision-Date: 2016-09-03 12:39+0200\n"
+"POT-Creation-Date: 2016-10-28 04:43+0000\n"
+"PO-Revision-Date: 2016-11-14 22:56+0100\n"
+"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "X-Generator: Poedit 1.8.8\n"
 
 #: gspell/gspell-checker.c:403
@@ -58,8 +58,8 @@ msgid "Suggestions"
 msgstr "Sugjeriments"
 
 #: gspell/gspell-inline-checker-text-buffer.c:864
-msgid "_More..."
-msgstr "Altri..."
+msgid "_More…"
+msgstr "_Altri..."
 
 #. Ignore all
 #: gspell/gspell-inline-checker-text-buffer.c:904
@@ -73,7 +73,7 @@ msgstr "_Zonte"
 
 #. Prepend suggestions
 #: gspell/gspell-inline-checker-text-buffer.c:944
-msgid "_Spelling Suggestions..."
+msgid "_Spelling Suggestions…"
 msgstr "_Sugjeriments ortografics..."
 
 #. Translators: %s is the language ISO code.
@@ -98,7 +98,7 @@ msgstr "Nissune lenghe selezionade"
 
 #: gspell/gspell-navigator-text-view.c:307
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Erôr control ortografic: nissune lenghe stabilide. Al podarès jessi causât "
