@@ -13,16 +13,16 @@ msgstr ""
 "Project-Id-Version: gspell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-16 13:17+0000\n"
-"PO-Revision-Date: 2016-06-11 10:30+0200\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"POT-Creation-Date: 2016-10-28 04:43+0000\n"
+"PO-Revision-Date: 2016-11-10 21:12+0100\n"
+"Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: gspell/gspell-checker.c:403
 #, c-format
@@ -35,7 +35,7 @@ msgstr "Fel vid kontroll av stavningen på ordet ”%s”: %s"
 #.
 #. No suggestions. Put something in the menu anyway...
 #: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-inline-checker-text-buffer.c:841
 msgid "(no suggested words)"
 msgstr "(inga föreslagna ord)"
 
@@ -63,23 +63,23 @@ msgstr "(korrekt stavning)"
 msgid "Suggestions"
 msgstr "Förslag"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
-msgid "_More..."
+#: gspell/gspell-inline-checker-text-buffer.c:864
+msgid "_More…"
 msgstr "_Mer…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-inline-checker-text-buffer.c:904
 msgid "_Ignore All"
 msgstr "_Ignorera alla"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-inline-checker-text-buffer.c:913
 msgid "_Add"
 msgstr "_Lägg till"
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
-msgid "_Spelling Suggestions..."
+#: gspell/gspell-inline-checker-text-buffer.c:944
+msgid "_Spelling Suggestions…"
 msgstr "_Stavningsförslag…"
 
 #. Translators: %s is the language ISO code.
@@ -104,14 +104,14 @@ msgstr "Inget språk valt"
 
 #: gspell/gspell-navigator-text-view.c:307
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Stavningskontrollfel: inget språk inställt. Det beror kanske på att inga "
 "ordböcker finns installerade."
 
 #. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
+#: gspell/gspell-text-view.c:265
 msgid "_Language"
 msgstr "S_pråk"
 
