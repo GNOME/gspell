@@ -21,6 +21,7 @@
 #include "gspell-entry-private.h"
 #include "gspell-entry-buffer.h"
 #include "gspell-entry-utils.h"
+#include "gspell-context-menu.h"
 
 /**
  * SECTION:entry
@@ -47,6 +48,9 @@ struct _GspellEntry
 	 * Used for unit tests.
 	 */
 	GSList *misspelled_words;
+
+	/* The position is in characters, not in bytes. */
+	gint popup_char_position;
 
 	gulong notify_attributes_handler_id;
 	guint notify_attributes_idle_id;
@@ -416,6 +420,190 @@ notify_buffer_cb (GtkEntry    *gtk_entry,
 	emit_changed_signal (gspell_entry);
 }
 
+/* Free the return value with _gspell_entry_word_free(). */
+static GspellEntryWord *
+get_entry_word_at_popup_position (GspellEntry *gspell_entry)
+{
+	gint pos;
+	GSList *words;
+	GSList *l;
+	GspellEntryWord *entry_word = NULL;
+
+	pos = gspell_entry->popup_char_position;
+
+	words = _gspell_entry_utils_get_words (gspell_entry->entry);
+
+	for (l = words; l != NULL; l = l->next)
+	{
+		GspellEntryWord *cur_word = l->data;
+
+		if (cur_word->char_start <= pos && pos <= cur_word->char_end)
+		{
+			entry_word = cur_word;
+			l->data = NULL;
+			break;
+		}
+	}
+
+	g_slist_free_full (words, _gspell_entry_word_free);
+	return entry_word;
+}
+
+static gboolean
+popup_menu_cb (GtkEntry    *gtk_entry,
+	       GspellEntry *gspell_entry)
+{
+	/* Save the position before popping up the menu, otherwise it will
+	 * contain the wrong set of suggestions.
+	 */
+	gspell_entry->popup_char_position = gtk_editable_get_position (GTK_EDITABLE (gtk_entry));
+
+	return FALSE;
+}
+
+static gboolean
+button_press_event_cb (GtkEntry       *gtk_entry,
+		       GdkEventButton *event,
+		       GspellEntry    *gspell_entry)
+{
+	if (event->button == GDK_BUTTON_SECONDARY)
+	{
+		gspell_entry->popup_char_position =
+			_gspell_entry_utils_get_char_position_at_event (gtk_entry, event);
+	}
+
+	return GDK_EVENT_PROPAGATE;
+}
+
+static void
+language_activated_cb (const GspellLanguage *lang,
+		       gpointer              user_data)
+{
+	GspellEntry *gspell_entry;
+	GspellChecker *checker;
+
+	g_return_if_fail (GSPELL_IS_ENTRY (user_data));
+
+	gspell_entry = GSPELL_ENTRY (user_data);
+
+	checker = get_checker (gspell_entry);
+	if (checker != NULL)
+	{
+		gspell_checker_set_language (checker, lang);
+	}
+}
+
+static void
+suggestion_activated_cb (const gchar *suggested_word,
+			 gpointer     user_data)
+{
+	GspellEntry *gspell_entry;
+	GspellEntryWord *word;
+	gint pos;
+
+	g_return_if_fail (GSPELL_IS_ENTRY (user_data));
+
+	gspell_entry = GSPELL_ENTRY (user_data);
+
+	word = get_entry_word_at_popup_position (gspell_entry);
+	if (word == NULL)
+	{
+		return;
+	}
+
+	gtk_editable_delete_text (GTK_EDITABLE (gspell_entry->entry),
+				  word->char_start,
+				  word->char_end);
+
+	pos = word->char_start;
+	gtk_editable_insert_text (GTK_EDITABLE (gspell_entry->entry),
+				  suggested_word, -1,
+				  &pos);
+
+	_gspell_entry_word_free (word);
+}
+
+static void
+populate_popup_cb (GtkEntry    *gtk_entry,
+		   GtkWidget   *popup,
+		   GspellEntry *gspell_entry)
+{
+	GtkMenu *menu;
+	GtkWidget *menu_item;
+	GtkMenuItem *lang_menu_item;
+	GtkMenuItem *suggestions_menu_item;
+	GspellChecker *checker;
+	const GspellLanguage *current_language;
+	GspellEntryWord *word;
+	gboolean correctly_spelled;
+	GError *error = NULL;
+
+	if (!GTK_IS_MENU (popup))
+	{
+		return;
+	}
+
+	menu = GTK_MENU (popup);
+
+	if (!gspell_entry->inline_spell_checking)
+	{
+		return;
+	}
+
+	checker = get_checker (gspell_entry);
+	if (checker == NULL)
+	{
+		return;
+	}
+
+	/* Prepend separator */
+	menu_item = gtk_separator_menu_item_new ();
+	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
+	gtk_widget_show (menu_item);
+
+	/* Prepend language sub-menu */
+	current_language = gspell_checker_get_language (checker);
+	lang_menu_item = _gspell_context_menu_get_language_menu_item (current_language,
+								      language_activated_cb,
+								      gspell_entry);
+
+	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu),
+				GTK_WIDGET (lang_menu_item));
+
+	/* Prepend suggestions sub-menu */
+	word = get_entry_word_at_popup_position (gspell_entry);
+
+	if (word == NULL)
+	{
+		return;
+	}
+
+	correctly_spelled = gspell_checker_check_word (checker,
+						       word->word_str, -1,
+						       &error);
+
+	if (error != NULL)
+	{
+		g_warning ("Inline spell checker: %s", error->message);
+		g_clear_error (&error);
+		_gspell_entry_word_free (word);
+		return;
+	}
+
+	if (!correctly_spelled)
+	{
+		suggestions_menu_item = _gspell_context_menu_get_suggestions_menu_item (checker,
+											word->word_str,
+											suggestion_activated_cb,
+											gspell_entry);
+
+		gtk_menu_shell_prepend (GTK_MENU_SHELL (menu),
+					GTK_WIDGET (suggestions_menu_item));
+	}
+
+	_gspell_entry_word_free (word);
+}
+
 static void
 set_entry (GspellEntry *gspell_entry,
 	   GtkEntry    *gtk_entry)
@@ -446,6 +634,24 @@ set_entry (GspellEntry *gspell_entry,
 				  "notify::attributes",
 				  G_CALLBACK (notify_attributes_cb),
 				  gspell_entry);
+
+	g_signal_connect (gtk_entry,
+			  "popup-menu",
+			  G_CALLBACK (popup_menu_cb),
+			  gspell_entry);
+
+	g_signal_connect (gtk_entry,
+			  "button-press-event",
+			  G_CALLBACK (button_press_event_cb),
+			  gspell_entry);
+
+	/* connect_after, so when menu items are prepended, they have more
+	 * chances to be the first in the menu.
+	 */
+	g_signal_connect_after (gtk_entry,
+				"populate-popup",
+				G_CALLBACK (populate_popup_cb),
+				gspell_entry);
 
 	update_buffer (gspell_entry);
 
