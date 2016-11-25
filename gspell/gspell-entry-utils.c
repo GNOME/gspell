@@ -38,27 +38,56 @@ _gspell_entry_word_free (gpointer data)
 	}
 }
 
-/* Returns: (transfer full) (element-type GspellEntryWord): free with
+/* Without the preedit string.
+ * Free @log_attrs with g_free().
+ */
+static void
+get_pango_log_attrs (GtkEntry      *entry,
+		     PangoLogAttr **log_attrs,
+		     gint          *n_attrs)
+{
+	GtkEntryBuffer *buffer;
+
+	g_assert (log_attrs != NULL);
+	g_assert (n_attrs != NULL);
+
+	buffer = gtk_entry_get_buffer (entry);
+
+	*n_attrs = gtk_entry_buffer_get_length (buffer) + 1;
+	*log_attrs = g_new0 (PangoLogAttr, *n_attrs);
+
+	pango_get_log_attrs (gtk_entry_buffer_get_text (buffer),
+			     gtk_entry_buffer_get_bytes (buffer),
+			     -1,
+			     NULL,
+			     *log_attrs,
+			     *n_attrs);
+}
+
+/* Returns: (transfer full) (element-type GspellEntryWord): the list of words in
+ * @entry, without the preedit string. Free with
  * g_slist_free_full (words, _gspell_entry_word_free);
+ *
+ * The preedit string is not included, because the current word being typed
+ * should not be marked as misspelled, so it doesn't change whether the preedit
+ * string is included or not, and the code is simpler without.
  */
 GSList *
 _gspell_entry_utils_get_words (GtkEntry *entry)
 {
-	PangoLayout *layout;
 	const gchar *text;
 	const gchar *cur_text_pos;
 	const gchar *word_start;
 	gint word_start_char_pos;
-	const PangoLogAttr *attrs;
-	gint n_attrs = 0;
+	PangoLogAttr *attrs;
+	gint n_attrs;
 	gint attr_num;
 	GSList *list = NULL;
 
 	g_return_val_if_fail (GTK_IS_ENTRY (entry), NULL);
 
-	layout = gtk_entry_get_layout (entry);
 	text = gtk_entry_get_text (entry);
-	attrs = pango_layout_get_log_attrs_readonly (layout, &n_attrs);
+	get_pango_log_attrs (entry, &attrs, &n_attrs);
 
 	attr_num = 0;
 	cur_text_pos = text;
@@ -116,6 +145,7 @@ _gspell_entry_utils_get_words (GtkEntry *entry)
 		cur_text_pos = g_utf8_find_next_char (cur_text_pos, NULL);
 	}
 
+	g_free (attrs);
 	return g_slist_reverse (list);
 }
 
