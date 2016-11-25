@@ -149,4 +149,76 @@ _gspell_entry_utils_get_words (GtkEntry *entry)
 	return g_slist_reverse (list);
 }
 
+static gint
+get_layout_index (GtkEntry *entry,
+		  gint      x)
+{
+	PangoLayout *layout;
+	PangoLayoutLine *line;
+	gint layout_index; /* in bytes */
+	gint trailing_chars;
+	const gchar *layout_text;
+	const gchar *pos_in_layout_text;
+	gint layout_text_byte_length;
+	gint max_trailing_chars;
+
+	layout = gtk_entry_get_layout (entry);
+	line = pango_layout_get_line_readonly (layout, 0);
+
+	pango_layout_line_x_to_index (line,
+				      x * PANGO_SCALE,
+				      &layout_index,
+				      &trailing_chars);
+
+	layout_text = pango_layout_get_text (layout);
+
+	/* Performance should not be a problem here, it's better too much
+	 * security than too few.
+	 */
+	layout_text_byte_length = strlen (layout_text);
+	if (layout_index >= layout_text_byte_length)
+	{
+		return layout_text_byte_length;
+	}
+
+	if (trailing_chars == 0)
+	{
+		return layout_index;
+	}
+
+	pos_in_layout_text = layout_text + layout_index;
+	max_trailing_chars = g_utf8_strlen (pos_in_layout_text, -1);
+	trailing_chars = MIN (trailing_chars, max_trailing_chars);
+
+	pos_in_layout_text = g_utf8_offset_to_pointer (pos_in_layout_text, trailing_chars);
+
+	return pos_in_layout_text - layout_text;
+}
+
+/* The return value is in characters, not bytes. And a position suitable for the
+ * text in the GtkEntryBuffer, i.e. without the preedit string.
+ */
+gint
+_gspell_entry_utils_get_char_position_at_event (GtkEntry       *entry,
+						GdkEventButton *event)
+{
+	gint scroll_offset;
+	gint x;
+	gint layout_index; /* in bytes */
+	gint text_index; /* in bytes */
+	const gchar *buffer_text;
+
+	g_object_get (entry,
+		      "scroll-offset", &scroll_offset,
+		      NULL);
+
+	x = event->x + scroll_offset;
+
+	layout_index = get_layout_index (entry, x);
+	text_index = gtk_entry_layout_index_to_text_index (entry, layout_index);
+
+	buffer_text = gtk_entry_get_text (entry);
+	return g_utf8_pointer_to_offset (buffer_text, buffer_text + text_index);
+}
+
 /* ex:set ts=8 noet: */

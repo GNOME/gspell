@@ -43,13 +43,17 @@ struct _GspellEntryWord
 };
 
 G_GNUC_INTERNAL
-GspellEntryWord *_gspell_entry_word_new			(void);
+GspellEntryWord *_gspell_entry_word_new				(void);
 
 G_GNUC_INTERNAL
-void		 _gspell_entry_word_free		(gpointer data);
+void		 _gspell_entry_word_free			(gpointer data);
 
 G_GNUC_INTERNAL
-GSList *	 _gspell_entry_utils_get_words		(GtkEntry *entry);
+GSList *	 _gspell_entry_utils_get_words			(GtkEntry *entry);
+
+G_GNUC_INTERNAL
+gint		 _gspell_entry_utils_get_char_position_at_event	(GtkEntry       *entry,
+								 GdkEventButton *event);
 
 G_END_DECLS
 
