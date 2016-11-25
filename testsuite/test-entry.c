@@ -63,6 +63,28 @@ add_word (GSList      *list,
 	word->word_str = g_strdup (word_str);
 	word->byte_start = byte_start;
 	word->byte_end = byte_end;
+	word->char_start = -1;
+	word->char_end = -1;
+
+	return g_slist_append (list, word);
+}
+
+static GSList *
+add_word_full (GSList      *list,
+	       const gchar *word_str,
+	       gint         byte_start,
+	       gint         byte_end,
+	       gint         char_start,
+	       gint         char_end)
+{
+	GspellEntryWord *word;
+
+	word = _gspell_entry_word_new ();
+	word->word_str = g_strdup (word_str);
+	word->byte_start = byte_start;
+	word->byte_end = byte_end;
+	word->char_start = char_start;
+	word->char_end = char_end;
 
 	return g_slist_append (list, word);
 }
@@ -83,6 +105,18 @@ check_entry_word_equal (GspellEntryWord *word1,
 	g_assert_cmpstr (word1->word_str, ==, word2->word_str);
 	g_assert_cmpint (word1->byte_start, ==, word2->byte_start);
 	g_assert_cmpint (word1->byte_end, ==, word2->byte_end);
+
+	if (word1->char_start != -1 &&
+	    word2->char_start != -1)
+	{
+		g_assert_cmpint (word1->char_start, ==, word2->char_start);
+	}
+
+	if (word1->char_end != -1 &&
+	    word2->char_end != -1)
+	{
+		g_assert_cmpint (word1->char_end, ==, word2->char_end);
+	}
 }
 
 static void
@@ -122,7 +156,7 @@ test_get_words (void)
 
 	/* Only one word */
 	gtk_entry_set_text (entry, "Finntroll");
-	expected_list = add_word (NULL, "Finntroll", 0, 9);
+	expected_list = add_word_full (NULL, "Finntroll", 0, 9, 0, 9);
 	received_list = _gspell_entry_utils_get_words (entry);
 	check_entry_word_list_equal (expected_list, received_list);
 	free_word_list (expected_list);
@@ -130,7 +164,7 @@ test_get_words (void)
 
 	/* Only one word, not at the start and end */
 	gtk_entry_set_text (entry, " Finntroll ");
-	expected_list = add_word (NULL, "Finntroll", 1, 10);
+	expected_list = add_word_full (NULL, "Finntroll", 1, 10, 1, 10);
 	received_list = _gspell_entry_utils_get_words (entry);
 	check_entry_word_list_equal (expected_list, received_list);
 	free_word_list (expected_list);
@@ -138,9 +172,9 @@ test_get_words (void)
 
 	/* Several words */
 	gtk_entry_set_text (entry, "Finntroll - Svart Djup");
-	expected_list = add_word (NULL, "Finntroll", 0, 9);
-	expected_list = add_word (expected_list, "Svart", 12, 17);
-	expected_list = add_word (expected_list, "Djup", 18, 22);
+	expected_list = add_word_full (NULL, "Finntroll", 0, 9, 0, 9);
+	expected_list = add_word_full (expected_list, "Svart", 12, 17, 12, 17);
+	expected_list = add_word_full (expected_list, "Djup", 18, 22, 18, 22);
 	received_list = _gspell_entry_utils_get_words (entry);
 	check_entry_word_list_equal (expected_list, received_list);
 	free_word_list (expected_list);
@@ -150,8 +184,8 @@ test_get_words (void)
 	// å takes two bytes.
 	// ö takes two bytes.
 	gtk_entry_set_text (entry, "Asfågelns Död");
-	expected_list = add_word (NULL, "Asfågelns", 0, 10);
-	expected_list = add_word (expected_list, "Död", 11, 15);
+	expected_list = add_word_full (NULL, "Asfågelns", 0, 10, 0, 9);
+	expected_list = add_word_full (expected_list, "Död", 11, 15, 10, 13);
 	received_list = _gspell_entry_utils_get_words (entry);
 	check_entry_word_list_equal (expected_list, received_list);
 	free_word_list (expected_list);

@@ -48,6 +48,7 @@ _gspell_entry_utils_get_words (GtkEntry *entry)
 	const gchar *text;
 	const gchar *cur_text_pos;
 	const gchar *word_start;
+	gint word_start_char_pos;
 	const PangoLogAttr *attrs;
 	gint n_attrs = 0;
 	gint attr_num;
@@ -62,6 +63,7 @@ _gspell_entry_utils_get_words (GtkEntry *entry)
 	attr_num = 0;
 	cur_text_pos = text;
 	word_start = NULL;
+	word_start_char_pos = 0;
 
 	while (attr_num < n_attrs)
 	{
@@ -83,6 +85,8 @@ _gspell_entry_utils_get_words (GtkEntry *entry)
 			word = _gspell_entry_word_new ();
 			word->byte_start = word_start - text;
 			word->byte_end = word_end - text;
+			word->char_start = word_start_char_pos;
+			word->char_end = attr_num;
 			word->word_str = g_strndup (word_start, word_end - word_start);
 
 			list = g_slist_prepend (list, word);
@@ -95,6 +99,7 @@ _gspell_entry_utils_get_words (GtkEntry *entry)
 		    attrs[attr_num].is_word_start)
 		{
 			word_start = cur_text_pos;
+			word_start_char_pos = attr_num;
 		}
 
 		if (cur_text_pos == NULL &&

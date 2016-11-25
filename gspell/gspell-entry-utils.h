@@ -34,6 +34,12 @@ struct _GspellEntryWord
 	 */
 	gint byte_start;
 	gint byte_end;
+
+	/* The same as @byte_start and @byte_end, but in characters.
+	 * Useful for example for the #GtkEditable functions.
+	 */
+	gint char_start;
+	gint char_end;
 };
 
 G_GNUC_INTERNAL
