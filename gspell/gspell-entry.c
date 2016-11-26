@@ -313,14 +313,6 @@ notify_attributes_cb (GtkEntry    *gtk_entry,
 }
 
 static void
-notify_language_cb (GspellChecker *checker,
-		    GParamSpec    *pspec,
-		    GspellEntry   *gspell_entry)
-{
-	emit_changed_signal (gspell_entry);
-}
-
-static void
 set_checker (GspellEntry   *gspell_entry,
 	     GspellChecker *checker)
 {
@@ -332,7 +324,7 @@ set_checker (GspellEntry   *gspell_entry,
 	if (gspell_entry->checker != NULL)
 	{
 		g_signal_handlers_disconnect_by_func (gspell_entry->checker,
-						      notify_language_cb,
+						      emit_changed_signal,
 						      gspell_entry);
 
 		g_object_unref (gspell_entry->checker);
@@ -342,10 +334,10 @@ set_checker (GspellEntry   *gspell_entry,
 
 	if (gspell_entry->checker != NULL)
 	{
-		g_signal_connect (gspell_entry->checker,
-				  "notify::language",
-				  G_CALLBACK (notify_language_cb),
-				  gspell_entry);
+		g_signal_connect_swapped (gspell_entry->checker,
+					  "notify::language",
+					  G_CALLBACK (emit_changed_signal),
+					  gspell_entry);
 
 		g_object_ref (gspell_entry->checker);
 	}
