@@ -48,9 +48,7 @@
  *
  * If you don't use the gspell_text_view_basic_setup() function, you need to
  * call gspell_text_buffer_set_spell_checker() to associate a #GspellChecker to
- * the #GtkTextBuffer. #GspellTextView handles automatically changes to the
- * following properties: #GtkTextView:buffer, #GspellTextBuffer:spell-checker
- * and #GspellChecker:language.
+ * the #GtkTextBuffer.
  *
  * Note that #GspellTextView extends the #GtkTextView class but without
  * subclassing it, because the GtkSourceView library has already a #GtkTextView
