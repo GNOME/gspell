@@ -240,13 +240,21 @@ get_language_menu (GspellTextView *gspell_view)
 
 static void
 populate_popup_cb (GtkTextView    *gtk_view,
-		   GtkMenu        *menu,
+		   GtkWidget      *popup,
 		   GspellTextView *gspell_view)
 {
 	GspellTextViewPrivate *priv;
+	GtkMenu *menu;
 	GtkWidget *menu_item;
 
 	priv = gspell_text_view_get_instance_private (gspell_view);
+
+	if (!GTK_IS_MENU (popup))
+	{
+		return;
+	}
+
+	menu = GTK_MENU (popup);
 
 	if (!priv->enable_language_menu &&
 	    priv->inline_checker == NULL)
