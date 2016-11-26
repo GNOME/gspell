@@ -46,6 +46,7 @@ gspell_private_headers =			\
 	gconstructor.h				\
 	gspellregion.h				\
 	gspell-checker-private.h		\
+	gspell-context-menu.h			\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
 	gspell-init.h				\
@@ -55,6 +56,7 @@ gspell_private_headers =			\
 
 gspell_private_c_files =			\
 	gspellregion.c				\
+	gspell-context-menu.c			\
 	gspell-entry-utils.c			\
 	gspell-init.c				\
 	gspell-inline-checker-text-buffer.c	\

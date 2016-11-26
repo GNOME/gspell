@@ -24,6 +24,7 @@
 #include "gspell-checker.h"
 #include "gspell-language.h"
 #include "gspell-text-buffer.h"
+#include "gspell-context-menu.h"
 
 /**
  * SECTION:text-view
@@ -73,8 +74,7 @@ enum
 	PROP_ENABLE_LANGUAGE_MENU,
 };
 
-#define GSPELL_TEXT_VIEW_KEY	"gspell-text-view-key"
-#define LANGUAGE_KEY		"gspell-language-key"
+#define GSPELL_TEXT_VIEW_KEY "gspell-text-view-key"
 
 G_DEFINE_TYPE_WITH_PRIVATE (GspellTextView, gspell_text_view, G_TYPE_OBJECT)
 
@@ -133,22 +133,19 @@ notify_buffer_cb (GtkTextView    *gtk_view,
 }
 
 static void
-activate_language_cb (GtkWidget      *menu_item,
-		      GspellTextView *gspell_view)
+language_activated_cb (const GspellLanguage *lang,
+		       gpointer              user_data)
 {
+	GspellTextView *gspell_view;
 	GspellTextViewPrivate *priv;
-	const GspellLanguage *lang;
 	GtkTextBuffer *gtk_buffer;
 	GspellTextBuffer *gspell_buffer;
 	GspellChecker *checker;
 
-	priv = gspell_text_view_get_instance_private (gspell_view);
+	g_return_if_fail (GSPELL_IS_TEXT_VIEW (user_data));
 
-	lang = g_object_get_data (G_OBJECT (menu_item), LANGUAGE_KEY);
-	if (lang == NULL)
-	{
-		g_return_if_reached ();
-	}
+	gspell_view = GSPELL_TEXT_VIEW (user_data);
+	priv = gspell_text_view_get_instance_private (gspell_view);
 
 	gtk_buffer = gtk_text_view_get_buffer (priv->view);
 	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
@@ -158,7 +155,7 @@ activate_language_cb (GtkWidget      *menu_item,
 }
 
 static const GspellLanguage *
-get_active_language (GspellTextView *gspell_view)
+get_current_language (GspellTextView *gspell_view)
 {
 	GspellTextViewPrivate *priv;
 	GtkTextBuffer *gtk_buffer;
@@ -177,65 +174,6 @@ get_active_language (GspellTextView *gspell_view)
 	checker = gspell_text_buffer_get_spell_checker (gspell_buffer);
 
 	return gspell_checker_get_language (checker);
-}
-
-static GtkWidget *
-get_language_menu (GspellTextView *gspell_view)
-{
-	GtkWidget *menu;
-	const GspellLanguage *active_lang;
-	const GList *languages;
-	const GList *l;
-
-	menu = gtk_menu_new ();
-
-	active_lang = get_active_language (gspell_view);
-
-	languages = gspell_language_get_available ();
-	for (l = languages; l != NULL; l = l->next)
-	{
-		const GspellLanguage *lang = l->data;
-		const gchar *lang_name;
-		GtkWidget *menu_item;
-
-		lang_name = gspell_language_get_name (lang);
-
-		if (lang == active_lang)
-		{
-			/* Do not create a group. Just mark the current language
-			 * as active.
-			 *
-			 * With a group, the first language in the list gets
-			 * activated, which changes the GspellChecker language
-			 * before we arrive to the active_lang.
-			 *
-			 * Also, having a bullet only for the active_lang is
-			 * sufficient (to be like in Firefox), the menu is
-			 * anyway ephemeral. No need to have an empty bullet for
-			 * all the other languages.
-			 */
-			menu_item = gtk_radio_menu_item_new_with_label (NULL, lang_name);
-			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menu_item), TRUE);
-		}
-		else
-		{
-			menu_item = gtk_menu_item_new_with_label (lang_name);
-		}
-
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
-
-		g_object_set_data (G_OBJECT (menu_item),
-				   LANGUAGE_KEY,
-				   (gpointer) lang);
-
-		g_signal_connect_object (menu_item,
-					 "activate",
-					 G_CALLBACK (activate_language_cb),
-					 gspell_view,
-					 0);
-	}
-
-	return menu;
 }
 
 static void
@@ -269,12 +207,17 @@ populate_popup_cb (GtkTextView    *gtk_view,
 
 	if (priv->enable_language_menu)
 	{
+		const GspellLanguage *current_language;
+		GtkMenuItem *lang_menu_item;
+
+		current_language = get_current_language (gspell_view);
+		lang_menu_item = _gspell_context_menu_get_language_menu_item (current_language,
+									      language_activated_cb,
+									      gspell_view);
+
 		/* Prepend language sub-menu */
-		menu_item = gtk_menu_item_new_with_mnemonic (_("_Language"));
-		gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_item),
-					   get_language_menu (gspell_view));
-		gtk_widget_show_all (menu_item);
+		gtk_menu_shell_prepend (GTK_MENU_SHELL (menu),
+					GTK_WIDGET (lang_menu_item));
 	}
 
 	if (priv->inline_checker != NULL)
