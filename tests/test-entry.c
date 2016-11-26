@@ -41,24 +41,15 @@ test_spell_class_init (TestSpellClass *klass)
 static GtkEntry *
 create_entry (void)
 {
-	GspellChecker *checker;
 	GtkEntry *gtk_entry;
-	GtkEntryBuffer *gtk_buffer;
-	GspellEntryBuffer *gspell_buffer;
 	GspellEntry *gspell_entry;
 
 	gtk_entry = GTK_ENTRY (gtk_entry_new ());
 	gtk_widget_set_hexpand (GTK_WIDGET (gtk_entry), TRUE);
 	gtk_widget_set_valign (GTK_WIDGET (gtk_entry), GTK_ALIGN_START);
 
-	checker = gspell_checker_new (NULL);
-	gtk_buffer = gtk_entry_get_buffer (gtk_entry);
-	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
-	gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
-	g_object_unref (checker);
-
 	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
-	gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+	gspell_entry_basic_setup (gspell_entry);
 
 	return gtk_entry;
 }
