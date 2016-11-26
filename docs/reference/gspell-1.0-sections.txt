@@ -150,6 +150,7 @@ GSPELL_TYPE_ENTRY_BUFFER
 <TITLE>GspellEntry</TITLE>
 GspellEntry
 gspell_entry_get_from_gtk_entry
+gspell_entry_basic_setup
 gspell_entry_get_entry
 gspell_entry_get_inline_spell_checking
 gspell_entry_set_inline_spell_checking

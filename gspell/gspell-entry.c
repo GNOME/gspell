@@ -815,6 +815,62 @@ gspell_entry_get_from_gtk_entry (GtkEntry *gtk_entry)
 }
 
 /**
+ * gspell_entry_basic_setup:
+ * @gspell_entry: a #GspellEntry.
+ *
+ * This function is a convenience function that does the following:
+ * - Set a spell checker. The language chosen is the one returned by
+ *   gspell_language_get_default().
+ * - Set the #GspellEntry:inline-spell-checking property to %TRUE.
+ *
+ * Example:
+ * |[
+ * GtkEntry *gtk_entry;
+ * GspellEntry *gspell_entry;
+ *
+ * gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+ * gspell_entry_basic_setup (gspell_entry);
+ * ]|
+ *
+ * This is equivalent to:
+ * |[
+ * GtkEntry *gtk_entry;
+ * GspellEntry *gspell_entry;
+ * GspellChecker *checker;
+ * GtkEntryBuffer *gtk_buffer;
+ * GspellEntryBuffer *gspell_buffer;
+ *
+ * checker = gspell_checker_new (NULL);
+ * gtk_buffer = gtk_entry_get_buffer (gtk_entry);
+ * gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+ * gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
+ * g_object_unref (checker);
+ *
+ * gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+ * gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+ * ]|
+ *
+ * Since: 1.4
+ */
+void
+gspell_entry_basic_setup (GspellEntry *gspell_entry)
+{
+	GspellChecker *checker;
+	GtkEntryBuffer *gtk_buffer;
+	GspellEntryBuffer *gspell_buffer;
+
+	g_return_if_fail (GSPELL_IS_ENTRY (gspell_entry));
+
+	checker = gspell_checker_new (NULL);
+	gtk_buffer = gtk_entry_get_buffer (gspell_entry->entry);
+	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
+	gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
+	g_object_unref (checker);
+
+	gspell_entry_set_inline_spell_checking (gspell_entry, TRUE);
+}
+
+/**
  * gspell_entry_get_entry:
  * @gspell_entry: a #GspellEntry.
  *

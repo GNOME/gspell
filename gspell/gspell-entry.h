@@ -35,6 +35,8 @@ G_DECLARE_FINAL_TYPE (GspellEntry, gspell_entry,
 
 GspellEntry *	gspell_entry_get_from_gtk_entry		(GtkEntry *gtk_entry);
 
+void		gspell_entry_basic_setup		(GspellEntry *gspell_entry);
+
 GtkEntry *	gspell_entry_get_entry			(GspellEntry *gspell_entry);
 
 gboolean	gspell_entry_get_inline_spell_checking	(GspellEntry *gspell_entry);
