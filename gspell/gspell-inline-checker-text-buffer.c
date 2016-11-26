@@ -28,6 +28,7 @@
 #include <glib/gi18n-lib.h>
 #include "gspellregion.h"
 #include "gspell-checker.h"
+#include "gspell-context-menu.h"
 #include "gspell-text-buffer.h"
 #include "gspell-text-iter.h"
 #include "gspell-utils.h"
@@ -76,8 +77,7 @@ typedef enum
 	ADJUST_MODE_INCLUDE_NEIGHBORS,
 } AdjustMode;
 
-#define INLINE_CHECKER_TEXT_BUFFER_KEY	"GspellInlineCheckerTextBufferID"
-#define SUGGESTION_KEY			"GspellInlineSuggestionID"
+#define INLINE_CHECKER_TEXT_BUFFER_KEY "GspellInlineCheckerTextBufferID"
 
 /* Timeout durations in milliseconds. Writing and deleting text should be smooth
  * and responsive.
@@ -739,59 +739,17 @@ get_word_extents_at_click_position (GspellInlineCheckerTextBuffer *spell,
 }
 
 static void
-add_to_dictionary_cb (GtkWidget                     *menu_item,
-		      GspellInlineCheckerTextBuffer *spell)
+suggestion_activated_cb (const gchar *suggested_word,
+			 gpointer     user_data)
 {
-	GtkTextIter start;
-	GtkTextIter end;
-	gchar *word;
-
-	if (!get_word_extents_at_click_position (spell, &start, &end))
-	{
-		return;
-	}
-
-	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
-
-	if (spell->spell_checker != NULL)
-	{
-		gspell_checker_add_word_to_personal (spell->spell_checker, word, -1);
-	}
-
-	g_free (word);
-}
-
-static void
-ignore_all_cb (GtkWidget                     *menu_item,
-	       GspellInlineCheckerTextBuffer *spell)
-{
-	GtkTextIter start;
-	GtkTextIter end;
-	gchar *word;
-
-	if (!get_word_extents_at_click_position (spell, &start, &end))
-	{
-		return;
-	}
-
-	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
-
-	if (spell->spell_checker != NULL)
-	{
-		gspell_checker_add_word_to_session (spell->spell_checker, word, -1);
-	}
-
-	g_free (word);
-}
-
-static void
-replace_word_cb (GtkWidget                     *menu_item,
-		 GspellInlineCheckerTextBuffer *spell)
-{
+	GspellInlineCheckerTextBuffer *spell;
 	GtkTextIter start;
 	GtkTextIter end;
 	gchar *old_word;
-	const gchar *new_word;
+
+	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_TEXT_BUFFER (user_data));
+
+	spell = GSPELL_INLINE_CHECKER_TEXT_BUFFER (user_data);
 
 	if (!get_word_extents_at_click_position (spell, &start, &end))
 	{
@@ -800,13 +758,10 @@ replace_word_cb (GtkWidget                     *menu_item,
 
 	old_word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
 
-	new_word = g_object_get_data (G_OBJECT (menu_item), SUGGESTION_KEY);
-	g_return_if_fail (new_word != NULL);
-
 	gtk_text_buffer_begin_user_action (spell->buffer);
 
 	gtk_text_buffer_delete (spell->buffer, &start, &end);
-	gtk_text_buffer_insert (spell->buffer, &start, new_word, -1);
+	gtk_text_buffer_insert (spell->buffer, &start, suggested_word, -1);
 
 	gtk_text_buffer_end_user_action (spell->buffer);
 
@@ -814,121 +769,20 @@ replace_word_cb (GtkWidget                     *menu_item,
 	{
 		gspell_checker_set_correction (spell->spell_checker,
 					       old_word, -1,
-					       new_word, -1);
+					       suggested_word, -1);
 	}
 
 	g_free (old_word);
-}
-
-static GtkWidget *
-get_suggestion_menu (GspellInlineCheckerTextBuffer *spell,
-		     const gchar                   *word)
-{
-	GtkWidget *top_menu;
-	GtkWidget *menu_item;
-	GSList *suggestions = NULL;
-
-	top_menu = gtk_menu_new ();
-
-	if (spell->spell_checker != NULL)
-	{
-		suggestions = gspell_checker_get_suggestions (spell->spell_checker, word, -1);
-	}
-
-	if (suggestions == NULL)
-	{
-		/* No suggestions. Put something in the menu anyway... */
-		menu_item = gtk_menu_item_new_with_label (_("(no suggested words)"));
-		gtk_widget_set_sensitive (menu_item, FALSE);
-		gtk_menu_shell_prepend (GTK_MENU_SHELL (top_menu), menu_item);
-	}
-	else
-	{
-		GtkWidget *menu = top_menu;
-		gint count = 0;
-		GSList *l;
-
-		/* Build a set of menus with suggestions. */
-		for (l = suggestions; l != NULL; l = l->next)
-		{
-			gchar *suggested_word = l->data;
-			GtkWidget *label;
-			gchar *label_text;
-
-			if (count == 10)
-			{
-				/* Separator */
-				menu_item = gtk_separator_menu_item_new ();
-				gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
-
-				menu_item = gtk_menu_item_new_with_mnemonic (_("_More…"));
-				gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
-
-				menu = gtk_menu_new ();
-				gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_item), menu);
-				count = 0;
-			}
-
-			label_text = g_strdup_printf ("<b>%s</b>", suggested_word);
-
-			label = gtk_label_new (label_text);
-			gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
-			gtk_widget_set_halign (label, GTK_ALIGN_START);
-
-			menu_item = gtk_menu_item_new ();
-			gtk_container_add (GTK_CONTAINER (menu_item), label);
-			gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
-
-			g_object_set_data_full (G_OBJECT (menu_item),
-						SUGGESTION_KEY,
-						g_strdup (suggested_word),
-						g_free);
-
-			g_signal_connect (menu_item,
-					  "activate",
-					  G_CALLBACK (replace_word_cb),
-					  spell);
-
-			g_free (label_text);
-			count++;
-		}
-	}
-
-	g_slist_free_full (suggestions, g_free);
-
-	/* Separator */
-	menu_item = gtk_separator_menu_item_new ();
-	gtk_menu_shell_append (GTK_MENU_SHELL (top_menu), menu_item);
-
-	/* Ignore all */
-	menu_item = gtk_menu_item_new_with_mnemonic (_("_Ignore All"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (top_menu), menu_item);
-
-	g_signal_connect (menu_item,
-			  "activate",
-			  G_CALLBACK (ignore_all_cb),
-			  spell);
-
-	/* Add to Dictionary */
-	menu_item = gtk_menu_item_new_with_mnemonic (_("_Add"));
-	gtk_menu_shell_append (GTK_MENU_SHELL (top_menu), menu_item);
-
-	g_signal_connect (menu_item,
-			  "activate",
-			  G_CALLBACK (add_to_dictionary_cb),
-			  spell);
-
-	return top_menu;
 }
 
 void
 _gspell_inline_checker_text_buffer_populate_popup (GspellInlineCheckerTextBuffer *spell,
 						   GtkMenu                       *menu)
 {
-	GtkWidget *menu_item;
+	GtkMenuItem *menu_item;
 	GtkTextIter start;
 	GtkTextIter end;
-	gchar *word;
+	gchar *misspelled_word;
 
 	if (!get_word_extents_at_click_position (spell, &start, &end))
 	{
@@ -940,16 +794,24 @@ _gspell_inline_checker_text_buffer_populate_popup (GspellInlineCheckerTextBuffer
 		return;
 	}
 
+	if (spell->spell_checker == NULL)
+	{
+		return;
+	}
+
 	/* Prepend suggestions */
-	menu_item = gtk_menu_item_new_with_mnemonic (_("_Spelling Suggestions…"));
-	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
 
-	word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_item),
-				   get_suggestion_menu (spell, word));
-	g_free (word);
+	misspelled_word = gtk_text_buffer_get_text (spell->buffer, &start, &end, FALSE);
 
-	gtk_widget_show_all (menu_item);
+	menu_item = _gspell_context_menu_get_suggestions_menu_item (spell->spell_checker,
+								    misspelled_word,
+								    suggestion_activated_cb,
+								    spell);
+
+	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu),
+				GTK_WIDGET (menu_item));
+
+	g_free (misspelled_word);
 }
 
 static gboolean
