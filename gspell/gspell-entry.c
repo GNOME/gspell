@@ -339,6 +339,21 @@ set_checker (GspellEntry   *gspell_entry,
 					  G_CALLBACK (emit_changed_signal),
 					  gspell_entry);
 
+		g_signal_connect_swapped (gspell_entry->checker,
+					  "session-cleared",
+					  G_CALLBACK (emit_changed_signal),
+					  gspell_entry);
+
+		g_signal_connect_swapped (gspell_entry->checker,
+					  "word-added-to-personal",
+					  G_CALLBACK (emit_changed_signal),
+					  gspell_entry);
+
+		g_signal_connect_swapped (gspell_entry->checker,
+					  "word-added-to-session",
+					  G_CALLBACK (emit_changed_signal),
+					  gspell_entry);
+
 		g_object_ref (gspell_entry->checker);
 	}
 }
