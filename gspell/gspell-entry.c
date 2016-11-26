@@ -30,7 +30,17 @@
  *
  * #GspellEntry extends the #GtkEntry class with inline spell checking.
  * Misspelled words are highlighted with a %PANGO_UNDERLINE_ERROR, usually a red
- * wavy underline.
+ * wavy underline. Right-clicking a misspelled word pops up a context menu of
+ * suggested replacements. The context menu also contains an “Ignore All” item
+ * to add the misspelled word to the session dictionary. And an “Add” item to
+ * add the word to the personal dictionary.
+ *
+ * For a basic use-case, there is the gspell_entry_basic_setup() convenience
+ * function.
+ *
+ * If you don't use the gspell_entry_basic_setup() function, you need to call
+ * gspell_entry_buffer_set_spell_checker() to associate a #GspellChecker to the
+ * #GtkEntryBuffer.
  *
  * Note that #GspellEntry extends the #GtkEntry class but without subclassing
  * it, because #GtkEntry is already subclassed by #GtkSearchEntry for example.
