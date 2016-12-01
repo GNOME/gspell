@@ -89,7 +89,6 @@
             <child>
               <object class="GtkButton" id="check_word_button">
                 <property name="label" translatable="yes">Check _Word</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -132,7 +131,6 @@
             <child>
               <object class="GtkButton" id="ignore_button">
                 <property name="label" translatable="yes">_Ignore</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -146,7 +144,6 @@
             <child>
               <object class="GtkButton" id="ignore_all_button">
                 <property name="label" translatable="yes">Ignore _All</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -160,7 +157,6 @@
             <child>
               <object class="GtkButton" id="change_button">
                 <property name="label" translatable="yes">Cha_nge</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -176,7 +172,6 @@
             <child>
               <object class="GtkButton" id="change_all_button">
                 <property name="label" translatable="yes">Change A_ll</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -206,7 +201,6 @@
             <child>
               <object class="GtkButton" id="add_word_button">
                 <property name="label" translatable="yes">Add w_ord</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
