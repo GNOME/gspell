@@ -24,8 +24,7 @@
 #include <glib.h>
 
 #ifdef G_OS_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#include <windef.h>
 
 G_GNUC_INTERNAL
 HMODULE _gspell_init_get_dll (void);
