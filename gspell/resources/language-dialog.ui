@@ -4,7 +4,6 @@
   <requires lib="gtk+" version="3.16"/>
   <template class="GspellLanguageChooserDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
-    <property name="border_width">12</property>
     <property name="title" translatable="yes">Set Language</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
@@ -13,6 +12,7 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
+        <property name="margin">12</property>
         <child>
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
