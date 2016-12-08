@@ -2,6 +2,7 @@
 gspell/gspell-checker.c
 gspell/gspell-checker-dialog.c
 gspell/gspell-context-menu.c
+gspell/gspell-current-word-policy.c
 gspell/gspell-entry.c
 gspell/gspell-entry-buffer.c
 gspell/gspell-entry-utils.c

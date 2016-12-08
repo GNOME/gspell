@@ -47,6 +47,7 @@ gspell_private_headers =			\
 	gspellregion.h				\
 	gspell-checker-private.h		\
 	gspell-context-menu.h			\
+	gspell-current-word-policy.h		\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
 	gspell-init.h				\
@@ -57,6 +58,7 @@ gspell_private_headers =			\
 gspell_private_c_files =			\
 	gspellregion.c				\
 	gspell-context-menu.c			\
+	gspell-current-word-policy.c		\
 	gspell-entry-utils.c			\
 	gspell-init.c				\
 	gspell-inline-checker-text-buffer.c	\

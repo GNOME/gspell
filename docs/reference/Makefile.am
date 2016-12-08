@@ -33,6 +33,7 @@ IGNORE_HFILES =					\
 	gspellregion.h				\
 	gspell-checker-private.h		\
 	gspell-context-menu.h			\
+	gspell-current-word-policy.h		\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
 	gspell-init.h				\
