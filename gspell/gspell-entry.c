@@ -22,6 +22,7 @@
 #include "gspell-entry-buffer.h"
 #include "gspell-entry-utils.h"
 #include "gspell-context-menu.h"
+#include "gspell-current-word-policy.h"
 
 /**
  * SECTION:entry
@@ -53,6 +54,8 @@ struct _GspellEntry
 	GtkEntry *entry;
 	GtkEntryBuffer *buffer;
 	GspellChecker *checker;
+
+	GspellCurrentWordPolicy *current_word_policy;
 
 	/* List elements: GspellEntryWord*.
 	 * Used for unit tests.
@@ -242,6 +245,17 @@ update_misspelled_words_list (GspellEntry *gspell_entry)
 	gspell_entry->misspelled_words = g_slist_reverse (gspell_entry->misspelled_words);
 }
 
+static gboolean
+is_current_word (GspellEntry     *gspell_entry,
+		 GspellEntryWord *word)
+{
+	gint cursor_pos;
+
+	cursor_pos = gtk_editable_get_position (GTK_EDITABLE (gspell_entry->entry));
+
+	return (word->char_start <= cursor_pos && cursor_pos <= word->char_end);
+}
+
 static void
 recheck_all (GspellEntry *gspell_entry)
 {
@@ -252,6 +266,12 @@ recheck_all (GspellEntry *gspell_entry)
 	for (l = gspell_entry->misspelled_words; l != NULL; l = l->next)
 	{
 		GspellEntryWord *cur_word = l->data;
+
+		if (!_gspell_current_word_policy_get_check_current_word (gspell_entry->current_word_policy) &&
+		    is_current_word (gspell_entry, cur_word))
+		{
+			continue;
+		}
 
 		insert_underline (gspell_entry,
 				  cur_word->byte_start,
@@ -323,6 +343,23 @@ notify_attributes_cb (GtkEntry    *gtk_entry,
 }
 
 static void
+language_notify_cb (GspellChecker *checker,
+		    GParamSpec    *pspec,
+		    GspellEntry   *gspell_entry)
+{
+	_gspell_current_word_policy_language_changed (gspell_entry->current_word_policy);
+	emit_changed_signal (gspell_entry);
+}
+
+static void
+session_cleared_cb (GspellChecker *checker,
+		    GspellEntry   *gspell_entry)
+{
+	_gspell_current_word_policy_session_cleared (gspell_entry->current_word_policy);
+	emit_changed_signal (gspell_entry);
+}
+
+static void
 set_checker (GspellEntry   *gspell_entry,
 	     GspellChecker *checker)
 {
@@ -334,6 +371,14 @@ set_checker (GspellEntry   *gspell_entry,
 	if (gspell_entry->checker != NULL)
 	{
 		g_signal_handlers_disconnect_by_func (gspell_entry->checker,
+						      language_notify_cb,
+						      gspell_entry);
+
+		g_signal_handlers_disconnect_by_func (gspell_entry->checker,
+						      session_cleared_cb,
+						      gspell_entry);
+
+		g_signal_handlers_disconnect_by_func (gspell_entry->checker,
 						      emit_changed_signal,
 						      gspell_entry);
 
@@ -344,15 +389,15 @@ set_checker (GspellEntry   *gspell_entry,
 
 	if (gspell_entry->checker != NULL)
 	{
-		g_signal_connect_swapped (gspell_entry->checker,
-					  "notify::language",
-					  G_CALLBACK (emit_changed_signal),
-					  gspell_entry);
+		g_signal_connect (gspell_entry->checker,
+				  "notify::language",
+				  G_CALLBACK (language_notify_cb),
+				  gspell_entry);
 
-		g_signal_connect_swapped (gspell_entry->checker,
-					  "session-cleared",
-					  G_CALLBACK (emit_changed_signal),
-					  gspell_entry);
+		g_signal_connect (gspell_entry->checker,
+				  "session-cleared",
+				  G_CALLBACK (session_cleared_cb),
+				  gspell_entry);
 
 		g_signal_connect_swapped (gspell_entry->checker,
 					  "word-added-to-personal",
@@ -380,7 +425,43 @@ notify_spell_checker_cb (GspellEntryBuffer *gspell_buffer,
 			 GspellEntry       *gspell_entry)
 {
 	update_checker (gspell_entry);
+
+	_gspell_current_word_policy_checker_changed (gspell_entry->current_word_policy);
 	emit_changed_signal (gspell_entry);
+}
+
+static void
+inserted_text_cb (GtkEntryBuffer *buffer,
+		  guint           position,
+		  gchar          *chars,
+		  guint           n_chars,
+		  GspellEntry    *gspell_entry)
+{
+	if (n_chars > 1)
+	{
+		_gspell_current_word_policy_several_chars_inserted (gspell_entry->current_word_policy);
+	}
+	else
+	{
+		gunichar ch;
+		gboolean empty_selection;
+		gint cursor_pos;
+		gboolean at_cursor_pos;
+
+		ch = g_utf8_get_char (chars);
+
+		empty_selection = !gtk_editable_get_selection_bounds (GTK_EDITABLE (gspell_entry->entry),
+								      NULL,
+								      NULL);
+
+		cursor_pos = gtk_editable_get_position (GTK_EDITABLE (gspell_entry->entry));
+		at_cursor_pos = cursor_pos == (gint)position;
+
+		_gspell_current_word_policy_single_char_inserted (gspell_entry->current_word_policy,
+								  ch,
+								  empty_selection,
+								  at_cursor_pos);
+	}
 }
 
 static void
@@ -402,6 +483,10 @@ set_buffer (GspellEntry    *gspell_entry,
 						      notify_spell_checker_cb,
 						      gspell_entry);
 
+		g_signal_handlers_disconnect_by_func (gspell_entry->buffer,
+						      inserted_text_cb,
+						      gspell_entry);
+
 		g_object_unref (gspell_entry->buffer);
 	}
 
@@ -414,6 +499,11 @@ set_buffer (GspellEntry    *gspell_entry,
 		g_signal_connect (gspell_buffer,
 				  "notify::spell-checker",
 				  G_CALLBACK (notify_spell_checker_cb),
+				  gspell_entry);
+
+		g_signal_connect (gspell_entry->buffer,
+				  "inserted-text",
+				  G_CALLBACK (inserted_text_cb),
 				  gspell_entry);
 
 		g_object_ref (gspell_entry->buffer);
@@ -488,6 +578,9 @@ button_press_event_cb (GtkEntry       *gtk_entry,
 		gspell_entry->popup_char_position =
 			_gspell_entry_utils_get_char_position_at_event (gtk_entry, event);
 	}
+
+	_gspell_current_word_policy_cursor_moved (gspell_entry->current_word_policy);
+	emit_changed_signal (gspell_entry);
 
 	return GDK_EVENT_PROPAGATE;
 }
@@ -622,6 +715,129 @@ populate_popup_cb (GtkEntry    *gtk_entry,
 }
 
 static void
+move_cursor_cb (GspellEntry *gspell_entry)
+{
+	_gspell_current_word_policy_cursor_moved (gspell_entry->current_word_policy);
+	emit_changed_signal (gspell_entry);
+}
+
+static gboolean
+is_inside_word (const GSList *words,
+		gint          char_pos)
+{
+	const GSList *l;
+
+	for (l = words; l != NULL; l = l->next)
+	{
+		const GspellEntryWord *cur_word = l->data;
+
+		if (cur_word->char_start <= char_pos && char_pos < cur_word->char_end)
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static gboolean
+ends_word (const GSList *words,
+	   gint          char_pos)
+{
+	const GSList *l;
+
+	for (l = words; l != NULL; l = l->next)
+	{
+		const GspellEntryWord *cur_word = l->data;
+
+		if (cur_word->char_end == char_pos)
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static void
+delete_text_before_cb (GtkEditable *editable,
+		       gint         start_pos,
+		       gint         end_pos,
+		       GspellEntry *gspell_entry)
+{
+	gint real_start_pos;
+	gint real_end_pos;
+	gint cursor_pos;
+	GSList *words;
+	gboolean empty_selection;
+	gboolean spans_several_lines;
+	gboolean several_chars;
+	gboolean cursor_pos_at_start;
+	gboolean cursor_pos_at_end;
+	gboolean start_is_inside_word;
+	gboolean start_ends_word;
+	gboolean end_is_inside_word;
+	gboolean end_ends_word;
+
+	real_start_pos = start_pos;
+
+	if (end_pos < 0)
+	{
+		real_end_pos = gtk_entry_get_text_length (gspell_entry->entry);
+	}
+	else
+	{
+		real_end_pos = end_pos;
+	}
+
+	if (real_start_pos == real_end_pos)
+	{
+		return;
+	}
+
+	if (real_start_pos > real_end_pos)
+	{
+		gint real_start_pos_copy;
+
+		/* swap */
+		real_start_pos_copy = real_start_pos;
+		real_start_pos = real_end_pos;
+		real_end_pos = real_start_pos_copy;
+	}
+
+	g_assert_cmpint (real_start_pos, <, real_end_pos);
+
+	empty_selection = !gtk_editable_get_selection_bounds (editable, NULL, NULL);
+	spans_several_lines = FALSE;
+	several_chars = (real_end_pos - real_start_pos) > 1;
+
+	cursor_pos = gtk_editable_get_position (editable);
+	cursor_pos_at_start = cursor_pos == real_start_pos;
+	cursor_pos_at_end = cursor_pos == real_end_pos;
+
+	words = _gspell_entry_utils_get_words (gspell_entry->entry);
+
+	start_is_inside_word = is_inside_word (words, real_start_pos);
+	start_ends_word = ends_word (words, real_start_pos);
+
+	end_is_inside_word = is_inside_word (words, real_end_pos);
+	end_ends_word = ends_word (words, real_end_pos);
+
+	g_slist_free_full (words, _gspell_entry_word_free);
+
+	_gspell_current_word_policy_text_deleted (gspell_entry->current_word_policy,
+						  empty_selection,
+						  spans_several_lines,
+						  several_chars,
+						  cursor_pos_at_start,
+						  cursor_pos_at_end,
+						  start_is_inside_word,
+						  start_ends_word,
+						  end_is_inside_word,
+						  end_ends_word);
+}
+
+static void
 set_entry (GspellEntry *gspell_entry,
 	   GtkEntry    *gtk_entry)
 {
@@ -669,6 +885,22 @@ set_entry (GspellEntry *gspell_entry,
 				"populate-popup",
 				G_CALLBACK (populate_popup_cb),
 				gspell_entry);
+
+	/* Connecting to notify::cursor-position is not suitable because we have
+	 * notifications also when text is inserted/deleted. And we get the
+	 * notification *after* the GtkEditable::insert-text signal (not
+	 * *during* its emission). So it's simpler to connect to ::move-cursor,
+	 * even if it is not recommended.
+	 */
+	g_signal_connect_swapped (gtk_entry,
+				  "move-cursor",
+				  G_CALLBACK (move_cursor_cb),
+				  gspell_entry);
+
+	g_signal_connect (GTK_EDITABLE (gtk_entry),
+			  "delete-text",
+			  G_CALLBACK (delete_text_before_cb),
+			  gspell_entry);
 
 	update_buffer (gspell_entry);
 
@@ -742,6 +974,17 @@ gspell_entry_dispose (GObject *object)
 }
 
 static void
+gspell_entry_finalize (GObject *object)
+{
+	GspellEntry *gspell_entry = GSPELL_ENTRY (object);
+
+	/* Internal GObject, we can release it in finalize. */
+	g_clear_object (&gspell_entry->current_word_policy);
+
+	G_OBJECT_CLASS (gspell_entry_parent_class)->finalize (object);
+}
+
+static void
 gspell_entry_class_init (GspellEntryClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -749,6 +992,7 @@ gspell_entry_class_init (GspellEntryClass *klass)
 	object_class->get_property = gspell_entry_get_property;
 	object_class->set_property = gspell_entry_set_property;
 	object_class->dispose = gspell_entry_dispose;
+	object_class->finalize = gspell_entry_finalize;
 
 	/**
 	 * GspellEntry:entry:
@@ -787,6 +1031,7 @@ gspell_entry_class_init (GspellEntryClass *klass)
 static void
 gspell_entry_init (GspellEntry *gspell_entry)
 {
+	gspell_entry->current_word_policy = _gspell_current_word_policy_new ();
 }
 
 /**
