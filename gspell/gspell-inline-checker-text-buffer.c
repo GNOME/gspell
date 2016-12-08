@@ -29,6 +29,7 @@
 #include "gspellregion.h"
 #include "gspell-checker.h"
 #include "gspell-context-menu.h"
+#include "gspell-current-word-policy.h"
 #include "gspell-text-buffer.h"
 #include "gspell-text-iter.h"
 #include "gspell-utils.h"
@@ -51,10 +52,7 @@ struct _GspellInlineCheckerTextBuffer
 	GspellRegion *scan_region;
 	guint timeout_id;
 
-	/* When a word is being typed, it should not be marked as misspelled,
-	 * because it would be annoying.
-	 */
-	guint check_current_word : 1;
+	GspellCurrentWordPolicy *current_word_policy;
 
 	/* If the unit test mode is enabled, there is no timeouts, and the whole
 	 * buffer is scanned synchronously.
@@ -373,7 +371,7 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		return;
 	}
 
-	if (!spell->check_current_word)
+	if (!_gspell_current_word_policy_get_check_current_word (spell->current_word_policy))
 	{
 		GtkTextIter current_word_start;
 		GtkTextIter current_word_end;
@@ -520,9 +518,8 @@ recheck_all (GspellInlineCheckerTextBuffer *spell)
 	GtkTextIter end;
 
 	gtk_text_buffer_get_bounds (spell->buffer, &start, &end);
-
-	spell->check_current_word = TRUE;
 	add_subregion_to_scan (spell, &start, &end);
+
 	check_visible_region (spell);
 }
 
@@ -575,35 +572,30 @@ insert_text_after_cb (GtkTextBuffer                 *buffer,
 	add_subregion_to_scan (spell, &start, &end);
 
 	/* Check current word? */
-
-	/* If more than one character is inserted, it's probably not a normal
-	 * keypress, e.g. a clipboard paste or DND. So it's better to check the
-	 * current word in that case, to know ASAP if the word is correctly
-	 * spelled.
-	 * The same if e.g. a space or punctuation is inserted: in that case we
-	 * are not editing the current word. Maybe a word has been split in two,
-	 * in which case the word on the left will anyway be checked, so it's
-	 * better to know directly whether the word on the right is correctly
-	 * spelled as well, so we know if we need to edit it or not.
-	 * And if there is a selection, it means that the text was inserted
-	 * programmatically, so the user is not editing the current word
-	 * manually.
-	 */
-	if (n_chars > 1 ||
-	    !g_unichar_isalnum (g_utf8_get_char (text)) ||
-	    gtk_text_buffer_get_has_selection (buffer))
+	if (n_chars > 1)
 	{
-		spell->check_current_word = TRUE;
+		_gspell_current_word_policy_several_chars_inserted (spell->current_word_policy);
 	}
 	else
 	{
+		gunichar ch;
+		gboolean empty_selection;
 		GtkTextIter cursor_pos;
+		gboolean at_cursor_pos;
+
+		ch = g_utf8_get_char (text);
+		empty_selection = !gtk_text_buffer_get_has_selection (buffer);
 
 		gtk_text_buffer_get_iter_at_mark (buffer,
 						  &cursor_pos,
 						  gtk_text_buffer_get_insert (buffer));
 
-		spell->check_current_word = !gtk_text_iter_equal (location, &cursor_pos);
+		at_cursor_pos = gtk_text_iter_equal (location, &cursor_pos);
+
+		_gspell_current_word_policy_single_char_inserted (spell->current_word_policy,
+								  ch,
+								  empty_selection,
+								  at_cursor_pos);
 	}
 
 	install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
@@ -616,63 +608,55 @@ delete_range_before_cb (GtkTextBuffer                 *buffer,
 			GtkTextIter                   *end,
 			GspellInlineCheckerTextBuffer *spell)
 {
-	GtkTextIter start_adjusted;
-	GtkTextIter end_adjusted;
+	{
+		GtkTextIter start_adjusted;
+		GtkTextIter end_adjusted;
 
-	start_adjusted = *start;
-	end_adjusted = *end;
-	adjust_iters (&start_adjusted, &end_adjusted, ADJUST_MODE_INCLUDE_NEIGHBORS);
-	add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
+		start_adjusted = *start;
+		end_adjusted = *end;
+		adjust_iters (&start_adjusted, &end_adjusted, ADJUST_MODE_INCLUDE_NEIGHBORS);
+		add_subregion_to_scan (spell, &start_adjusted, &end_adjusted);
+	}
 
 	/* Check current word? */
-	if (gtk_text_buffer_get_has_selection (buffer) ||
-	    gtk_text_iter_get_line (start) != gtk_text_iter_get_line (end) ||
-	    (gtk_text_iter_get_line_offset (end) - gtk_text_iter_get_line_offset (start)) > 1)
 	{
-		spell->check_current_word = TRUE;
-	}
-	else
-	{
+		gboolean empty_selection;
+		gboolean spans_several_lines;
+		gboolean several_chars;
 		GtkTextIter cursor_pos;
-		gboolean is_backspace;
-		gboolean is_delete;
+		gboolean cursor_pos_at_start;
+		gboolean cursor_pos_at_end;
+		gboolean start_is_inside_word;
+		gboolean start_ends_word;
+		gboolean end_is_inside_word;
+		gboolean end_ends_word;
+
+		empty_selection = !gtk_text_buffer_get_has_selection (buffer);
+		spans_several_lines = gtk_text_iter_get_line (start) != gtk_text_iter_get_line (end);
+		several_chars = gtk_text_iter_get_offset (end) - gtk_text_iter_get_offset (start) > 1;
 
 		gtk_text_buffer_get_iter_at_mark (buffer,
 						  &cursor_pos,
 						  gtk_text_buffer_get_insert (buffer));
 
-		is_backspace = gtk_text_iter_equal (&cursor_pos, end);
-		is_delete = gtk_text_iter_equal (&cursor_pos, start);
+		cursor_pos_at_start = gtk_text_iter_equal (&cursor_pos, start);
+		cursor_pos_at_end = gtk_text_iter_equal (&cursor_pos, end);
 
-		if (is_backspace)
-		{
-			if (_gspell_text_iter_inside_word (start) ||
-			    _gspell_text_iter_ends_word (start))
-			{
-				spell->check_current_word = FALSE;
-			}
-			else
-			{
-				spell->check_current_word = TRUE;
-			}
-		}
-		else if (is_delete)
-		{
-			if (_gspell_text_iter_inside_word (end) ||
-			    _gspell_text_iter_ends_word (end))
-			{
-				spell->check_current_word = FALSE;
-			}
-			else
-			{
-				spell->check_current_word = TRUE;
-			}
-		}
-		/* Text deleted programmatically. */
-		else
-		{
-			spell->check_current_word = TRUE;
-		}
+		start_is_inside_word = _gspell_text_iter_inside_word (start);
+		start_ends_word = _gspell_text_iter_ends_word (start);
+		end_is_inside_word = _gspell_text_iter_inside_word (end);
+		end_ends_word = _gspell_text_iter_ends_word (end);
+
+		_gspell_current_word_policy_text_deleted (spell->current_word_policy,
+							  empty_selection,
+							  spans_several_lines,
+							  several_chars,
+							  cursor_pos_at_start,
+							  cursor_pos_at_end,
+							  start_is_inside_word,
+							  start_ends_word,
+							  end_is_inside_word,
+							  end_ends_word);
 	}
 }
 
@@ -703,7 +687,7 @@ mark_set_after_cb (GtkTextBuffer                 *buffer,
 {
 	if (mark == gtk_text_buffer_get_insert (buffer))
 	{
-		spell->check_current_word = TRUE;
+		_gspell_current_word_policy_cursor_moved (spell->current_word_policy);
 		install_timeout (spell, TIMEOUT_DURATION_BUFFER_MODIFIED);
 	}
 }
@@ -878,6 +862,7 @@ static void
 session_cleared_cb (GspellChecker                 *checker,
 		    GspellInlineCheckerTextBuffer *spell)
 {
+	_gspell_current_word_policy_session_cleared (spell->current_word_policy);
 	recheck_all (spell);
 }
 
@@ -886,6 +871,7 @@ language_notify_cb (GspellChecker                 *checker,
 		    GParamSpec                    *pspec,
 		    GspellInlineCheckerTextBuffer *spell)
 {
+	_gspell_current_word_policy_language_changed (spell->current_word_policy);
 	recheck_all (spell);
 }
 
@@ -964,6 +950,7 @@ tag_added_cb (GtkTextTagTable               *table,
 
 		spell->no_spell_check_tag = g_object_ref (tag);
 
+		_gspell_current_word_policy_set_check_current_word (spell->current_word_policy, TRUE);
 		recheck_all (spell);
 	}
 
@@ -980,6 +967,7 @@ tag_removed_cb (GtkTextTagTable               *table,
 	{
 		g_clear_object (&spell->no_spell_check_tag);
 
+		_gspell_current_word_policy_set_check_current_word (spell->current_word_policy, TRUE);
 		recheck_all (spell);
 	}
 }
@@ -1039,6 +1027,7 @@ spell_checker_notify_cb (GspellTextBuffer              *gspell_buffer,
 	new_checker = gspell_text_buffer_get_spell_checker (gspell_buffer);
 	set_spell_checker (spell, new_checker);
 
+	_gspell_current_word_policy_checker_changed (spell->current_word_policy);
 	recheck_all (spell);
 }
 
@@ -1224,6 +1213,7 @@ _gspell_inline_checker_text_buffer_dispose (GObject *object)
 	g_clear_object (&spell->highlight_tag);
 	g_clear_object (&spell->no_spell_check_tag);
 	g_clear_object (&spell->scan_region);
+	g_clear_object (&spell->current_word_policy);
 
 	g_slist_free (spell->views);
 	spell->views = NULL;
@@ -1262,7 +1252,7 @@ _gspell_inline_checker_text_buffer_class_init (GspellInlineCheckerTextBufferClas
 static void
 _gspell_inline_checker_text_buffer_init (GspellInlineCheckerTextBuffer *spell)
 {
-	spell->check_current_word = TRUE;
+	spell->current_word_policy = _gspell_current_word_policy_new ();
 }
 
 GspellInlineCheckerTextBuffer *
@@ -1320,7 +1310,7 @@ _gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *s
 
 	spell->views = g_slist_prepend (spell->views, view);
 
-	spell->check_current_word = TRUE;
+	_gspell_current_word_policy_set_check_current_word (spell->current_word_policy, TRUE);
 	check_visible_region_in_view (spell, view);
 }
 
