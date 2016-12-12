@@ -26,22 +26,22 @@
 # Rafael Fontenelle <rafael.f.f1@gmail.com>, 2012, 2013, 2014.
 # Enrico Nicoletto <liverig@gmail.com>, 2013, 2014, 2015, 2016.
 # Felipe Braga <fbobraga@gmail.com>, 2015.
-#
+# Rafael Fontenelle <rafaelff@gnome.org>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-16 13:17+0000\n"
-"PO-Revision-Date: 2016-05-30 17:25-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gspell&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-10-28 04:43+0000\n"
+"PO-Revision-Date: 2016-12-12 02:17-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
 "X-Project-Style: gnome\n"
 
 #: gspell/gspell-checker.c:403
@@ -55,7 +55,7 @@ msgstr "Ocorreu erro ao verificar a ortografia da palavra “%s”: %s"
 #.
 #. No suggestions. Put something in the menu anyway...
 #: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-inline-checker-text-buffer.c:841
 msgid "(no suggested words)"
 msgstr "(nenhuma palavra sugerida)"
 
@@ -83,24 +83,26 @@ msgstr "(ortografia correta)"
 msgid "Suggestions"
 msgstr "Sugestões"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
-msgid "_More..."
-msgstr "_Mais..."
+#: gspell/gspell-inline-checker-text-buffer.c:864
+#| msgid "_More..."
+msgid "_More…"
+msgstr "_Mais…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-inline-checker-text-buffer.c:904
 msgid "_Ignore All"
 msgstr "_Ignorar todos"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-inline-checker-text-buffer.c:913
 msgid "_Add"
 msgstr "_Adicionar"
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
-msgid "_Spelling Suggestions..."
-msgstr "_Sugestões de ortografia..."
+#: gspell/gspell-inline-checker-text-buffer.c:944
+#| msgid "_Spelling Suggestions..."
+msgid "_Spelling Suggestions…"
+msgstr "_Sugestões de ortografia…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:253
@@ -123,15 +125,18 @@ msgid "No language selected"
 msgstr "Nenhum idioma selecionado"
 
 #: gspell/gspell-navigator-text-view.c:307
+#| msgid ""
+#| "Spell checker error: no language set. It's maybe because no dictionaries "
+#| "are installed."
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Erro de verificação ortográfica: nenhum idioma definido. Talvez devido a "
 "nenhum dicionário estar instalado."
 
 #. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
+#: gspell/gspell-text-view.c:265
 msgid "_Language"
 msgstr "Idi_oma"
 
