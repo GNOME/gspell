@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.64)
 
 # Package version of the form 'major.minor.micro'.
-m4_define(gspell_package_version, 1.2.2)
+m4_define(gspell_package_version, 1.2.3)
 
 AC_INIT([gspell],
 	[gspell_package_version],
