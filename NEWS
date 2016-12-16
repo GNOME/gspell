@@ -1,5 +1,5 @@
-News in 1.3.1
--------------
+News in 1.3.1, 2016-12-11
+-------------------------
 This is an unstable release in the 1.3 development cycle. The 1.4 stable
 version will be released at the same time as GNOME 3.24.
 
@@ -7,16 +7,16 @@ version will be released at the same time as GNOME 3.24.
 * GtkTextView support: fix populate-popup signal param type
 * Translation updates
 
-News in 1.2.1
--------------
+News in 1.2.1, 2016-11-06
+-------------------------
 * Add Croatian translation
 
-News in 1.2.0
--------------
+News in 1.2.0, 2016-09-18
+-------------------------
 * Translation updates
 
-News in 1.1.3
--------------
+News in 1.1.3, 2016-08-14
+-------------------------
 This is an unstable release in the 1.1 development cycle. The 1.2 stable
 version will be released at the same time as GNOME 3.22.
 
@@ -26,8 +26,8 @@ version will be released at the same time as GNOME 3.22.
 * Use the AX_VALGRIND_CHECK Autotools macro
 * Translation updates
 
-News in 1.1.2
--------------
+News in 1.1.2, 2016-07-17
+-------------------------
 This is an unstable release in the 1.1 development cycle. The 1.2 stable
 version will be released at the same time as GNOME 3.22.
 
@@ -36,8 +36,8 @@ version will be released at the same time as GNOME 3.22.
 * Generate enum types
 * Translation updates
 
-News in 1.1.1
--------------
+News in 1.1.1, 2016-05-22
+-------------------------
 This is an unstable release in the 1.1 development cycle. The 1.2 stable
 version will be released at the same time as GNOME 3.22.
 
@@ -48,37 +48,37 @@ version will be released at the same time as GNOME 3.22.
   GtkSourceView library)
 * Translation updates
 
-News in 1.0.3
--------------
+News in 1.0.3, 2016-07-09
+-------------------------
 * Inline checker: fix constant redrawing of the GtkTextView when the current
   word is not checked.
 * Added Indonesian translation
 
-News in 1.0.2
--------------
+News in 1.0.2, 2016-06-10
+-------------------------
 * Fix gtk-doc build issue
 * Translation update
 
-News in 1.0.1
--------------
+News in 1.0.1, 2016-04-10
+-------------------------
 * Fix build on win32
 * Translation updates
 
-News in 1.0.0
--------------
+News in 1.0.0, 2016-03-20
+-------------------------
 * The API is now stable. Future 1.x stable versions will be backward compatible
   with the 1.0 version.
 * Translation updates
 
-News in 0.2.6
--------------
+News in 0.2.6, 2016-03-13
+-------------------------
 * Fix builddir != srcdir issue (it occurred only in Git, not in tarballs
   normally)
 * Install tests in <...>/installed-tests/gspell-1/ instead of gspell/, to
   follow the parallel installability convention.
 
-News in 0.2.5
--------------
+News in 0.2.5, 2016-03-13
+-------------------------
 * Inline checker: improve current word handling
 * Support words with apostrophes, like "doesn't"
 * Write more unit tests
@@ -92,8 +92,8 @@ API changes:
 * Rename GspellInlineCheckerTextView -> GspellTextView
 * The GspellNavigator interface now requires GInitiallyUnowned instead of GObject
 
-News in 0.2.4
--------------
+News in 0.2.4, 2016-02-15
+-------------------------
 * Fix compilation on Mac OS X
 * Write the first unit tests
 * Inline checker for GtkTextView:
@@ -108,8 +108,8 @@ API changes:
 * Rename the GspellNavigatorText class to GspellNavigatorTextView
 to have more intelligible names.
 
-News in 0.2.3
--------------
+News in 0.2.3, 2016-01-17
+-------------------------
 * GspellLanguage: code improvements, write API documentation and add
   get_default() function
 * Add gspell_text_buffer_set/get_spell_checker() functions
@@ -124,8 +124,8 @@ News in 0.2.3
 * Other code and documentation improvements
 * Translation updates
 
-News in 0.2.2
--------------
+News in 0.2.2, 2015-12-13
+-------------------------
 * Relicense gspell from GPLv2+ to LGPLv2.1+
 * Get rid of the libxml2 and GtkSourceView dependencies
 * Replace the GspellLanguage implementation by the GtkHtml one to get rid of
@@ -143,27 +143,27 @@ API changes:
 	- ::add-word-to-session -> ::word-added-to-session
 	- ::clear-session -> ::session-cleared
 
-News in 0.2.1
--------------
+News in 0.2.1, 2015-11-23
+-------------------------
 * Allow only <gspell/gspell.h> to be #included directly
 * Make GspellCheckerDialog derivable
 * Make GspellLanguageChooserDialog derivable
 * Add a GtkDialogFlags parameter to gspell_language_chooser_dialog_new()
 * Add string length parameters to GspellChecker functions
 
-News in 0.1.2
--------------
+News in 0.1.2, 2015-11-19
+-------------------------
 * gspell has now a bugzilla product on gnome.org
 * GTK-Doc: rename DOC_MODULE to gspell-1.0, to make the API reference available
   online at: https://developer.gnome.org/references
 
-News in 0.1.1
--------------
+News in 0.1.1, 2015-11-08
+-------------------------
 * Update URLs github -> gnome.org
 * Translation updates
 
-News in 0.1.0
--------------
+News in 0.1.0, 2015-09-30
+-------------------------
 This is the first version, but the code comes from the gedit spell plugin, it
 was not implemented from scratch.
 
