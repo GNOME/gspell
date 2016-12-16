@@ -7,6 +7,10 @@ version will be released at the same time as GNOME 3.24.
 * GtkTextView support: fix populate-popup signal param type
 * Translation updates
 
+News in 1.2.1
+-------------
+* Add Croatian translation
+
 News in 1.2.0
 -------------
 * Translation updates
@@ -43,6 +47,17 @@ version will be released at the same time as GNOME 3.22.
 * Update GtkTextRegion -> GtkSourceRegion (utility class copied from the
   GtkSourceView library)
 * Translation updates
+
+News in 1.0.3
+-------------
+* Inline checker: fix constant redrawing of the GtkTextView when the current
+  word is not checked.
+* Added Indonesian translation
+
+News in 1.0.2
+-------------
+* Fix gtk-doc build issue
+* Translation update
 
 News in 1.0.1
 -------------
