@@ -40,6 +40,17 @@ version will be released at the same time as GNOME 3.22.
 * Generate enum types
 * Translation updates
 
+News in 1.0.3, 2016-07-09
+-------------------------
+* Inline checker: fix constant redrawing of the GtkTextView when the current
+  word is not checked.
+* Added Indonesian translation
+
+News in 1.0.2, 2016-06-10
+-------------------------
+* Fix gtk-doc build issue
+* Translation update
+
 News in 1.1.1, 2016-05-22
 -------------------------
 This is an unstable release in the 1.1 development cycle. The 1.2 stable
@@ -51,17 +62,6 @@ version will be released at the same time as GNOME 3.22.
 * Update GtkTextRegion -> GtkSourceRegion (utility class copied from the
   GtkSourceView library)
 * Translation updates
-
-News in 1.0.3, 2016-07-09
--------------------------
-* Inline checker: fix constant redrawing of the GtkTextView when the current
-  word is not checked.
-* Added Indonesian translation
-
-News in 1.0.2, 2016-06-10
--------------------------
-* Fix gtk-doc build issue
-* Translation update
 
 News in 1.0.1, 2016-04-10
 -------------------------
