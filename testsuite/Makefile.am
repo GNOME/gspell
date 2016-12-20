@@ -55,7 +55,7 @@ insttest_PROGRAMS = $(UNIT_TEST_PROGS)
 
 test_files = $(UNIT_TEST_PROGS:=.test)
 
-DISTCLEANFILES = $(test_files)
+CLEANFILES = $(test_files)
 
 testmetadir = $(datadir)/installed-tests/$(PACKAGE)-@GSPELL_API_VERSION@
 testmeta_DATA = $(test_files)
