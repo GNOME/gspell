@@ -224,7 +224,10 @@ AC_OUTPUT
 echo "
 Configuration:
 
+	${PACKAGE_NAME} version ${PACKAGE_VERSION}
+
 	Source code location:	${srcdir}
+	Prefix:			${prefix}
 	Compiler:		${CC}
 	Documentation:		${enable_gtk_doc}
 	GObject introspection:	${found_introspection}
