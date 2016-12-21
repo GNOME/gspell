@@ -40,6 +40,9 @@
  * the apostrophe. The implementation would be slightly more complicated, since
  * a function behavior depends on the other side of the word.
  *
+ * When doing changes to the algo here, it should be reflected for the GtkEntry
+ * support as well, to have a consistent behavior.
+ *
  * If the following Pango bug is fixed, the gtk_text_iter_* functions can maybe
  * be used directly.
  * FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=97545
