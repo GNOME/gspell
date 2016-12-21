@@ -23,7 +23,7 @@
 /* The same functions as the gtk_text_iter_* equivalents, but take into account:
  * - Word contractions with an apostrophe. For example "doesn't", which is a
  *   contraction of the two words "does not".
- * - Componds with words separated by dashes. For example "spell-checking".
+ * - Compounds with words separated by dashes. For example "spell-checking".
  *
  * When to include an apostrophe or a dash in a word? The heuristic is that the
  * apostrophe must be surrounded by a pango-defined word on *each* side of the
