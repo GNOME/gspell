@@ -51,6 +51,9 @@ gboolean	_gspell_utils_str_to_ascii_apostrophe	(const gchar  *word,
 							 gssize        word_length,
 							 gchar       **result);
 
+G_GNUC_INTERNAL
+gboolean	_gspell_utils_is_apostrophe_or_dash	(gunichar ch);
+
 G_END_DECLS
 
 #endif /* GSPELL_UTILS_H */

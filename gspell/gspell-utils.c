@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2010 - Jesse van den Kieboom
- * Copyright 2015 - Sébastien Wilmet
+ * Copyright 2015, 2016 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -191,6 +191,15 @@ _gspell_utils_str_to_ascii_apostrophe (const gchar  *word,
 
 	g_free (word_to_free);
 	return TRUE;
+}
+
+gboolean
+_gspell_utils_is_apostrophe_or_dash (gunichar ch)
+{
+	return (ch == '-' ||
+		ch == '\'' ||
+		ch == _GSPELL_MODIFIER_LETTER_APOSTROPHE ||
+		ch == _GSPELL_RIGHT_SINGLE_QUOTATION_MARK);
 }
 
 /* ex:set ts=8 noet: */

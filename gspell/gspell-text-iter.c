@@ -53,10 +53,7 @@ is_apostrophe_or_dash (const GtkTextIter *iter)
 
 	ch = gtk_text_iter_get_char (iter);
 
-	return (ch == '-' ||
-		ch == '\'' ||
-		ch == _GSPELL_MODIFIER_LETTER_APOSTROPHE ||
-		ch == _GSPELL_RIGHT_SINGLE_QUOTATION_MARK);
+	return _gspell_utils_is_apostrophe_or_dash (ch);
 }
 
 gboolean
