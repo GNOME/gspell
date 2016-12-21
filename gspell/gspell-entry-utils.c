@@ -19,6 +19,7 @@
 
 #include "gspell-entry-utils.h"
 #include <string.h>
+#include "gspell-utils.h"
 
 GspellEntryWord *
 _gspell_entry_word_new (void)
@@ -38,6 +39,58 @@ _gspell_entry_word_free (gpointer data)
 	}
 }
 
+static void
+improve_word_boundaries (const gchar  *text,
+			 PangoLogAttr *log_attrs,
+			 gint          n_attrs)
+{
+	const gchar *cur_text_pos;
+	gint attr_num;
+
+	attr_num = 0;
+	cur_text_pos = text;
+
+	while (attr_num < n_attrs)
+	{
+		PangoLogAttr *log_attr_before;
+		gunichar ch;
+		PangoLogAttr *log_attr_after;
+
+		if (cur_text_pos == NULL ||
+		    *cur_text_pos == '\0')
+		{
+			if (attr_num != n_attrs - 1)
+			{
+				g_warning ("%s(): problem in loop iteration, attr_num=%d but should be %d.",
+					   G_STRFUNC,
+					   attr_num,
+					   n_attrs - 1);
+			}
+
+			break;
+		}
+
+		g_assert_cmpint (attr_num + 1, <, n_attrs);
+
+		/* ch is between log_attr_before and log_attr_after. */
+		log_attr_before = log_attrs + attr_num;
+		ch = g_utf8_get_char (cur_text_pos);
+		log_attr_after = log_attr_before + 1;
+
+		/* Same algo as in gspell-text-iter.c. */
+		if (_gspell_utils_is_apostrophe_or_dash (ch) &&
+		    log_attr_before->is_word_end &&
+		    log_attr_after->is_word_start)
+		{
+			log_attr_before->is_word_end = FALSE;
+			log_attr_after->is_word_start = FALSE;
+		}
+
+		attr_num++;
+		cur_text_pos = g_utf8_find_next_char (cur_text_pos, NULL);
+	}
+}
+
 /* Without the preedit string.
  * Free @log_attrs with g_free().
  */
@@ -47,21 +100,25 @@ get_pango_log_attrs (GtkEntry      *entry,
 		     gint          *n_attrs)
 {
 	GtkEntryBuffer *buffer;
+	const gchar *text;
 
 	g_assert (log_attrs != NULL);
 	g_assert (n_attrs != NULL);
 
 	buffer = gtk_entry_get_buffer (entry);
+	text = gtk_entry_buffer_get_text (buffer);
 
 	*n_attrs = gtk_entry_buffer_get_length (buffer) + 1;
 	*log_attrs = g_new0 (PangoLogAttr, *n_attrs);
 
-	pango_get_log_attrs (gtk_entry_buffer_get_text (buffer),
+	pango_get_log_attrs (text,
 			     gtk_entry_buffer_get_bytes (buffer),
 			     -1,
 			     NULL,
 			     *log_attrs,
 			     *n_attrs);
+
+	improve_word_boundaries (text, *log_attrs, *n_attrs);
 }
 
 /* Returns: (transfer full) (element-type GspellEntryWord): the list of words in

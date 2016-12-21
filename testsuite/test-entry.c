@@ -191,6 +191,46 @@ test_get_words (void)
 	free_word_list (expected_list);
 	free_word_list (received_list);
 
+	/* One apostrophe */
+	gtk_entry_set_text (entry, "doesn't");
+	expected_list = add_word_full (NULL, "doesn't", 0, 7, 0, 7);
+	received_list = _gspell_entry_utils_get_words (entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+	free_word_list (received_list);
+
+	/* Several apostrophes */
+	gtk_entry_set_text (entry, "rock'n'roll");
+	expected_list = add_word_full (NULL, "rock'n'roll", 0, 11, 0, 11);
+	received_list = _gspell_entry_utils_get_words (entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+	free_word_list (received_list);
+
+	/* Apostrophe at end of word. Not yet supported. */
+	gtk_entry_set_text (entry, "doin'");
+	expected_list = add_word_full (NULL, "doin", 0, 4, 0, 4);
+	received_list = _gspell_entry_utils_get_words (entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+	free_word_list (received_list);
+
+	/* Apostrophe at beginning of word. Not yet supported. */
+	gtk_entry_set_text (entry, "'til");
+	expected_list = add_word_full (NULL, "til", 1, 4, 1, 4);
+	received_list = _gspell_entry_utils_get_words (entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+	free_word_list (received_list);
+
+	/* Dash */
+	gtk_entry_set_text (entry, "spell-checking");
+	expected_list = add_word_full (NULL, "spell-checking", 0, 14, 0, 14);
+	received_list = _gspell_entry_utils_get_words (entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+	free_word_list (received_list);
+
 	g_object_unref (entry);
 }
 
