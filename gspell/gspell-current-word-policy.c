@@ -182,8 +182,15 @@ _gspell_current_word_policy_single_char_inserted (GspellCurrentWordPolicy *polic
 	}
 }
 
-/* Before a text deletion. "start" refers to the start of the deletion. "end"
- * refers to the end of the deletion.
+/* Before a text deletion.
+ *
+ * "start" refers to the start of the deletion.
+ * "end" refers to the end of the deletion.
+ * It is assumed that start < end.
+ *
+ * "inside word" and "ends word" have the same semantics as
+ * gtk_text_iter_inside_word() and gtk_text_iter_ends_word(), but custom word
+ * boundaries can be used.
  */
 void
 _gspell_current_word_policy_text_deleted (GspellCurrentWordPolicy *policy,
