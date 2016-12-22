@@ -459,6 +459,39 @@ test_language_change (void)
 	g_object_unref (checker);
 }
 
+static void
+test_password_mode (void)
+{
+	GtkEntry *gtk_entry;
+	GspellEntry *gspell_entry;
+	GSList *expected_list;
+	const GSList *received_list;
+
+	gtk_entry = create_entry ();
+	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
+
+	g_assert (gtk_entry_get_visibility (gtk_entry));
+
+	gtk_entry_set_text (gtk_entry, "auienrst");
+	expected_list = add_word (NULL, "auienrst", 0, 8);
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+
+	gtk_entry_set_visibility (gtk_entry, FALSE);
+	expected_list = NULL;
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+
+	gtk_entry_set_visibility (gtk_entry, TRUE);
+	expected_list = add_word (NULL, "auienrst", 0, 8);
+	received_list = _gspell_entry_get_misspelled_words (gspell_entry);
+	check_entry_word_list_equal (expected_list, received_list);
+	free_word_list (expected_list);
+
+	g_object_unref (gtk_entry);
+}
+
 gint
 main (gint    argc,
       gchar **argv)
@@ -471,6 +504,7 @@ main (gint    argc,
 	g_test_add_func ("/entry/buffer-change", test_buffer_change);
 	g_test_add_func ("/entry/spell-checker-change", test_spell_checker_change);
 	g_test_add_func ("/entry/language-change", test_language_change);
+	g_test_add_func ("/entry/password-mode", test_password_mode);
 
 	return g_test_run ();
 }
