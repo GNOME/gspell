@@ -35,12 +35,16 @@
  * @Title: GspellChecker
  * @See_also: #GspellLanguage
  *
- * #GspellChecker is a spell checker. It is a wrapper around the Enchant
- * library, to have an API based on #GObject.
+ * #GspellChecker is a spell checker.
  *
  * If the #GspellChecker:language property is %NULL, it means that no
  * dictonaries are available, in which case the #GspellChecker is in a
  * “disabled” (but allowed) state.
+ */
+
+/* Enchant is currently used under the hood, but it is an implementation detail,
+ * it is *NOT* part of the gspell API. A future gspell version can be based on
+ * another library (e.g. using directly hunspell).
  */
 
 typedef struct _GspellCheckerPrivate GspellCheckerPrivate;
