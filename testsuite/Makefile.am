@@ -18,8 +18,7 @@ AM_CPPFLAGS = 			\
 
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
-LDADD = $(top_builddir)/gspell/libgspell-core.la	\
-	$(DEP_LIBS)
+LDADD = $(top_builddir)/gspell/libgspell-core.la
 
 UNIT_TEST_PROGS =
 
