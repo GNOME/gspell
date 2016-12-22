@@ -88,6 +88,19 @@ G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
 static gboolean
 inline_spell_checking_is_enabled (GspellEntry *gspell_entry)
 {
+	/* The GtkEntry:input-purpose and/or GtkEntry:input-hints could be taken
+	 * into account here, but it is not the case. There is already the
+	 * GspellEntry:inline-spell-checking property, which needs to be FALSE
+	 * by default. If it was TRUE by default, an application would just need
+	 * to call gspell_entry_get_from_gtk_entry(), but it would be strange to
+	 * do nothing with the returned GspellEntry. So inline-spell-checking is
+	 * FALSE by default and the application anyway needs to set it to TRUE
+	 * manually to enable the *inline* spell checking (a GtkEntry could have
+	 * other types of spell checking, for example based on GspellNavigator
+	 * to check an entire form or check a list of forms, even though such
+	 * feature is probably rare).
+	 */
+
 	return (gspell_entry->inline_spell_checking &&
 		gtk_entry_get_visibility (gspell_entry->entry));
 }
