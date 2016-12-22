@@ -88,6 +88,7 @@ create_sidebar (TestSpell *spell)
 	GtkWidget *vgrid;
 	GtkWidget *enable_toggle_button;
 	GtkWidget *bold_toggle_button;
+	GtkWidget *password_toggle_button;
 
 	vgrid = gtk_grid_new ();
 	gtk_grid_set_row_spacing (GTK_GRID (vgrid), 6);
@@ -109,6 +110,15 @@ create_sidebar (TestSpell *spell)
 			  "toggled",
 			  G_CALLBACK (bold_toggled_cb),
 			  spell);
+
+	password_toggle_button = gtk_toggle_button_new_with_label ("Password mode");
+	gtk_container_add (GTK_CONTAINER (vgrid), password_toggle_button);
+
+	g_object_bind_property (spell->entry, "visibility",
+				password_toggle_button, "active",
+				G_BINDING_BIDIRECTIONAL |
+				G_BINDING_SYNC_CREATE |
+				G_BINDING_INVERT_BOOLEAN);
 
 	gtk_widget_show_all (vgrid);
 
