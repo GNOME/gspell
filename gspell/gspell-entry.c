@@ -82,21 +82,6 @@ enum
 
 G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
 
-static GspellChecker *
-get_checker (GspellEntry *gspell_entry)
-{
-	GspellEntryBuffer *gspell_buffer;
-
-	if (gspell_entry->buffer == NULL)
-	{
-		return NULL;
-	}
-
-	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gspell_entry->buffer);
-
-	return gspell_entry_buffer_get_spell_checker (gspell_buffer);
-}
-
 static void
 set_attributes (GspellEntry   *gspell_entry,
 		PangoAttrList *attributes)
@@ -188,7 +173,6 @@ insert_underline (GspellEntry *gspell_entry,
 static void
 update_misspelled_words_list (GspellEntry *gspell_entry)
 {
-	GspellChecker *checker;
 	GSList *all_words;
 
 	g_slist_free_full (gspell_entry->misspelled_words, _gspell_entry_word_free);
@@ -199,9 +183,8 @@ update_misspelled_words_list (GspellEntry *gspell_entry)
 		return;
 	}
 
-	checker = get_checker (gspell_entry);
-	if (checker == NULL ||
-	    gspell_checker_get_language (checker) == NULL)
+	if (gspell_entry->checker == NULL ||
+	    gspell_checker_get_language (gspell_entry->checker) == NULL)
 	{
 		return;
 	}
@@ -214,7 +197,7 @@ update_misspelled_words_list (GspellEntry *gspell_entry)
 		gboolean correctly_spelled;
 		GError *error = NULL;
 
-		correctly_spelled = gspell_checker_check_word (checker,
+		correctly_spelled = gspell_checker_check_word (gspell_entry->checker,
 							       cur_word->word_str, -1,
 							       &error);
 
@@ -416,7 +399,17 @@ set_checker (GspellEntry   *gspell_entry,
 static void
 update_checker (GspellEntry *gspell_entry)
 {
-	set_checker (gspell_entry, get_checker (gspell_entry));
+	GspellChecker *checker = NULL;
+
+	if (gspell_entry->buffer != NULL)
+	{
+		GspellEntryBuffer *gspell_buffer;
+
+		gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gspell_entry->buffer);
+		checker = gspell_entry_buffer_get_spell_checker (gspell_buffer);
+	}
+
+	set_checker (gspell_entry, checker);
 }
 
 static void
@@ -590,16 +583,14 @@ language_activated_cb (const GspellLanguage *lang,
 		       gpointer              user_data)
 {
 	GspellEntry *gspell_entry;
-	GspellChecker *checker;
 
 	g_return_if_fail (GSPELL_IS_ENTRY (user_data));
 
 	gspell_entry = GSPELL_ENTRY (user_data);
 
-	checker = get_checker (gspell_entry);
-	if (checker != NULL)
+	if (gspell_entry->checker != NULL)
 	{
-		gspell_checker_set_language (checker, lang);
+		gspell_checker_set_language (gspell_entry->checker, lang);
 	}
 }
 
@@ -642,7 +633,6 @@ populate_popup_cb (GtkEntry    *gtk_entry,
 	GtkWidget *menu_item;
 	GtkMenuItem *lang_menu_item;
 	GtkMenuItem *suggestions_menu_item;
-	GspellChecker *checker;
 	const GspellLanguage *current_language;
 	GspellEntryWord *word;
 	gboolean correctly_spelled;
@@ -660,8 +650,7 @@ populate_popup_cb (GtkEntry    *gtk_entry,
 		return;
 	}
 
-	checker = get_checker (gspell_entry);
-	if (checker == NULL)
+	if (gspell_entry->checker == NULL)
 	{
 		return;
 	}
@@ -672,7 +661,7 @@ populate_popup_cb (GtkEntry    *gtk_entry,
 	gtk_widget_show (menu_item);
 
 	/* Prepend language sub-menu */
-	current_language = gspell_checker_get_language (checker);
+	current_language = gspell_checker_get_language (gspell_entry->checker);
 	lang_menu_item = _gspell_context_menu_get_language_menu_item (current_language,
 								      language_activated_cb,
 								      gspell_entry);
@@ -688,7 +677,7 @@ populate_popup_cb (GtkEntry    *gtk_entry,
 		return;
 	}
 
-	correctly_spelled = gspell_checker_check_word (checker,
+	correctly_spelled = gspell_checker_check_word (gspell_entry->checker,
 						       word->word_str, -1,
 						       &error);
 
@@ -702,7 +691,7 @@ populate_popup_cb (GtkEntry    *gtk_entry,
 
 	if (!correctly_spelled)
 	{
-		suggestions_menu_item = _gspell_context_menu_get_suggestions_menu_item (checker,
+		suggestions_menu_item = _gspell_context_menu_get_suggestions_menu_item (gspell_entry->checker,
 											word->word_str,
 											suggestion_activated_cb,
 											gspell_entry);
