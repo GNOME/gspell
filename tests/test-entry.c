@@ -94,7 +94,7 @@ create_sidebar (TestSpell *spell)
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (vgrid),
 					GTK_ORIENTATION_VERTICAL);
 
-	enable_toggle_button = gtk_toggle_button_new_with_label ("Enable");
+	enable_toggle_button = gtk_toggle_button_new_with_label ("Enable spell-checking");
 	gtk_container_add (GTK_CONTAINER (vgrid), enable_toggle_button);
 
 	gspell_entry = gspell_entry_get_from_gtk_entry (spell->entry);
@@ -102,7 +102,7 @@ create_sidebar (TestSpell *spell)
 				enable_toggle_button, "active",
 				G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-	bold_toggle_button = gtk_toggle_button_new_with_label ("Bold");
+	bold_toggle_button = gtk_toggle_button_new_with_label ("Text in bold");
 	gtk_container_add (GTK_CONTAINER (vgrid), bold_toggle_button);
 
 	g_signal_connect (bold_toggle_button,
