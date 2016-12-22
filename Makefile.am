@@ -9,18 +9,11 @@ DISTCLEANFILES = $(pkgconfig_DATA)
 EXTRA_DIST = gspell.pc.in
 
 MAINTAINERCLEANFILES = \
-	ABOUT-NLS \
-	aclocal.m4 \
-	compile \
-	config.guess \
-	config.h.in \
-	config.rpath \
-	config.sub \
-	depcomp \
+	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL) \
 	gtk-doc.make \
 	INSTALL \
-	install-sh \
-	ltmain.sh \
 	m4/ax_append_compile_flags.m4 \
 	m4/ax_append_flag.m4 \
 	m4/ax_append_link_flags.m4 \
@@ -55,13 +48,8 @@ MAINTAINERCLEANFILES = \
 	m4/lib-ld.m4 \
 	m4/lib-link.m4 \
 	m4/lib-prefix.m4 \
-	m4/libtool.m4 \
 	m4/lock.m4 \
 	m4/longlong.m4 \
-	m4/lt~obsolete.m4 \
-	m4/ltoptions.m4 \
-	m4/ltsugar.m4 \
-	m4/ltversion.m4 \
 	m4/nls.m4 \
 	m4/pkg.m4 \
 	m4/po.m4 \
@@ -74,8 +62,6 @@ MAINTAINERCLEANFILES = \
 	m4/visibility.m4 \
 	m4/wchar_t.m4 \
 	m4/wint_t.m4 \
-	m4/xsize.m4 \
-	missing \
-	test-driver
+	m4/xsize.m4
 
 -include $(top_srcdir)/git.mk
