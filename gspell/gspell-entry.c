@@ -82,6 +82,20 @@ enum
 
 G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
 
+/* This function should be called instead of accessing the inline_spell_checking
+ * attribute.
+ */
+static gboolean
+inline_spell_checking_is_enabled (GspellEntry *gspell_entry)
+{
+	if (!gspell_entry->inline_spell_checking)
+	{
+		return FALSE;
+	}
+
+	return gtk_entry_get_visibility (gspell_entry->entry);
+}
+
 static void
 set_attributes (GspellEntry   *gspell_entry,
 		PangoAttrList *attributes)
@@ -178,7 +192,7 @@ update_misspelled_words_list (GspellEntry *gspell_entry)
 	g_slist_free_full (gspell_entry->misspelled_words, _gspell_entry_word_free);
 	gspell_entry->misspelled_words = NULL;
 
-	if (!gspell_entry->inline_spell_checking)
+	if (!inline_spell_checking_is_enabled (gspell_entry))
 	{
 		return;
 	}
@@ -645,7 +659,7 @@ populate_popup_cb (GtkEntry    *gtk_entry,
 
 	menu = GTK_MENU (popup);
 
-	if (!gspell_entry->inline_spell_checking)
+	if (!inline_spell_checking_is_enabled (gspell_entry))
 	{
 		return;
 	}
@@ -891,6 +905,11 @@ set_entry (GspellEntry *gspell_entry,
 			  G_CALLBACK (delete_text_before_cb),
 			  gspell_entry);
 
+	g_signal_connect_swapped (gtk_entry,
+				  "notify::visibility",
+				  G_CALLBACK (emit_changed_signal),
+				  gspell_entry);
+
 	update_buffer (gspell_entry);
 
 	g_object_notify (G_OBJECT (gspell_entry), "entry");
@@ -1004,6 +1023,10 @@ gspell_entry_class_init (GspellEntryClass *klass)
 	 * GspellEntry:inline-spell-checking:
 	 *
 	 * Whether the inline spell checking is enabled.
+	 *
+	 * Even if this property is %TRUE, #GspellEntry disables internally the
+	 * inline spell checking in case the #GtkEntry:visibility property is
+	 * %FALSE.
 	 *
 	 * Since: 1.4
 	 */
@@ -1133,7 +1156,7 @@ gspell_entry_get_entry (GspellEntry *gspell_entry)
  * gspell_entry_get_inline_spell_checking:
  * @gspell_entry: a #GspellEntry.
  *
- * Returns: whether the inline spell checking is enabled.
+ * Returns: the value of the #GspellEntry:inline-spell-checking property.
  * Since: 1.4
  */
 gboolean
@@ -1149,7 +1172,7 @@ gspell_entry_get_inline_spell_checking (GspellEntry *gspell_entry)
  * @gspell_entry: a #GspellEntry.
  * @enable: the new state.
  *
- * Enables or disables the inline spell checking.
+ * Sets the #GspellEntry:inline-spell-checking property.
  *
  * Since: 1.4
  */
