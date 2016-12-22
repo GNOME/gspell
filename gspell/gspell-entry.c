@@ -88,12 +88,8 @@ G_DEFINE_TYPE (GspellEntry, gspell_entry, G_TYPE_OBJECT)
 static gboolean
 inline_spell_checking_is_enabled (GspellEntry *gspell_entry)
 {
-	if (!gspell_entry->inline_spell_checking)
-	{
-		return FALSE;
-	}
-
-	return gtk_entry_get_visibility (gspell_entry->entry);
+	return (gspell_entry->inline_spell_checking &&
+		gtk_entry_get_visibility (gspell_entry->entry));
 }
 
 static void
