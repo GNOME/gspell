@@ -99,6 +99,19 @@ inline_spell_checking_is_enabled (GspellEntry *gspell_entry)
 	 * other types of spell checking, for example based on GspellNavigator
 	 * to check an entire form or check a list of forms, even though such
 	 * feature is probably rare).
+	 *
+	 * In other words, it might be desirable to set
+	 * GTK_INPUT_HINT_SPELLCHECK but keeping the inline spell checking of
+	 * GspellEntry disabled. But when the inline spell checker of
+	 * GspellEntry is enabled, it is normally always desirable to set
+	 * GTK_INPUT_HINT_SPELLCHECK, which can be seen as duplicated state, but
+	 * it is not, because if the GspellEntry:inline-spell-checking property
+	 * is removed, another boolean property would be needed to tell
+	 * GspellEntry whether it needs to bind the input-hints settings to its
+	 * inline spell checker.
+	 *
+	 * Anyway, the mere fact of calling gspell_entry_get_from_gtk_entry()
+	 * should not have unexpected side effects.
 	 */
 
 	return (gspell_entry->inline_spell_checking &&
