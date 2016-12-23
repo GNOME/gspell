@@ -911,11 +911,22 @@ set_entry (GspellEntry *gspell_entry,
 				G_CALLBACK (populate_popup_cb),
 				gspell_entry);
 
-	/* Connecting to notify::cursor-position is not suitable because we have
+	/* What we want here is to be notified when the cursor moved, but _not_
+	 * when the cursor moved because of a text insertion/deletion. To call
+	 * _gspell_current_word_policy_cursor_moved().
+	 *
+	 * Connecting to notify::cursor-position is not suitable because we have
 	 * notifications also when text is inserted/deleted. And we get the
 	 * notification *after* the GtkEditable::insert-text signal (not
-	 * *during* its emission). So it's simpler to connect to ::move-cursor,
-	 * even if it is not recommended.
+	 * *during* its emission). So it seems that the only simple solution is
+	 * to connect to ::move-cursor, even if its documentation doesn't
+	 * recommend that (normally, it should be used only to emit the signal).
+	 *
+	 * Note that _gspell_current_word_policy_cursor_moved() is also called
+	 * in button_press_event_cb().
+	 *
+	 * The GtkEntry API is not really convenient, if you find a better
+	 * solution, or if you improve the GtkEntry API...
 	 */
 	g_signal_connect_swapped (gtk_entry,
 				  "move-cursor",
