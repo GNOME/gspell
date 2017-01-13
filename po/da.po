@@ -1,5 +1,5 @@
 # Danish translations of gspell.
-# Copyright (C) 1999-2015 Free Software Foundation, Inc.
+# Copyright (C) 1999-2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gspell package.
 #
 # Husk at tilføje dig i credit-listen (besked id "translator_credits")
@@ -18,133 +18,160 @@
 # M.P. Rommedahl <lhademmor@gmail.com>, 2008
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2006-2007, 2009, 2011-2012, 2014.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2007, 09, 10, 11, 13, 15.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell.gnome-2-16\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-09-11 15:36+0100\n"
-"Last-Translator: Kenneth Nielsen <k.nielsen81@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-10-28 04:43+0000\n"
+"PO-Revision-Date: 2017-01-13 19:29+0100\n"
+"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:403
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Fejl ved kontrol af stavning af ordet “%s”: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:147
+#: gspell/gspell-inline-checker-text-buffer.c:841
 msgid "(no suggested words)"
 msgstr "(ingen foreslåede ord)"
 
-#: gspell/gspell-checker-dialog.c:237
+#: gspell/gspell-checker-dialog.c:232
 msgid "Error:"
 msgstr "Fejl:"
 
-#: gspell/gspell-checker-dialog.c:274
+#: gspell/gspell-checker-dialog.c:268
 msgid "Completed spell checking"
 msgstr "Stavekontrol færdig"
 
-#: gspell/gspell-checker-dialog.c:278
+#: gspell/gspell-checker-dialog.c:272
 msgid "No misspelled words"
 msgstr "Ingen forkert stavede ord"
 
-#: gspell/gspell-checker-dialog.c:507
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:499
 msgid "(correct spelling)"
 msgstr "(korrekt stavning)"
 
-#: gspell/gspell-checker-dialog.c:645
+#: gspell/gspell-checker-dialog.c:637
 msgid "Suggestions"
 msgstr "Forslag"
 
-#: gspell/gspell-inline-checker-gtv.c:595
-msgid "_More..."
-msgstr "_Flere..."
+#: gspell/gspell-inline-checker-text-buffer.c:864
+msgid "_More…"
+msgstr "_Flere …"
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#. Ignore all
+#: gspell/gspell-inline-checker-text-buffer.c:904
 msgid "_Ignore All"
 msgstr "_Ignorér alle"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-inline-checker-text-buffer.c:913
 msgid "_Add"
 msgstr "_Tilføj"
 
-#: gspell/gspell-inline-checker-gtv.c:681
-msgid "_Spelling Suggestions..."
-msgstr "_Stavningsforslag..."
+#. Prepend suggestions
+#: gspell/gspell-inline-checker-text-buffer.c:944
+msgid "_Spelling Suggestions…"
+msgstr "_Staveforslag …"
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language.c:369
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:253
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Ukendt (%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
+#, c-format
 msgctxt "language"
-msgid "Default"
-msgstr "Forvalgt"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:78
+#: gspell/gspell-language-chooser-button.c:81
 msgid "No language selected"
+msgstr "Der er ikke valgt et sprog"
+
+#: gspell/gspell-navigator-text-view.c:307
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
 msgstr ""
+"Stavekontrolfejl: intet sprog angivet. Måske fordi der ikke er installeret "
+"nogen ordbøger."
+
+#. Prepend language sub-menu
+#: gspell/gspell-text-view.c:265
+msgid "_Language"
+msgstr "_Sprog"
 
 #: gspell/resources/checker-dialog.ui:8
 msgid "Check Spelling"
 msgstr "Kontrollér stavning"
 
-#: gspell/resources/checker-dialog.ui:27
+#: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
 msgstr "Forkert stavet ord:"
 
-#: gspell/resources/checker-dialog.ui:40
+#: gspell/resources/checker-dialog.ui:49
 msgid "word"
 msgstr "ord"
 
-#: gspell/resources/checker-dialog.ui:57
+#: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
 msgstr "Ret _til:"
 
-#: gspell/resources/checker-dialog.ui:82
+#: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
 msgstr "Kontrollér _ord"
 
-#: gspell/resources/checker-dialog.ui:112
+#: gspell/resources/checker-dialog.ui:121
 msgid "_Suggestions:"
 msgstr "_Forslag:"
 
-#: gspell/resources/checker-dialog.ui:125
+#: gspell/resources/checker-dialog.ui:134
 msgid "_Ignore"
 msgstr "_Ignorér"
 
-#: gspell/resources/checker-dialog.ui:139
+#: gspell/resources/checker-dialog.ui:148
 msgid "Ignore _All"
 msgstr "Ignorér _alle"
 
-#: gspell/resources/checker-dialog.ui:153
+#: gspell/resources/checker-dialog.ui:162
 msgid "Cha_nge"
 msgstr "_Ret"
 
-#: gspell/resources/checker-dialog.ui:169
+#: gspell/resources/checker-dialog.ui:178
 msgid "Change A_ll"
 msgstr "Ret _alle"
 
-#: gspell/resources/checker-dialog.ui:187
+#: gspell/resources/checker-dialog.ui:196
 msgid "User dictionary:"
 msgstr "Brugerordbog:"
 
-#: gspell/resources/checker-dialog.ui:199
+#: gspell/resources/checker-dialog.ui:208
 msgid "Add w_ord"
 msgstr "Tilføj o_rd"
 
@@ -152,14 +179,21 @@ msgstr "Tilføj o_rd"
 msgid "Set Language"
 msgstr "Vælg sprog"
 
-#: gspell/resources/language-dialog.ui:22
-msgid "Select the _language of the current document."
-msgstr "Vælg _sproget for det aktuelle dokument."
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Vælg _sprog til stavekontrol."
 
-#: gspell/resources/language-dialog.ui:63
+#: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
 msgstr "_Annullér"
 
-#: gspell/resources/language-dialog.ui:70
+#: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "_Markér"
+
+#~ msgctxt "language"
+#~ msgid "Default"
+#~ msgstr "Forvalgt"
+
+#~ msgid "Select the _language of the current document."
+#~ msgstr "Vælg _sproget for det aktuelle dokument."
