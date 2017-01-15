@@ -1,3 +1,16 @@
+News in 1.3.2, 2017-01-15
+-------------------------
+This is an unstable release in the 1.3 development cycle. The 1.4 stable
+version will be released at the same time as GNOME 3.24.
+
+* GspellEntry: do not check the word currently typed.
+* GspellEntry: better word boundaries, take into account apostrophes and
+  dashes.
+* GspellEntry: disable inline spell checking if the GtkEntry is in password
+  mode.
+* Various other improvements.
+* Translation updates.
+
 News in 1.2.2, 2016-12-16
 -------------------------
 * GtkTextView support: fix populate-popup signal param type
