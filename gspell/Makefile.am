@@ -91,8 +91,6 @@ nodist_libgspell_core_la_SOURCES = \
 	$(BUILT_SOURCES)
 
 libgspell_core_la_LIBADD =	\
-	$(DEP_LIBS)		\
-	$(GTK_MAC_LIBS)		\
 	$(CODE_COVERAGE_LIBS)
 
 libgspell_core_la_CFLAGS =	\
@@ -108,9 +106,13 @@ lib_LTLIBRARIES = libgspell-@GSPELL_API_VERSION@.la
 libgspell_@GSPELL_API_VERSION@_la_SOURCES =
 
 libgspell_@GSPELL_API_VERSION@_la_LIBADD =	\
-	libgspell-core.la
+	libgspell-core.la			\
+	$(DEP_LIBS)				\
+	$(GTK_MAC_LIBS)				\
+	$(CODE_COVERAGE_LIBS)
 
-libgspell_@GSPELL_API_VERSION@_la_CFLAGS =
+libgspell_@GSPELL_API_VERSION@_la_CFLAGS =	\
+	$(CODE_COVERAGE_CFLAGS)
 
 libgspell_@GSPELL_API_VERSION@_la_LDFLAGS =	\
 	-version-info $(GSPELL_LT_VERSION)	\

@@ -6,7 +6,9 @@ AM_CPPFLAGS = 			\
 
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
-LDADD = $(top_builddir)/gspell/libgspell-@GSPELL_API_VERSION@.la
+LDADD =	$(top_builddir)/gspell/libgspell-@GSPELL_API_VERSION@.la	\
+	$(DEP_LIBS)							\
+	$(GTK_MAC_LIBS)
 
 TEST_PROGS =
 
