@@ -555,16 +555,18 @@ change_button_clicked_handler (GtkButton           *button,
 			       GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
+	const gchar *entry_text;
 	gchar *change_to;
 
 	priv = gspell_checker_dialog_get_instance_private (dialog);
 
 	g_return_if_fail (priv->misspelled_word != NULL);
 
-	change_to = g_strdup (gtk_entry_get_text (priv->word_entry));
-	g_return_if_fail (change_to != NULL);
-	g_return_if_fail (change_to[0] != '\0');
+	entry_text = gtk_entry_get_text (priv->word_entry);
+	g_return_if_fail (entry_text != NULL);
+	g_return_if_fail (entry_text[0] != '\0');
 
+	change_to = g_strdup (entry_text);
 	gspell_checker_set_correction (priv->checker,
 				       priv->misspelled_word, -1,
 				       change_to, -1);
@@ -594,16 +596,18 @@ change_all_button_clicked_handler (GtkButton           *button,
 				   GspellCheckerDialog *dialog)
 {
 	GspellCheckerDialogPrivate *priv;
+	const gchar *entry_text;
 	gchar *change_to;
 
 	priv = gspell_checker_dialog_get_instance_private (dialog);
 
 	g_return_if_fail (priv->misspelled_word != NULL);
 
-	change_to = g_strdup (gtk_entry_get_text (priv->word_entry));
-	g_return_if_fail (change_to != NULL);
-	g_return_if_fail (change_to[0] != '\0');
+	entry_text = gtk_entry_get_text (priv->word_entry);
+	g_return_if_fail (entry_text != NULL);
+	g_return_if_fail (entry_text[0] != '\0');
 
+	change_to = g_strdup (entry_text);
 	gspell_checker_set_correction (priv->checker,
 				       priv->misspelled_word, -1,
 				       change_to, -1);
