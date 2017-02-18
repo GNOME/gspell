@@ -243,7 +243,7 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 	{
 		_gspell_text_iter_forward_word_end (&word_start);
 
-		/* Didn't move, there is no words after @start_adjusted. */
+		/* Didn't move, there is no words after @start. */
 		if (gtk_text_iter_equal (&word_start, start))
 		{
 			return;
