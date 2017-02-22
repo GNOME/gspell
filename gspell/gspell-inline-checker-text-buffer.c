@@ -242,19 +242,36 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 				    start,
 				    end);
 
-	word_start = *start;
-	if (!_gspell_text_iter_starts_word (&word_start))
+	if (_gspell_text_iter_starts_word (start))
 	{
-		_gspell_text_iter_forward_word_end (&word_start);
+		word_start = *start;
+	}
+	else
+	{
+		GtkTextIter next_word_end;
 
-		/* Didn't move, there is no words after @start. */
-		if (gtk_text_iter_equal (&word_start, start))
+		/* Based on adjust_iters() code. */
+		g_assert (!_gspell_text_iter_inside_word (start));
+
+		next_word_end = *start;
+		_gspell_text_iter_forward_word_end (&next_word_end);
+
+		/* Didn't move, there are no words after @start. */
+		if (gtk_text_iter_equal (&next_word_end, start))
 		{
 			return;
 		}
 
+		g_assert (_gspell_text_iter_ends_word (&next_word_end));
+		g_assert_cmpint (gtk_text_iter_compare (start, &next_word_end), <, 0);
+
+		word_start = next_word_end;
 		_gspell_text_iter_backward_word_start (&word_start);
 		g_assert (_gspell_text_iter_starts_word (&word_start));
+
+		/* This assertion has failed in some cases, see:
+		 * https://bugzilla.gnome.org/show_bug.cgi?id=778883
+		 */
 		g_assert_cmpint (gtk_text_iter_compare (start, &word_start), <, 0);
 	}
 
