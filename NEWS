@@ -1,3 +1,10 @@
+News in 1.2.3, 2017-02-24
+-------------------------
+* Replace a g_assert_cmpint() by a g_return_if_fail(), to avoid a crash. The
+  assertion sometimes fails, probably because of a bug in a lower-level
+  library.
+  https://bugzilla.gnome.org/show_bug.cgi?id=778883
+
 News in 1.2.2, 2016-12-16
 -------------------------
 * GtkTextView support: fix populate-popup signal param type
