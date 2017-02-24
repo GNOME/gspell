@@ -253,7 +253,7 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 
 		_gspell_text_iter_backward_word_start (&word_start);
 		g_assert (_gspell_text_iter_starts_word (&word_start));
-		g_assert_cmpint (gtk_text_iter_compare (start, &word_start), <, 0);
+		g_return_if_fail (gtk_text_iter_compare (start, &word_start) < 0);
 	}
 
 	while (_gspell_utils_skip_no_spell_check (spell->no_spell_check_tag, &word_start, end) &&
