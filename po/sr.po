@@ -1,21 +1,21 @@
 # Serbian translation of gspell
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2016.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2017.
 # This file is distributed under the same license as the gspell package.
 # Горан Ракић <grakic@devbase.net>
 # Данило Шеган <danilo@prevod.org>, 2005.
 # Игор Несторовић <igor@prevod.org>, 2005.
 # Бранко Кокановић <branko.kokanovic@gmail.com>, 2010.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2016.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2017.
 # Милош Поповић <gpopac@gmail.com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gspell&"
 "keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-16 13:17+0000\n"
-"PO-Revision-Date: 2016-08-20 23:02+0200\n"
+"POT-Creation-Date: 2016-10-28 04:43+0000\n"
+"PO-Revision-Date: 2017-02-12 18:12+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "Грешка приликом провере писања за реч �
 #.
 #. No suggestions. Put something in the menu anyway...
 #: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-inline-checker-text-buffer.c:841
 msgid "(no suggested words)"
 msgstr "(нема предлога речи)"
 
@@ -63,24 +63,26 @@ msgstr "(исправно писање)"
 msgid "Suggestions"
 msgstr "Предлози"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
-msgid "_More..."
-msgstr "_Даље..."
+#: gspell/gspell-inline-checker-text-buffer.c:864
+#| msgid "_More..."
+msgid "_More…"
+msgstr "_Даље…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-inline-checker-text-buffer.c:904
 msgid "_Ignore All"
 msgstr "_Занемари све"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-inline-checker-text-buffer.c:913
 msgid "_Add"
 msgstr "_Додај"
 
 #. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
-msgid "_Spelling Suggestions..."
-msgstr "Предлози провере пи_сања..."
+#: gspell/gspell-inline-checker-text-buffer.c:944
+#| msgid "_Spelling Suggestions..."
+msgid "_Spelling Suggestions…"
+msgstr "Предлози провере пи_сања…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:253
@@ -103,16 +105,18 @@ msgid "No language selected"
 msgstr "Није изабран језик"
 
 #: gspell/gspell-navigator-text-view.c:307
+#| msgid ""
+#| "Spell checker error: no language set. It's maybe because no dictionaries "
+#| "are installed."
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Грешка провере писања: језик није подешен. Може бити да ни речници нису "
 "инсталирани."
 
 #. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
-#| msgid "Set Language"
+#: gspell/gspell-text-view.c:265
 msgid "_Language"
 msgstr "_Језик"
 
