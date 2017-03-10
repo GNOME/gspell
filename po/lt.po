@@ -9,15 +9,15 @@
 # Vytautas Povilaitis <punktyras@nkm.lt>, 2007.
 # Gintautas Miliauskas <gintas@akl.lt>, 2007, 2008, 2010.
 # Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2011, 2012.
-# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014, 2015, 2016.
+# Aurimas Černius <aurisc4@gmail.com>, 2010, 2013, 2014, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-16 13:17+0000\n"
-"PO-Revision-Date: 2016-08-15 13:22+0300\n"
+"POT-Creation-Date: 2017-02-22 19:27+0000\n"
+"PO-Revision-Date: 2017-03-10 22:29+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -28,7 +28,7 @@ msgstr ""
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
-#: gspell/gspell-checker.c:403
+#: gspell/gspell-checker.c:418
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Klaida tikrinant žodžio „%s“ rašybą: %s"
@@ -38,8 +38,7 @@ msgstr "Klaida tikrinant žodžio „%s“ rašybą: %s"
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
 msgid "(no suggested words)"
 msgstr "(pasiūlymų nėra)"
 
@@ -63,28 +62,33 @@ msgstr "Nėra neteisingai parašytų žodžių"
 msgid "(correct spelling)"
 msgstr "(teisinga rašyba)"
 
-#: gspell/gspell-checker-dialog.c:637
+#: gspell/gspell-checker-dialog.c:641
 msgid "Suggestions"
 msgstr "Pasiūlymai"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
-msgid "_More..."
-msgstr "_Daugiau..."
+#: gspell/gspell-context-menu.c:149
+msgid "_Language"
+msgstr "_Kalba"
+
+#: gspell/gspell-context-menu.c:237
+#| msgid "_More..."
+msgid "_More…"
+msgstr "_Daugiau…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-context-menu.c:282
 msgid "_Ignore All"
 msgstr "_Ignoruoti visus"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-context-menu.c:300
 msgid "_Add"
 msgstr "_Pridėti"
 
-#. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
-msgid "_Spelling Suggestions..."
-msgstr "_Rašybos pasiūlymai..."
+#: gspell/gspell-context-menu.c:337
+#| msgid "_Spelling Suggestions..."
+msgid "_Spelling Suggestions…"
+msgstr "_Rašybos pasiūlymai…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:253
@@ -107,20 +111,17 @@ msgid "No language selected"
 msgstr "Nepasirinkta kalba"
 
 #: gspell/gspell-navigator-text-view.c:307
+#| msgid ""
+#| "Spell checker error: no language set. It's maybe because no dictionaries "
+#| "are installed."
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Rašybos tikrinimo klaida: nepasirinkta kalba. Taip gali būti, jei nėra "
 "įdiegtų žodynų."
 
-#. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
-#| msgid "Set Language"
-msgid "_Language"
-msgstr "_Kalba"
-
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "Tikrinti rašybą"
 
@@ -140,35 +141,35 @@ msgstr "Keis_ti į"
 msgid "Check _Word"
 msgstr "Patikrinti žo_dį"
 
-#: gspell/resources/checker-dialog.ui:121
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "_Pasiūlymai"
 
-#: gspell/resources/checker-dialog.ui:134
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "_Ignoruoti"
 
-#: gspell/resources/checker-dialog.ui:148
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "Ignoruoti _visus"
 
-#: gspell/resources/checker-dialog.ui:162
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "Pakei_sti"
 
-#: gspell/resources/checker-dialog.ui:178
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "Įrašyti v_isus"
 
-#: gspell/resources/checker-dialog.ui:196
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "Vartotojo žodynas:"
 
-#: gspell/resources/checker-dialog.ui:208
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "Pridėti ž_odį"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "Nustatyti kalbą"
 
