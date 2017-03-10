@@ -10,7 +10,9 @@
 application.</description>
 
   <homepage rdf:resource="https://wiki.gnome.org/Projects/gspell" />
+  <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/gspell-list" />
   <download-page rdf:resource="https://download.gnome.org/sources/gspell/" />
+  <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=gspell" />
 
   <programming-language>C</programming-language>
 
