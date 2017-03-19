@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2016 - Sébastien Wilmet
+ * Copyright 2016, 2017 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -275,10 +275,25 @@ is_current_word (GspellEntry     *gspell_entry,
 	return (word->char_start <= cursor_pos && cursor_pos <= word->char_end);
 }
 
+/* If another feature wants to insert underlines in another color (e.g. for
+ * grammar checking), this won't work well. A previous implementation used the
+ * GtkEditable::changed signal: removing all underlines in the second emission
+ * stage, and inserting new underlines in the fourth emission stage. That way
+ * another feature could connect to the ::changed signal and insert other
+ * underlines. But it broke the semantics of the ::changed signal, since it was
+ * emitted a lot of times without changes in the content.
+ *
+ * So, if one day someone wants to implement another feature that inserts other
+ * underlines, a new GtkEntry API would be needed to have a clean solution,
+ * instead of stepping on other's feet. For example GtkTextView has a
+ * higher-level API to insert tags, set priorities on them, etc.
+ */
 static void
 recheck_all (GspellEntry *gspell_entry)
 {
 	GSList *l;
+
+	remove_all_underlines (gspell_entry);
 
 	update_misspelled_words_list (gspell_entry);
 
@@ -300,35 +315,11 @@ recheck_all (GspellEntry *gspell_entry)
 	update_attributes (gspell_entry);
 }
 
-/* Connect to the ::changed signal before/after, so that other features (in
- * other libraries or apps) can insert other underline attributes (e.g. for
- * grammar checking) in another phase of the ::changed signal emission.
- *
- * But the GtkEntry API is not as nice as the GtkTextView API for inserting
- * tags, setting priorities on them, etc. So, do the best that we can with the
- * current GtkEntry API. If you find a better solution...
- */
-static void
-changed_before_cb (GtkEditable *editable,
-		   GspellEntry *gspell_entry)
-{
-	remove_all_underlines (gspell_entry);
-}
-
 static void
 changed_after_cb (GtkEditable *editable,
 		  GspellEntry *gspell_entry)
 {
 	recheck_all (gspell_entry);
-}
-
-/* When the underlines need to be updated, call this function, so that all the
- * underlines attributes are always removed in changed_before_cb().
- */
-static void
-emit_changed_signal (GspellEntry *gspell_entry)
-{
-	g_signal_emit_by_name (gspell_entry->entry, "changed");
 }
 
 static gboolean
@@ -367,7 +358,7 @@ language_notify_cb (GspellChecker *checker,
 		    GspellEntry   *gspell_entry)
 {
 	_gspell_current_word_policy_language_changed (gspell_entry->current_word_policy);
-	emit_changed_signal (gspell_entry);
+	recheck_all (gspell_entry);
 }
 
 static void
@@ -375,7 +366,7 @@ session_cleared_cb (GspellChecker *checker,
 		    GspellEntry   *gspell_entry)
 {
 	_gspell_current_word_policy_session_cleared (gspell_entry->current_word_policy);
-	emit_changed_signal (gspell_entry);
+	recheck_all (gspell_entry);
 }
 
 static void
@@ -398,7 +389,7 @@ set_checker (GspellEntry   *gspell_entry,
 						      gspell_entry);
 
 		g_signal_handlers_disconnect_by_func (gspell_entry->checker,
-						      emit_changed_signal,
+						      recheck_all,
 						      gspell_entry);
 
 		g_object_unref (gspell_entry->checker);
@@ -420,12 +411,12 @@ set_checker (GspellEntry   *gspell_entry,
 
 		g_signal_connect_swapped (gspell_entry->checker,
 					  "word-added-to-personal",
-					  G_CALLBACK (emit_changed_signal),
+					  G_CALLBACK (recheck_all),
 					  gspell_entry);
 
 		g_signal_connect_swapped (gspell_entry->checker,
 					  "word-added-to-session",
-					  G_CALLBACK (emit_changed_signal),
+					  G_CALLBACK (recheck_all),
 					  gspell_entry);
 
 		g_object_ref (gspell_entry->checker);
@@ -456,7 +447,7 @@ notify_spell_checker_cb (GspellEntryBuffer *gspell_buffer,
 	update_checker (gspell_entry);
 
 	_gspell_current_word_policy_checker_changed (gspell_entry->current_word_policy);
-	emit_changed_signal (gspell_entry);
+	recheck_all (gspell_entry);
 }
 
 static void
@@ -553,7 +544,7 @@ notify_buffer_cb (GtkEntry    *gtk_entry,
 		  GspellEntry *gspell_entry)
 {
 	update_buffer (gspell_entry);
-	emit_changed_signal (gspell_entry);
+	recheck_all (gspell_entry);
 }
 
 /* Free the return value with _gspell_entry_word_free(). */
@@ -609,7 +600,7 @@ button_press_event_cb (GtkEntry       *gtk_entry,
 	}
 
 	_gspell_current_word_policy_cursor_moved (gspell_entry->current_word_policy);
-	emit_changed_signal (gspell_entry);
+	recheck_all (gspell_entry);
 
 	return GDK_EVENT_PROPAGATE;
 }
@@ -743,7 +734,7 @@ static void
 move_cursor_cb (GspellEntry *gspell_entry)
 {
 	_gspell_current_word_policy_cursor_moved (gspell_entry->current_word_policy);
-	emit_changed_signal (gspell_entry);
+	recheck_all (gspell_entry);
 }
 
 static gboolean
@@ -871,11 +862,6 @@ set_entry (GspellEntry *gspell_entry,
 	g_assert (gspell_entry->entry == NULL);
 	gspell_entry->entry = gtk_entry;
 
-	g_signal_connect (gtk_entry,
-			  "changed",
-			  G_CALLBACK (changed_before_cb),
-			  gspell_entry);
-
 	g_signal_connect_after (gtk_entry,
 				"changed",
 				G_CALLBACK (changed_after_cb),
@@ -940,7 +926,7 @@ set_entry (GspellEntry *gspell_entry,
 
 	g_signal_connect_swapped (gtk_entry,
 				  "notify::visibility",
-				  G_CALLBACK (emit_changed_signal),
+				  G_CALLBACK (recheck_all),
 				  gspell_entry);
 
 	update_buffer (gspell_entry);
@@ -1220,7 +1206,7 @@ gspell_entry_set_inline_spell_checking (GspellEntry *gspell_entry,
 	if (gspell_entry->inline_spell_checking != enable)
 	{
 		gspell_entry->inline_spell_checking = enable;
-		emit_changed_signal (gspell_entry);
+		recheck_all (gspell_entry);
 		g_object_notify (G_OBJECT (gspell_entry), "inline-spell-checking");
 	}
 }
