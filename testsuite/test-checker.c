@@ -101,6 +101,11 @@ test_dashes (void)
 
 	checker = gspell_checker_new (lang);
 
+	/* This unit test fails with the aspell enchant backend, but aspell can
+	 * be considered deprecated, it is better to use hunspell, so WONTFIX.
+	 * For more details, see:
+	 * https://bugzilla.gnome.org/show_bug.cgi?id=772406
+	 */
 	correctly_spelled = gspell_checker_check_word (checker, "spell-checking", -1, &error);
 	g_assert_no_error (error);
 	g_assert (correctly_spelled);
