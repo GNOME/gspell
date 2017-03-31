@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2010 - Jesse van den Kieboom
- * Copyright 2015, 2016 - Sébastien Wilmet
+ * Copyright 2015, 2016, 2017 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -53,6 +53,9 @@ gboolean	_gspell_utils_str_to_ascii_apostrophe	(const gchar  *word,
 
 G_GNUC_INTERNAL
 gboolean	_gspell_utils_is_apostrophe_or_dash	(gunichar ch);
+
+G_GNUC_INTERNAL
+void		_gspell_utils_init_underline_rgba	(GdkRGBA *underline_color);
 
 G_END_DECLS
 

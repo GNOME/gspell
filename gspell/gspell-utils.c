@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2010 - Jesse van den Kieboom
- * Copyright 2015, 2016 - Sébastien Wilmet
+ * Copyright 2015, 2016, 2017 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -200,6 +200,23 @@ _gspell_utils_is_apostrophe_or_dash (gunichar ch)
 		ch == '\'' ||
 		ch == _GSPELL_MODIFIER_LETTER_APOSTROPHE ||
 		ch == _GSPELL_RIGHT_SINGLE_QUOTATION_MARK);
+}
+
+/* Not the full intensity for the red, it's more readable with the red a bit
+ * darker for PANGO_UNDERLINE_SINGLE.
+ * For PANGO_UNDERLINE_ERROR, the full red intensity was used.
+ */
+#define UNDERLINE_COLOR_RED_INTENSITY (0.8)
+
+void
+_gspell_utils_init_underline_rgba (GdkRGBA *underline_color)
+{
+	g_return_if_fail (underline_color != NULL);
+
+	underline_color->red = UNDERLINE_COLOR_RED_INTENSITY;
+	underline_color->green = 0.0;
+	underline_color->blue = 0.0;
+	underline_color->alpha = 1.0;
 }
 
 /* ex:set ts=8 noet: */

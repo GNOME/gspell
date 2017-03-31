@@ -2,7 +2,7 @@
  * This file is part of gspell, a spell-checking library.
  *
  * Copyright 2002 - Paolo Maggi
- * Copyright 2015, 2016 - Sébastien Wilmet
+ * Copyright 2015, 2016, 2017 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -1060,6 +1060,7 @@ set_buffer (GspellInlineCheckerTextBuffer *spell,
 	GtkTextIter start;
 	GspellTextBuffer *gspell_buffer;
 	GspellChecker *checker;
+	GdkRGBA underline_color;
 
 	g_return_if_fail (GTK_IS_TEXT_BUFFER (buffer));
 	g_return_if_fail (spell->buffer == NULL);
@@ -1115,8 +1116,11 @@ set_buffer (GspellInlineCheckerTextBuffer *spell,
 				 spell,
 				 G_CONNECT_AFTER);
 
+	_gspell_utils_init_underline_rgba (&underline_color);
+
 	spell->highlight_tag = gtk_text_buffer_create_tag (spell->buffer, NULL,
-							   "underline", PANGO_UNDERLINE_ERROR,
+							   "underline", PANGO_UNDERLINE_SINGLE,
+							   "underline-rgba", &underline_color,
 							   NULL);
 	g_object_ref (spell->highlight_tag);
 

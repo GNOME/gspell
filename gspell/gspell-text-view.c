@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015, 2016 - Sébastien Wilmet
+ * Copyright 2015, 2016, 2017 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,11 +32,11 @@
  * @Short_description: Spell checking support for GtkTextView
  *
  * #GspellTextView extends the #GtkTextView class with inline spell checking.
- * Misspelled words are highlighted with a %PANGO_UNDERLINE_ERROR, usually a red
- * wavy underline. Right-clicking a misspelled word pops up a context menu of
- * suggested replacements. The context menu also contains an “Ignore All” item
- * to add the misspelled word to the session dictionary. And an “Add” item to
- * add the word to the personal dictionary.
+ * Misspelled words are highlighted with a red %PANGO_UNDERLINE_SINGLE.
+ * Right-clicking a misspelled word pops up a context menu of suggested
+ * replacements. The context menu also contains an “Ignore All” item to add the
+ * misspelled word to the session dictionary. And an “Add” item to add the word
+ * to the personal dictionary.
  *
  * For a basic use-case, there is the gspell_text_view_basic_setup() convenience
  * function.
@@ -53,6 +53,9 @@
  * Note that #GspellTextView extends the #GtkTextView class but without
  * subclassing it, because the GtkSourceView library has already a #GtkTextView
  * subclass.
+ *
+ * If you want a %PANGO_UNDERLINE_ERROR instead (a wavy underline), please fix
+ * [this bug](https://bugzilla.gnome.org/show_bug.cgi?id=763741) first.
  */
 
 typedef struct _GspellTextViewPrivate GspellTextViewPrivate;
