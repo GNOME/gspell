@@ -85,21 +85,6 @@ typedef enum
 
 G_DEFINE_TYPE (GspellInlineCheckerTextBuffer, _gspell_inline_checker_text_buffer, G_TYPE_OBJECT)
 
-/* FIXME properly. Workaround for bug in GtkTextView:
- * https://bugzilla.gnome.org/show_bug.cgi?id=763741
- */
-static void
-queue_draw_hack (GspellInlineCheckerTextBuffer *spell)
-{
-	GSList *l;
-
-	for (l = spell->views; l != NULL; l = l->next)
-	{
-		GtkWidget *view = GTK_WIDGET (l->data);
-		gtk_widget_queue_draw (view);
-	}
-}
-
 /* Remove the highlight_tag only if present. If gtk_text_buffer_remove_tag() is
  * called when the tag is not present, GtkTextView anyway queues a redraw, which
  * we want to avoid (it can lead to an infinite loop).
@@ -132,8 +117,6 @@ remove_highlight_tag_if_present (GspellInlineCheckerTextBuffer *spell,
 					    spell->highlight_tag,
 					    start,
 					    end);
-
-		queue_draw_hack (spell);
 	}
 }
 
@@ -461,8 +444,6 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 	{
 		g_clear_object (&spell->scan_region);
 	}
-
-	queue_draw_hack (spell);
 }
 
 static void
@@ -867,8 +848,6 @@ remove_tag_to_word (GspellInlineCheckerTextBuffer *spell,
 
 		iter = match_end;
 	}
-
-	queue_draw_hack (spell);
 }
 
 static void
