@@ -57,6 +57,9 @@ gboolean	_gspell_utils_is_apostrophe_or_dash	(gunichar ch);
 G_GNUC_INTERNAL
 void		_gspell_utils_init_underline_rgba	(GdkRGBA *underline_color);
 
+G_GNUC_INTERNAL
+PangoAttribute *_gspell_utils_create_pango_attr_underline_color (void);
+
 G_END_DECLS
 
 #endif /* GSPELL_UTILS_H */

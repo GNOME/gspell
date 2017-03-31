@@ -23,6 +23,7 @@
 #include "gspell-entry-utils.h"
 #include "gspell-context-menu.h"
 #include "gspell-current-word-policy.h"
+#include "gspell-utils.h"
 
 /**
  * SECTION:entry
@@ -30,11 +31,11 @@
  * @Short_description: Spell checking support for GtkEntry
  *
  * #GspellEntry extends the #GtkEntry class with inline spell checking.
- * Misspelled words are highlighted with a %PANGO_UNDERLINE_ERROR, usually a red
- * wavy underline. Right-clicking a misspelled word pops up a context menu of
- * suggested replacements. The context menu also contains an “Ignore All” item
- * to add the misspelled word to the session dictionary. And an “Add” item to
- * add the word to the personal dictionary.
+ * Misspelled words are highlighted with a red %PANGO_UNDERLINE_SINGLE.
+ * Right-clicking a misspelled word pops up a context menu of suggested
+ * replacements. The context menu also contains an “Ignore All” item to add the
+ * misspelled word to the session dictionary. And an “Add” item to add the word
+ * to the personal dictionary.
  *
  * For a basic use-case, there is the gspell_entry_basic_setup() convenience
  * function.
@@ -45,6 +46,10 @@
  *
  * Note that #GspellEntry extends the #GtkEntry class but without subclassing
  * it, because #GtkEntry is already subclassed by #GtkSearchEntry for example.
+ *
+ * %PANGO_UNDERLINE_SINGLE is used for consistency with #GspellTextView.
+ * If you want a %PANGO_UNDERLINE_ERROR instead (a wavy underline), please fix
+ * [this bug](https://bugzilla.gnome.org/show_bug.cgi?id=763741) first.
  */
 
 struct _GspellEntry
@@ -182,11 +187,11 @@ insert_underline (GspellEntry *gspell_entry,
 	PangoAttribute *attr_underline_color;
 	PangoAttrList *attr_list;
 
-	attr_underline = pango_attr_underline_new (PANGO_UNDERLINE_ERROR);
+	attr_underline = pango_attr_underline_new (PANGO_UNDERLINE_SINGLE);
 	attr_underline->start_index = byte_start;
 	attr_underline->end_index = byte_end;
 
-	attr_underline_color = pango_attr_underline_color_new (65535, 0, 0);
+	attr_underline_color = _gspell_utils_create_pango_attr_underline_color ();
 	attr_underline_color->start_index = byte_start;
 	attr_underline_color->end_index = byte_end;
 

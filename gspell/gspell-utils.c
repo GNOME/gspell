@@ -219,4 +219,10 @@ _gspell_utils_init_underline_rgba (GdkRGBA *underline_color)
 	underline_color->alpha = 1.0;
 }
 
+PangoAttribute *
+_gspell_utils_create_pango_attr_underline_color (void)
+{
+	return pango_attr_underline_color_new (65535 * UNDERLINE_COLOR_RED_INTENSITY, 0, 0);
+}
+
 /* ex:set ts=8 noet: */
