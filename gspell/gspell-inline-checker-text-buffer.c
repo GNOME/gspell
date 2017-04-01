@@ -83,6 +83,8 @@ typedef enum
 #define TIMEOUT_DURATION_BUFFER_MODIFIED 16
 #define TIMEOUT_DURATION_DRAWING 20
 
+#define PERF_DEBUG FALSE
+
 G_DEFINE_TYPE (GspellInlineCheckerTextBuffer, _gspell_inline_checker_text_buffer, G_TYPE_OBJECT)
 
 /* Remove the highlight_tag only if present. If gtk_text_buffer_remove_tag() is
@@ -474,7 +476,25 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		orig_start = start;
 		orig_end = end;
 
-		check_subregion (spell, &start, &end);
+		{
+#if PERF_DEBUG
+			GTimer *timer;
+
+			g_print ("check_subregion [%d, %d]\n",
+				 gtk_text_iter_get_offset (&start),
+				 gtk_text_iter_get_offset (&end));
+
+			timer = g_timer_new ();
+#endif
+
+			check_subregion (spell, &start, &end);
+
+#if PERF_DEBUG
+			g_print ("check_subregion took %lf ms.\n\n",
+				 1000 * g_timer_elapsed (timer, NULL));
+			g_timer_destroy (timer);
+#endif
+		}
 
 		/* Ensure that we don't have an infinite loop. We must subtract
 		 * from scan_region at least [start, end], otherwise we will
