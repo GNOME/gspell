@@ -160,11 +160,72 @@ adjust_iters (GtkTextIter *start,
 	}
 }
 
+/* Free *attrs with g_free() when no longer needed. */
+static void
+get_pango_log_attrs (const gchar   *text,
+		     PangoLogAttr **attrs,
+		     gint          *n_attrs)
+{
+	*n_attrs = g_utf8_strlen (text, -1) + 1;
+	*attrs = g_new0 (PangoLogAttr, *n_attrs);
+
+	pango_get_log_attrs (text,
+			     strlen (text),
+			     -1,
+			     NULL,
+			     *attrs,
+			     *n_attrs);
+
+	_gspell_utils_improve_word_boundaries (text, *attrs, *n_attrs);
+}
+
+static gboolean
+should_apply_tag_to_misspelled_word (GspellInlineCheckerTextBuffer *spell,
+				     const GtkTextIter             *word_start,
+				     const GtkTextIter             *word_end)
+{
+	GtkTextIter iter;
+
+	if (spell->no_spell_check_tag == NULL)
+	{
+		return TRUE;
+	}
+
+	if (gtk_text_iter_has_tag (word_start, spell->no_spell_check_tag))
+	{
+		return FALSE;
+	}
+
+	iter = *word_start;
+	if (!gtk_text_iter_forward_to_tag_toggle (&iter, spell->no_spell_check_tag))
+	{
+		return TRUE;
+	}
+
+	return gtk_text_iter_compare (word_end, &iter) <= 0;
+}
+
+/* A first implementation of this function used the _gspell_text_iter_*()
+ * functions in a loop to navigate through words between @start and @end.
+ * But the _gspell_text_iter_*() functions are *slow*. So a new implementation
+ * has been written to reduce the number of calls to GtkTextView functions, and
+ * it's up to 20x faster! (200 ms -> 10 ms).
+ * And there is most probably still room for performance improvements.
+ */
 static void
 check_subregion (GspellInlineCheckerTextBuffer *spell,
 		 GtkTextIter                   *start,
 		 GtkTextIter                   *end)
 {
+	gchar *text;
+	const gchar *cur_text_pos;
+	const gchar *word_start;
+	gint word_start_char_pos;
+	PangoLogAttr *attrs;
+	gint n_attrs;
+	gint attr_num;
+	gint start_offset;
+
 	g_return_if_fail (gtk_text_iter_compare (start, end) <= 0);
 
 	adjust_iters (start, end, ADJUST_MODE_STRICTLY_INSIDE_WORD);
@@ -173,6 +234,109 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 				    spell->highlight_tag,
 				    start,
 				    end);
+
+	if (spell->spell_checker == NULL ||
+	    gspell_checker_get_language (spell->spell_checker) == NULL)
+	{
+		return;
+	}
+
+	text = gtk_text_iter_get_slice (start, end);
+
+	get_pango_log_attrs (text, &attrs, &n_attrs);
+
+	attr_num = 0;
+	cur_text_pos = text;
+	word_start = NULL;
+	word_start_char_pos = 0;
+
+	start_offset = gtk_text_iter_get_offset (start);
+
+	while (attr_num < n_attrs)
+	{
+		PangoLogAttr *cur_attr = &attrs[attr_num];
+
+		if (word_start != NULL &&
+		    cur_attr->is_word_end)
+		{
+			gint word_byte_length;
+			gboolean misspelled;
+			GError *error = NULL;
+
+			if (cur_text_pos != NULL)
+			{
+				word_byte_length = cur_text_pos - word_start;
+			}
+			else
+			{
+				word_byte_length = -1;
+			}
+
+			misspelled = !gspell_checker_check_word (spell->spell_checker,
+								 word_start,
+								 word_byte_length,
+								 &error);
+
+			if (error != NULL)
+			{
+				g_warning ("Inline spell checker: %s", error->message);
+				g_clear_error (&error);
+			}
+
+			if (misspelled)
+			{
+				gint word_start_offset;
+				gint word_end_offset;
+				GtkTextIter word_start_iter;
+				GtkTextIter word_end_iter;
+
+				word_start_offset = start_offset + word_start_char_pos;
+				word_end_offset = start_offset + attr_num;
+
+				gtk_text_buffer_get_iter_at_offset (spell->buffer,
+								    &word_start_iter,
+								    word_start_offset);
+
+				gtk_text_buffer_get_iter_at_offset (spell->buffer,
+								    &word_end_iter,
+								    word_end_offset);
+
+				if (should_apply_tag_to_misspelled_word (spell, &word_start_iter, &word_end_iter))
+				{
+					gtk_text_buffer_apply_tag (spell->buffer,
+								   spell->highlight_tag,
+								   &word_start_iter,
+								   &word_end_iter);
+				}
+			}
+
+			/* Find next word start. */
+			word_start = NULL;
+		}
+
+		if (word_start == NULL &&
+		    cur_attr->is_word_start)
+		{
+			word_start = cur_text_pos;
+			word_start_char_pos = attr_num;
+		}
+
+		if (cur_text_pos == NULL &&
+		    attr_num != n_attrs - 1)
+		{
+			g_warning ("%s(): problem in loop iteration, attr_num=%d but should be %d.",
+				   G_STRFUNC,
+				   attr_num,
+				   n_attrs - 1);
+			break;
+		}
+
+		attr_num++;
+		cur_text_pos = g_utf8_find_next_char (cur_text_pos, NULL);
+	}
+
+	g_free (text);
+	g_free (attrs);
 }
 
 static void
