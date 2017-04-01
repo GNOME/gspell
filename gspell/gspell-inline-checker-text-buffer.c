@@ -121,51 +121,6 @@ remove_highlight_tag_if_present (GspellInlineCheckerTextBuffer *spell,
 }
 
 static void
-check_word (GspellInlineCheckerTextBuffer *spell,
-	    const GtkTextIter             *start,
-	    const GtkTextIter             *end)
-{
-	gchar *word;
-	GError *error = NULL;
-	gboolean correctly_spelled;
-
-	if (spell->spell_checker == NULL ||
-	    gspell_checker_get_language (spell->spell_checker) == NULL)
-	{
-		return;
-	}
-
-	if (!_gspell_text_iter_starts_word (start) ||
-	    !_gspell_text_iter_ends_word (end))
-	{
-		g_warning ("Spell checking: @start and @end must delimit a word");
-		return;
-	}
-
-	word = gtk_text_buffer_get_text (spell->buffer, start, end, FALSE);
-
-	correctly_spelled = gspell_checker_check_word (spell->spell_checker,
-						       word, -1,
-						       &error);
-
-	if (error != NULL)
-	{
-		g_warning ("Inline spell checker: %s", error->message);
-		g_clear_error (&error);
-	}
-
-	if (!correctly_spelled)
-	{
-		gtk_text_buffer_apply_tag (spell->buffer,
-					   spell->highlight_tag,
-					   start,
-					   end);
-	}
-
-	g_free (word);
-}
-
-static void
 adjust_iters (GtkTextIter *start,
 	      GtkTextIter *end,
 	      AdjustMode   mode)
@@ -210,9 +165,7 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 		 GtkTextIter                   *start,
 		 GtkTextIter                   *end)
 {
-	GtkTextIter word_start;
-
-	g_assert_cmpint (gtk_text_iter_compare (start, end), <=, 0);
+	g_return_if_fail (gtk_text_iter_compare (start, end) <= 0);
 
 	adjust_iters (start, end, ADJUST_MODE_STRICTLY_INSIDE_WORD);
 
@@ -220,69 +173,6 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 				    spell->highlight_tag,
 				    start,
 				    end);
-
-	if (_gspell_text_iter_starts_word (start))
-	{
-		word_start = *start;
-	}
-	else
-	{
-		GtkTextIter next_word_end;
-
-		/* Based on adjust_iters() code. */
-		g_assert (!_gspell_text_iter_inside_word (start));
-
-		next_word_end = *start;
-		_gspell_text_iter_forward_word_end (&next_word_end);
-
-		/* Didn't move, there are no words after @start. */
-		if (gtk_text_iter_equal (&next_word_end, start))
-		{
-			return;
-		}
-
-		g_assert (_gspell_text_iter_ends_word (&next_word_end));
-		g_assert_cmpint (gtk_text_iter_compare (start, &next_word_end), <, 0);
-
-		word_start = next_word_end;
-		_gspell_text_iter_backward_word_start (&word_start);
-		g_assert (_gspell_text_iter_starts_word (&word_start));
-
-		/* This assertion has failed in some cases, see:
-		 * https://bugzilla.gnome.org/show_bug.cgi?id=778883
-		 */
-		g_assert_cmpint (gtk_text_iter_compare (start, &word_start), <, 0);
-	}
-
-	while (_gspell_utils_skip_no_spell_check (spell->no_spell_check_tag, &word_start, end) &&
-	       gtk_text_iter_compare (&word_start, end) < 0)
-	{
-		GtkTextIter word_end;
-		GtkTextIter next_word_start;
-
-		g_assert (_gspell_text_iter_starts_word (&word_start));
-
-		word_end = word_start;
-		_gspell_text_iter_forward_word_end (&word_end);
-
-		g_assert_cmpint (gtk_text_iter_compare (&word_end, end), <=, 0);
-
-		check_word (spell, &word_start, &word_end);
-
-		next_word_start = word_end;
-		_gspell_text_iter_forward_word_end (&next_word_start);
-		_gspell_text_iter_backward_word_start (&next_word_start);
-
-		/* Make sure we've actually advanced (we don't advance if we
-		 * have just checked the last word of the buffer).
-		 */
-		if (gtk_text_iter_compare (&next_word_start, &word_start) <= 0)
-		{
-			break;
-		}
-
-		word_start = next_word_start;
-	}
 }
 
 static void
