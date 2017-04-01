@@ -177,14 +177,12 @@ adjust_iters (GtkTextIter *start,
 			    !_gspell_text_iter_starts_word (start))
 			{
 				_gspell_text_iter_backward_word_start (start);
-				g_assert (_gspell_text_iter_starts_word (start));
 			}
 
 			if (_gspell_text_iter_inside_word (end) &&
 			    !_gspell_text_iter_starts_word (end))
 			{
 				_gspell_text_iter_forward_word_end (end);
-				g_assert (_gspell_text_iter_ends_word (end));
 			}
 			break;
 
@@ -194,13 +192,11 @@ adjust_iters (GtkTextIter *start,
 			     !_gspell_text_iter_starts_word (start)))
 			{
 				_gspell_text_iter_backward_word_start (start);
-				g_assert (_gspell_text_iter_starts_word (start));
 			}
 
 			if (_gspell_text_iter_inside_word (end))
 			{
 				_gspell_text_iter_forward_word_end (end);
-				g_assert (_gspell_text_iter_ends_word (end));
 			}
 			break;
 
