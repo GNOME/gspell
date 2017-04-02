@@ -80,7 +80,7 @@ typedef enum
 /* Timeout durations in milliseconds. Writing and deleting text should be smooth
  * and responsive.
  */
-#define TIMEOUT_DURATION_BUFFER_MODIFIED 400
+#define TIMEOUT_DURATION_BUFFER_MODIFIED 16
 #define TIMEOUT_DURATION_DRAWING 20
 
 G_DEFINE_TYPE (GspellInlineCheckerTextBuffer, _gspell_inline_checker_text_buffer, G_TYPE_OBJECT)
