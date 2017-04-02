@@ -60,6 +60,11 @@ void		_gspell_utils_init_underline_rgba	(GdkRGBA *underline_color);
 G_GNUC_INTERNAL
 PangoAttribute *_gspell_utils_create_pango_attr_underline_color (void);
 
+G_GNUC_INTERNAL
+void		_gspell_utils_improve_word_boundaries	(const gchar  *text,
+							 PangoLogAttr *log_attrs,
+							 gint          n_attrs);
+
 G_END_DECLS
 
 #endif /* GSPELL_UTILS_H */
