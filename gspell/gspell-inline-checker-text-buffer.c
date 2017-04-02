@@ -413,7 +413,7 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 	}
 	else
 	{
-		g_assert_true (spell->unit_test_mode);
+		g_assert (spell->unit_test_mode);
 		gtk_text_buffer_get_bounds (spell->buffer, &visible_start, &visible_end);
 	}
 
