@@ -194,14 +194,12 @@ adjust_iters (GtkTextIter *start,
 			    !_gspell_text_iter_starts_word (start))
 			{
 				_gspell_text_iter_backward_word_start (start);
-				g_assert (_gspell_text_iter_starts_word (start));
 			}
 
 			if (_gspell_text_iter_inside_word (end) &&
 			    !_gspell_text_iter_starts_word (end))
 			{
 				_gspell_text_iter_forward_word_end (end);
-				g_assert (_gspell_text_iter_ends_word (end));
 			}
 			break;
 
@@ -211,13 +209,11 @@ adjust_iters (GtkTextIter *start,
 			     !_gspell_text_iter_starts_word (start)))
 			{
 				_gspell_text_iter_backward_word_start (start);
-				g_assert (_gspell_text_iter_starts_word (start));
 			}
 
 			if (_gspell_text_iter_inside_word (end))
 			{
 				_gspell_text_iter_forward_word_end (end);
-				g_assert (_gspell_text_iter_ends_word (end));
 			}
 			break;
 
@@ -233,7 +229,7 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 {
 	GtkTextIter word_start;
 
-	g_assert_cmpint (gtk_text_iter_compare (start, end), <=, 0);
+	g_return_if_fail (gtk_text_iter_compare (start, end) <= 0);
 
 	adjust_iters (start, end, ADJUST_MODE_STRICTLY_INSIDE_WORD);
 
@@ -251,7 +247,7 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 		GtkTextIter next_word_end;
 
 		/* Based on adjust_iters() code. */
-		g_assert (!_gspell_text_iter_inside_word (start));
+		g_return_if_fail (!_gspell_text_iter_inside_word (start));
 
 		next_word_end = *start;
 		_gspell_text_iter_forward_word_end (&next_word_end);
@@ -262,17 +258,17 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 			return;
 		}
 
-		g_assert (_gspell_text_iter_ends_word (&next_word_end));
-		g_assert_cmpint (gtk_text_iter_compare (start, &next_word_end), <, 0);
+		g_return_if_fail (_gspell_text_iter_ends_word (&next_word_end));
+		g_return_if_fail (gtk_text_iter_compare (start, &next_word_end) < 0);
 
 		word_start = next_word_end;
 		_gspell_text_iter_backward_word_start (&word_start);
-		g_assert (_gspell_text_iter_starts_word (&word_start));
+		g_return_if_fail (_gspell_text_iter_starts_word (&word_start));
 
-		/* This assertion has failed in some cases, see:
+		/* This condition has failed in some cases, see:
 		 * https://bugzilla.gnome.org/show_bug.cgi?id=778883
 		 */
-		g_assert_cmpint (gtk_text_iter_compare (start, &word_start), <, 0);
+		g_return_if_fail (gtk_text_iter_compare (start, &word_start) < 0);
 	}
 
 	while (_gspell_utils_skip_no_spell_check (spell->no_spell_check_tag, &word_start, end) &&
@@ -281,12 +277,12 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 		GtkTextIter word_end;
 		GtkTextIter next_word_start;
 
-		g_assert (_gspell_text_iter_starts_word (&word_start));
+		g_return_if_fail (_gspell_text_iter_starts_word (&word_start));
 
 		word_end = word_start;
 		_gspell_text_iter_forward_word_end (&word_end);
 
-		g_assert_cmpint (gtk_text_iter_compare (&word_end, end), <=, 0);
+		g_return_if_fail (gtk_text_iter_compare (&word_end, end) <= 0);
 
 		check_word (spell, &word_start, &word_end);
 
@@ -447,8 +443,8 @@ check_visible_region_in_view (GspellInlineCheckerTextBuffer *spell,
 		 * from scan_region at least [start, end], otherwise we will
 		 * re-check the same subregion again and again.
 		 */
-		g_assert (gtk_text_iter_compare (&start, &orig_start) <= 0);
-		g_assert (gtk_text_iter_compare (&orig_end, &end) <= 0);
+		g_return_if_fail (gtk_text_iter_compare (&start, &orig_start) <= 0);
+		g_return_if_fail (gtk_text_iter_compare (&orig_end, &end) <= 0);
 
 		_gspell_region_subtract_subregion (spell->scan_region, &start, &end);
 
