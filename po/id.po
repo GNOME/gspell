@@ -6,19 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-06-13 15:15+0000\n"
-"PO-Revision-Date: 2016-06-13 22:16+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2017-04-02 14:56+0000\n"
+"PO-Revision-Date: 2017-04-05 18:40+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.11\n"
 
-#: gspell/gspell-checker.c:403
+#: gspell/gspell-checker.c:418
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Galat ketika memeriksa ejaan kata \"%s\": %s"
@@ -28,8 +28,7 @@ msgstr "Galat ketika memeriksa ejaan kata \"%s\": %s"
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
 msgid "(no suggested words)"
 msgstr "(tidak ada kata yang disarankan)"
 
@@ -53,28 +52,31 @@ msgstr "Tiada kata yang salah eja"
 msgid "(correct spelling)"
 msgstr "(ejaan yang benar)"
 
-#: gspell/gspell-checker-dialog.c:637
+#: gspell/gspell-checker-dialog.c:641
 msgid "Suggestions"
 msgstr "Saran"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
-msgid "_More..."
-msgstr "_Lebih Lanjut..."
+#: gspell/gspell-context-menu.c:149
+msgid "_Language"
+msgstr "_Bahasa"
+
+#: gspell/gspell-context-menu.c:237
+msgid "_More…"
+msgstr "_Lebih Lanjut…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-context-menu.c:282
 msgid "_Ignore All"
 msgstr "Aba_ikan Semua"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-context-menu.c:300
 msgid "_Add"
 msgstr "T_ambah"
 
-#. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
-msgid "_Spelling Suggestions..."
-msgstr "_Saran Ejaan..."
+#: gspell/gspell-context-menu.c:337
+msgid "_Spelling Suggestions…"
+msgstr "_Saran Ejaan…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:253
@@ -98,18 +100,13 @@ msgstr "Tidak ada bahasa yang dipilih"
 
 #: gspell/gspell-navigator-text-view.c:307
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Galat pemeriksa ejaan: tidak ada bahasa yang ditata. Mungkin ini karena "
 "tidak ada kamus yang dipasang."
 
-#. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
-msgid "_Language"
-msgstr "_Bahasa"
-
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "Periksa Ejaan"
 
@@ -129,35 +126,35 @@ msgstr "Ubah _ke:"
 msgid "Check _Word"
 msgstr "_Periksa Kata"
 
-#: gspell/resources/checker-dialog.ui:121
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "_Saran:"
 
-#: gspell/resources/checker-dialog.ui:134
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "Aba_ikan"
 
-#: gspell/resources/checker-dialog.ui:148
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "_Abaikan Semua"
 
-#: gspell/resources/checker-dialog.ui:162
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "Uba_h"
 
-#: gspell/resources/checker-dialog.ui:178
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "Ubah _Semua"
 
-#: gspell/resources/checker-dialog.ui:196
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "Kamus pengguna:"
 
-#: gspell/resources/checker-dialog.ui:208
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "Tambah _kata"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "Atur Bahasa"
 
