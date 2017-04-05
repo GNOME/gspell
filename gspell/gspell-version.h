@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015, 2016 - Sébastien Wilmet
+ * Copyright 2017 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,41 +17,27 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GSPELL_TEXT_BUFFER_H
-#define GSPELL_TEXT_BUFFER_H
+#ifndef GSPELL_VERSION_H
+#define GSPELL_VERSION_H
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
 #endif
 
-#include <gspell/gspell-checker.h>
-#include <gspell/gspell-version.h>
-#include <gtk/gtk.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 
-#define GSPELL_TYPE_TEXT_BUFFER (gspell_text_buffer_get_type ())
+#ifndef GSPELL_EXTERN
+#define GSPELL_EXTERN extern
+#endif
 
-GSPELL_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (GspellTextBuffer, gspell_text_buffer,
-		      GSPELL, TEXT_BUFFER,
-		      GObject)
-
-GSPELL_AVAILABLE_IN_ALL
-GspellTextBuffer *	gspell_text_buffer_get_from_gtk_text_buffer	(GtkTextBuffer *gtk_buffer);
-
-GSPELL_AVAILABLE_IN_ALL
-GtkTextBuffer *		gspell_text_buffer_get_buffer			(GspellTextBuffer *gspell_buffer);
-
-GSPELL_AVAILABLE_IN_ALL
-GspellChecker *		gspell_text_buffer_get_spell_checker		(GspellTextBuffer *gspell_buffer);
-
-GSPELL_AVAILABLE_IN_ALL
-void			gspell_text_buffer_set_spell_checker		(GspellTextBuffer *gspell_buffer,
-									 GspellChecker    *spell_checker);
+#define GSPELL_AVAILABLE_IN_ALL GSPELL_EXTERN
+#define GSPELL_AVAILABLE_IN_1_2 GSPELL_EXTERN
+#define GSPELL_AVAILABLE_IN_1_4 GSPELL_EXTERN
 
 G_END_DECLS
 
-#endif /* GSPELL_TEXT_BUFFER_H */
+#endif /* GSPELL_VERSION_H */
 
 /* ex:set ts=8 noet: */

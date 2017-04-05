@@ -26,10 +26,13 @@
 
 #include <glib-object.h>
 #include <gspell/gspell-language.h>
+#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_LANGUAGE_CHOOSER (gspell_language_chooser_get_type ())
+
+GSPELL_AVAILABLE_IN_ALL
 G_DECLARE_INTERFACE (GspellLanguageChooser, gspell_language_chooser,
 		     GSPELL, LANGUAGE_CHOOSER,
 		     GObject)
@@ -48,13 +51,17 @@ struct _GspellLanguageChooserInterface
 							 const GspellLanguage  *language);
 };
 
+GSPELL_AVAILABLE_IN_ALL
 const GspellLanguage *	gspell_language_chooser_get_language		(GspellLanguageChooser *chooser);
 
+GSPELL_AVAILABLE_IN_ALL
 void			gspell_language_chooser_set_language		(GspellLanguageChooser *chooser,
 									 const GspellLanguage  *language);
 
+GSPELL_AVAILABLE_IN_ALL
 const gchar *		gspell_language_chooser_get_language_code	(GspellLanguageChooser *chooser);
 
+GSPELL_AVAILABLE_IN_ALL
 void			gspell_language_chooser_set_language_code	(GspellLanguageChooser *chooser,
 									 const gchar           *language_code);
 

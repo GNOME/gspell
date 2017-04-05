@@ -27,10 +27,13 @@
 
 #include <glib-object.h>
 #include <gspell/gspell-language.h>
+#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_CHECKER (gspell_checker_get_type ())
+
+GSPELL_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (GspellChecker, gspell_checker,
 			  GSPELL, CHECKER,
 			  GObject)
@@ -75,35 +78,45 @@ struct _GspellCheckerClass
 	gpointer padding[12];
 };
 
+GSPELL_AVAILABLE_IN_ALL
 GQuark		gspell_checker_error_quark		(void);
 
+GSPELL_AVAILABLE_IN_ALL
 GspellChecker *	gspell_checker_new			(const GspellLanguage *language);
 
+GSPELL_AVAILABLE_IN_ALL
 void		gspell_checker_set_language		(GspellChecker        *checker,
 							 const GspellLanguage *language);
 
+GSPELL_AVAILABLE_IN_ALL
 const GspellLanguage *
 		gspell_checker_get_language		(GspellChecker *checker);
 
+GSPELL_AVAILABLE_IN_ALL
 gboolean	gspell_checker_check_word		(GspellChecker  *checker,
 							 const gchar    *word,
 							 gssize          word_length,
 							 GError        **error);
 
+GSPELL_AVAILABLE_IN_ALL
 GSList *	gspell_checker_get_suggestions		(GspellChecker *checker,
 							 const gchar   *word,
 							 gssize         word_length);
 
+GSPELL_AVAILABLE_IN_ALL
 void		gspell_checker_add_word_to_personal	(GspellChecker *checker,
 							 const gchar   *word,
 							 gssize         word_length);
 
+GSPELL_AVAILABLE_IN_ALL
 void		gspell_checker_add_word_to_session	(GspellChecker *checker,
 							 const gchar   *word,
 							 gssize         word_length);
 
+GSPELL_AVAILABLE_IN_ALL
 void		gspell_checker_clear_session		(GspellChecker *checker);
 
+GSPELL_AVAILABLE_IN_ALL
 void		gspell_checker_set_correction		(GspellChecker *checker,
 							 const gchar   *word,
 							 gssize         word_length,

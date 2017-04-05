@@ -26,10 +26,13 @@
 
 #include <glib-object.h>
 #include <gspell/gspell-checker.h>
+#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_NAVIGATOR (gspell_navigator_get_type ())
+
+GSPELL_AVAILABLE_IN_ALL
 G_DECLARE_INTERFACE (GspellNavigator, gspell_navigator,
 		     GSPELL, NAVIGATOR,
 		     GInitiallyUnowned)
@@ -52,15 +55,18 @@ struct _GspellNavigatorInterface
 						 const gchar     *change_to);
 };
 
+GSPELL_AVAILABLE_IN_ALL
 gboolean	gspell_navigator_goto_next	(GspellNavigator  *navigator,
 						 gchar           **word,
 						 GspellChecker   **spell_checker,
 						 GError          **error);
 
+GSPELL_AVAILABLE_IN_ALL
 void		gspell_navigator_change		(GspellNavigator *navigator,
 						 const gchar     *word,
 						 const gchar     *change_to);
 
+GSPELL_AVAILABLE_IN_ALL
 void		gspell_navigator_change_all	(GspellNavigator *navigator,
 						 const gchar     *word,
 						 const gchar     *change_to);

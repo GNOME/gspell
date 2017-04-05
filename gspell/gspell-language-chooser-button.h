@@ -26,10 +26,13 @@
 
 #include <gtk/gtk.h>
 #include <gspell/gspell-language.h>
+#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_LANGUAGE_CHOOSER_BUTTON (gspell_language_chooser_button_get_type ())
+
+GSPELL_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (GspellLanguageChooserButton, gspell_language_chooser_button,
 			  GSPELL, LANGUAGE_CHOOSER_BUTTON,
 			  GtkButton)
@@ -42,6 +45,7 @@ struct _GspellLanguageChooserButtonClass
 	gpointer padding[8];
 };
 
+GSPELL_AVAILABLE_IN_ALL
 GtkWidget *	gspell_language_chooser_button_new	(const GspellLanguage *current_language);
 
 G_END_DECLS

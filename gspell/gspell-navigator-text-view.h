@@ -27,10 +27,13 @@
 #include <gtk/gtk.h>
 #include <gspell/gspell-navigator.h>
 #include <gspell/gspell-checker.h>
+#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_NAVIGATOR_TEXT_VIEW (gspell_navigator_text_view_get_type ())
+
+GSPELL_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (GspellNavigatorTextView, gspell_navigator_text_view,
 			  GSPELL, NAVIGATOR_TEXT_VIEW,
 			  GInitiallyUnowned)
@@ -43,8 +46,10 @@ struct _GspellNavigatorTextViewClass
 	gpointer padding[8];
 };
 
+GSPELL_AVAILABLE_IN_ALL
 GspellNavigator *	gspell_navigator_text_view_new		(GtkTextView *view);
 
+GSPELL_AVAILABLE_IN_ALL
 GtkTextView *		gspell_navigator_text_view_get_view	(GspellNavigatorTextView *navigator);
 
 G_END_DECLS

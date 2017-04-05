@@ -26,7 +26,8 @@ gspell_public_headers =				\
 	gspell-navigator.h			\
 	gspell-navigator-text-view.h		\
 	gspell-text-buffer.h			\
-	gspell-text-view.h
+	gspell-text-view.h			\
+	gspell-version.h
 
 gspell_public_c_files =				\
 	gspell-checker.c			\
@@ -117,7 +118,7 @@ libgspell_@GSPELL_API_VERSION@_la_CFLAGS =	\
 libgspell_@GSPELL_API_VERSION@_la_LDFLAGS =	\
 	-version-info $(GSPELL_LT_VERSION)	\
 	-no-undefined				\
-	-export-symbols-regex "^gspell_.*"	\
+	-export-dynamic				\
 	$(WARN_LDFLAGS)
 
 libgspell_includedir = $(includedir)/gspell-@GSPELL_API_VERSION@/gspell

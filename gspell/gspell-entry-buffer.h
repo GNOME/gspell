@@ -25,21 +25,28 @@
 #endif
 
 #include <gspell/gspell-checker.h>
+#include <gspell/gspell-version.h>
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_ENTRY_BUFFER (gspell_entry_buffer_get_type ())
+
+GSPELL_AVAILABLE_IN_1_4
 G_DECLARE_FINAL_TYPE (GspellEntryBuffer, gspell_entry_buffer,
 		      GSPELL, ENTRY_BUFFER,
 		      GObject)
 
+GSPELL_AVAILABLE_IN_1_4
 GspellEntryBuffer *	gspell_entry_buffer_get_from_gtk_entry_buffer	(GtkEntryBuffer *gtk_buffer);
 
+GSPELL_AVAILABLE_IN_1_4
 GtkEntryBuffer *	gspell_entry_buffer_get_buffer			(GspellEntryBuffer *gspell_buffer);
 
+GSPELL_AVAILABLE_IN_1_4
 GspellChecker *		gspell_entry_buffer_get_spell_checker		(GspellEntryBuffer *gspell_buffer);
 
+GSPELL_AVAILABLE_IN_1_4
 void			gspell_entry_buffer_set_spell_checker		(GspellEntryBuffer *gspell_buffer,
 									 GspellChecker     *spell_checker);
 

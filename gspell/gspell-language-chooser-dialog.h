@@ -27,10 +27,13 @@
 
 #include <gtk/gtk.h>
 #include <gspell/gspell-language.h>
+#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG (gspell_language_chooser_dialog_get_type ())
+
+GSPELL_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (GspellLanguageChooserDialog, gspell_language_chooser_dialog,
 			  GSPELL, LANGUAGE_CHOOSER_DIALOG,
 			  GtkDialog)
@@ -43,6 +46,7 @@ struct _GspellLanguageChooserDialogClass
 	gpointer padding[8];
 };
 
+GSPELL_AVAILABLE_IN_ALL
 GtkWidget *	gspell_language_chooser_dialog_new		(GtkWindow            *parent,
 								 const GspellLanguage *current_language,
 								 GtkDialogFlags        flags);

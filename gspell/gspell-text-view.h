@@ -25,10 +25,13 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_TEXT_VIEW (gspell_text_view_get_type ())
+
+GSPELL_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (GspellTextView, gspell_text_view,
 			  GSPELL, TEXT_VIEW,
 			  GObject)
@@ -41,19 +44,26 @@ struct _GspellTextViewClass
 	gpointer padding[8];
 };
 
+GSPELL_AVAILABLE_IN_ALL
 GspellTextView *	gspell_text_view_get_from_gtk_text_view		(GtkTextView *gtk_view);
 
+GSPELL_AVAILABLE_IN_1_2
 void			gspell_text_view_basic_setup			(GspellTextView *gspell_view);
 
+GSPELL_AVAILABLE_IN_ALL
 GtkTextView *		gspell_text_view_get_view			(GspellTextView *gspell_view);
 
+GSPELL_AVAILABLE_IN_ALL
 gboolean		gspell_text_view_get_inline_spell_checking	(GspellTextView *gspell_view);
 
+GSPELL_AVAILABLE_IN_ALL
 void			gspell_text_view_set_inline_spell_checking	(GspellTextView *gspell_view,
 									 gboolean        enable);
 
+GSPELL_AVAILABLE_IN_1_2
 gboolean		gspell_text_view_get_enable_language_menu	(GspellTextView *gspell_view);
 
+GSPELL_AVAILABLE_IN_1_2
 void			gspell_text_view_set_enable_language_menu	(GspellTextView *gspell_view,
 									 gboolean        enable_language_menu);
 
