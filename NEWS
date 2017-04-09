@@ -1,3 +1,9 @@
+News in 1.4.1, 2017-04-09
+-------------------------
+* GspellEntry: do not emit the GtkEditable::changed signal.
+* Replace some g_asserts by g_returns to avoid crashes (bug #778883).
+* Translation updates.
+
 News in 1.4.0, 2017-03-18
 -------------------------
 * Translation updates.
