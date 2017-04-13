@@ -25,6 +25,8 @@
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_CURRENT_WORD_POLICY (_gspell_current_word_policy_get_type ())
+
+G_GNUC_INTERNAL
 G_DECLARE_DERIVABLE_TYPE (GspellCurrentWordPolicy, _gspell_current_word_policy,
 			  GSPELL, CURRENT_WORD_POLICY,
 			  GObject)

@@ -24,6 +24,7 @@
 
 G_BEGIN_DECLS
 
+G_GNUC_INTERNAL
 void		_gspell_checker_force_set_language	(GspellChecker        *checker,
 							 const GspellLanguage *language);
 
