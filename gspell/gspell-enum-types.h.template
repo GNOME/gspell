@@ -21,7 +21,7 @@ G_BEGIN_DECLS
 /*** BEGIN enumeration-production ***/
 #define GSPELL_TYPE_@ENUMSHORT@ (@enum_name@_get_type())
 
-GSPELL_EXTERN
+_GSPELL_EXTERN
 GType @enum_name@_get_type (void);
 
 /*** END enumeration-production ***/
