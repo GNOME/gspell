@@ -94,7 +94,8 @@ nodist_libgspell_core_la_SOURCES = \
 libgspell_core_la_LIBADD =	\
 	$(CODE_COVERAGE_LIBS)
 
-libgspell_core_la_CFLAGS =	\
+libgspell_core_la_CFLAGS =			\
+	$(GSPELL_HIDDEN_VISIBILITY_CFLAGS)	\
 	$(CODE_COVERAGE_CFLAGS)
 
 libgspell_core_la_LDFLAGS =	\
@@ -113,6 +114,7 @@ libgspell_@GSPELL_API_VERSION@_la_LIBADD =	\
 	$(CODE_COVERAGE_LIBS)
 
 libgspell_@GSPELL_API_VERSION@_la_CFLAGS =	\
+	$(GSPELL_HIDDEN_VISIBILITY_CFLAGS)	\
 	$(CODE_COVERAGE_CFLAGS)
 
 libgspell_@GSPELL_API_VERSION@_la_LDFLAGS =	\
