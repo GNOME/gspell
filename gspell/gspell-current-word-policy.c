@@ -17,6 +17,7 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "gspell-current-word-policy.h"
 
 /* An object that decides whether to check the current word. When a word is
