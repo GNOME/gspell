@@ -19,7 +19,10 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#if HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "gspell-language.h"
 #include <string.h>
 #include <glib/gi18n-lib.h>

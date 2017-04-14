@@ -23,7 +23,10 @@
  * Copyright (C) 1997, 1998, 1999, 2000 Free Software Foundation
  */
 
-#include "config.h"
+#if HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "gspell-init.h"
 #include <glib/gi18n-lib.h>
 #include "gconstructor.h"
