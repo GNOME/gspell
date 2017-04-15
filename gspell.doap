@@ -6,13 +6,14 @@
          xmlns="http://usefulinc.com/ns/doap#">
   <name xml:lang="en">gspell</name>
   <shortdesc xml:lang="en">Spell-checking library for GTK+</shortdesc>
-  <description>gspell provides a flexible API to add spell checking to a GTK+
-application.</description>
+  <description xml:lang="en">gspell provides a flexible API to add spell
+checking to a GTK+ application.</description>
 
   <homepage rdf:resource="https://wiki.gnome.org/Projects/gspell" />
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/gspell-list" />
   <download-page rdf:resource="https://download.gnome.org/sources/gspell/" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=gspell" />
+  <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
 
   <programming-language>C</programming-language>
 
