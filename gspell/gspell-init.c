@@ -23,7 +23,7 @@
  * Copyright (C) 1997, 1998, 1999, 2000 Free Software Foundation
  */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
