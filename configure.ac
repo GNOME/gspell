@@ -155,8 +155,11 @@ AX_CODE_COVERAGE
 AX_REQUIRE_DEFINED([AX_VALGRIND_CHECK])
 AX_VALGRIND_CHECK
 
-# Visibility handling
-# This requires that every gspell/*.c file #includes config.h.
+# Symbol visibility handling.
+#
+# This requires to #include config.h in every *.c file where there is a public
+# symbol. As a simpler rule, it's easier to #include config.h in all gspell/*.c
+# files, to be sure that we don't miss any public symbol.
 GSPELL_HIDDEN_VISIBILITY_CFLAGS=""
 case "$host" in
     *-*-mingw*)
