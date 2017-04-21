@@ -35,6 +35,18 @@ Dependencies
 * Enchant >= 1.6.0
 * iso-codes
 
+Notes for packagers
+-------------------
+
+At least on GNU/Linux, it is better to install hunspell. aspell can be
+considered deprecated and doesn't work well with gspell. If both hunspell and
+aspell are installed, Enchant prefers hunspell.
+
+See also:
+
+    https://fedoraproject.org/wiki/Releases/FeatureDictionary
+    https://wiki.ubuntu.com/ConsolidateSpellingLibs
+
 Installation from a tarball
 ---------------------------
 
