@@ -1,3 +1,20 @@
+News in 1.5.1, 2017-04-23
+-------------------------
+This is an unstable release in the 1.5 development cycle. The 1.6 stable
+version will be released at the same time as GNOME 3.26.
+
+* Change underline type to PANGO_UNDERLINE_SINGLE, to remove the workaround for
+  the GtkTextView bug where wavy underlines are not properly removed:
+  https://bugzilla.gnome.org/show_bug.cgi?id=763741
+* Up to 20x faster implementation for the GtkTextView inline spell-checker, to
+  fix a responsiveness problem when editing long lines.
+* Rework symbol visibility handling, by using the -export-dynamic LDFLAG
+  and -fvisibility=hidden CFLAG, instead of the -export-symbols-regex LDFLAG.
+* Add note for packagers in the README file: aspell doesn't work well with
+  gspell, hunspell is preferred.
+* Various other small improvements.
+* Translation updates.
+
 News in 1.4.1, 2017-04-09
 -------------------------
 * GspellEntry: do not emit the GtkEditable::changed signal.
