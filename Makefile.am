@@ -1,4 +1,4 @@
-SUBDIRS = po gspell tests testsuite docs
+SUBDIRS = po gspell gspell-app tests testsuite docs
 
 @CODE_COVERAGE_RULES@
 

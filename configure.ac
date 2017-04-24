@@ -249,6 +249,7 @@ AC_CONFIG_FILES([
 	docs/reference/Makefile
 	gspell/Makefile
 	gspell/resources/Makefile
+	gspell-app/Makefile
 	po/Makefile.in
 	tests/Makefile
 	testsuite/Makefile
