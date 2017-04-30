@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2017-04-02 13:14+0000\n"
-"PO-Revision-Date: 2017-04-30 01:13+0200\n"
+"PO-Revision-Date: 2017-04-30 18:57+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -161,7 +161,7 @@ msgstr "Postavi jezik"
 
 #: gspell/resources/language-dialog.ui:20
 msgid "Select the spell checking _language."
-msgstr "Odaberi jezik za provjeru _jezika."
+msgstr "Odaberi jezik provjere _pravopisa."
 
 #: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
