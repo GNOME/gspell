@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-27 15:18+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-04-02 13:14+0000\n"
 "PO-Revision-Date: 2016-02-27 15:18+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: ca_ES <tradgnome@softcatala.net>\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../gspell/gspell-checker.c:394
+#: gspell/gspell-checker.c:418
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "S'ha produït un error en comprovar l'ortografia de la paraula «%s»: %s"
@@ -27,20 +28,19 @@ msgstr "S'ha produït un error en comprovar l'ortografia de la paraula «%s»: %
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: ../gspell/gspell-checker-dialog.c:147
-#: ../gspell/gspell-inline-checker-text-buffer.c:690
+#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
 msgid "(no suggested words)"
 msgstr "(cap paraula suggerida)"
 
-#: ../gspell/gspell-checker-dialog.c:232
+#: gspell/gspell-checker-dialog.c:232
 msgid "Error:"
 msgstr "Error:"
 
-#: ../gspell/gspell-checker-dialog.c:268
+#: gspell/gspell-checker-dialog.c:268
 msgid "Completed spell checking"
 msgstr "S'ha completat la comprovació d'ortografia"
 
-#: ../gspell/gspell-checker-dialog.c:272
+#: gspell/gspell-checker-dialog.c:272
 msgid "No misspelled words"
 msgstr "Cap paraula mal escrita"
 
@@ -48,35 +48,38 @@ msgstr "Cap paraula mal escrita"
 #. * Spelling" dialog if the current word
 #. * isn't misspelled.
 #.
-#: ../gspell/gspell-checker-dialog.c:501
+#: gspell/gspell-checker-dialog.c:499
 msgid "(correct spelling)"
 msgstr "(ortografia correcta)"
 
-#: ../gspell/gspell-checker-dialog.c:639
+#: gspell/gspell-checker-dialog.c:641
 msgid "Suggestions"
 msgstr "Suggeriments"
 
-#: ../gspell/gspell-inline-checker-text-buffer.c:713
-msgid "_More..."
+#: gspell/gspell-context-menu.c:149
+msgid "_Language"
+msgstr "_Llengua"
+
+#: gspell/gspell-context-menu.c:237
+msgid "_More…"
 msgstr "_Més..."
 
 #. Ignore all
-#: ../gspell/gspell-inline-checker-text-buffer.c:753
+#: gspell/gspell-context-menu.c:282
 msgid "_Ignore All"
 msgstr "_Ignora-ho tot"
 
 #. Add to Dictionary
-#: ../gspell/gspell-inline-checker-text-buffer.c:762
+#: gspell/gspell-context-menu.c:300
 msgid "_Add"
 msgstr "_Afegeix"
 
-#. Prepend suggestions
-#: ../gspell/gspell-inline-checker-text-buffer.c:799
-msgid "_Spelling Suggestions..."
+#: gspell/gspell-context-menu.c:337
+msgid "_Spelling Suggestions…"
 msgstr "_Suggeriments d'ortografia..."
 
 #. Translators: %s is the language ISO code.
-#: ../gspell/gspell-language.c:280
+#: gspell/gspell-language.c:253
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -85,19 +88,84 @@ msgstr "Desconeguda (%s)"
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)".
 #.
-#: ../gspell/gspell-language.c:297 ../gspell/gspell-language.c:306
+#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../gspell/gspell-language-chooser-button.c:81
+#: gspell/gspell-language-chooser-button.c:81
 msgid "No language selected"
 msgstr "No s'ha seleccionat cap llenguatge"
 
-#: ../gspell/gspell-navigator-text-view.c:306
+#: gspell/gspell-navigator-text-view.c:307
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
-"Error del corrector ortogràfic: no hi ha cap llengua configurada. Això pot ser degut a que no hi ha diccionaris instal·lats."
+"Error del corrector ortogràfic: no hi ha cap llengua configurada. Això pot "
+"ser degut a que no hi ha diccionaris instal·lats."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "Revisa l'ortografia"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Paraula mal escrita:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "paraula"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "Canvia _a:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "Revisa la _paraula"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_Suggeriments:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "_Ignora"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "_Ignora-ho tot"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "_Canvia"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "C_anvia-ho tot"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "Diccionari de l'usuari:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "Af_egeix paraula"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "Especifiqueu l'idioma"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "_Seleccioneu la llengua de revisió de l'ortografia"
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_Cancel·la"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Selecciona"
