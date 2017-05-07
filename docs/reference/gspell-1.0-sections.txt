@@ -70,6 +70,7 @@ GspellCheckerDialog
 gspell_checker_dialog_new
 gspell_checker_dialog_get_spell_navigator
 <SUBSECTION Standard>
+GspellCheckerDialogClass
 GSPELL_TYPE_CHECKER_DIALOG
 </SECTION>
 
@@ -120,6 +121,7 @@ GspellLanguageChooserButtonClass
 GspellLanguageChooserDialog
 gspell_language_chooser_dialog_new
 <SUBSECTION Standard>
+GspellLanguageChooserDialogClass
 GSPELL_TYPE_LANGUAGE_CHOOSER_DIALOG
 </SECTION>
 
