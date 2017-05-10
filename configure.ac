@@ -73,6 +73,7 @@ PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
 
 AC_PATH_PROG([GLIB_MKENUMS], [glib-mkenums])
+AC_PATH_PROG([GLIB_COMPILE_RESOURCES], [glib-compile-resources])
 
 # Needed on Mac OS X
 AC_PROG_OBJC
@@ -80,9 +81,6 @@ AC_PROG_OBJC
 # Initialize libtool
 LT_PREREQ([2.2.6])
 LT_INIT([disable-static])
-
-# Pull GLib utility
-AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
 # Compile warnings. There can be deprecation warnings at any time, so disable
 # -Werror by default with the [yes] argument.
