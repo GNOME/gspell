@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015, 2016 - Sébastien Wilmet
+ * Copyright 2015, 2016, 2017 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,32 @@
  *
  * #GspellTextBuffer extends the #GtkTextBuffer class but without subclassing
  * it, because the GtkSourceView library has already a #GtkTextBuffer subclass.
+ *
+ * # Support of the no-spell-check tag defined by GtkSourceView
+ *
+ * The syntax highlighting engine of the [GtkSourceView
+ * library](https://wiki.gnome.org/Projects/GtkSourceView) has a feature called
+ * “context classes”. One of the standard context classes is
+ * “<emphasis>no-spell-check</emphasis>”: it defines the regions in the
+ * #GtkTextBuffer that should not be spell-checked.
+ *
+ * GtkSourceView creates a #GtkTextTag named
+ * `"gtksourceview:context-classes:no-spell-check"`. gspell reads this tag, to
+ * skip the text contained within the tag.
+ *
+ * If you use the GtkSourceView library in your application, keep in mind that
+ * the #GtkTextTag created by GtkSourceView is for read-only purposes; you
+ * cannot apply it yourself to other regions.
+ *
+ * On the other hand if the GtkSourceView library is not used, you can create a
+ * #GtkTextTag with the same name to mark certain regions in the text that
+ * gspell should skip. As it is not a great API, it is
+ * [planned](https://bugzilla.gnome.org/show_bug.cgi?id=771582) to add an
+ * explicit API in #GspellTextBuffer to set a #GtkTextTag that gspell should
+ * skip.
+ *
+ * See the class description of #GtkSourceBuffer for more information about
+ * context classes.
  */
 
 struct _GspellTextBuffer
