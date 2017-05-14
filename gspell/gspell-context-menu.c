@@ -151,7 +151,7 @@ _gspell_context_menu_get_language_menu_item (const GspellLanguage            *cu
 
 	menu_item = GTK_MENU_ITEM (gtk_menu_item_new_with_mnemonic (_("_Language")));
 	gtk_menu_item_set_submenu (menu_item, lang_menu);
-	gtk_widget_show_all (GTK_WIDGET (menu_item));
+	gtk_widget_show (GTK_WIDGET (menu_item));
 
 	return menu_item;
 }
@@ -339,7 +339,7 @@ _gspell_context_menu_get_suggestions_menu_item (GspellChecker                   
 
 	menu_item = GTK_MENU_ITEM (gtk_menu_item_new_with_mnemonic (_("_Spelling Suggestions…")));
 	gtk_menu_item_set_submenu (menu_item, suggestion_menu);
-	gtk_widget_show_all (GTK_WIDGET (menu_item));
+	gtk_widget_show (GTK_WIDGET (menu_item));
 
 	return menu_item;
 }
