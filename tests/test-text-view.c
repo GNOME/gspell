@@ -242,7 +242,7 @@ main (gint    argc,
 	GtkWidget *window;
 	TestSpell *spell;
 
-	gtk_init (&argc, &argv);
+	gtk_init ();
 
 	print_available_language_codes ();
 
