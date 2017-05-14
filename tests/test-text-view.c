@@ -196,7 +196,7 @@ test_spell_init (TestSpell *spell)
 	gtk_container_add (GTK_CONTAINER (spell),
 			   scrolled_window);
 
-	gtk_widget_show_all (GTK_WIDGET (spell));
+	gtk_widget_show (GTK_WIDGET (spell));
 }
 
 static TestSpell *

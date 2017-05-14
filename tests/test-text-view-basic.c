@@ -46,7 +46,7 @@ main (gint    argc,
 
 	gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (gtk_view));
 	gtk_container_add (GTK_CONTAINER (window), scrolled_window);
-	gtk_widget_show_all (window);
+	gtk_widget_show (window);
 
 	gtk_main ();
 
