@@ -120,7 +120,7 @@ create_sidebar (TestSpell *spell)
 				G_BINDING_SYNC_CREATE |
 				G_BINDING_INVERT_BOOLEAN);
 
-	gtk_widget_show_all (vgrid);
+	gtk_widget_show (vgrid);
 
 	return vgrid;
 }
@@ -144,7 +144,7 @@ test_spell_init (TestSpell *spell)
 	gtk_container_add (GTK_CONTAINER (spell),
 			   GTK_WIDGET (spell->entry));
 
-	gtk_widget_show_all (GTK_WIDGET (spell));
+	gtk_widget_show (GTK_WIDGET (spell));
 }
 
 static TestSpell *
