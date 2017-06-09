@@ -1,0 +1,172 @@
+# Esperanto translation for gspell.
+# Copyright (C) 2017 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gspell package.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gspell"
+"&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-05-21 09:46+0000\n"
+"PO-Revision-Date: 2017-06-10 00:13+0200\n"
+"Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
+"Language-Team: gnome-eo-list@gnome.org\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: gspell/gspell-checker.c:421
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Eraro dum la literumada kontrolo de la vorto “%s”: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(neniu proponitaj vortoj)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "Eraro:"
+
+#: gspell/gspell-checker-dialog.c:271
+msgid "Completed spell checking"
+msgstr "Plenumita literumada kontrolo"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "Neniu misliterumita vorto"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(ĝusta literumado)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "Proponoj"
+
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "_Lingvo"
+
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "_Pli…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+msgid "_Ignore All"
+msgstr "_Ignori ĉiujn"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "_Aldoni"
+
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
+msgstr "_Literumada proponoj…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:256
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Nekonate (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:273 gspell/gspell-language.c:282
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "Neniu lingvo estas elektita"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Eraro de la literumada kontrolo: neniu lingvo estas elektita. Eble ĉar neniu "
+"vortaro estas instalita."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "Literumada kontrolo"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Misliterumita vorto:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "vorto"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "Ŝanĝi _al:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "Kontroli _vorton"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_Proponoj:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "_Ignori"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "_Ignori ĉiujn"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "Ŝa_nĝi"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "Ŝanĝi ĉ_iujn"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "Propra vortaro:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "Aldoni v_orton"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "Elekti lingvon"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Elektu la _lingvon de la literumada kontrolo."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_Nuligi"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Elekti"
