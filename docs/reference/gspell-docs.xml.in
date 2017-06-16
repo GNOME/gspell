@@ -14,36 +14,36 @@
 
   <xi:include href="intro.xml"/>
 
-  <part>
+  <part id="api-reference">
     <title>API reference</title>
 
-    <chapter>
+    <chapter id="core-classes">
       <title>Core Classes</title>
       <xi:include href="xml/checker.xml"/>
       <xi:include href="xml/language.xml"/>
     </chapter>
 
-    <chapter>
+    <chapter id="language-choosers">
       <title>Language Choosers</title>
       <xi:include href="xml/language-chooser.xml"/>
       <xi:include href="xml/language-chooser-button.xml"/>
       <xi:include href="xml/language-chooser-dialog.xml"/>
     </chapter>
 
-    <chapter>
+    <chapter id="spell-checker-dialog">
       <title>Spell Checker Dialog</title>
       <xi:include href="xml/checker-dialog.xml"/>
       <xi:include href="xml/navigator.xml"/>
     </chapter>
 
-    <chapter>
+    <chapter id="GtkTextView-support">
       <title>GtkTextView Support</title>
       <xi:include href="xml/text-buffer.xml"/>
       <xi:include href="xml/text-view.xml"/>
       <xi:include href="xml/navigator-text-view.xml"/>
     </chapter>
 
-    <chapter>
+    <chapter id="GtkEntry-support">
       <title>GtkEntry Support</title>
       <xi:include href="xml/entry-buffer.xml"/>
       <xi:include href="xml/entry.xml"/>
