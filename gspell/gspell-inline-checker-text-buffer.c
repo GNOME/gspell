@@ -306,6 +306,11 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 								    &word_end_iter,
 								    word_end_offset);
 
+				/* FIXME: it's a bit stupid to spell-check words
+				 * in the no-spell-check region. The relevant
+				 * word boundaries in the PangoLogAttr array
+				 * should be removed beforehand.
+				 */
 				if (should_apply_tag_to_misspelled_word (spell, &word_start_iter, &word_end_iter))
 				{
 					gtk_text_buffer_apply_tag (spell->buffer,
