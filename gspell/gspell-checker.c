@@ -639,7 +639,7 @@ gspell_checker_set_correction (GspellChecker *checker,
 }
 
 /**
- * gspell_checker_get_enchant_dict:
+ * gspell_checker_get_enchant_dict: (skip)
  * @checker: a #GspellChecker.
  *
  * Gets the EnchantDict currently used by @checker. It permits to extend
