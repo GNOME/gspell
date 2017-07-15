@@ -90,8 +90,8 @@ AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS], [yes])
 # Dynamic linking dependencies
 AX_REQUIRE_DEFINED([AX_PKG_CHECK_MODULES])
 AX_PKG_CHECK_MODULES([DEP],
-		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req],
-		     [enchant >= $enchant_req])
+		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req  enchant >= $enchant_req],
+		     [])
 
 # iso-codes
 AX_REQUIRE_DEFINED([PKG_CHECK_EXISTS])

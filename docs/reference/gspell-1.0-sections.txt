@@ -14,6 +14,7 @@ gspell_checker_add_word_to_personal
 gspell_checker_add_word_to_session
 gspell_checker_clear_session
 gspell_checker_set_correction
+gspell_checker_get_enchant_dict
 <SUBSECTION Standard>
 GspellCheckerClass
 GSPELL_TYPE_CHECKER

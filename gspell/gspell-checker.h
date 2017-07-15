@@ -26,6 +26,7 @@
 #endif
 
 #include <glib-object.h>
+#include <enchant.h>
 #include <gspell/gspell-language.h>
 #include <gspell/gspell-version.h>
 
@@ -122,6 +123,9 @@ void		gspell_checker_set_correction		(GspellChecker *checker,
 							 gssize         word_length,
 							 const gchar   *replacement,
 							 gssize         replacement_length);
+
+GSPELL_AVAILABLE_IN_1_6
+EnchantDict *	gspell_checker_get_enchant_dict		(GspellChecker *checker);
 
 G_END_DECLS
 

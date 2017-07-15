@@ -24,7 +24,6 @@
 
 #include "gspell-checker.h"
 #include "gspell-checker-private.h"
-#include <enchant.h>
 #include <glib/gi18n-lib.h>
 #include <string.h>
 #include "gspell-utils.h"
@@ -44,11 +43,10 @@
  * If the #GspellChecker:language property is %NULL, it means that no
  * dictonaries are available, in which case the #GspellChecker is in a
  * “disabled” (but allowed) state.
- */
-
-/* Enchant is currently used under the hood, but it is an implementation detail,
- * it is *NOT* part of the gspell API. A future gspell version can be based on
- * another library (e.g. using directly hunspell).
+ *
+ * gspell uses the [Enchant](https://abiword.github.io/enchant/) library. The
+ * use of Enchant is part of the gspell API, #GspellChecker exposes the
+ * EnchantDict with the gspell_checker_get_enchant_dict() function.
  */
 
 typedef struct _GspellCheckerPrivate GspellCheckerPrivate;
@@ -638,6 +636,32 @@ gspell_checker_set_correction (GspellChecker *checker,
 	enchant_dict_store_replacement (priv->dict,
 					word, word_length,
 					replacement, replacement_length);
+}
+
+/**
+ * gspell_checker_get_enchant_dict:
+ * @checker: a #GspellChecker.
+ *
+ * Gets the EnchantDict currently used by @checker. It permits to extend
+ * #GspellChecker with more features. Note that by doing so, the other classes
+ * in gspell may no longer work well.
+ *
+ * #GspellChecker re-creates a new EnchantDict when the #GspellChecker:language
+ * is changed and when the session is cleared.
+ *
+ * Returns: (transfer none) (nullable): the EnchantDict currently used by
+ * @checker.
+ * Since: 1.6
+ */
+EnchantDict *
+gspell_checker_get_enchant_dict (GspellChecker *checker)
+{
+	GspellCheckerPrivate *priv;
+
+	g_return_val_if_fail (GSPELL_IS_CHECKER (checker), NULL);
+
+	priv = gspell_checker_get_instance_private (checker);
+	return priv->dict;
 }
 
 /* ex:set ts=8 noet: */
