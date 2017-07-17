@@ -1,3 +1,11 @@
+News in 1.5.3, 2017-07-17
+-------------------------
+* Add gspell_checker_get_enchant_dict(), the use of Enchant is now part of the
+  API.
+* Rename program gspell-app to gspell-app1.
+* Various other small improvements.
+* Translation updates.
+
 News in 1.5.2, 2017-05-21
 -------------------------
 This is an unstable release in the 1.5 development cycle. The 1.6 stable
