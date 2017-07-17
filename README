@@ -15,7 +15,9 @@ The official web site is:
 About versions
 --------------
 
-gspell follows the GNOME release schedule.
+gspell follows the GNOME release schedule and uses the same versioning scheme:
+
+    https://developer.gnome.org/programming-guidelines/stable/versioning.html.en
 
 gspell 0.1.x should be installed alongside GNOME 3.18.
 gspell 1.0.x should be installed alongside GNOME 3.20.
