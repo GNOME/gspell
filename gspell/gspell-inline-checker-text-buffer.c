@@ -248,6 +248,12 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 
 	text = gtk_text_iter_get_slice (start, end);
 
+	if (text == NULL || text[0] == '\0')
+	{
+		g_free (text);
+		return;
+	}
+
 	get_pango_log_attrs (text, &attrs, &n_attrs);
 
 	attr_num = 0;
@@ -331,18 +337,31 @@ check_subregion (GspellInlineCheckerTextBuffer *spell,
 			word_start_char_pos = attr_num;
 		}
 
-		if (cur_text_pos == NULL &&
-		    attr_num != n_attrs - 1)
+		if (attr_num == n_attrs - 1 ||
+		    cur_text_pos == NULL ||
+		    cur_text_pos[0] == '\0')
 		{
-			g_warning ("%s(): problem in loop iteration, attr_num=%d but should be %d.",
-				   G_STRFUNC,
-				   attr_num,
-				   n_attrs - 1);
 			break;
 		}
 
 		attr_num++;
 		cur_text_pos = g_utf8_find_next_char (cur_text_pos, NULL);
+	}
+
+	/* Sanity checks */
+
+	if (attr_num != n_attrs - 1)
+	{
+		g_warning ("%s(): problem in loop iteration, attr_num=%d but should be %d. "
+			   "End of string reached too early.",
+			   G_STRFUNC,
+			   attr_num,
+			   n_attrs - 1);
+	}
+
+	if (cur_text_pos != NULL && cur_text_pos[0] != '\0')
+	{
+		g_warning ("%s(): end of string not reached.", G_STRFUNC);
 	}
 
 	g_free (text);
