@@ -1,0 +1,173 @@
+# Punjabi translation for gspell.
+# Copyright (C) 2017 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+#
+# A S Alam <aalam@users.sf.net>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gspell"
+"&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-08-20 10:32+0000\n"
+"PO-Revision-Date: 2017-08-20 16:01-0600\n"
+"Last-Translator: A S Alam <aalam@users.sf.net>\n"
+"Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
+"Language: pa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: gspell/gspell-checker.c:419
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "“%s” ਸ਼ਬਦ ਦੀ ਸ਼ਬਦ-ਜੋੜ ਜਾਂਚ ਕਰ ਦੌਰਾਨ ਗਲਤੀ: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(ਸ਼ਬਦਾਂ ਬਾਰੇ ਕੋਈ ਸੁਝਾਅ ਨਹੀਂ)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "ਗ਼ਲਤੀ:"
+
+#: gspell/gspell-checker-dialog.c:271
+msgid "Completed spell checking"
+msgstr "ਸ਼ਬਦਜੋੜ ਦੀ ਜਾਂਚ ਪੂਰੀ ਹੋ ਗਈ ਹੈ"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "ਕੋਈ ਗਲਤ ਸ਼ਬਦ ਜੋੜ ਨਹੀਂ"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(ਸਹੀ ਸ਼ਬਦ ਜੋੜ)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "ਸੁਝਾਅ"
+
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "ਭਾਸ਼ਾ(_L)"
+
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "ਹੋਰ(_M)…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+msgid "_Ignore All"
+msgstr "ਸਭ ਅਣਡਿੱਠੇ(_I)"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "ਜੋੜੋ(_A)"
+
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
+msgstr "ਸੁਝਾਅ ਦਿੱਤੇ ਸ਼ਬਦ-ਜੋੜ(_S)…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:256
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "ਅਣਪਛਾਤਾ (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:273 gspell/gspell-language.c:282
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "ਕੋਈ ਭਾਸ਼ਾ ਨਹੀਂ  ਚੁਣੀ"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"ਸ਼ਬਦ-ਜੋੜ ਜਾਂਚਕਾਰ ਗਲਤੀ: ਕੋਈ ਭਾਸ਼ਾ ਸੈੱਟ ਨਹੀਂ ਹੈ। ਇਹ ਡਿਕਸ਼ਨਰੀਆਂ ਨਾ ਇੰਸਟਾਲ ਹੋਣ"
+" ਕਰਕੇ ਹੋ ਸਕਦਾ ਹੈ।-"
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "ਸ਼ਬਦ-ਜੋੜ ਚੈੱਕ ਕਰੋ"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "ਗਲਤ ਸ਼ਬਦ-ਜੋੜ:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "ਸ਼ਬਦ"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "ਇਸ ਨਾਲ ਬਦਲੋ(_t):"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "ਸ਼ਬਦ ਚੈੱਕ ਕਰੋ(_W)"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "ਸੁਝਾਅ(_S):"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "ਅਣਡਿੱਠਾ(_I)"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "ਸਾਰੇ ਅਣਡਿੱਠੇ ਕਰੋ(_A)-"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "ਬਦਲੋ(_n)"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "ਸਾਰੇ ਬਦਲੋ(_l)"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "ਵਰਤੋਂਕਾਰ ਡਿਕਸ਼ਨਰੀ:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "ਸ਼ਬਦ ਜੋੜੋ(_o)"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "ਭਾਸ਼ਾ ਸੈੱਟ ਕਰੋ"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "ਸ਼ਬਦ-ਜੋੜ ਜਾਂਚ ਲਈ ਭਾਸ਼ਾ ਚੁਣੋ(_l)।"
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "ਰੱਦ ਕਰੋ(_C)"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "ਚੁਣੋ(_S)"
+
