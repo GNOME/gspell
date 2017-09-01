@@ -47,9 +47,9 @@
  * When doing changes to the algo here, it should be reflected for the GtkEntry
  * support as well, to have a consistent behavior.
  *
- * If the following Pango bug is fixed, the gtk_text_iter_* functions can maybe
- * be used directly.
- * FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=97545
+ * TODO: the following Pango bug is now mostly done, see if the gtk_text_iter_*
+ * functions can be used directly, or if the code here can be simplified.
+ * https://bugzilla.gnome.org/show_bug.cgi?id=97545
  * "Make pango_default_break follow Unicode TR #29"
  */
 
