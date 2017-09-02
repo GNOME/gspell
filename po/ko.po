@@ -1,12 +1,10 @@
-# -*- compile-command: "ko-po-check ko.po" -*-
-#
 # gspell ko.po
 # This file is distributed under the same license as the gspell package.
 #
 # Sung-Hyun Nam <namsh@lgic.co.kr>, 1998
 # Chideok Hwang <hwang@mizi.co.kr>, 2000, 2001
 # Young-Ho, Cha <ganadist@chollian.net>, 2000, 2002, 2007
-# Changwoo Ryu <cwryu@debian.org>, 2004, 2007-2015.
+# Changwoo Ryu <cwryu@debian.org>, 2004, 2007-2015, 2017.
 #
 # 새로 번역하시는 분은 아래 translator-credits에 추가하세요.
 #
@@ -19,9 +17,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-09-07 20:15+0900\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-02-22 19:27+0000\n"
+"PO-Revision-Date: 2017-08-31 21:46+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -30,132 +29,152 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:418
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "단어 “%s”의 맞춤법을 검사하는 중 오류: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
 msgid "(no suggested words)"
 msgstr "(추천 단어 없음)"
 
-#: gspell/gspell-checker-dialog.c:237
+#: gspell/gspell-checker-dialog.c:232
 msgid "Error:"
 msgstr "오류:"
 
-#: gspell/gspell-checker-dialog.c:274
+#: gspell/gspell-checker-dialog.c:268
 msgid "Completed spell checking"
 msgstr "맞춤법 검사 완료"
 
-#: gspell/gspell-checker-dialog.c:278
+#: gspell/gspell-checker-dialog.c:272
 msgid "No misspelled words"
 msgstr "모든 맞춤법이 올바릅니다"
 
-#: gspell/gspell-checker-dialog.c:507
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:499
 msgid "(correct spelling)"
 msgstr "(올바른 맞춤법)"
 
-#: gspell/gspell-checker-dialog.c:645
+#: gspell/gspell-checker-dialog.c:641
 msgid "Suggestions"
 msgstr "추천 단어"
 
-#: gspell/gspell-inline-checker-gtv.c:595
-msgid "_More..."
-msgstr "기타(_M)..."
+#: gspell/gspell-context-menu.c:149
+msgid "_Language"
+msgstr "언어(_L)"
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#: gspell/gspell-context-menu.c:237
+msgid "_More…"
+msgstr "기타(_M)…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:282
 msgid "_Ignore All"
 msgstr "모두 무시(_I)"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:300
 msgid "_Add"
 msgstr "추가(_A)"
 
-#: gspell/gspell-inline-checker-gtv.c:681
-msgid "_Spelling Suggestions..."
-msgstr "맞춤법 추천(_S)..."
+#: gspell/gspell-context-menu.c:337
+msgid "_Spelling Suggestions…"
+msgstr "맞춤법 추천(_S)…"
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language.c:369
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:253
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "알 수 없음(%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
+#, c-format
 msgctxt "language"
-msgid "Default"
-msgstr "기본 언어"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:78
+#: gspell/gspell-language-chooser-button.c:81
 msgid "No language selected"
-msgstr ""
+msgstr "언어를 선택하지 않았습니다"
 
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/gspell-navigator-text-view.c:307
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr "맞춤법 검사 오류: 언어가 설정되지 않았습니다. 사전을 하나도 설치하지 않았기 때문으로 보입니다."
+
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "맞춤법 검사"
 
-#: gspell/resources/checker-dialog.ui:27
+#: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
 msgstr "맞춤법이 틀린 단어:"
 
-#: gspell/resources/checker-dialog.ui:40
+#: gspell/resources/checker-dialog.ui:49
 msgid "word"
 msgstr "단어"
 
-#: gspell/resources/checker-dialog.ui:57
+#: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
 msgstr "바꿀 단어(_T):"
 
-#: gspell/resources/checker-dialog.ui:82
+#: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
 msgstr "단어 검사(_W)"
 
-#: gspell/resources/checker-dialog.ui:112
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "추천 단어(_S):"
 
-#: gspell/resources/checker-dialog.ui:125
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "무시(_I)"
 
-#: gspell/resources/checker-dialog.ui:139
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "모두 무시(_A)"
 
-#: gspell/resources/checker-dialog.ui:153
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "바꾸기(_N)"
 
-#: gspell/resources/checker-dialog.ui:169
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "모두 바꾸기(_L)"
 
-#: gspell/resources/checker-dialog.ui:187
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "사용자 사전:"
 
-#: gspell/resources/checker-dialog.ui:199
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "단어 추가(_O)"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "언어 선택"
 
-#: gspell/resources/language-dialog.ui:22
-msgid "Select the _language of the current document."
-msgstr "현재 문서의 언어를 선택(_L)."
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "맞춤법 검사 언어를 고르십시오(_L)"
 
-#: gspell/resources/language-dialog.ui:63
+#: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
 msgstr "취소(_C)"
 
-#: gspell/resources/language-dialog.ui:70
+#: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "선택(_S)"
