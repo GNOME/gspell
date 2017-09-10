@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.64)
 
 # Package version of the form 'major.minor.micro'.
-m4_define(gspell_package_version, 1.5.5)
+m4_define(gspell_package_version, 1.6.0)
 
 AC_INIT([gspell],
 	[gspell_package_version],
@@ -34,9 +34,9 @@ AX_IS_RELEASE([git-directory])
 # When incrementing the API version (usually for a new major package version),
 # set CURRENT, REVISION and AGE to 0 since it's like a new library.
 
-GSPELL_LT_CURRENT=3
+GSPELL_LT_CURRENT=4
 GSPELL_LT_REVISION=0
-GSPELL_LT_AGE=2
+GSPELL_LT_AGE=3
 GSPELL_LT_VERSION="$GSPELL_LT_CURRENT:$GSPELL_LT_REVISION:$GSPELL_LT_AGE"
 AC_SUBST(GSPELL_LT_VERSION)
 
