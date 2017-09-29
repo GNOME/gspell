@@ -5,14 +5,15 @@
 # Roozbeh Pournader <roozbeh@farsiweb.info>, 2003, 2005.
 # Meelad Zakaria <meelad@farsiweb.info>, 2005.
 # Elnaz Sarbar <elnaz@farsiweb.info>, 2005.
-# Arash Mousavi <mousavi.arash@gmail.com> 2011, 2012, 2013, 2014, 2015.
+# Arash Mousavi <mousavi.arash@gmail.com> 2011, 2012, 2013, 2014, 2015, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-09-12 11:40+0430\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-02-22 19:27+0000\n"
+"PO-Revision-Date: 2017-09-29 19:28+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -21,134 +22,163 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.0.4\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:418
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "خطا در هنگام بررسی املا کلمه «%s» خطا: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
 msgid "(no suggested words)"
 msgstr "(کلمه‌ای پیشنهاد نمی‌شود)"
 
-#: gspell/gspell-checker-dialog.c:237
+#: gspell/gspell-checker-dialog.c:232
 msgid "Error:"
 msgstr "_خطا:"
 
-#: gspell/gspell-checker-dialog.c:274
+#: gspell/gspell-checker-dialog.c:268
 msgid "Completed spell checking"
 msgstr "تکمیل غلط‌یابی املایی"
 
-#: gspell/gspell-checker-dialog.c:278
+#: gspell/gspell-checker-dialog.c:272
 msgid "No misspelled words"
 msgstr "کلمه‌ی غلطی پیدا نشد"
 
-#: gspell/gspell-checker-dialog.c:507
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:499
 msgid "(correct spelling)"
 msgstr "(املای درست)"
 
-#: gspell/gspell-checker-dialog.c:645
+#: gspell/gspell-checker-dialog.c:641
 msgid "Suggestions"
 msgstr "پیشنهادات"
 
-#: gspell/gspell-inline-checker-gtv.c:595
-msgid "_More..."
-msgstr "_بیشتر..."
+#: gspell/gspell-context-menu.c:149
+msgid "_Language"
+msgstr "_زبان"
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#: gspell/gspell-context-menu.c:237
+msgid "_More…"
+msgstr "_بیشتر…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:282
 msgid "_Ignore All"
 msgstr "_نادیده گرفتن همه"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:300
 msgid "_Add"
 msgstr "ا_ضافه کردن"
 
-#: gspell/gspell-inline-checker-gtv.c:681
-msgid "_Spelling Suggestions..."
-msgstr "پیشنهادات _املایی"
+#: gspell/gspell-context-menu.c:337
+msgid "_Spelling Suggestions…"
+msgstr "_پیشنهادات _املایی…"
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language.c:369
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:253
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "نامعلوم (%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
+#, c-format
 msgctxt "language"
-msgid "Default"
-msgstr "پیش‌فرض"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:78
+#: gspell/gspell-language-chooser-button.c:81
 msgid "No language selected"
-msgstr ""
+msgstr "هیچ زبانی انتخاب نشده"
 
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/gspell-navigator-text-view.c:307
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"خطا غلطگیر املایی: زبانی تنظیم نشده. ممکن است به دلیل این باشد که هیچ "
+"لغتنامه‌ای نصب نشده است."
+
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "غلط‌یابی املایی"
 
-#: gspell/resources/checker-dialog.ui:27
+#: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
 msgstr "کلمه‌ی غلط:"
 
-#: gspell/resources/checker-dialog.ui:40
+#: gspell/resources/checker-dialog.ui:49
 msgid "word"
 msgstr "کلمه"
 
-#: gspell/resources/checker-dialog.ui:57
+#: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
 msgstr "تغییر _به:"
 
-#: gspell/resources/checker-dialog.ui:82
+#: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
 msgstr "بررسی کلمه"
 
-#: gspell/resources/checker-dialog.ui:112
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "_پیشنهادات:"
 
-#: gspell/resources/checker-dialog.ui:125
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "_نادیده گرفتن"
 
-#: gspell/resources/checker-dialog.ui:139
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "نادیده گرفتن _همه"
 
-#: gspell/resources/checker-dialog.ui:153
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "_تغییر"
 
-#: gspell/resources/checker-dialog.ui:169
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "تغییر _همه"
 
-#: gspell/resources/checker-dialog.ui:187
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "واژه‌نامه‌ی کاربر:"
 
-#: gspell/resources/checker-dialog.ui:199
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "_اضافه کردن کلمه"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "تنظیم زبان"
 
-#: gspell/resources/language-dialog.ui:22
-msgid "Select the _language of the current document."
-msgstr "انتخاب _زبان سند جاری."
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "انتخاب _زبان غلطگیر املایی."
 
-#: gspell/resources/language-dialog.ui:63
+#: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: gspell/resources/language-dialog.ui:70
+#: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "ا_نتخاب"
+
+#~ msgctxt "language"
+#~ msgid "Default"
+#~ msgstr "پیش‌فرض"
+
+#~ msgid "Select the _language of the current document."
+#~ msgstr "انتخاب _زبان سند جاری."
