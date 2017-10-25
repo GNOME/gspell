@@ -102,7 +102,6 @@ init_view (GspellAppContent *content)
 	GspellTextView *gspell_view;
 	GtkStyleContext *style_context;
 	GtkCssProvider *css_provider;
-	GError *error = NULL;
 
 	g_assert (content->view == NULL);
 
@@ -125,20 +124,11 @@ init_view (GspellAppContent *content)
 	css_provider = gtk_css_provider_new ();
 	gtk_css_provider_load_from_data (css_provider,
 					 "textview { font-size: 120%; }\n",
-					 -1,
-					 &error);
+					 -1);
 
-	if (error == NULL)
-	{
-		gtk_style_context_add_provider (style_context,
-						GTK_STYLE_PROVIDER (css_provider),
-						GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-	}
-	else
-	{
-		g_warning ("CSS error: %s", error->message);
-		g_clear_error (&error);
-	}
+	gtk_style_context_add_provider (style_context,
+					GTK_STYLE_PROVIDER (css_provider),
+					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
 	g_object_unref (css_provider);
 }
@@ -169,7 +159,7 @@ gspell_app_content_init (GspellAppContent *content)
 	gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (content->view));
 	gtk_container_add (GTK_CONTAINER (content), scrolled_window);
 
-	gtk_widget_show_all (GTK_WIDGET (content));
+	gtk_widget_show (GTK_WIDGET (content));
 }
 
 static GspellAppContent *
