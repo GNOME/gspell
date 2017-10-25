@@ -1016,6 +1016,8 @@ multipress_gesture_pressed_cb (GtkGestureMultiPress          *gesture,
 		int buffer_x;
 		int buffer_y;
 
+		gdk_event_get_coords ((GdkEvent *)event, &event_x, &event_y);
+
 		gtk_text_view_window_to_buffer_coords (view,
 						       GTK_TEXT_WINDOW_TEXT,
 						       x, y,
