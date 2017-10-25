@@ -1002,16 +1002,23 @@ button_press_event_cb (GtkTextView                   *view,
 		       GdkEventButton                *event,
 		       GspellInlineCheckerTextBuffer *spell)
 {
-	if (event->button == GDK_BUTTON_SECONDARY)
+	guint button;
+
+	gdk_event_get_button ((GdkEvent *)event, &button);
+
+	if (button == GDK_BUTTON_SECONDARY)
 	{
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer (view);
 		GtkTextIter iter;
+		double event_x, event_y;
 		gint x;
 		gint y;
 
+		gdk_event_get_coords ((GdkEvent *)event, &event_x, &event_y);
+
 		gtk_text_view_window_to_buffer_coords (view,
 						       GTK_TEXT_WINDOW_TEXT,
-						       event->x, event->y,
+						       event_x, event_y,
 						       &x, &y);
 
 		gtk_text_view_get_iter_at_location (view, &iter, x, y);

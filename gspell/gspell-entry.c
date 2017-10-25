@@ -602,7 +602,11 @@ button_press_event_cb (GtkEntry       *gtk_entry,
 		       GdkEventButton *event,
 		       GspellEntry    *gspell_entry)
 {
-	if (event->button == GDK_BUTTON_SECONDARY)
+	guint button;
+
+	gdk_event_get_button ((GdkEvent *)event, &button);
+
+	if (button == GDK_BUTTON_SECONDARY)
 	{
 		gspell_entry->popup_char_position =
 			_gspell_entry_utils_get_char_position_at_event (gtk_entry, event);

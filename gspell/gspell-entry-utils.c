@@ -235,12 +235,15 @@ _gspell_entry_utils_get_char_position_at_event (GtkEntry       *entry,
 	gint layout_index; /* in bytes */
 	gint text_index; /* in bytes */
 	const gchar *buffer_text;
+	double event_x, event_y;
 
 	g_object_get (entry,
 		      "scroll-offset", &scroll_offset,
 		      NULL);
 
-	x = event->x + scroll_offset;
+	gdk_event_get_coords ((GdkEvent *)event, &event_x, &event_y);
+
+	x = event_x + scroll_offset;
 
 	layout_index = get_layout_index (entry, x);
 	text_index = gtk_entry_layout_index_to_text_index (entry, layout_index);
