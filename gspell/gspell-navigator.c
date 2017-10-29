@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016, 2017 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,14 +33,20 @@
  * and correct the mistakes.
  *
  * It is used by widgets like #GspellCheckerDialog. The purpose is to
- * spell check a document one word at a time.
+ * spell-check a document one word at a time.
  *
  * It is not mandatory to navigate through all the text. Depending on the
- * context, an implementation could spell check only the current page, or the
+ * context, an implementation could spell-check only the current page, or the
  * selection, etc.
  *
  * For #GtkTextView, see the #GspellNavigatorTextView implementation of this
  * interface.
+ *
+ * The #GspellNavigator interface requires #GInitiallyUnowned because a
+ * #GspellNavigator object is meant to be passed as an argument to a #GtkWidget
+ * constructor, for example gspell_checker_dialog_new(). This permits to
+ * decouple the frontend from the backend, making the #GtkWidget re-usable for
+ * different #GspellNavigator's.
  */
 
 G_DEFINE_INTERFACE (GspellNavigator, gspell_navigator, G_TYPE_INITIALLY_UNOWNED)
