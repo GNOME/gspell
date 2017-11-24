@@ -50,7 +50,7 @@ GSPELL_API_VERSION=1
 AC_SUBST(GSPELL_API_VERSION)
 
 # Dependencies
-enchant_req=1.6.0
+enchant_req=2.1.3
 glib_req=2.44
 gtk_req=3.20
 
@@ -90,7 +90,7 @@ AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS], [yes])
 # Dynamic linking dependencies
 AX_REQUIRE_DEFINED([AX_PKG_CHECK_MODULES])
 AX_PKG_CHECK_MODULES([DEP],
-		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req  enchant >= $enchant_req],
+		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req  enchant-2 >= $enchant_req],
 		     [])
 
 # iso-codes
