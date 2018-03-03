@@ -18,10 +18,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-05-16 13:17+0000\n"
-"PO-Revision-Date: 2016-09-04 16:53+0300\n"
+"POT-Creation-Date: 2017-04-02 13:14+0000\n"
+"PO-Revision-Date: 2018-03-03 18:17+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -30,9 +30,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-02-19 15:15:59+0000\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
-#: gspell/gspell-checker.c:403
+#: gspell/gspell-checker.c:418
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Virhe sanan ”%s” oikeinkirjoituksen tarkistuksessa: %s"
@@ -42,8 +42,7 @@ msgstr "Virhe sanan ”%s” oikeinkirjoituksen tarkistuksessa: %s"
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:796
+#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
 msgid "(no suggested words)"
 msgstr "(ei suositeltavia sanoja)"
 
@@ -67,28 +66,31 @@ msgstr "Ei väärinkirjoitettuja sanoja"
 msgid "(correct spelling)"
 msgstr "(oikea kirjoitusasu)"
 
-#: gspell/gspell-checker-dialog.c:637
+#: gspell/gspell-checker-dialog.c:641
 msgid "Suggestions"
 msgstr "Ehdotukset"
 
-#: gspell/gspell-inline-checker-text-buffer.c:819
-msgid "_More..."
+#: gspell/gspell-context-menu.c:149
+msgid "_Language"
+msgstr "_Kieli"
+
+#: gspell/gspell-context-menu.c:237
+msgid "_More…"
 msgstr "_Lisää…"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:859
+#: gspell/gspell-context-menu.c:282
 msgid "_Ignore All"
 msgstr "_Ohita kaikki"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:868
+#: gspell/gspell-context-menu.c:300
 msgid "_Add"
 msgstr "_Lisää"
 
-#. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:899
-msgid "_Spelling Suggestions..."
-msgstr "_Kirjoitusehdotuksia…"
+#: gspell/gspell-context-menu.c:337
+msgid "_Spelling Suggestions…"
+msgstr "_Kirjoitusehdotukset…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:253
@@ -112,19 +114,13 @@ msgstr "Kieltä ei ole valittu"
 
 #: gspell/gspell-navigator-text-view.c:307
 msgid ""
-"Spell checker error: no language set. It's maybe because no dictionaries are "
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Oikolukuvirhe: kieltä ei ole valittu. Tämä saattaa johtua siitä, ettei "
 "sanakirjoja ole asennettu."
 
-#. Prepend language sub-menu
-#: gspell/gspell-text-view.c:261
-#| msgid "Set Language"
-msgid "_Language"
-msgstr "_Kieli"
-
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "Tarkista oikeinkirjoitus"
 
@@ -144,40 +140,39 @@ msgstr "Mihin _muutetaan:"
 msgid "Check _Word"
 msgstr "Tarkista _sana"
 
-#: gspell/resources/checker-dialog.ui:121
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "_Ehdotukset:"
 
-#: gspell/resources/checker-dialog.ui:134
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "_Ohita"
 
-#: gspell/resources/checker-dialog.ui:148
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "Ohita k_aikki"
 
-#: gspell/resources/checker-dialog.ui:162
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "M_uuta"
 
-#: gspell/resources/checker-dialog.ui:178
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "Ta_llenna kaikki"
 
-#: gspell/resources/checker-dialog.ui:196
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "Käyttäjän sanakirja:"
 
-#: gspell/resources/checker-dialog.ui:208
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "Lisää _sana"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "Aseta kieli"
 
 #: gspell/resources/language-dialog.ui:20
-#| msgid "Completed spell checking"
 msgid "Select the spell checking _language."
 msgstr "Valitse _oikoluvun kieli."
 
