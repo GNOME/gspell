@@ -1,3 +1,8 @@
+News in 1.8.0, 2018-03-10
+-------------------------
+* Build system: don't declare functions in AC_TRY_COMPILE.
+* Translation updates.
+
 News in 1.7.1, 2017-12-09
 -------------------------
 * Use Enchant 2.
