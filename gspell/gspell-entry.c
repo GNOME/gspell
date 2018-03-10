@@ -597,25 +597,30 @@ popup_menu_cb (GtkEntry    *gtk_entry,
 	return FALSE;
 }
 
-static gboolean
-button_press_event_cb (GtkEntry       *gtk_entry,
-		       GdkEventButton *event,
-		       GspellEntry    *gspell_entry)
+static void
+multipress_gesture_pressed_cb (GtkGestureMultiPress *gesture,
+			       double                x,
+			       double                y,
+			       GspellEntry          *gspell_entry)
 {
+	GtkEntry *gtk_entry;
 	guint button;
+	GdkEventSequence *sequence;
+	const GdkEvent *event;
 
-	gdk_event_get_button ((GdkEvent *)event, &button);
+	gtk_entry = GTK_ENTRY (gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (gesture)));
+	sequence = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (gesture));
+	event = gtk_gesture_get_last_event (GTK_GESTURE (gesture), sequence);
+	button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
 	if (button == GDK_BUTTON_SECONDARY)
 	{
 		gspell_entry->popup_char_position =
-			_gspell_entry_utils_get_char_position_at_event (gtk_entry, event);
+			_gspell_entry_utils_get_char_position_at_event (gtk_entry, (GdkEventButton *)event);
 	}
 
 	_gspell_current_word_policy_cursor_moved (gspell_entry->current_word_policy);
 	recheck_all (gspell_entry);
-
-	return GDK_EVENT_PROPAGATE;
 }
 
 static void
@@ -870,6 +875,8 @@ static void
 set_entry (GspellEntry *gspell_entry,
 	   GtkEntry    *gtk_entry)
 {
+	GtkGesture *multipress_gesture;
+
 	g_return_if_fail (GTK_IS_ENTRY (gtk_entry));
 
 	g_assert (gspell_entry->entry == NULL);
@@ -897,9 +904,12 @@ set_entry (GspellEntry *gspell_entry,
 			  G_CALLBACK (popup_menu_cb),
 			  gspell_entry);
 
-	g_signal_connect (gtk_entry,
-			  "button-press-event",
-			  G_CALLBACK (button_press_event_cb),
+	multipress_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (gtk_entry));
+	/* TODO: We leak the gesture for now but the Gesture API is supposed to change soon so that
+	 *       may not be a long-lasting problem. */
+	g_signal_connect (multipress_gesture,
+			  "pressed",
+			  G_CALLBACK (multipress_gesture_pressed_cb),
 			  gspell_entry);
 
 	/* connect_after, so when menu items are prepended, they have more
