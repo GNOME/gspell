@@ -997,36 +997,34 @@ language_notify_cb (GspellChecker                 *checker,
  * Here, we do NOT move the cursor to the location of the clicked-upon word
  * since that prevents the use of edit functions on the context menu.
  */
-static gboolean
-button_press_event_cb (GtkTextView                   *view,
-		       GdkEventButton                *event,
-		       GspellInlineCheckerTextBuffer *spell)
+static void
+multipress_gesture_pressed_cb (GtkGestureMultiPress          *gesture,
+			       double                         x,
+			       double                         y,
+			       GspellInlineCheckerTextBuffer *spell)
 {
+	GtkTextView *view;
 	guint button;
 
-	gdk_event_get_button ((GdkEvent *)event, &button);
+	view = GTK_TEXT_VIEW (gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (gesture)));
+	button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
 	if (button == GDK_BUTTON_SECONDARY)
 	{
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer (view);
 		GtkTextIter iter;
-		double event_x, event_y;
-		gint x;
-		gint y;
-
-		gdk_event_get_coords ((GdkEvent *)event, &event_x, &event_y);
+		int buffer_x;
+		int buffer_y;
 
 		gtk_text_view_window_to_buffer_coords (view,
 						       GTK_TEXT_WINDOW_TEXT,
-						       event_x, event_y,
-						       &x, &y);
+						       x, y,
+						       &buffer_x, &buffer_y);
 
-		gtk_text_view_get_iter_at_location (view, &iter, x, y);
+		gtk_text_view_get_iter_at_location (view, &iter, buffer_x, buffer_y);
 
 		gtk_text_buffer_move_mark (buffer, spell->mark_click, &iter);
 	}
-
-	return GDK_EVENT_PROPAGATE;
 }
 
 /* Move the insert mark before popping up the menu, otherwise it
@@ -1414,16 +1412,17 @@ void
 _gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *spell,
 						GtkTextView                   *view)
 {
+	GtkGesture *multipress_gesture;
+
 	g_return_if_fail (GSPELL_IS_INLINE_CHECKER_TEXT_BUFFER (spell));
 	g_return_if_fail (GTK_IS_TEXT_VIEW (view));
 	g_return_if_fail (gtk_text_view_get_buffer (view) == spell->buffer);
 	g_return_if_fail (g_slist_find (spell->views, view) == NULL);
 
-	g_signal_connect_object (view,
-				 "button-press-event",
-				 G_CALLBACK (button_press_event_cb),
-				 spell,
-				 0);
+	multipress_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (view));
+	/* TODO: We leak the gesture for now but the Gesture API is supposed to change soon so that
+	 *       may not be a long-lasting problem. */
+	g_signal_connect (multipress_gesture, "pressed", G_CALLBACK (multipress_gesture_pressed_cb), spell);
 
 	g_signal_connect_object (view,
 				 "popup-menu",
