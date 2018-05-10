@@ -309,6 +309,14 @@ spell_language_traverse_cb (const gchar  *code,
 	return FALSE;
 }
 
+static gint
+tree_compare_func (gconstpointer a,
+		   gconstpointer b,
+		   gpointer      user_data)
+{
+	return g_strcmp0 (a, b);
+}
+
 /**
  * gspell_language_get_available:
  *
@@ -366,7 +374,7 @@ gspell_language_get_available (void)
 	iso_codes_parse (&iso_639_parser, "iso_639.xml", data.iso_639_table);
 	iso_codes_parse (&iso_3166_parser, "iso_3166.xml", data.iso_3166_table);
 
-	data.tree = g_tree_new_full ((GCompareDataFunc) strcmp,
+	data.tree = g_tree_new_full (tree_compare_func,
 				     NULL,
 				     (GDestroyNotify) g_free,
 				     (GDestroyNotify) g_free);
