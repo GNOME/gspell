@@ -3,8 +3,8 @@ How to contribute to gspell
 
 gspell follows the same guidelines and code conventions as GtkSourceView:
 
-    https://git.gnome.org/browse/gtksourceview/tree/HACKING
+    https://gitlab.gnome.org/GNOME/gtksourceview/blob/master/HACKING
 
-The bugzilla product of gspell is available at:
+The gspell GitLab:
 
-    https://bugzilla.gnome.org/page.cgi?id=browse.html&product=gspell
+    https://gitlab.gnome.org/GNOME/gspell

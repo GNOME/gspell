@@ -7,7 +7,7 @@ m4_define(gspell_package_version, 1.8.1)
 
 AC_INIT([gspell],
 	[gspell_package_version],
-	[https://bugzilla.gnome.org/enter_bug.cgi?product=gspell],
+	[https://gitlab.gnome.org/GNOME/gspell/issues],
 	[gspell],
 	[https://wiki.gnome.org/Projects/gspell])
 
