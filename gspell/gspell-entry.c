@@ -904,13 +904,13 @@ set_entry (GspellEntry *gspell_entry,
 			  G_CALLBACK (popup_menu_cb),
 			  gspell_entry);
 
-	multipress_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (gtk_entry));
-	/* TODO: We leak the gesture for now but the Gesture API is supposed to change soon so that
-	 *       may not be a long-lasting problem. */
+	multipress_gesture = gtk_gesture_multi_press_new ();
 	g_signal_connect (multipress_gesture,
 			  "pressed",
 			  G_CALLBACK (multipress_gesture_pressed_cb),
 			  gspell_entry);
+	gtk_widget_add_controller(GTK_WIDGET (gtk_entry),
+		                  (GtkEventController *) multipress_gesture);
 
 	/* connect_after, so when menu items are prepended, they have more
 	 * chances to be the first in the menu.
