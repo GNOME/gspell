@@ -1419,10 +1419,10 @@ _gspell_inline_checker_text_buffer_attach_view (GspellInlineCheckerTextBuffer *s
 	g_return_if_fail (gtk_text_view_get_buffer (view) == spell->buffer);
 	g_return_if_fail (g_slist_find (spell->views, view) == NULL);
 
-	multipress_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (view));
-	/* TODO: We leak the gesture for now but the Gesture API is supposed to change soon so that
-	 *       may not be a long-lasting problem. */
+	multipress_gesture = gtk_gesture_multi_press_new ();
 	g_signal_connect (multipress_gesture, "pressed", G_CALLBACK (multipress_gesture_pressed_cb), spell);
+	gtk_widget_add_controller(GTK_WIDGET (view),
+		                  (GtkEventController *) multipress_gesture);
 
 	g_signal_connect_object (view,
 				 "popup-menu",
