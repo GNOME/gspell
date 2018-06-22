@@ -1,14 +1,13 @@
 # Occitan translation of gspell.
 # Copyright (C) 1998-2014 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gspell package.
-# Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>, 2016.
+# Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>, 2016, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gspell&"
-"keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-13 08:54+0000\n"
-"PO-Revision-Date: 2016-03-16 19:46+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2018-06-10 17:29+0000\n"
+"PO-Revision-Date: 2018-06-22 09:09+0200\n"
 "Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -19,7 +18,100 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/gspell-checker.c:419
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Error pendent la verificacion de l'ortografia del mot « %s » : %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(cap de mot pas suggerit)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "Error :"
+
+#: gspell/gspell-checker-dialog.c:271
+#| msgid "Select the spell checking _language."
+msgid "Completed spell checking"
+msgstr "Verificacion ortografica acabada"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "Pas cap de mot mal ortografiat"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(Ortografia corrècta)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "Suggestions"
+
+#: gspell/gspell-context-menu.c:152
+#| msgid "Set Language"
+msgid "_Language"
+msgstr "_Lenga"
+
+#: gspell/gspell-context-menu.c:240
+#| msgid "_More..."
+msgid "_More…"
+msgstr "_Mai…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+#| msgid "Ignore _All"
+msgid "_Ignore All"
+msgstr "_Ignorar tot"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "A_pondre"
+
+#: gspell/gspell-context-menu.c:340
+#| msgid "_Spelling Suggestions..."
+msgid "_Spelling Suggestions…"
+msgstr "_Suggestions d'ortografias…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:256
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Desconeguda (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:273 gspell/gspell-language.c:282
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "Cap de lenga pas seleccionada"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Error de verificacion ortografica : cap de lenga pas definida. Aquò pòt "
+"èsser causat per l'abséncia de diccionari installat."
+
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "Verificar l'ortografia"
 
@@ -39,40 +131,39 @@ msgstr "Remplaçar _per :"
 msgid "Check _Word"
 msgstr "_Verificar lo mot"
 
-#: gspell/resources/checker-dialog.ui:121
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "_Suggestions :"
 
-#: gspell/resources/checker-dialog.ui:134
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "_Ignorar"
 
-#: gspell/resources/checker-dialog.ui:148
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "Ignorar tot_jorn"
 
-#: gspell/resources/checker-dialog.ui:162
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "Re_mplaçar"
 
-#: gspell/resources/checker-dialog.ui:178
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "Remplaçar _tot"
 
-#: gspell/resources/checker-dialog.ui:196
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "Diccionari de l'utilizaire :"
 
-#: gspell/resources/checker-dialog.ui:208
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "A_pondre lo mot"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "Definir la lenga"
 
 #: gspell/resources/language-dialog.ui:20
-#| msgid "Completed spell checking"
 msgid "Select the spell checking _language."
 msgstr "Seleccionar la _lenga per la verificacion orthografica."
 
@@ -84,43 +175,8 @@ msgstr "A_nullar"
 msgid "_Select"
 msgstr "_Seleccionar"
 
-#~ msgid "Error when checking the spelling of word “%s”: %s"
-#~ msgstr "Error pendent la vérification de l'orthographe del mot « %s » : %s"
-
-#~ msgid "(no suggested words)"
-#~ msgstr "(aucun mot suggéré)"
-
-#~ msgid "Error:"
-#~ msgstr "Error :"
-
-#~ msgid "No misspelled words"
-#~ msgstr "Aucun mot mal orthographié"
-
-#~ msgid "(correct spelling)"
-#~ msgstr "(Orthographe correcte)"
-
-#~ msgid "Suggestions"
-#~ msgstr "Suggestions"
-
-#~ msgid "_More..."
-#~ msgstr "_Plus..."
-
 #~ msgid "_Ignòra All"
-#~ msgstr "_Ignorar tout"
-
-#~ msgid "_Add"
-#~ msgstr "A_pondre"
-
-#~ msgid "_Spelling Suggestions..."
-#~ msgstr "_Suggestions d'aurthographes..."
-
-#~ msgctxt "language"
-#~ msgid "%s (%s)"
-#~ msgstr "%s (%s)"
-
-#~ msgctxt "language"
-#~ msgid "Unknown (%s)"
-#~ msgstr "Desconeguda (%s)"
+#~ msgstr "_Ignorar tot"
 
 #~ msgctxt "language"
 #~ msgid "Default"
