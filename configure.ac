@@ -3,11 +3,11 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.64)
 
 # Package version of the form 'major.minor.micro'.
-m4_define(gspell_package_version, 1.8.1)
+m4_define(gspell_package_version, 1.8.2)
 
 AC_INIT([gspell],
 	[gspell_package_version],
-	[https://bugzilla.gnome.org/enter_bug.cgi?product=gspell],
+	[https://gitlab.gnome.org/GNOME/gspell/issues],
 	[gspell],
 	[https://wiki.gnome.org/Projects/gspell])
 

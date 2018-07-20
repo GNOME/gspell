@@ -1,3 +1,14 @@
+News in 1.8.1, 2018-06-16
+-------------------------
+* gspell has moved to the GNOME GitLab instance. The bugzilla tickets have not
+  yet been migrated to the GitLab issues, so before filing a new issue on
+  GitLab, please search the bugzilla first. All links are available as usual
+  on:
+  https://wiki.gnome.org/Projects/gspell
+
+* Fix new compilation warning (-Wcast-function-type).
+* Translation updates.
+
 News in 1.8.0, 2018-03-10
 -------------------------
 * Build system: don't declare functions in AC_TRY_COMPILE.

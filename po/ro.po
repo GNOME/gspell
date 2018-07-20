@@ -1,27 +1,29 @@
-# Occitan translation of gspell.
-# Copyright (C) 1998-2014 Free Software Foundation, Inc.
+# Romanian translation for gspell.
+# Copyright (C) 2018 gspell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gspell package.
-# Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>, 2016, 2018.
+# Floren <>, 2018.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: gspell HEAD\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
-"POT-Creation-Date: 2018-06-10 17:29+0000\n"
-"PO-Revision-Date: 2018-06-22 09:09+0200\n"
-"Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
-"Language-Team: Tot En Òc\n"
-"Language: oc\n"
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gspell&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2018-03-26 12:01+0000\n"
+"PO-Revision-Date: 2018-04-04 00:23+0300\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
-"X-Project-Style: gnome\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: gspell/gspell-checker.c:419
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
-msgstr "Error pendent la verificacion de l'ortografia del mot « %s » : %s"
+msgstr "Eroare la verificarea ortografiei cuvântului „%s”: %s"
 
 #. Translators: Displayed in the "Check Spelling"
 #. * dialog if there are no suggestions for the current
@@ -30,20 +32,19 @@ msgstr "Error pendent la verificacion de l'ortografia del mot « %s » : %s"
 #. No suggestions. Put something in the menu anyway...
 #: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
 msgid "(no suggested words)"
-msgstr "(cap de mot pas suggerit)"
+msgstr "(nu există cuvinte sugerate)"
 
 #: gspell/gspell-checker-dialog.c:235
 msgid "Error:"
-msgstr "Error :"
+msgstr "Eroare:"
 
 #: gspell/gspell-checker-dialog.c:271
-#| msgid "Select the spell checking _language."
 msgid "Completed spell checking"
-msgstr "Verificacion ortografica acabada"
+msgstr "Completat corectarea ortografică"
 
 #: gspell/gspell-checker-dialog.c:275
 msgid "No misspelled words"
-msgstr "Pas cap de mot mal ortografiat"
+msgstr "Nu există cuvinte scrise greșit"
 
 #. Translators: Displayed in the "Check
 #. * Spelling" dialog if the current word
@@ -51,44 +52,40 @@ msgstr "Pas cap de mot mal ortografiat"
 #.
 #: gspell/gspell-checker-dialog.c:502
 msgid "(correct spelling)"
-msgstr "(Ortografia corrècta)"
+msgstr "(ortografie corectă)"
 
 #: gspell/gspell-checker-dialog.c:644
 msgid "Suggestions"
-msgstr "Suggestions"
+msgstr "Sugestii"
 
 #: gspell/gspell-context-menu.c:152
-#| msgid "Set Language"
 msgid "_Language"
-msgstr "_Lenga"
+msgstr "_Limbă"
 
 #: gspell/gspell-context-menu.c:240
-#| msgid "_More..."
 msgid "_More…"
-msgstr "_Mai…"
+msgstr "_Mai multe…"
 
 #. Ignore all
 #: gspell/gspell-context-menu.c:285
-#| msgid "Ignore _All"
 msgid "_Ignore All"
-msgstr "_Ignorar tot"
+msgstr "_Ignoră toate"
 
 #. Add to Dictionary
 #: gspell/gspell-context-menu.c:303
 msgid "_Add"
-msgstr "A_pondre"
+msgstr "_Adaugă"
 
 #: gspell/gspell-context-menu.c:340
-#| msgid "_Spelling Suggestions..."
 msgid "_Spelling Suggestions…"
-msgstr "_Suggestions d'ortografias…"
+msgstr "_Sugestii de ortografie…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:256
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
-msgstr "Desconeguda (%s)"
+msgstr "Necunoscut (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)".
@@ -101,86 +98,76 @@ msgstr "%s (%s)"
 
 #: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
-msgstr "Cap de lenga pas seleccionada"
+msgstr "Nicio limbă selectată"
 
 #: gspell/gspell-navigator-text-view.c:310
 msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
-"Error de verificacion ortografica : cap de lenga pas definida. Aquò pòt "
-"èsser causat per l'abséncia de diccionari installat."
+"Eroare corector ortografic: nicio limbă stabilită. Este probabil pentru că "
+"nu există dicționare instalate."
 
 #: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
-msgstr "Verificar l'ortografia"
+msgstr "Verifică ortografia"
 
 #: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
-msgstr "Mot mal ortografiat :"
+msgstr "Cuvânt scris greșit:"
 
 #: gspell/resources/checker-dialog.ui:49
 msgid "word"
-msgstr "mot"
+msgstr "cuvânt"
 
 #: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
-msgstr "Remplaçar _per :"
+msgstr "Modifi_că la:"
 
 #: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
-msgstr "_Verificar lo mot"
+msgstr "Verificare _cuvânt"
 
 #: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
-msgstr "_Suggestions :"
+msgstr "_Sugestii:"
 
 #: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
-msgstr "_Ignorar"
+msgstr "_Ignoră"
 
 #: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
-msgstr "Ignorar tot_jorn"
+msgstr "Ignoră to_ate"
 
 #: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
-msgstr "Re_mplaçar"
+msgstr "_Modifică"
 
 #: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
-msgstr "Remplaçar _tot"
+msgstr "Modifică _toate"
 
 #: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
-msgstr "Diccionari de l'utilizaire :"
+msgstr "Dicționar de utilizator:"
 
 #: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
-msgstr "A_pondre lo mot"
+msgstr "Adaugă _cuvânt"
 
 #: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
-msgstr "Definir la lenga"
+msgstr "Stabilește limba"
 
 #: gspell/resources/language-dialog.ui:20
 msgid "Select the spell checking _language."
-msgstr "Seleccionar la _lenga per la verificacion orthografica."
+msgstr "Selectează _limba pentru corectarea ortografică."
 
 #: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
-msgstr "A_nullar"
+msgstr "_Anulează"
 
 #: gspell/resources/language-dialog.ui:68
 msgid "_Select"
-msgstr "_Seleccionar"
-
-#~ msgid "_Ignòra All"
-#~ msgstr "_Ignorar tot"
-
-#~ msgctxt "language"
-#~ msgid "Default"
-#~ msgstr "Per defaut"
-
-#~ msgid "Select the _language of the current document."
-#~ msgstr "Seleccionatz la _langue del document actual."
+msgstr "_Selectează"

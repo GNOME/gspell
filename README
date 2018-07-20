@@ -1,7 +1,7 @@
 gspell - a spell-checking library for GTK+ applications
 =======================================================
 
-This is version 1.8.1 of gspell.
+This is version 1.8.2 of gspell.
 
 gspell provides a flexible API to add spell-checking to a GTK+ application.
 
@@ -19,17 +19,7 @@ gspell follows the GNOME release schedule and uses the same versioning scheme:
 
     https://developer.gnome.org/programming-guidelines/stable/versioning.html.en
 
-gspell 0.1.x should be installed alongside GNOME 3.18.
-gspell 1.0.x should be installed alongside GNOME 3.20.
-gspell 1.2.x should be installed alongside GNOME 3.22.
-gspell 1.4.x should be installed alongside GNOME 3.24.
-gspell 1.6.x should be installed alongside GNOME 3.26.
-gspell 1.8.x should be installed alongside GNOME 3.28.
-
-The 0.1 version didn't have a stable API, and there has been lots of API
-changes between 0.1 and 1.0. The 0.1 and 1.0 versions are not completely
-parallel-installable, only the libtool version has been bumped. Using the 0.1
-version is highly discouraged.
+For example the 1.7.x versions are unstable, and the 1.8.x versions are stable.
 
 Dependencies
 ------------
@@ -44,7 +34,7 @@ Notes for packagers
 
 At least on GNU/Linux, it is better to install hunspell. aspell can be
 considered deprecated and doesn't work well with gspell. If both hunspell and
-aspell are installed, Enchant prefers hunspell.
+aspell are installed, Enchant prefers hunspell by default.
 
 See also:
 
