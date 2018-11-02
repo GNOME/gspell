@@ -66,17 +66,136 @@ G_DEFINE_BOXED_TYPE (GspellLanguage,
 		     gspell_language_copy,
 		     gspell_language_free)
 
+#ifdef G_OS_WIN32
+/* if we are using native Windows, use Windows API
+ * to retrieve the translated language and country names
+ * (No need for iso-codes package)
+ */
+static BOOL CALLBACK
+get_win32_all_locales_scripts (LPWSTR locale_w, DWORD flags, LPARAM param)
+{
+	wchar_t *langname_w = NULL;
+	wchar_t *locale_abbrev_w = NULL;
+	gchar *langname, *locale_abbrev, *locale, *countrycode;
+	gint i;
+	DictsData *dict_data = (DictsData *)param;
+
+	gint langname_size, locale_abbrev_size;
+	langname_size =
+		GetLocaleInfoEx (locale_w,
+		                 LOCALE_SLOCALIZEDDISPLAYNAME,
+		                 langname_w,
+		                 0);
+
+	if (langname_size == 0)
+		return FALSE;
+
+	langname_w = g_new0 (wchar_t, langname_size);
+
+	if (langname_size == 0)
+		return FALSE;
+
+	GetLocaleInfoEx (locale_w,
+	                 LOCALE_SLOCALIZEDDISPLAYNAME,
+	                 langname_w,
+	                 langname_size);
+
+	langname = g_utf16_to_utf8 (langname_w, -1,
+	                            NULL, NULL, NULL);
+	locale = g_utf16_to_utf8 (locale_w, -1,
+	                          NULL, NULL, NULL);
+
+	g_hash_table_insert (dict_data->iso_639_table,
+	                     g_strdup (locale),
+	                     g_strdup (langname));
+
+	/* track 3-letter ISO639-2/3 language codes as well */
+	locale_abbrev_size =
+		GetLocaleInfoEx (locale_w,
+		                 LOCALE_SABBREVLANGNAME,
+		                 locale_abbrev_w,
+		                 0);
+
+	if (locale_abbrev_size > 0)
+	{
+		locale_abbrev_w = g_new0 (wchar_t, locale_abbrev_size);
+		GetLocaleInfoEx (locale_w,
+		                 LOCALE_SABBREVLANGNAME,
+		                 locale_abbrev_w,
+		                 locale_abbrev_size);
+
+		locale_abbrev = g_utf16_to_utf8 (locale_abbrev_w, -1,
+		                                 NULL, NULL, NULL);
+
+		g_hash_table_insert (dict_data->iso_639_table,
+		                     g_strdup (locale_abbrev),
+		                     g_strdup (langname));
+
+		g_free (locale_abbrev);
+		g_free (locale_abbrev_w);
+	}
+
+	countrycode = strrchr (locale, '-') != NULL ?
+	              strrchr (locale, '-') + sizeof (gchar) :
+	              NULL;
+
+	if (countrycode != NULL)
+	{
+		wchar_t *countryname_w = NULL;
+		gchar *countryname = NULL;
+		gint countryname_size;
+
+		countryname_size = GetLocaleInfoEx (locale_w,
+		                                    LOCALE_SLOCALIZEDCOUNTRYNAME,
+		                                    countryname_w,
+		                                    0);
+
+		if (countryname_size > 0)
+		{
+			countryname_w = g_new0 (wchar_t, countryname_size);
+			countryname_size = GetLocaleInfoEx (locale_w,
+			                                    LOCALE_SLOCALIZEDCOUNTRYNAME,
+			                                    countryname_w,
+			                                    countryname_size);
+
+			countryname = g_utf16_to_utf8 (countryname_w, -1,
+			                               NULL, NULL, NULL);
+
+			g_hash_table_insert (dict_data->iso_3166_table,
+			                     g_ascii_strdown (countrycode, -1),
+			                     g_strdup (countryname));
+
+			g_free (countryname);
+			g_free (countryname_w);
+		}
+	}
+
+	g_free (langname);
+	g_free (locale);
+	g_free (langname_w);
+
+	return TRUE;
+}
+
+static void
+retrieve_iso_codes (DictsData *data)
+{
+	EnumSystemLocalesEx (&get_win32_all_locales_scripts,
+	                     LOCALE_ALL,
+	                     (LPARAM)data,
+	                     NULL);
+}
+
+#else /* G_OS_WIN32 */
+
+/* On non-Windows, look up the iso-codes XML and
+ * gettext files as we did before
+ */
+
 static gchar *
 get_iso_codes_prefix (void)
 {
 	gchar *prefix = NULL;
-
-#ifdef G_OS_WIN32
-	HMODULE gspell_dll;
-
-	gspell_dll = _gspell_init_get_dll ();
-	prefix = g_win32_get_package_installation_directory_of_module ((gpointer) gspell_dll);
-#endif
 
 	if (prefix == NULL)
 	{
@@ -229,6 +348,36 @@ iso_codes_parse (const GMarkupParser *parser,
 }
 
 static void
+retrieve_iso_codes (DictsData *data)
+{
+	gchar *localedir;
+	GMarkupParser iso_639_parser = {iso_639_start_element,
+	                                NULL,
+	                                NULL,
+	                                NULL,
+	                                NULL};
+	GMarkupParser iso_3166_parser = {iso_3166_start_element,
+	                                 NULL,
+	                                 NULL,
+	                                 NULL,
+	                                 NULL};
+
+	localedir = get_iso_codes_localedir ();
+
+	bindtextdomain (ISO_639_DOMAIN, localedir);
+	bind_textdomain_codeset (ISO_639_DOMAIN, "UTF-8");
+
+	bindtextdomain (ISO_3166_DOMAIN, localedir);
+	bind_textdomain_codeset (ISO_3166_DOMAIN, "UTF-8");
+
+	g_free (localedir);
+
+	iso_codes_parse (&iso_639_parser, "iso_639.xml", data->iso_639_table);
+	iso_codes_parse (&iso_3166_parser, "iso_3166.xml", data->iso_3166_table);
+}
+#endif /* !G_OS_WIN32 */
+
+static void
 spell_language_dict_describe_cb (const gchar * const language_code,
                                  const gchar * const provider_name,
                                  const gchar * const provider_desc,
@@ -328,21 +477,8 @@ gspell_language_get_available (void)
 {
 	static gboolean initialized = FALSE;
 	static GList *available_languages = NULL;
-	gchar *localedir;
 	EnchantBroker *broker;
 	DictsData data;
-
-	GMarkupParser iso_639_parser =
-	{
-		iso_639_start_element,
-		NULL, NULL, NULL, NULL
-	};
-
-	GMarkupParser iso_3166_parser =
-	{
-		iso_3166_start_element,
-		NULL, NULL, NULL, NULL
-	};
 
 	if (initialized)
 	{
@@ -350,16 +486,6 @@ gspell_language_get_available (void)
 	}
 
 	initialized = TRUE;
-
-	localedir = get_iso_codes_localedir ();
-
-	bindtextdomain (ISO_639_DOMAIN, localedir);
-	bind_textdomain_codeset (ISO_639_DOMAIN, "UTF-8");
-
-	bindtextdomain (ISO_3166_DOMAIN, localedir);
-	bind_textdomain_codeset (ISO_3166_DOMAIN, "UTF-8");
-
-	g_free (localedir);
 
 	data.iso_639_table = g_hash_table_new_full (g_str_hash,
 						    g_str_equal,
@@ -371,8 +497,7 @@ gspell_language_get_available (void)
 						     (GDestroyNotify) g_free,
 						     (GDestroyNotify) g_free);
 
-	iso_codes_parse (&iso_639_parser, "iso_639.xml", data.iso_639_table);
-	iso_codes_parse (&iso_3166_parser, "iso_3166.xml", data.iso_3166_table);
+	retrieve_iso_codes (&data);
 
 	data.tree = g_tree_new_full (tree_compare_func,
 				     NULL,
