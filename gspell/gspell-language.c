@@ -66,24 +66,11 @@ G_DEFINE_BOXED_TYPE (GspellLanguage,
 		     gspell_language_copy,
 		     gspell_language_free)
 
+#ifndef G_OS_WIN32
 static gchar *
 get_iso_codes_prefix (void)
 {
-	gchar *prefix = NULL;
-
-#ifdef G_OS_WIN32
-	HMODULE gspell_dll;
-
-	gspell_dll = _gspell_init_get_dll ();
-	prefix = g_win32_get_package_installation_directory_of_module ((gpointer) gspell_dll);
-#endif
-
-	if (prefix == NULL)
-	{
-		prefix = g_strdup (ISO_CODES_PREFIX);
-	}
-
-	return prefix;
+	return g_strdup (ISO_CODES_PREFIX);
 }
 
 static gchar *
@@ -227,6 +214,7 @@ iso_codes_parse (const GMarkupParser *parser,
 		g_clear_error (&error);
 	}
 }
+#endif
 
 static void
 spell_language_dict_describe_cb (const gchar * const language_code,
@@ -241,12 +229,83 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 	gchar *lowercase;
 	gchar **tokens;
 
+#ifdef G_OS_WIN32
+	wchar_t *tokens_w[2] = {NULL, NULL};
+	wchar_t *langname_w = NULL;
+	wchar_t *locale_w = NULL;
+	int len = 0;
+	gboolean failed = FALSE;
+
+	tokens = g_strsplit (language_code, "_", -1);
+
+	g_return_if_fail (tokens != NULL);
+
+	lowercase = g_ascii_strdown (tokens[0], -1);
+	tokens_w[0] = g_utf8_to_utf16 (lowercase, -1, NULL, NULL, NULL);
+	g_free (lowercase);
+
+	if (tokens_w[0] == NULL)
+	{
+		failed = TRUE;
+		goto failed;
+	}
+
+	if (g_strv_length (tokens) >= 2)
+	{
+		gchar *uppercase = g_ascii_strup (tokens[1], -1);
+		tokens_w[1] = g_utf8_to_utf16 (uppercase, -1, NULL, NULL, NULL);
+		g_free (uppercase);
+		len = tokens_w[1] != NULL ? wcslen (tokens_w[1]) : 0;
+	}
+
+	if (len > 0)
+	{
+		locale_w = g_new0 (wchar_t, wcslen(tokens_w[0]) + 1 + len + 1); /* 1 for '-' and the other 1 for the NUL character */
+		swprintf (locale_w, 85, L"%s-%s", tokens_w[0], tokens_w[1]);
+	}
+	else
+	{
+		locale_w = g_new0 (wchar_t, wcslen(tokens_w[0]) + 1);
+		swprintf (locale_w, 85, L"%s", tokens_w[0]);
+	}
+
+	len = GetLocaleInfoEx (locale_w, LOCALE_SLOCALIZEDDISPLAYNAME, langname_w, 0);
+	if (len == 0)
+	{
+		failed = TRUE;
+		goto failed;
+	}
+
+	langname_w = g_new0 (wchar_t, len);
+
+	GetLocaleInfoEx (locale_w, LOCALE_SLOCALIZEDDISPLAYNAME, langname_w, len);
+
+	if (langname_w == NULL ||
+		GetLocaleInfoEx (locale_w, LOCALE_SLOCALIZEDDISPLAYNAME, langname_w, len) == 0 ||
+        (language_name = g_utf16_to_utf8 (langname_w, -1, NULL, NULL, NULL)) == NULL)
+	{
+		failed = TRUE;
+		goto failed;
+	}
+
+failed:
+	if (failed)
+	{
+		/* Translators: %s is the language ISO code. */
+		language_name = g_strdup_printf (C_("language", "Unknown (%s)"), language_code);
+	}
+
+	g_free (langname_w);
+	g_free (tokens_w[1]);
+	g_free (tokens_w[0]);
+
+#else
 	/* Split language code into lowercase tokens. */
 	lowercase = g_ascii_strdown (language_code, -1);
 	tokens = g_strsplit (lowercase, "_", -1);
 	g_free (lowercase);
-
 	g_return_if_fail (tokens != NULL);
+
 
 	iso_639_name = g_hash_table_lookup (data->iso_639_table, tokens[0]);
 
@@ -283,6 +342,7 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 						 iso_639_name,
 						 tokens[1]);
 	}
+#endif
 
 exit:
 	g_strfreev (tokens);
@@ -332,6 +392,16 @@ gspell_language_get_available (void)
 	EnchantBroker *broker;
 	DictsData data;
 
+
+	if (initialized)
+	{
+		return available_languages;
+	}
+
+	initialized = TRUE;
+
+
+#ifndef G_OS_WIN32
 	GMarkupParser iso_639_parser =
 	{
 		iso_639_start_element,
@@ -343,13 +413,6 @@ gspell_language_get_available (void)
 		iso_3166_start_element,
 		NULL, NULL, NULL, NULL
 	};
-
-	if (initialized)
-	{
-		return available_languages;
-	}
-
-	initialized = TRUE;
 
 	localedir = get_iso_codes_localedir ();
 
@@ -373,6 +436,7 @@ gspell_language_get_available (void)
 
 	iso_codes_parse (&iso_639_parser, "iso_639.xml", data.iso_639_table);
 	iso_codes_parse (&iso_3166_parser, "iso_3166.xml", data.iso_3166_table);
+#endif
 
 	data.tree = g_tree_new_full (tree_compare_func,
 				     NULL,
@@ -380,6 +444,7 @@ gspell_language_get_available (void)
 				     (GDestroyNotify) g_free);
 
 	broker = enchant_broker_init ();
+
 	enchant_broker_list_dicts (broker,
 				   (EnchantDictDescribeFn) spell_language_dict_describe_cb,
 				   &data);
@@ -389,8 +454,11 @@ gspell_language_get_available (void)
 			(GTraverseFunc) spell_language_traverse_cb,
 			&available_languages);
 
+#ifndef G_OS_WIN32
 	g_hash_table_unref (data.iso_639_table);
 	g_hash_table_unref (data.iso_3166_table);
+#endif
+
 	g_tree_unref (data.tree);
 
 	return available_languages;
