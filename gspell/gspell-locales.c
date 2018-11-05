@@ -41,6 +41,14 @@ struct _GspellLocales
 	guint iso_3166_inited : 1;
 };
 
+enum _GspellLocaleInfoType
+{
+	GSPELL_ISO_639,
+	GSPELL_ISO_3166
+};
+
+typedef enum _GspellLocaleInfoType GspellLocaleInfoType;
+
 G_DEFINE_TYPE (GspellLocales, gspell_locales, G_TYPE_OBJECT)
 
 static void
@@ -74,24 +82,166 @@ gspell_locales_class_init (GspellLocalesClass *klass)
 	object_class->finalize = gspell_locales_finalize;
 }
 
+#ifdef G_OS_WIN32
+typedef struct _LocaleData
+{
+	GspellLocales *locales;
+	GspellLocaleInfoType type;
+} LocaleData;
+
+/* if we are using native Windows, use Windows API
+ * to retrieve the translated language and country names
+ * (No need for iso-codes package)
+ */
+static BOOL CALLBACK
+get_win32_all_locales_info (LPWSTR locale_w, DWORD flags, LPARAM param)
+{
+	wchar_t *langname_w = NULL;
+	wchar_t *locale_abbrev_w = NULL;
+	gchar *langname, *locale_abbrev, *locale, *countrycode;
+	gint i;
+	LocaleData *data = (LocaleData *)param;
+	GspellLocales *locales = data->locales;
+
+	gint langname_size, locale_abbrev_size;
+	locale = g_utf16_to_utf8 (locale_w, -1,
+	                          NULL, NULL, NULL);
+
+	if (data->type == GSPELL_ISO_639)
+	{
+		langname_size =
+			GetLocaleInfoEx (locale_w,
+			                 LOCALE_SLOCALIZEDDISPLAYNAME,
+			                 langname_w,
+			                 0);
+
+		if (langname_size == 0)
+			return FALSE;
+
+		langname_w = g_new0 (wchar_t, langname_size);
+
+		if (langname_size == 0)
+			return FALSE;
+
+		GetLocaleInfoEx (locale_w,
+		                 LOCALE_SLOCALIZEDDISPLAYNAME,
+		                 langname_w,
+		                 langname_size);
+
+		langname = g_utf16_to_utf8 (langname_w, -1,
+		                            NULL, NULL, NULL);
+
+		g_hash_table_insert (locales->iso_639_table,
+		                     g_strdup (locale),
+		                     g_strdup (langname));
+
+		/* track 3-letter ISO639-2/3 language codes as well */
+		locale_abbrev_size =
+			GetLocaleInfoEx (locale_w,
+			                 LOCALE_SABBREVLANGNAME,
+			                 locale_abbrev_w,
+			                 0);
+
+		if (locale_abbrev_size > 0)
+		{
+			locale_abbrev_w = g_new0 (wchar_t, locale_abbrev_size);
+			GetLocaleInfoEx (locale_w,
+			                 LOCALE_SABBREVLANGNAME,
+			                 locale_abbrev_w,
+			                 locale_abbrev_size);
+
+			locale_abbrev = g_utf16_to_utf8 (locale_abbrev_w, -1,
+			                                 NULL, NULL, NULL);
+
+			g_hash_table_insert (locales->iso_639_table,
+			                     g_strdup (locale_abbrev),
+			                     g_strdup (langname));
+
+			g_free (locale_abbrev);
+			g_free (locale_abbrev_w);
+		}
+	}
+	else if (data->type == GSPELL_ISO_3166)
+	{
+		countrycode = strrchr (locale, '-') != NULL ?
+		              strrchr (locale, '-') + sizeof (gchar) :
+		              NULL;
+
+		if (countrycode != NULL)
+		{
+			wchar_t *countryname_w = NULL;
+			gchar *countryname = NULL;
+			gint countryname_size;
+
+			countryname_size =
+				GetLocaleInfoEx (locale_w,
+				                 LOCALE_SLOCALIZEDCOUNTRYNAME,
+				                 countryname_w,
+				                 0);
+
+			if (countryname_size > 0)
+			{
+				countryname_w = g_new0 (wchar_t, countryname_size);
+				countryname_size =
+					GetLocaleInfoEx (locale_w,
+					                 LOCALE_SLOCALIZEDCOUNTRYNAME,
+					                 countryname_w,
+					                 countryname_size);
+
+				countryname = g_utf16_to_utf8 (countryname_w, -1,
+					                           NULL, NULL, NULL);
+
+				g_hash_table_insert (locales->iso_3166_table,
+				                     g_ascii_strdown (countrycode, -1),
+				                     g_strdup (countryname));
+
+				g_free (countryname);
+				g_free (countryname_w);
+			}
+		}
+	}
+
+	g_free (langname);
+	g_free (locale);
+	g_free (langname_w);
+
+	return TRUE;
+}
+
+static void
+gspell_retrieve_locale_info (GspellLocales *locales,
+                             GspellLocaleInfoType type)
+{
+	LocaleData data;
+	g_return_if_fail (type == GSPELL_ISO_639 ||
+	                  type == GSPELL_ISO_3166);
+
+	data.locales = locales;
+	data.type = type;
+
+	EnumSystemLocalesEx (&get_win32_all_locales_info,
+	                     LOCALE_ALL,
+	                     (LPARAM)&data,
+	                     NULL);
+
+	switch (type)
+	{
+		case GSPELL_ISO_639:
+			locales->iso_639_inited = TRUE;
+			break;
+		case GSPELL_ISO_3166:
+			locales->iso_3166_inited = TRUE;
+			break;
+		default:
+			g_warning ("Should not have reached here!");
+	}
+}
+
+#else /* G_OS_WIN32 */
 static gchar *
 get_iso_codes_prefix (void)
 {
-	gchar *prefix = NULL;
-
-#ifdef G_OS_WIN32
-	HMODULE gspell_dll;
-
-	gspell_dll = _gspell_init_get_dll ();
-	prefix = g_win32_get_package_installation_directory_of_module ((gpointer) gspell_dll);
-#endif
-
-	if (prefix == NULL)
-	{
-		prefix = g_strdup (ISO_CODES_PREFIX);
-	}
-
-	return prefix;
+	return g_strdup (ISO_CODES_PREFIX);
 }
 
 static gchar *
@@ -236,37 +386,69 @@ iso_codes_parse (const GMarkupParser *parser,
 	}
 }
 
-GHashTable *
-gspell_locales_get_iso_639_names (GspellLocales *locales)
+static void
+gspell_retrieve_locale_info (GspellLocales *locales,
+                             GspellLocaleInfoType type)
 {
 	gchar *localedir;
+	GMarkupParser iso_markup_parser = {NULL};
+	gchar *i18n_domain = NULL;
+	gchar *i18n_domain_xml = NULL;
+	GHashTable *saved_info_table = NULL;
 
-	GMarkupParser iso_639_parser =
-	{
-		iso_639_start_element,
-		NULL, NULL, NULL, NULL
-	};
-
-	if (locales->iso_639_inited)
-		return locales->iso_639_table;
+	g_return_if_fail (type == GSPELL_ISO_639 || type == GSPELL_ISO_3166);
 
 	localedir = get_iso_codes_localedir ();
 
-	bindtextdomain (ISO_639_DOMAIN, localedir);
-	bind_textdomain_codeset (ISO_639_DOMAIN, "UTF-8");
+	switch (type)
+	{
+		case GSPELL_ISO_639:
+			iso_markup_parser.start_element = iso_639_start_element;
+			i18n_domain = g_strdup (ISO_639_DOMAIN);
+			i18n_domain_xml = g_strconcat (ISO_639_DOMAIN, ".xml", NULL);
+			saved_info_table = locales->iso_639_table;
+			locales->iso_639_inited = TRUE;
+			break;
+
+		case GSPELL_ISO_3166:
+			iso_markup_parser.start_element = iso_3166_start_element;
+			i18n_domain = g_strdup (ISO_3166_DOMAIN);
+			i18n_domain_xml = g_strconcat (ISO_3166_DOMAIN, ".xml", NULL);
+			saved_info_table = locales->iso_3166_table;
+			locales->iso_3166_inited = TRUE;
+			break;
+
+		default:
+			g_warning ("Should not get here!\n");
+	}
+
+	bindtextdomain (i18n_domain, localedir);
+	bind_textdomain_codeset (i18n_domain, "UTF-8");
 
 	g_free (localedir);
+
+	iso_codes_parse (&iso_markup_parser,
+	                 i18n_domain_xml,
+	                 saved_info_table);
+
+	g_free (i18n_domain_xml);
+	g_free (i18n_domain);
+}
+
+#endif /* ! G_OS_WIN32 */
+
+GHashTable *
+gspell_locales_get_iso_639_names (GspellLocales *locales)
+{
+	if (locales->iso_639_inited)
+		return locales->iso_639_table;
 
 	locales->iso_639_table = g_hash_table_new_full (g_str_hash,
 						     g_str_equal,
 						     (GDestroyNotify) g_free,
 						     (GDestroyNotify) g_free);
 
-	iso_codes_parse (&iso_639_parser,
-	                 "iso_639.xml",
-	                 locales->iso_639_table);
-
-	locales->iso_639_inited = TRUE;
+	gspell_retrieve_locale_info (locales, GSPELL_ISO_639);
 
 	return locales->iso_639_table;
 }
@@ -274,34 +456,15 @@ gspell_locales_get_iso_639_names (GspellLocales *locales)
 GHashTable *
 gspell_locales_get_iso_3166_names (GspellLocales *locales)
 {
-	gchar *localedir;
-
-	GMarkupParser iso_3166_parser =
-	{
-		iso_3166_start_element,
-		NULL, NULL, NULL, NULL
-	};
-
 	if (locales->iso_3166_inited)
 		return locales->iso_3166_table;
-
-	localedir = get_iso_codes_localedir ();
-
-	bindtextdomain (ISO_3166_DOMAIN, localedir);
-	bind_textdomain_codeset (ISO_3166_DOMAIN, "UTF-8");
-
-	g_free (localedir);
 
 	locales->iso_3166_table = g_hash_table_new_full (g_str_hash,
 						     g_str_equal,
 						     (GDestroyNotify) g_free,
 						     (GDestroyNotify) g_free);
 
-	iso_codes_parse (&iso_3166_parser,
-	                 "iso_3166.xml",
-	                 locales->iso_3166_table);
-
-	locales->iso_3166_inited = TRUE;
+	gspell_retrieve_locale_info (locales, GSPELL_ISO_3166);
 
 	return locales->iso_3166_table;
 }
