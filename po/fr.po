@@ -25,45 +25,46 @@
 # Fievez Yoann <yoann.fievez@gmail.com>, 2013.
 # Julien Hardelin <jhardlin@orange.fr>, 2013.
 # naybnet <naybnet@gmail.com>, 2014.
+# Charles Monzat <charles.monzat@numericable.fr>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell HEAD\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-04-02 14:56+0000\n"
-"PO-Revision-Date: 2017-04-17 10:06+0200\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
-"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2018-06-10 17:29+0000\n"
+"PO-Revision-Date: 2018-11-18 22:13+0100\n"
+"Last-Translator: Charles Monzat <charles.monzat@numericable.fr>\n"
+"Language-Team: français <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 3.30.0\n"
 
-#: gspell/gspell-checker.c:418
+#: gspell/gspell-checker.c:419
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
-msgstr "Erreur pendant la vérification de l'orthographe du mot « %s » : %s"
+msgstr "Erreur pendant la vérification de l’orthographe du mot « %s » : %s"
 
 #. Translators: Displayed in the "Check Spelling"
 #. * dialog if there are no suggestions for the current
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
 msgid "(no suggested words)"
 msgstr "(aucun mot suggéré)"
 
-#: gspell/gspell-checker-dialog.c:232
+#: gspell/gspell-checker-dialog.c:235
 msgid "Error:"
 msgstr "Erreur :"
 
-#: gspell/gspell-checker-dialog.c:268
+#: gspell/gspell-checker-dialog.c:271
 msgid "Completed spell checking"
 msgstr "Vérification orthographique terminée"
 
-#: gspell/gspell-checker-dialog.c:272
+#: gspell/gspell-checker-dialog.c:275
 msgid "No misspelled words"
 msgstr "Aucun mot mal orthographié"
 
@@ -71,38 +72,38 @@ msgstr "Aucun mot mal orthographié"
 #. * Spelling" dialog if the current word
 #. * isn't misspelled.
 #.
-#: gspell/gspell-checker-dialog.c:499
+#: gspell/gspell-checker-dialog.c:502
 msgid "(correct spelling)"
 msgstr "(Orthographe correcte)"
 
-#: gspell/gspell-checker-dialog.c:641
+#: gspell/gspell-checker-dialog.c:644
 msgid "Suggestions"
 msgstr "Suggestions"
 
-#: gspell/gspell-context-menu.c:149
+#: gspell/gspell-context-menu.c:152
 msgid "_Language"
 msgstr "_Langue"
 
-#: gspell/gspell-context-menu.c:237
+#: gspell/gspell-context-menu.c:240
 msgid "_More…"
 msgstr "_Plus…"
 
 #. Ignore all
-#: gspell/gspell-context-menu.c:282
+#: gspell/gspell-context-menu.c:285
 msgid "_Ignore All"
-msgstr "_Ignorer tout"
+msgstr "Tout _ignorer"
 
 #. Add to Dictionary
-#: gspell/gspell-context-menu.c:300
+#: gspell/gspell-context-menu.c:303
 msgid "_Add"
 msgstr "A_jouter"
 
-#: gspell/gspell-context-menu.c:337
+#: gspell/gspell-context-menu.c:340
 msgid "_Spelling Suggestions…"
-msgstr "_Suggestions d'orthographes…"
+msgstr "_Suggestions d’orthographes…"
 
 #. Translators: %s is the language ISO code.
-#: gspell/gspell-language.c:253
+#: gspell/gspell-language.c:256
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -111,27 +112,27 @@ msgstr "Inconnue (%s)"
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)".
 #.
-#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
+#: gspell/gspell-language.c:273 gspell/gspell-language.c:282
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:81
+#: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
 msgstr "Aucune langue sélectionnée"
 
-#: gspell/gspell-navigator-text-view.c:307
+#: gspell/gspell-navigator-text-view.c:310
 msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
 "Erreur de vérification orthographique : aucune langue définie. Cela peut "
-"être causé par l'absence de dictionnaire installé."
+"être causé par l’absence de dictionnaire installé."
 
 #: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
-msgstr "Vérifier l'orthographe"
+msgstr "Vérifier l’orthographe"
 
 #: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
@@ -171,7 +172,7 @@ msgstr "_Tout remplacer"
 
 #: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
-msgstr "Dictionnaire de l'utilisateur :"
+msgstr "Dictionnaire de l’utilisateur :"
 
 #: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
