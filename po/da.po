@@ -15,28 +15,25 @@
 # Ole Laursen <olau@hardworking.dk>, 2002, 03, 04, 05, 06.
 # Marie Lund <marielund@post.cybercity.dk>, 2004.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004.
-# M.P. Rommedahl <lhademmor@gmail.com>, 2008
+# M.P. Rommedahl <lhademmor@gmail.com>, 2008.
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2006-2007, 2009, 2011-2012, 2014.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2007, 09, 10, 11, 13, 15.
 # Alan Mortensen <alanmortensen.am@gmail.com>, 2017.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gspell.gnome-2-16\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-10-28 04:43+0000\n"
-"PO-Revision-Date: 2017-01-13 19:29+0100\n"
-"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
-"Language-Team: Dansk <dansk@dansk-gruppen.dk>\n"
+"Project-Id-Version: gspell\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2018-06-10 17:29+0000\n"
+"PO-Revision-Date: 2019-02-18 00:00+0100\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
 
-#: gspell/gspell-checker.c:403
+#: gspell/gspell-checker.c:419
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Fejl ved kontrol af stavning af ordet “%s”: %s"
@@ -46,20 +43,19 @@ msgstr "Fejl ved kontrol af stavning af ordet “%s”: %s"
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147
-#: gspell/gspell-inline-checker-text-buffer.c:841
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
 msgid "(no suggested words)"
 msgstr "(ingen foreslåede ord)"
 
-#: gspell/gspell-checker-dialog.c:232
+#: gspell/gspell-checker-dialog.c:235
 msgid "Error:"
 msgstr "Fejl:"
 
-#: gspell/gspell-checker-dialog.c:268
+#: gspell/gspell-checker-dialog.c:271
 msgid "Completed spell checking"
 msgstr "Stavekontrol færdig"
 
-#: gspell/gspell-checker-dialog.c:272
+#: gspell/gspell-checker-dialog.c:275
 msgid "No misspelled words"
 msgstr "Ingen forkert stavede ord"
 
@@ -67,35 +63,38 @@ msgstr "Ingen forkert stavede ord"
 #. * Spelling" dialog if the current word
 #. * isn't misspelled.
 #.
-#: gspell/gspell-checker-dialog.c:499
+#: gspell/gspell-checker-dialog.c:502
 msgid "(correct spelling)"
 msgstr "(korrekt stavning)"
 
-#: gspell/gspell-checker-dialog.c:637
+#: gspell/gspell-checker-dialog.c:644
 msgid "Suggestions"
 msgstr "Forslag"
 
-#: gspell/gspell-inline-checker-text-buffer.c:864
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "_Sprog"
+
+#: gspell/gspell-context-menu.c:240
 msgid "_More…"
 msgstr "_Flere …"
 
 #. Ignore all
-#: gspell/gspell-inline-checker-text-buffer.c:904
+#: gspell/gspell-context-menu.c:285
 msgid "_Ignore All"
 msgstr "_Ignorér alle"
 
 #. Add to Dictionary
-#: gspell/gspell-inline-checker-text-buffer.c:913
+#: gspell/gspell-context-menu.c:303
 msgid "_Add"
 msgstr "_Tilføj"
 
-#. Prepend suggestions
-#: gspell/gspell-inline-checker-text-buffer.c:944
+#: gspell/gspell-context-menu.c:340
 msgid "_Spelling Suggestions…"
 msgstr "_Staveforslag …"
 
 #. Translators: %s is the language ISO code.
-#: gspell/gspell-language.c:253
+#: gspell/gspell-language.c:256
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -104,17 +103,17 @@ msgstr "Ukendt (%s)"
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)".
 #.
-#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
+#: gspell/gspell-language.c:273 gspell/gspell-language.c:282
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:81
+#: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
 msgstr "Der er ikke valgt et sprog"
 
-#: gspell/gspell-navigator-text-view.c:307
+#: gspell/gspell-navigator-text-view.c:310
 msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
@@ -122,12 +121,7 @@ msgstr ""
 "Stavekontrolfejl: intet sprog angivet. Måske fordi der ikke er installeret "
 "nogen ordbøger."
 
-#. Prepend language sub-menu
-#: gspell/gspell-text-view.c:265
-msgid "_Language"
-msgstr "_Sprog"
-
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "Kontrollér stavning"
 
@@ -147,35 +141,35 @@ msgstr "Ret _til:"
 msgid "Check _Word"
 msgstr "Kontrollér _ord"
 
-#: gspell/resources/checker-dialog.ui:121
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "_Forslag:"
 
-#: gspell/resources/checker-dialog.ui:134
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "_Ignorér"
 
-#: gspell/resources/checker-dialog.ui:148
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "Ignorér _alle"
 
-#: gspell/resources/checker-dialog.ui:162
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "_Ret"
 
-#: gspell/resources/checker-dialog.ui:178
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "Ret _alle"
 
-#: gspell/resources/checker-dialog.ui:196
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "Brugerordbog:"
 
-#: gspell/resources/checker-dialog.ui:208
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "Tilføj o_rd"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "Vælg sprog"
 
