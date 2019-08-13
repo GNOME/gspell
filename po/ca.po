@@ -160,7 +160,7 @@ msgstr "Especifiqueu l'idioma"
 
 #: gspell/resources/language-dialog.ui:20
 msgid "Select the spell checking _language."
-msgstr "_Seleccioneu la llengua de revisió de l'ortografia"
+msgstr "_Seleccioneu la llengua de revisió de l'ortografia."
 
 #: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
