@@ -8,3 +8,13 @@ gspell follows the same guidelines and code conventions as GtkSourceView:
 The gspell GitLab:
 
     https://gitlab.gnome.org/GNOME/gspell
+
+Development notes
+-----------------
+
+See the text files in the docs/ directory (if you're looking to integrate
+gspell with *Flatpak*, it's there ;-) ).
+
+There are also some notes on the wiki:
+
+    https://wiki.gnome.org/Projects/gspell
