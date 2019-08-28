@@ -53,6 +53,7 @@ gspell_private_headers =			\
 	gspell-entry-utils.h			\
 	gspell-init.h				\
 	gspell-inline-checker-text-buffer.h	\
+	gspell-locales.h			\
 	gspell-text-iter.h			\
 	gspell-utils.h
 
@@ -63,6 +64,7 @@ gspell_private_c_files =			\
 	gspell-entry-utils.c			\
 	gspell-init.c				\
 	gspell-inline-checker-text-buffer.c	\
+	gspell-locales.c			\
 	gspell-text-iter.c			\
 	gspell-utils.c
 

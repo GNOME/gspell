@@ -38,6 +38,7 @@ IGNORE_HFILES =					\
 	gspell-entry-utils.h			\
 	gspell-init.h				\
 	gspell-inline-checker-text-buffer.h	\
+	gspell-locales.h			\
 	gspell-osx.h				\
 	gspell-text-iter.h			\
 	gspell-utils.h				\
