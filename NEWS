@@ -1,3 +1,8 @@
+News in 1.8.2, 2019-09-06
+-------------------------
+* Build from Git: allow building with gettext ≥ 0.20.
+* Translation updates.
+
 News in 1.8.1, 2018-06-16
 -------------------------
 * gspell has moved to the GNOME GitLab instance. The bugzilla tickets have not
