@@ -29,17 +29,17 @@ test_check_word (void)
 	GError *error = NULL;
 
 	lang = gspell_language_lookup ("en_US");
-	g_assert (lang != NULL);
+	g_assert_true (lang != NULL);
 
 	checker = gspell_checker_new (lang);
 
 	correctly_spelled = gspell_checker_check_word (checker, "hello", -1, &error);
 	g_assert_no_error (error);
-	g_assert (correctly_spelled);
+	g_assert_true (correctly_spelled);
 
 	correctly_spelled = gspell_checker_check_word (checker, "tkbqzat", -1, &error);
 	g_assert_no_error (error);
-	g_assert (!correctly_spelled);
+	g_assert_true (!correctly_spelled);
 
 	g_object_unref (checker);
 }
@@ -54,7 +54,7 @@ test_apostrophes (void)
 	GError *error = NULL;
 
 	lang = gspell_language_lookup ("en_US");
-	g_assert (lang != NULL);
+	g_assert_true (lang != NULL);
 
 	checker = gspell_checker_new (lang);
 
@@ -65,7 +65,7 @@ test_apostrophes (void)
 
 	correctly_spelled = gspell_checker_check_word (checker, "doesn't", -1, &error);
 	g_assert_no_error (error);
-	g_assert (correctly_spelled);
+	g_assert_true (correctly_spelled);
 
 	/* Modifier Letter Apostrophe U+02BC */
 
@@ -74,7 +74,7 @@ test_apostrophes (void)
 
 	correctly_spelled = gspell_checker_check_word (checker, "doesn\xCA\xBCt", -1, &error);
 	g_assert_no_error (error);
-	g_assert (correctly_spelled);
+	g_assert_true (correctly_spelled);
 
 	/* Right Single Quotation Mark U+2019 */
 
@@ -83,7 +83,7 @@ test_apostrophes (void)
 
 	correctly_spelled = gspell_checker_check_word (checker, "doesn\xE2\x80\x99t", -1, &error);
 	g_assert_no_error (error);
-	g_assert (correctly_spelled);
+	g_assert_true (correctly_spelled);
 
 	g_object_unref (checker);
 }
@@ -97,7 +97,7 @@ test_dashes (void)
 	GError *error = NULL;
 
 	lang = gspell_language_lookup ("en_US");
-	g_assert (lang != NULL);
+	g_assert_true (lang != NULL);
 
 	checker = gspell_checker_new (lang);
 
@@ -108,11 +108,11 @@ test_dashes (void)
 	 */
 	correctly_spelled = gspell_checker_check_word (checker, "spell-checking", -1, &error);
 	g_assert_no_error (error);
-	g_assert (correctly_spelled);
+	g_assert_true (correctly_spelled);
 
 	correctly_spelled = gspell_checker_check_word (checker, "nrst-auie", -1, &error);
 	g_assert_no_error (error);
-	g_assert (!correctly_spelled);
+	g_assert_true (!correctly_spelled);
 
 	g_object_unref (checker);
 }

@@ -25,19 +25,19 @@ test_is_number (void)
 	gboolean is_number;
 
 	is_number = _gspell_utils_is_number ("123", -1);
-	g_assert (is_number);
+	g_assert_true (is_number);
 
 	is_number = _gspell_utils_is_number ("123", 3);
-	g_assert (is_number);
+	g_assert_true (is_number);
 
 	is_number = _gspell_utils_is_number ("123a4", 3);
-	g_assert (is_number);
+	g_assert_true (is_number);
 
 	is_number = _gspell_utils_is_number ("123a4", -1);
-	g_assert (!is_number);
+	g_assert_true (!is_number);
 
 	is_number = _gspell_utils_is_number ("h4ck1ng", -1);
-	g_assert (!is_number);
+	g_assert_true (!is_number);
 }
 
 static void
@@ -69,36 +69,36 @@ test_str_to_ascii_apostrophe (void)
 	gboolean ret;
 
 	ret = _gspell_utils_str_to_ascii_apostrophe ("rock'n'roll", -1, &result);
-	g_assert (!ret);
-	g_assert (result == NULL);
+	g_assert_true (!ret);
+	g_assert_true (result == NULL);
 
 	ret = _gspell_utils_str_to_ascii_apostrophe ("rock\xCA\xBCn\xCA\xBCroll", -1, &result);
-	g_assert (ret);
+	g_assert_true (ret);
 	g_assert_cmpstr (result, ==, "rock'n'roll");
 	g_free (result);
 	result = NULL;
 
 	ret = _gspell_utils_str_to_ascii_apostrophe ("rock\xE2\x80\x99n\xE2\x80\x99roll", -1, &result);
-	g_assert (ret);
+	g_assert_true (ret);
 	g_assert_cmpstr (result, ==, "rock'n'roll");
 	g_free (result);
 	result = NULL;
 
 	ret = _gspell_utils_str_to_ascii_apostrophe ("rock\xCA\xBCn\xE2\x80\x99roll", -1, &result);
-	g_assert (ret);
+	g_assert_true (ret);
 	g_assert_cmpstr (result, ==, "rock'n'roll");
 	g_free (result);
 	result = NULL;
 
 	ret = _gspell_utils_str_to_ascii_apostrophe ("rock\xCA\xBCn\xE2\x80\x99roll", 7, &result);
-	g_assert (ret);
+	g_assert_true (ret);
 	g_assert_cmpstr (result, ==, "rock'n");
 	g_free (result);
 	result = NULL;
 
 	ret = _gspell_utils_str_to_ascii_apostrophe ("rock\xCA\xBCn\xE2\x80\x99roll", 4, &result);
-	g_assert (!ret);
-	g_assert (result == NULL);
+	g_assert_true (!ret);
+	g_assert_true (result == NULL);
 }
 
 gint

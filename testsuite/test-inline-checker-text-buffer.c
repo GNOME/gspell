@@ -32,7 +32,7 @@ create_buffer (void)
 	gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
 
 	lang = gspell_language_lookup ("en_US");
-	g_assert (lang != NULL);
+	g_assert_true (lang != NULL);
 
 	checker = gspell_checker_new (lang);
 	gspell_text_buffer_set_spell_checker (gspell_buffer, checker);
@@ -75,7 +75,7 @@ check_highlighted_words (GtkTextBuffer                 *buffer,
 	gint remaining_list_element;
 
 	tag = _gspell_inline_checker_text_buffer_get_highlight_tag (inline_checker);
-	g_assert (GTK_IS_TEXT_TAG (tag));
+	g_assert_true (GTK_IS_TEXT_TAG (tag));
 
 	gtk_text_buffer_get_start_iter (buffer, &iter);
 	va_start (list, inline_checker);
@@ -97,7 +97,7 @@ check_highlighted_words (GtkTextBuffer                 *buffer,
 				break;
 			}
 
-			g_assert (gtk_text_iter_starts_tag (&start, tag));
+			g_assert_true (gtk_text_iter_starts_tag (&start, tag));
 		}
 
 		end = start;
@@ -105,7 +105,7 @@ check_highlighted_words (GtkTextBuffer                 *buffer,
 		{
 			g_assert_not_reached ();
 		}
-		g_assert (gtk_text_iter_ends_tag (&end, tag));
+		g_assert_true (gtk_text_iter_ends_tag (&end, tag));
 
 		start_offset = gtk_text_iter_get_offset (&start);
 		expected_start_offset = va_arg (list, gint);

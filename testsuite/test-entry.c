@@ -37,7 +37,7 @@ create_entry (void)
 	g_object_ref_sink (gtk_entry);
 
 	lang = gspell_language_lookup ("en_US");
-	g_assert (lang != NULL);
+	g_assert_true (lang != NULL);
 
 	checker = gspell_checker_new (lang);
 	gtk_buffer = gtk_entry_get_buffer (gtk_entry);
@@ -99,8 +99,8 @@ static void
 check_entry_word_equal (GspellEntryWord *word1,
 			GspellEntryWord *word2)
 {
-	g_assert (word1 != NULL);
-	g_assert (word2 != NULL);
+	g_assert_true (word1 != NULL);
+	g_assert_true (word2 != NULL);
 
 	g_assert_cmpstr (word1->word_str, ==, word2->word_str);
 	g_assert_cmpint (word1->byte_start, ==, word2->byte_start);
@@ -136,8 +136,8 @@ check_entry_word_list_equal (const GSList *list1,
 		check_entry_word_equal (word1, word2);
 	}
 
-	g_assert (l1 == NULL);
-	g_assert (l2 == NULL);
+	g_assert_true (l1 == NULL);
+	g_assert_true (l2 == NULL);
 }
 
 static void
@@ -253,7 +253,7 @@ test_init (void)
 	gtk_entry_set_text (gtk_entry, "auienrst");
 
 	lang = gspell_language_lookup ("en_US");
-	g_assert (lang != NULL);
+	g_assert_true (lang != NULL);
 
 	checker = gspell_checker_new (lang);
 	gtk_buffer = gtk_entry_get_buffer (gtk_entry);
@@ -385,7 +385,7 @@ test_spell_checker_change (void)
 
 		/* Set a spell checker */
 		lang = gspell_language_lookup ("en_US");
-		g_assert (lang != NULL);
+		g_assert_true (lang != NULL);
 
 		checker = gspell_checker_new (lang);
 		gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
@@ -439,7 +439,7 @@ test_language_change (void)
 	gspell_buffer = gspell_entry_buffer_get_from_gtk_entry_buffer (gtk_buffer);
 
 	lang = gspell_language_lookup ("en_US");
-	g_assert (lang != NULL);
+	g_assert_true (lang != NULL);
 
 	checker = gspell_checker_new (lang);
 	gspell_entry_buffer_set_spell_checker (gspell_buffer, checker);
@@ -470,7 +470,7 @@ test_password_mode (void)
 	gtk_entry = create_entry ();
 	gspell_entry = gspell_entry_get_from_gtk_entry (gtk_entry);
 
-	g_assert (gtk_entry_get_visibility (gtk_entry));
+	g_assert_true (gtk_entry_get_visibility (gtk_entry));
 
 	gtk_entry_set_text (gtk_entry, "auienrst");
 	expected_list = add_word (NULL, "auienrst", 0, 8);
