@@ -1,6 +1,6 @@
 /*** BEGIN file-header ***/
 #if HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
 #include "gspell-enum-types.h"
