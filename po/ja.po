@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2020-01-08 15:18+0000\n"
 "PO-Revision-Date: 2015-09-15 23:12+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -26,132 +26,167 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:419
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "単語“%s”のスペルチェック中にエラー: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
 msgid "(no suggested words)"
 msgstr "(単語の候補なし)"
 
-#: gspell/gspell-checker-dialog.c:237
+#: gspell/gspell-checker-dialog.c:235
 msgid "Error:"
 msgstr "エラー:"
 
-#: gspell/gspell-checker-dialog.c:274
+#: gspell/gspell-checker-dialog.c:271
 msgid "Completed spell checking"
 msgstr "スペルチェック完了"
 
-#: gspell/gspell-checker-dialog.c:278
+#: gspell/gspell-checker-dialog.c:275
 msgid "No misspelled words"
 msgstr "スペルミスと思われる単語はありません"
 
-#: gspell/gspell-checker-dialog.c:507
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
 msgid "(correct spelling)"
 msgstr "(正しいつづり)"
 
-#: gspell/gspell-checker-dialog.c:645
+#: gspell/gspell-checker-dialog.c:644
 msgid "Suggestions"
 msgstr "提示"
 
-#: gspell/gspell-inline-checker-gtv.c:595
-msgid "_More..."
+#: gspell/gspell-context-menu.c:152
+#, fuzzy
+#| msgid "Set Language"
+msgid "_Language"
+msgstr "言語の設定"
+
+#: gspell/gspell-context-menu.c:240
+#, fuzzy
+#| msgid "_More..."
+msgid "_More…"
 msgstr "詳細(_M)..."
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
 msgid "_Ignore All"
 msgstr "すべて無視(_I)"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
 msgid "_Add"
 msgstr "追加(_A)"
 
-#: gspell/gspell-inline-checker-gtv.c:681
-msgid "_Spelling Suggestions..."
+#: gspell/gspell-context-menu.c:340
+#, fuzzy
+#| msgid "_Spelling Suggestions..."
+msgid "_Spelling Suggestions…"
 msgstr "スペルの提示(_S)..."
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language.c:369
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:256
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "不明 (%s)"
 
-#: gspell/gspell-language.c:481
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)".
+#.
+#: gspell/gspell-language.c:273 gspell/gspell-language.c:282
+#, c-format
 msgctxt "language"
-msgid "Default"
-msgstr "デフォルト"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
-#: gspell/gspell-language-chooser-button.c:78
+#: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
 msgstr ""
 
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "スペルチェック"
 
-#: gspell/resources/checker-dialog.ui:27
+#: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
 msgstr "スペルミスと思われる単語:"
 
-#: gspell/resources/checker-dialog.ui:40
+#: gspell/resources/checker-dialog.ui:49
 msgid "word"
 msgstr "単語"
 
-#: gspell/resources/checker-dialog.ui:57
+#: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
 msgstr "変更先(_T):"
 
-#: gspell/resources/checker-dialog.ui:82
+#: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
 msgstr "単語のチェック(_W)"
 
-#: gspell/resources/checker-dialog.ui:112
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "正解の候補(_S):"
 
-#: gspell/resources/checker-dialog.ui:125
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "無視(_I)"
 
-#: gspell/resources/checker-dialog.ui:139
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "すべて無視(_A)"
 
-#: gspell/resources/checker-dialog.ui:153
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "変更(_N)"
 
-#: gspell/resources/checker-dialog.ui:169
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "すべて変更(_L)"
 
-#: gspell/resources/checker-dialog.ui:187
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "ユーザー辞書:"
 
-#: gspell/resources/checker-dialog.ui:199
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "単語の追加(_O)"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "言語の設定"
 
-#: gspell/resources/language-dialog.ui:22
-msgid "Select the _language of the current document."
-msgstr "このドキュメントの言語を選択してください(_L):"
+#: gspell/resources/language-dialog.ui:20
+#, fuzzy
+#| msgid "Completed spell checking"
+msgid "Select the spell checking _language."
+msgstr "スペルチェック完了"
 
-#: gspell/resources/language-dialog.ui:63
+#: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: gspell/resources/language-dialog.ui:70
+#: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "選択(_S)"
+
+#~ msgctxt "language"
+#~ msgid "Default"
+#~ msgstr "デフォルト"
+
+#~ msgid "Select the _language of the current document."
+#~ msgstr "このドキュメントの言語を選択してください(_L):"
