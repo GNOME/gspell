@@ -1,6 +1,6 @@
 # gspell ja.po.
-# Copyright (C) 1999,2000,2002-2013 Free Software Foundation, Inc.
-# Akira Higuchi <a-higuti@math.sci.hokudai.ac.jp>, 1999
+# Copyright (C) 1999-2015, 2020 Free Software Foundation, Inc.
+# Akira Higuchi <a-higuti@math.sci.hokudai.ac.jp>, 1999.
 # Yuusuke Tahara <tahara@gnome.gr.jp>
 # Yukihiro Nakai <nakai@gnome.gr.jp>
 # Akira TAGOH <tagoh@gnome.gr.jp>, 2002.
@@ -11,14 +11,15 @@
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2010-2012.
 # Hajime Taira <htaira@redhat.com>, 2011.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2011, 2013, 2014, 2015.
+# sicklylife <translation@sicklylife.jp>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
 "POT-Creation-Date: 2020-01-08 15:18+0000\n"
-"PO-Revision-Date: 2015-09-15 23:12+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"PO-Revision-Date: 2020-01-28 21:00+0900\n"
+"Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -65,16 +66,12 @@ msgid "Suggestions"
 msgstr "提示"
 
 #: gspell/gspell-context-menu.c:152
-#, fuzzy
-#| msgid "Set Language"
 msgid "_Language"
-msgstr "言語の設定"
+msgstr "言語(_L)"
 
 #: gspell/gspell-context-menu.c:240
-#, fuzzy
-#| msgid "_More..."
 msgid "_More…"
-msgstr "詳細(_M)..."
+msgstr "詳細(_M)…"
 
 #. Ignore all
 #: gspell/gspell-context-menu.c:285
@@ -87,10 +84,8 @@ msgid "_Add"
 msgstr "追加(_A)"
 
 #: gspell/gspell-context-menu.c:340
-#, fuzzy
-#| msgid "_Spelling Suggestions..."
 msgid "_Spelling Suggestions…"
-msgstr "スペルの提示(_S)..."
+msgstr "スペルの提示(_S)…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:256
@@ -110,13 +105,15 @@ msgstr "%s (%s)"
 
 #: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
-msgstr ""
+msgstr "言語を選択していません"
 
 #: gspell/gspell-navigator-text-view.c:310
 msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
+"スペルチェッカーのエラー: 言語設定がありません。辞書がインストールされていない"
+"可能性があります。"
 
 #: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
@@ -171,10 +168,8 @@ msgid "Set Language"
 msgstr "言語の設定"
 
 #: gspell/resources/language-dialog.ui:20
-#, fuzzy
-#| msgid "Completed spell checking"
 msgid "Select the spell checking _language."
-msgstr "スペルチェック完了"
+msgstr "スペルチェックする言語を選択してください(_L)。"
 
 #: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
