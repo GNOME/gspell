@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gspell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
-"POT-Creation-Date: 2020-01-08 15:18+0000\n"
-"PO-Revision-Date: 2020-01-28 21:00+0900\n"
+"POT-Creation-Date: 2020-01-28 15:11+0000\n"
+"PO-Revision-Date: 2020-01-29 12:30+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -71,7 +71,7 @@ msgstr "言語(_L)"
 
 #: gspell/gspell-context-menu.c:240
 msgid "_More…"
-msgstr "詳細(_M)…"
+msgstr "さらに表示(_M)…"
 
 #. Ignore all
 #: gspell/gspell-context-menu.c:285
@@ -112,8 +112,8 @@ msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
-"スペルチェッカーのエラー: 言語設定がありません。辞書がインストールされていない"
-"可能性があります。"
+"スペルチェッカーのエラー: 言語設定がありません。辞書がインストールされていな"
+"い可能性があります。"
 
 #: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
