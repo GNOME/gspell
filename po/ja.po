@@ -12,13 +12,14 @@
 # Hajime Taira <htaira@redhat.com>, 2011.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2011, 2013, 2014, 2015.
 # sicklylife <translation@sicklylife.jp>, 2020.
+# Kentaro KAZUHAMA <kazken3@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
-"POT-Creation-Date: 2020-01-28 15:11+0000\n"
-"PO-Revision-Date: 2020-01-29 12:30+0900\n"
+"POT-Creation-Date: 2020-01-29 09:06+0000\n"
+"PO-Revision-Date: 2020-02-08 00:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -85,7 +86,7 @@ msgstr "追加(_A)"
 
 #: gspell/gspell-context-menu.c:340
 msgid "_Spelling Suggestions…"
-msgstr "スペルの提示(_S)…"
+msgstr "スペルの提案(_S)…"
 
 #. Translators: %s is the language ISO code.
 #: gspell/gspell-language.c:256
