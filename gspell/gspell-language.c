@@ -66,7 +66,135 @@ G_DEFINE_BOXED_TYPE (GspellLanguage,
 		     gspell_language_copy,
 		     gspell_language_free)
 
-#ifndef G_OS_WIN32
+#ifdef G_OS_WIN32
+
+/* Grab the ISO639-2T and ISO3166 codes supported by the system, along with the corresponding language names */
+static BOOL CALLBACK
+get_win32_all_locales_info (LPWSTR locale_w, DWORD flags, LPARAM param)
+{
+	gchar *locale = NULL;
+	gchar *locale_iso639_2;
+	gchar *langname;
+	wchar_t *langname_w = NULL;
+	wchar_t locale_iso639_2_w[9];
+	wchar_t country_code_iso3166_w[9];
+	gint langname_size, locale_iso639_2_size, country_code_iso3166_size;
+	gboolean success = TRUE;
+
+	GHashTable *ht_iso639_codes = (GHashTable *)param;
+
+	locale = g_utf16_to_utf8 (locale_w, -1,
+	                          NULL, NULL, NULL);
+
+	if (locale == NULL)
+	{
+		success = FALSE;
+		goto win32_cb_failed;
+	}
+
+	langname_size =
+		GetLocaleInfoEx (locale_w,
+		                 LOCALE_SLOCALIZEDDISPLAYNAME,
+		                 langname_w,
+		                 0);
+
+	if (langname_size == 0)
+	{
+		success = FALSE;
+		goto win32_cb_failed;
+	}
+
+	langname_w = g_new0 (wchar_t, langname_size);
+
+	if (langname_size == 0)
+	{
+		success = FALSE;
+		goto win32_cb_failed;
+	}
+
+	/* First get the translated locale name from the system for the given locale */
+
+	GetLocaleInfoEx (locale_w,
+	                 LOCALE_SLOCALIZEDDISPLAYNAME,
+	                 langname_w,
+	                 langname_size);
+
+	langname = g_utf16_to_utf8 (langname_w, -1,
+	                            NULL, NULL, NULL);
+	if (langname == NULL)
+	{
+		success = FALSE;
+		goto win32_cb_failed;
+	}
+
+	/* now retrieve the 3-letter ISO639-2T language codes */
+	locale_iso639_2_size =
+		GetLocaleInfoEx (locale_w,
+		                 LOCALE_SISO639LANGNAME2,
+		                 locale_iso639_2_w,
+		                 0);
+
+	if (locale_iso639_2_size > 0)
+	{
+		GetLocaleInfoEx (locale_w,
+		                 LOCALE_SISO639LANGNAME2,
+		                 locale_iso639_2_w,
+		                 locale_iso639_2_size);
+
+		locale_iso639_2 = g_utf16_to_utf8 (locale_iso639_2_w, -1,
+		                                   NULL, NULL, NULL);
+	}
+
+	/* and then retrieve the corresponding country codes */
+	if (locale_iso639_2 != NULL)
+	{
+		country_code_iso3166_size =
+			GetLocaleInfoEx (locale_w,
+			                 LOCALE_SISO3166CTRYNAME2,
+			                 country_code_iso3166_w,
+			                 0);
+
+		if (country_code_iso3166_size > 0)
+		{
+			gchar *country_code_iso3166;
+
+			country_code_iso3166_size =
+				GetLocaleInfoEx (locale_w,
+								LOCALE_SISO3166CTRYNAME2,
+								country_code_iso3166_w,
+								country_code_iso3166_size);
+
+			country_code_iso3166 = g_utf16_to_utf8 (country_code_iso3166_w, -1,
+			                                        NULL, NULL, NULL);
+
+			if (country_code_iso3166 != NULL)
+			{
+				g_hash_table_insert (ht_iso639_codes,
+				                     g_strconcat (locale_iso639_2, "_", country_code_iso3166, NULL),
+				                     g_strdup (langname));
+			}
+
+			g_free (country_code_iso3166);
+		}
+		else
+		{
+			g_hash_table_insert (ht_iso639_codes,
+			                     g_strdup (locale_iso639_2),
+			                     g_strdup (langname));
+		}
+
+		g_free (locale_iso639_2);
+	}
+
+win32_cb_failed:
+	g_free (langname);
+	g_free (langname_w);
+	g_free (locale);
+
+	return success;
+}
+
+#else
 static gchar *
 get_iso_codes_prefix (void)
 {
@@ -227,53 +355,30 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 	const gchar *iso_3166_name;
 	gchar *language_name;
 	gchar *lowercase;
-	gchar **tokens;
+	gchar **tokens = NULL;
 
 #ifdef G_OS_WIN32
-	wchar_t *tokens_w[2] = {NULL, NULL};
 	wchar_t *langname_w = NULL;
 	wchar_t *locale_w = NULL;
 	int len = 0;
+	int i;
 	gboolean failed = FALSE;
 
-	tokens = g_strsplit (language_code, "_", -1);
+	locale_w = g_utf8_to_utf16 (language_code, -1, NULL, NULL, NULL);
 
-	g_return_if_fail (tokens != NULL);
+	if (locale_w != NULL)
+		len = GetLocaleInfoEx (locale_w, LOCALE_SLOCALIZEDDISPLAYNAME, langname_w, 0);
 
-	lowercase = g_ascii_strdown (tokens[0], -1);
-	tokens_w[0] = g_utf8_to_utf16 (lowercase, -1, NULL, NULL, NULL);
-	g_free (lowercase);
-
-	if (tokens_w[0] == NULL)
-	{
-		failed = TRUE;
-		goto failed;
-	}
-
-	if (g_strv_length (tokens) >= 2)
-	{
-		gchar *uppercase = g_ascii_strup (tokens[1], -1);
-		tokens_w[1] = g_utf8_to_utf16 (uppercase, -1, NULL, NULL, NULL);
-		g_free (uppercase);
-		len = tokens_w[1] != NULL ? wcslen (tokens_w[1]) : 0;
-	}
-
-	if (len > 0)
-	{
-		locale_w = g_new0 (wchar_t, wcslen(tokens_w[0]) + 1 + len + 1); /* 1 for '-' and the other 1 for the NUL character */
-		swprintf (locale_w, 85, L"%s-%s", tokens_w[0], tokens_w[1]);
-	}
-	else
-	{
-		locale_w = g_new0 (wchar_t, wcslen(tokens_w[0]) + 1);
-		swprintf (locale_w, 85, L"%s", tokens_w[0]);
-	}
-
-	len = GetLocaleInfoEx (locale_w, LOCALE_SLOCALIZEDDISPLAYNAME, langname_w, 0);
 	if (len == 0)
 	{
-		failed = TRUE;
-		goto failed;
+		/* Try again, since we may have used an ISO 639-2T language code */
+		gchar *name = g_hash_table_lookup (data->iso_639_table, language_code);
+		if (name == NULL)
+		{
+			failed = TRUE;
+			goto win32_spell_lang_failed;
+		}
+		language_name = g_strdup (name);
 	}
 
 	langname_w = g_new0 (wchar_t, len);
@@ -285,10 +390,10 @@ spell_language_dict_describe_cb (const gchar * const language_code,
         (language_name = g_utf16_to_utf8 (langname_w, -1, NULL, NULL, NULL)) == NULL)
 	{
 		failed = TRUE;
-		goto failed;
+		goto win32_spell_lang_failed;
 	}
 
-failed:
+win32_spell_lang_failed:
 	if (failed)
 	{
 		/* Translators: %s is the language ISO code. */
@@ -296,8 +401,7 @@ failed:
 	}
 
 	g_free (langname_w);
-	g_free (tokens_w[1]);
-	g_free (tokens_w[0]);
+	g_free (locale_w);
 
 #else
 	/* Split language code into lowercase tokens. */
@@ -342,10 +446,10 @@ failed:
 						 iso_639_name,
 						 tokens[1]);
 	}
-#endif
 
 exit:
 	g_strfreev (tokens);
+#endif
 
 	g_tree_replace (data->tree, g_strdup (language_code), language_name);
 }
@@ -423,12 +527,25 @@ gspell_language_get_available (void)
 	bind_textdomain_codeset (ISO_3166_DOMAIN, "UTF-8");
 
 	g_free (localedir);
-
+#endif
+	/*
+	 * Unfortunately, we still need the ISO639 HashTable because GetLocaleInfoEx()
+	 * does not support looking up locale names using ISO 639-2T language codes,
+	 * but instead supports using ISO 639-1 codes to look up ISO 639-2T codes,
+	 * so we must look up this HashTable if GetLocaleInfoEx() does not find something
+	 */
 	data.iso_639_table = g_hash_table_new_full (g_str_hash,
 						    g_str_equal,
 						    (GDestroyNotify) g_free,
 						    (GDestroyNotify) g_free);
 
+#ifdef G_OS_WIN32
+	/* We could be querying ISO 639-2T locale codes, so grab all the possibilities in the system */
+	EnumSystemLocalesEx (&get_win32_all_locales_info,
+	                     LOCALE_ALL,
+	                     (LPARAM)data.iso_639_table,
+	                     NULL);
+#else
 	data.iso_3166_table = g_hash_table_new_full (g_str_hash,
 						     g_str_equal,
 						     (GDestroyNotify) g_free,
@@ -454,8 +571,9 @@ gspell_language_get_available (void)
 			(GTraverseFunc) spell_language_traverse_cb,
 			&available_languages);
 
-#ifndef G_OS_WIN32
 	g_hash_table_unref (data.iso_639_table);
+
+#ifndef G_OS_WIN32
 	g_hash_table_unref (data.iso_3166_table);
 #endif
 
