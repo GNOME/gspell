@@ -65,6 +65,24 @@ void		_gspell_utils_improve_word_boundaries	(const gchar  *text,
 							 PangoLogAttr *log_attrs,
 							 gint          n_attrs);
 
+typedef struct _DictsData DictsData;
+struct _DictsData
+{
+	GHashTable *iso_639_table;
+	GHashTable *iso_3166_table;
+	GTree *tree;
+};
+
+G_GNUC_INTERNAL
+void _gspell_language_dict_describe_cb (const gchar * const language_code,
+                                        const gchar * const provider_name,
+                                        const gchar * const provider_desc,
+                                        const gchar * const provider_file,
+                                        DictsData *data);
+
+G_GNUC_INTERNAL
+void _gspell_populate_language_ht (DictsData *data);
+
 G_END_DECLS
 
 #endif /* GSPELL_UTILS_H */

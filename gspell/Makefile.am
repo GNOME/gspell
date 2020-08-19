@@ -65,6 +65,7 @@ gspell_private_c_files =			\
 	gspell-entry-utils.c			\
 	gspell-init.c				\
 	gspell-inline-checker-text-buffer.c	\
+	gspell-language-codes.c	\
 	gspell-text-iter.c			\
 	gspell-utils.c
 
