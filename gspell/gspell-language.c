@@ -197,15 +197,9 @@ gspell_language_get_default (void)
 	return NULL;
 }
 
-/**
- * gspell_language_lookup:
- * @language_code: a language code.
- *
- * Returns: (nullable): a #GspellLanguage corresponding to @language_code, or
- * %NULL if not found.
- */
-const GspellLanguage *
-gspell_language_lookup (const gchar *language_code)
+static GspellLanguage *
+lookup_language_internal (const gchar *language_code,
+                          gboolean     use_closest_match)
 {
 	const GspellLanguage *closest_match = NULL;
 	const GList *available_languages;
@@ -226,13 +220,27 @@ gspell_language_lookup (const gchar *language_code)
 			return language;
 		}
 
-		if (g_ascii_strncasecmp (language_code, code, length) == 0)
+		if (use_closest_match &&
+		    g_ascii_strncasecmp (language_code, code, length) == 0)
 		{
 			closest_match = language;
 		}
 	}
 
 	return closest_match;
+}
+
+/**
+ * gspell_language_lookup:
+ * @language_code: a language code.
+ *
+ * Returns: (nullable): a #GspellLanguage corresponding to @language_code, or
+ * %NULL if not found.
+ */
+const GspellLanguage *
+gspell_language_lookup (const gchar *language_code)
+{
+	return lookup_language_internal (language_code, TRUE);
 }
 
 /**
@@ -314,6 +322,25 @@ void
 gspell_language_free (GspellLanguage *language)
 {
 	g_return_if_fail (language != NULL);
+}
+
+/**
+ * gspell_language_get_name_from_code:
+ * @language_code: a language code.
+ *
+ * Returns: a @name corresponding to @language_code which is supported
+ * by the dictionaries and spell checkers found by Enchant, or
+ * `unknown (@language_code)` if not found. The returned string should
+ * be freed after use.
+ */
+gchar *
+gspell_language_get_name_from_code (const gchar *language_code)
+{
+	GspellLanguage *lang = lookup_language_internal (language_code, FALSE);
+
+	return lang != NULL ?
+	               g_strdup (lang->name) :
+	               g_strdup_printf ("unknown (%s)", language_code);
 }
 
 /* ex:set ts=8 noet: */

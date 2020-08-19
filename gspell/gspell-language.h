@@ -70,6 +70,9 @@ GspellLanguage *gspell_language_copy			(const GspellLanguage *language);
 GSPELL_AVAILABLE_IN_ALL
 void		gspell_language_free			(GspellLanguage *language);
 
+GSPELL_AVAILABLE_IN_1_10
+gchar *		gspell_language_get_name_from_code (const gchar *language_code);
+
 G_END_DECLS
 
 #endif /* GSPELL_LANGUAGE_H */
