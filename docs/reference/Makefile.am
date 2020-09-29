@@ -36,6 +36,7 @@ IGNORE_HFILES =					\
 	gspell-current-word-policy.h		\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
+	gspell-icu.h				\
 	gspell-init.h				\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-osx.h				\

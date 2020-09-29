@@ -28,6 +28,7 @@ Dependencies
 * GTK >= 3.20
 * Enchant >= 2.1.3
 * iso-codes
+* ICU - http://site.icu-project.org/
 
 Notes for packagers
 -------------------

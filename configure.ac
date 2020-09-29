@@ -91,7 +91,7 @@ AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS], [yes])
 AX_REQUIRE_DEFINED([AX_PKG_CHECK_MODULES])
 AX_PKG_CHECK_MODULES([DEP],
 		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req  enchant-2 >= $enchant_req],
-		     [])
+		     [icu-uc])
 
 # iso-codes
 AX_REQUIRE_DEFINED([PKG_CHECK_EXISTS])

@@ -53,6 +53,7 @@ gspell_private_headers =			\
 	gspell-current-word-policy.h		\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
+	gspell-icu.h				\
 	gspell-init.h				\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-text-iter.h			\
@@ -63,6 +64,7 @@ gspell_private_c_files =			\
 	gspell-context-menu.c			\
 	gspell-current-word-policy.c		\
 	gspell-entry-utils.c			\
+	gspell-icu.c				\
 	gspell-init.c				\
 	gspell-inline-checker-text-buffer.c	\
 	gspell-text-iter.c			\
