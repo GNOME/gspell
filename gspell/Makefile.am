@@ -54,7 +54,6 @@ gspell_private_headers =			\
 	gspell-entry-private.h			\
 	gspell-entry-utils.h			\
 	gspell-icu.h				\
-	gspell-init.h				\
 	gspell-inline-checker-text-buffer.h	\
 	gspell-text-iter.h			\
 	gspell-utils.h

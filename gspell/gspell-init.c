@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015, 2016 - Sébastien Wilmet <swilmet@gnome.org>
+ * Copyright 2015, 2016, 2020 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,11 +27,12 @@
 #include "config.h"
 #endif
 
-#include "gspell-init.h"
 #include <glib/gi18n-lib.h>
 #include "gconstructor.h"
 
 #ifdef G_OS_WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 static HMODULE gspell_dll;
 #endif
 
@@ -147,12 +148,6 @@ DllMain (HINSTANCE hinstDLL,
 	}
 
 	return TRUE;
-}
-
-HMODULE
-_gspell_init_get_dll (void)
-{
-	return gspell_dll;
 }
 
 #elif defined (G_HAS_CONSTRUCTORS)
