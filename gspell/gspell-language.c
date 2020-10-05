@@ -3,7 +3,7 @@
  *
  * Copyright 2006 - Paolo Maggi
  * Copyright 2008 - Novell, Inc.
- * Copyright 2015, 2016 - Sébastien Wilmet
+ * Copyright 2015, 2016, 2020 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,6 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
-#include "gspell-init.h"
 
 #ifdef OS_OSX
 #include "gspell-osx.h"
@@ -43,9 +42,6 @@
  * checking, i.e. a language for which a dictionary is installed.
  */
 
-#define ISO_639_DOMAIN	"iso_639"
-#define ISO_3166_DOMAIN	"iso_3166"
-
 struct _GspellLanguage
 {
 	gchar *code;
@@ -53,268 +49,40 @@ struct _GspellLanguage
 	gchar *collate_key;
 };
 
-typedef struct _DictsData DictsData;
-struct _DictsData
-{
-	GHashTable *iso_639_table;
-	GHashTable *iso_3166_table;
-	GTree *tree;
-};
-
 G_DEFINE_BOXED_TYPE (GspellLanguage,
 		     gspell_language,
 		     gspell_language_copy,
 		     gspell_language_free)
-
-static gchar *
-get_iso_codes_prefix (void)
-{
-	gchar *prefix = NULL;
-
-#ifdef G_OS_WIN32
-	HMODULE gspell_dll;
-
-	gspell_dll = _gspell_init_get_dll ();
-	prefix = g_win32_get_package_installation_directory_of_module ((gpointer) gspell_dll);
-#endif
-
-	if (prefix == NULL)
-	{
-		prefix = g_strdup (ISO_CODES_PREFIX);
-	}
-
-	return prefix;
-}
-
-static gchar *
-get_iso_codes_localedir (void)
-{
-	gchar *prefix;
-	gchar *localedir;
-
-	prefix = get_iso_codes_prefix ();
-	localedir = g_build_filename (prefix, "share", "locale", NULL);
-	g_free (prefix);
-
-	return localedir;
-}
-
-static void
-iso_639_start_element (GMarkupParseContext  *context,
-		       const gchar          *element_name,
-		       const gchar         **attribute_names,
-		       const gchar         **attribute_values,
-		       gpointer              data,
-		       GError              **error)
-{
-	GHashTable *hash_table = data;
-	const gchar *iso_639_1_code = NULL;
-	const gchar *iso_639_2_code = NULL;
-	const gchar *name = NULL;
-	const gchar *code = NULL;
-	gint i;
-
-	if (g_strcmp0 (element_name, "iso_639_entry") != 0)
-	{
-		return;
-	}
-
-	for (i = 0; attribute_names[i] != NULL; i++)
-	{
-		if (g_str_equal (attribute_names[i], "name"))
-		{
-			name = attribute_values[i];
-		}
-		else if (g_str_equal (attribute_names[i], "iso_639_1_code"))
-		{
-			iso_639_1_code = attribute_values[i];
-		}
-		else if (g_str_equal (attribute_names[i], "iso_639_2T_code"))
-		{
-			iso_639_2_code = attribute_values[i];
-		}
-	}
-
-	code = (iso_639_1_code != NULL) ? iso_639_1_code : iso_639_2_code;
-
-	if (code != NULL && code[0] != '\0' &&
-	    name != NULL && name[0] != '\0')
-	{
-		g_hash_table_insert (hash_table,
-				     g_strdup (code),
-				     g_strdup (dgettext (ISO_639_DOMAIN, name)));
-	}
-}
-
-static void
-iso_3166_start_element (GMarkupParseContext  *context,
-			const gchar          *element_name,
-			const gchar         **attribute_names,
-			const gchar         **attribute_values,
-			gpointer              data,
-			GError              **error)
-{
-	GHashTable *hash_table = data;
-	const gchar *name = NULL;
-	const gchar *code = NULL;
-	gint i;
-
-	if (g_strcmp0 (element_name, "iso_3166_entry") != 0)
-	{
-		return;
-	}
-
-	for (i = 0; attribute_names[i] != NULL; i++)
-	{
-		if (g_str_equal (attribute_names[i], "name"))
-		{
-			name = attribute_values[i];
-		}
-		else if (g_str_equal (attribute_names[i], "alpha_2_code"))
-		{
-			code = attribute_values[i];
-		}
-	}
-
-	if (code != NULL && code[0] != '\0' &&
-	    name != NULL && name[0] != '\0')
-	{
-		g_hash_table_insert (hash_table,
-				     g_ascii_strdown (code, -1),
-				     g_strdup (dgettext (ISO_3166_DOMAIN, name)));
-	}
-}
-
-static void
-iso_codes_parse (const GMarkupParser *parser,
-		 const gchar         *basename,
-		 GHashTable          *hash_table)
-{
-	GMappedFile *mapped_file;
-	gchar *prefix;
-	gchar *filename;
-	GError *error = NULL;
-
-	prefix = get_iso_codes_prefix ();
-	filename = g_build_filename (prefix,
-				     "share",
-				     "xml",
-				     "iso-codes",
-				     basename,
-				     NULL);
-	g_free (prefix);
-
-	mapped_file = g_mapped_file_new (filename, FALSE, &error);
-	g_free (filename);
-
-	if (mapped_file != NULL)
-	{
-		GMarkupParseContext *context;
-		const gchar *contents;
-		gsize length;
-
-		context = g_markup_parse_context_new (parser, 0, hash_table, NULL);
-		contents = g_mapped_file_get_contents (mapped_file);
-		length = g_mapped_file_get_length (mapped_file);
-		g_markup_parse_context_parse (context, contents, length, &error);
-		g_markup_parse_context_free (context);
-		g_mapped_file_unref (mapped_file);
-	}
-
-	if (error != NULL)
-	{
-		g_warning ("%s: %s", basename, error->message);
-		g_clear_error (&error);
-	}
-}
 
 static void
 spell_language_dict_describe_cb (const gchar * const language_code,
                                  const gchar * const provider_name,
                                  const gchar * const provider_desc,
                                  const gchar * const provider_file,
-				 DictsData *data)
+				 gpointer            user_data)
 {
-	const gchar *iso_639_name;
-	const gchar *iso_3166_name;
-	gchar *language_name;
-	gchar *lowercase;
-	gchar **tokens;
-
-	/* Split language code into lowercase tokens. */
-	lowercase = g_ascii_strdown (language_code, -1);
-	tokens = g_strsplit (lowercase, "_", -1);
-	g_free (lowercase);
-
-	g_return_if_fail (tokens != NULL);
-
-	iso_639_name = g_hash_table_lookup (data->iso_639_table, tokens[0]);
-
-	if (iso_639_name == NULL)
-	{
-		/* Translators: %s is the language ISO code. */
-		language_name = g_strdup_printf (C_("language", "Unknown (%s)"), language_code);
-		goto exit;
-	}
-
-	if (g_strv_length (tokens) < 2)
-	{
-		language_name = g_strdup (iso_639_name);
-		goto exit;
-	}
-
-	iso_3166_name = g_hash_table_lookup (data->iso_3166_table, tokens[1]);
-
-	if (iso_3166_name != NULL)
-	{
-		/* Translators: The first %s is the language name, and the
-		 * second is the country name. Example: "French (France)".
-		 */
-		language_name = g_strdup_printf (C_("language", "%s (%s)"),
-						 iso_639_name,
-						 iso_3166_name);
-	}
-	else
-	{
-		/* Translators: The first %s is the language name, and the
-		 * second is the country name. Example: "French (France)".
-		 */
-		language_name = g_strdup_printf (C_("language", "%s (%s)"),
-						 iso_639_name,
-						 tokens[1]);
-	}
-
-exit:
-	g_strfreev (tokens);
-
-	g_tree_replace (data->tree, g_strdup (language_code), language_name);
-}
-
-static gboolean
-spell_language_traverse_cb (const gchar  *code,
-			    const gchar  *name,
-			    GList       **available_languages)
-{
+	GList **available_languages = user_data;
+	GList *l;
 	GspellLanguage *language;
 
+	for (l = *available_languages; l != NULL; l = l->next)
+	{
+		GspellLanguage *cur_language = l->data;
+
+		if (g_strcmp0 (cur_language->code, language_code) == 0)
+		{
+			/* Avoid duplicates. */
+			return;
+		}
+	}
+
 	language = g_slice_new (GspellLanguage);
-	language->code = g_strdup (code);
-	language->name = g_strdup (name);
-	language->collate_key = g_utf8_collate_key (name, -1);
+	language->code = g_strdup (language_code);
+	/* Translators: %s is the language ISO code. */
+	language->name = g_strdup_printf (C_("language", "Unknown (%s)"), language_code);
+	language->collate_key = g_utf8_collate_key (language->name, -1);
 
-	*available_languages = g_list_insert_sorted (*available_languages,
-						     language,
-						     (GCompareFunc) gspell_language_compare);
-
-	return FALSE;
-}
-
-static gint
-tree_compare_func (gconstpointer a,
-		   gconstpointer b,
-		   gpointer      user_data)
-{
-	return g_strcmp0 (a, b);
+	*available_languages = g_list_prepend (*available_languages, language);
 }
 
 /**
@@ -328,21 +96,7 @@ gspell_language_get_available (void)
 {
 	static gboolean initialized = FALSE;
 	static GList *available_languages = NULL;
-	gchar *localedir;
 	EnchantBroker *broker;
-	DictsData data;
-
-	GMarkupParser iso_639_parser =
-	{
-		iso_639_start_element,
-		NULL, NULL, NULL, NULL
-	};
-
-	GMarkupParser iso_3166_parser =
-	{
-		iso_3166_start_element,
-		NULL, NULL, NULL, NULL
-	};
 
 	if (initialized)
 	{
@@ -351,47 +105,14 @@ gspell_language_get_available (void)
 
 	initialized = TRUE;
 
-	localedir = get_iso_codes_localedir ();
-
-	bindtextdomain (ISO_639_DOMAIN, localedir);
-	bind_textdomain_codeset (ISO_639_DOMAIN, "UTF-8");
-
-	bindtextdomain (ISO_3166_DOMAIN, localedir);
-	bind_textdomain_codeset (ISO_3166_DOMAIN, "UTF-8");
-
-	g_free (localedir);
-
-	data.iso_639_table = g_hash_table_new_full (g_str_hash,
-						    g_str_equal,
-						    (GDestroyNotify) g_free,
-						    (GDestroyNotify) g_free);
-
-	data.iso_3166_table = g_hash_table_new_full (g_str_hash,
-						     g_str_equal,
-						     (GDestroyNotify) g_free,
-						     (GDestroyNotify) g_free);
-
-	iso_codes_parse (&iso_639_parser, "iso_639.xml", data.iso_639_table);
-	iso_codes_parse (&iso_3166_parser, "iso_3166.xml", data.iso_3166_table);
-
-	data.tree = g_tree_new_full (tree_compare_func,
-				     NULL,
-				     (GDestroyNotify) g_free,
-				     (GDestroyNotify) g_free);
-
 	broker = enchant_broker_init ();
 	enchant_broker_list_dicts (broker,
-				   (EnchantDictDescribeFn) spell_language_dict_describe_cb,
-				   &data);
+				   spell_language_dict_describe_cb,
+				   &available_languages);
 	enchant_broker_free (broker);
 
-	g_tree_foreach (data.tree,
-			(GTraverseFunc) spell_language_traverse_cb,
-			&available_languages);
-
-	g_hash_table_unref (data.iso_639_table);
-	g_hash_table_unref (data.iso_3166_table);
-	g_tree_unref (data.tree);
+	available_languages = g_list_sort (available_languages,
+					   (GCompareFunc) gspell_language_compare);
 
 	return available_languages;
 }

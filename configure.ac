@@ -93,32 +93,6 @@ AX_PKG_CHECK_MODULES([DEP],
 		     [glib-2.0 >= $glib_req  gtk+-3.0 >= $gtk_req  enchant-2 >= $enchant_req],
 		     [icu-uc])
 
-# iso-codes
-AX_REQUIRE_DEFINED([PKG_CHECK_EXISTS])
-PKG_CHECK_EXISTS([iso-codes],
-		 [have_iso_codes=yes],
-		 [have_iso_codes=no])
-
-if test "x$have_iso_codes" = "xyes"; then
-	AC_MSG_CHECKING([whether iso-codes has iso-639 and iso-3166 domains])
-	if $PKG_CONFIG --variable=domains iso-codes | grep 639 > /dev/null && \
-	   $PKG_CONFIG --variable=domains iso-codes | grep 3166 > /dev/null ; then
-		result=yes
-	else
-		result=no
-		have_iso_codes=no
-	fi
-	AC_MSG_RESULT([$result])
-fi
-
-if test "x$have_iso_codes" = "xyes"; then
-	AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],
-			   ["`$PKG_CONFIG --variable=prefix iso-codes`"],
-			   [ISO codes prefix])
-else
-	AC_MSG_ERROR([iso-codes is required.])
-fi
-
 # i18n
 AM_GNU_GETTEXT([external])
 # FIXME: Remove AM_GNU_GETTEXT_VERSION once autoreconf supports AM_GNU_GETTEXT_REQUIRE_VERSION.
