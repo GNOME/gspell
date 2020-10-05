@@ -27,6 +27,7 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
+#include "gspell-icu.h"
 
 #ifdef OS_OSX
 #include "gspell-osx.h"
@@ -65,6 +66,8 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 	GList *l;
 	GspellLanguage *language;
 
+	g_return_if_fail (language_code != NULL);
+
 	for (l = *available_languages; l != NULL; l = l->next)
 	{
 		GspellLanguage *cur_language = l->data;
@@ -78,8 +81,14 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 
 	language = g_slice_new (GspellLanguage);
 	language->code = g_strdup (language_code);
-	/* Translators: %s is the language ISO code. */
-	language->name = g_strdup_printf (C_("language", "Unknown (%s)"), language_code);
+
+	language->name = _gspell_icu_get_language_name_from_code (language_code);
+	if (language->name == NULL)
+	{
+		/* Translators: %s is the language ISO code. */
+		language->name = g_strdup_printf (C_("language", "Unknown (%s)"), language_code);
+	}
+
 	language->collate_key = g_utf8_collate_key (language->name, -1);
 
 	*available_languages = g_list_prepend (*available_languages, language);
