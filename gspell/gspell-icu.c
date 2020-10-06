@@ -20,6 +20,21 @@
 #include "gspell-icu.h"
 #include <unicode/uloc.h>
 
+/* Implementation notes:
+ *
+ * Before using the ICU library, the iso-codes package was used instead. It was
+ * fine on Linux since the iso-codes package is usually already installed. On
+ * MS Windows, to package an application the iso-codes package needed to be
+ * bundled with the app, which is not great because it's a quite sizeable dep.
+ *
+ * The ICU library is usually already installed too on Linux, and for Windows
+ * it's already an (indirect) dep of gedit (the Tepl library uses the ICU).
+ *
+ * MS Windows also provides a native API for something similar to
+ * _gspell_icu_get_language_name_from_code(). But it's easier to manage only one
+ * implementation (namely, based on the ICU library).
+ */
+
 /* Some of these functions are copied from the Tepl library. */
 
 /* Wrapper around u_strToUTF8() that handles the pre-flighting.
