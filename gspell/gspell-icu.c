@@ -216,15 +216,20 @@ _gspell_icu_loc_canonicalizeSimple (const char *localeID)
 	return result;
 }
 
-/* This function uses gspell's terminology:
+/* The name of this function uses gspell's terminology:
  * "Language code": as in gspell_language_get_code().
- * "Language name": as in gspell_language_get_name().
+ * "Language name": as in gspell_language_get_name(), except that the
+ * translation is controlled by the @inLocaleID parameter which has the same
+ * meaning as for _gspell_icu_loc_getDisplayNameSimple(). If @inLocaleID is
+ * %NULL then the default locale is used to translate the name. The @inLocaleID
+ * parameter is kept for this function for unit tests.
  *
  * Returns: (transfer full) (nullable): the language name, or %NULL in case of
  * error. Free with g_free() when no longer needed.
  */
 char *
-_gspell_icu_get_language_name_from_code (const char *language_code)
+_gspell_icu_get_language_name_from_code (const char *language_code,
+					 const char *inLocaleID)
 {
 	char *canonicalized_language_code;
 	char *language_name;
@@ -238,8 +243,7 @@ _gspell_icu_get_language_name_from_code (const char *language_code)
 		return NULL;
 	}
 
-	/* NULL: for the default locale. */
-	language_name = _gspell_icu_loc_getDisplayNameSimple (canonicalized_language_code, NULL);
+	language_name = _gspell_icu_loc_getDisplayNameSimple (canonicalized_language_code, inLocaleID);
 	g_free (canonicalized_language_code);
 	return language_name;
 }

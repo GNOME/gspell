@@ -82,7 +82,7 @@ spell_language_dict_describe_cb (const gchar * const language_code,
 	language = g_slice_new (GspellLanguage);
 	language->code = g_strdup (language_code);
 
-	language->name = _gspell_icu_get_language_name_from_code (language_code);
+	language->name = _gspell_icu_get_language_name_from_code (language_code, NULL);
 	if (language->name == NULL)
 	{
 		/* Translators: %s is the language ISO code. */

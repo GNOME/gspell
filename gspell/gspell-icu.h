@@ -25,7 +25,8 @@
 G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
-char *	_gspell_icu_get_language_name_from_code	(const char *language_code);
+char *	_gspell_icu_get_language_name_from_code	(const char *language_code,
+						 const char *inLocaleID);
 
 /* Intermediate functions, for unit tests: */
 
