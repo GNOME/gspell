@@ -21,37 +21,17 @@
 #define GSPELL_ICU_H
 
 #include <glib.h>
-#include <unicode/ustring.h>
 
 G_BEGIN_DECLS
 
 G_GNUC_INTERNAL
-char *			_gspell_icu_strToUTF8			(int32_t     *pDestLength,
-								 const UChar *src,
-								 int32_t      srcLength,
-								 UErrorCode  *pErrorCode);
+char *	_gspell_icu_get_language_name_from_code	(const char *language_code);
+
+/* Intermediate functions, for unit tests: */
 
 G_GNUC_INTERNAL
-char *			_gspell_icu_strToUTF8Simple		(const UChar *uchars);
-
-G_GNUC_INTERNAL
-UChar *			_gspell_icu_loc_getDisplayName		(const char *localeID,
-								 const char *inLocaleID,
-								 UErrorCode *err);
-
-G_GNUC_INTERNAL
-char *			_gspell_icu_loc_getDisplayNameSimple	(const char *localeID,
-								 const char *inLocaleID);
-
-G_GNUC_INTERNAL
-char *			_gspell_icu_loc_canonicalize		(const char *localeID,
-								 UErrorCode *err);
-
-G_GNUC_INTERNAL
-char *			_gspell_icu_loc_canonicalizeSimple	(const char *localeID);
-
-G_GNUC_INTERNAL
-char *			_gspell_icu_get_language_name_from_code	(const char *language_code);
+char *	_gspell_icu_loc_getDisplayNameSimple	(const char *localeID,
+						 const char *inLocaleID);
 
 G_END_DECLS
 

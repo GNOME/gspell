@@ -18,6 +18,7 @@
  */
 
 #include "gspell-icu.h"
+#include <unicode/ustring.h>
 #include <unicode/uloc.h>
 
 /* Implementation notes:
@@ -42,7 +43,7 @@
  * Returns: (transfer full) (nullable): the newly-allocated string with the
  * right size. Free with g_free() when no longer needed.
  */
-char *
+static char *
 _gspell_icu_strToUTF8 (int32_t     *pDestLength,
 		       const UChar *src,
 		       int32_t      srcLength,
@@ -83,7 +84,7 @@ _gspell_icu_strToUTF8 (int32_t     *pDestLength,
 /* Returns: (transfer full) (nullable): a nul-terminated UTF-8 string. Free with
  * g_free() when no longer needed.
  */
-char *
+static char *
 _gspell_icu_strToUTF8Simple (const UChar *uchars)
 {
 	char *utf8_str;
@@ -105,7 +106,7 @@ _gspell_icu_strToUTF8Simple (const UChar *uchars)
  * Returns: (transfer full) (nullable): the result as a newly-allocated buffer
  * with the right size. Free with g_free() when no longer needed.
  */
-UChar *
+static UChar *
 _gspell_icu_loc_getDisplayName (const char *localeID,
 				const char *inLocaleID,
 				UErrorCode *err)
@@ -169,7 +170,7 @@ _gspell_icu_loc_getDisplayNameSimple (const char *localeID,
  * Returns: (transfer full) (nullable): the result as a newly-allocated buffer
  * with the right size. Free with g_free() when no longer needed.
  */
-char *
+static char *
 _gspell_icu_loc_canonicalize (const char *localeID,
 			      UErrorCode *err)
 {
@@ -198,7 +199,7 @@ _gspell_icu_loc_canonicalize (const char *localeID,
 /* Returns: (transfer full) (nullable): the result, or %NULL in case of error.
  * Free with g_free() when no longer needed.
  */
-char *
+static char *
 _gspell_icu_loc_canonicalizeSimple (const char *localeID)
 {
 	char *result;
