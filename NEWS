@@ -1,3 +1,10 @@
+News in 1.9.1, 2020-10-10
+-------------------------
+* gspell_language_get_name() is now implemented with the ICU library, not with
+  the iso-codes package. As a result, gspell no longer depends on the
+  iso-codes, and has the ICU as a new dependency.
+* Translation updates.
+
 News in 1.8.4, 2020-09-04
 -------------------------
 * Translation updates.
