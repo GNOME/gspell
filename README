@@ -26,7 +26,7 @@ Dependencies
 
 * GLib >= 2.44
 * GTK >= 3.20
-* Enchant >= 2.1.3
+* Enchant >= 2.2.12
 * ICU - http://site.icu-project.org/
 
 Notes for packagers
