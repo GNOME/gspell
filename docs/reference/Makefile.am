@@ -75,7 +75,6 @@ EXTRA_DIST +=			\
 	intro.xml.in
 
 DISTCLEANFILES =		\
-	$(DOC_MODULE).actions	\
 	gspell-docs.xml		\
 	intro.xml
 
