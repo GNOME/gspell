@@ -104,7 +104,7 @@ msgid ""
 "installed."
 msgstr ""
 "Error del corrector ortogràfic: no hi ha cap llengua configurada. Això pot "
-"ser degut a que no hi ha diccionaris instal·lats."
+"ser degut al fet que no hi ha diccionaris instal·lats."
 
 #: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
