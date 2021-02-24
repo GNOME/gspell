@@ -12,25 +12,24 @@
 # Antón Méixome <meixome@certima.net>, 2010.
 # Fran Diéguez <frandieguez@gnome.org>, 2009, 2010, 2011, 2012.
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
-# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014, 2015, 2017.
+# Fran Dieguez <frandieguez@gnome.org>, 2012, 2013, 2014, 2015, 2017, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell-master-po-gl-116402.merged\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gspell"
-"&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-22 19:27+0000\n"
-"PO-Revision-Date: 2017-08-12 12:26+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2020-10-07 21:23+0000\n"
+"PO-Revision-Date: 2021-02-23 22:23+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician\n"
+"Language-Team: Proxecto Trasno <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Gtranslator 3.38.0\n"
 "X-Project-Style: gnome\n"
 
-#: gspell/gspell-checker.c:418
+#: gspell/gspell-checker.c:419
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Produciuse un erro ao comprobar a ortografía da palabra «%s»: %s"
@@ -40,19 +39,19 @@ msgstr "Produciuse un erro ao comprobar a ortografía da palabra «%s»: %s"
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
 msgid "(no suggested words)"
 msgstr "(non hai suxestión de palabras)"
 
-#: gspell/gspell-checker-dialog.c:232
+#: gspell/gspell-checker-dialog.c:235
 msgid "Error:"
 msgstr "Erro:"
 
-#: gspell/gspell-checker-dialog.c:268
+#: gspell/gspell-checker-dialog.c:271
 msgid "Completed spell checking"
 msgstr "Verificación ortográfica concluída"
 
-#: gspell/gspell-checker-dialog.c:272
+#: gspell/gspell-checker-dialog.c:275
 msgid "No misspelled words"
 msgstr "Non hai palabras con erros ortográficos"
 
@@ -60,60 +59,48 @@ msgstr "Non hai palabras con erros ortográficos"
 #. * Spelling" dialog if the current word
 #. * isn't misspelled.
 #.
-#: gspell/gspell-checker-dialog.c:499
+#: gspell/gspell-checker-dialog.c:502
 msgid "(correct spelling)"
 msgstr "(corrixir ortografía)"
 
-#: gspell/gspell-checker-dialog.c:641
+#: gspell/gspell-checker-dialog.c:644
 msgid "Suggestions"
 msgstr "Suxestións"
 
-#: gspell/gspell-context-menu.c:149
-#| msgid "Set Language"
+#: gspell/gspell-context-menu.c:152
 msgid "_Language"
 msgstr "_Idioma"
 
-#: gspell/gspell-context-menu.c:237
-#| msgid "_More..."
+#: gspell/gspell-context-menu.c:240
 msgid "_More…"
 msgstr "_Máis…"
 
 #. Ignore all
-#: gspell/gspell-context-menu.c:282
+#: gspell/gspell-context-menu.c:285
 msgid "_Ignore All"
 msgstr "_Ignorar todos"
 
 #. Add to Dictionary
-#: gspell/gspell-context-menu.c:300
+#: gspell/gspell-context-menu.c:303
 msgid "_Add"
 msgstr "Eng_adir"
 
-#: gspell/gspell-context-menu.c:337
-#| msgid "_Spelling Suggestions..."
+#: gspell/gspell-context-menu.c:340
 msgid "_Spelling Suggestions…"
 msgstr "_Suxestións de ortografía…"
 
 #. Translators: %s is the language ISO code.
-#: gspell/gspell-language.c:253
+#: gspell/gspell-language.c:89
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Descoñecido (%s)"
 
-#. Translators: The first %s is the language name, and the
-#. * second is the country name. Example: "French (France)".
-#.
-#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language-chooser-button.c:81
+#: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
 msgstr "Non se seleccionou un idioma"
 
-#: gspell/gspell-navigator-text-view.c:307
+#: gspell/gspell-navigator-text-view.c:310
 msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
@@ -174,9 +161,8 @@ msgid "Set Language"
 msgstr "Definir o idioma"
 
 #: gspell/resources/language-dialog.ui:20
-#| msgid "Completed spell checking"
 msgid "Select the spell checking _language."
-msgstr "Seleccionar un _idioma para a verficación ortográfica"
+msgstr "Seleccionar un _idioma para a verificación ortográfica"
 
 #: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
@@ -185,6 +171,10 @@ msgstr "_Cancelar"
 #: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "_Seleccionar"
+
+#~ msgctxt "language"
+#~ msgid "%s (%s)"
+#~ msgstr "%s (%s)"
 
 #~ msgctxt "language"
 #~ msgid "Default"
