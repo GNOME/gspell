@@ -1,16 +1,27 @@
-How to contribute to gspell
-===========================
+gspell development
+==================
 
-gspell follows the same guidelines and code conventions as GtkSourceView:
+Contributions are no longer accepted
+------------------------------------
 
-    https://gitlab.gnome.org/GNOME/gtksourceview/blob/master/HACKING
+And new maintainers are not accepted either.
+
+But the source code is open, you can copy it freely and create a new project.
+What I just ask for the new project:
+- Must have a different project name.
+- And it must be possible to install gspell plus the new project in parallel on
+  the same prefix. For example by just bumping the major/API version of the
+  library to something far apart.
+
+Notes
+-----
+
+gspell follows the same guidelines and code conventions as GtkSourceView (when
+GtkSourceView was still developed by Sébastien Wilmet).
 
 The gspell GitLab:
 
     https://gitlab.gnome.org/GNOME/gspell
-
-Development notes
------------------
 
 See the text files in the docs/ directory (if you're looking to integrate
 gspell with *Flatpak*, it's there ;-) ).
