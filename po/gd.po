@@ -1,0 +1,158 @@
+# Scottish Gaelic translation for gspell.
+# Copyright (C) 2021 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+# Gun Chleoc <fios@foramnagaidhlig.net>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2021-04-05 16:52+0000\n"
+"PO-Revision-Date: 2021-04-10 11:13+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Scottish Gaelic <gd@li.org>\n"
+"Language: gd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gspell/gspell-checker.c:419
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Thachair mearachd fhad ’s a bha sinn a’ dearbhadh an litreachaidh dhan fhacal “%s”: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(gun fhaclan molta)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "Mearachd:"
+
+#: gspell/gspell-checker-dialog.c:271
+msgid "Completed spell checking"
+msgstr "Tha ceartachadh an litreachaidh deiseil"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "Gun fhacal air a dhroch litreachadh"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(an litreachadh ceart)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "Molaidhean"
+
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "Cà_nan"
+
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "_Barrachd…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+msgid "_Ignore All"
+msgstr "Le_ig seachad na h-uile"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "_Cuir ris"
+
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
+msgstr "Molaidhean _litreachaidh…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:89
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Chan eil fhios (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "Cha deach cànan a thaghadh"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr "Mearachd le dearbhadh an litreachaidh: cha deach cànan a shuidheachadh. ’S dòcha nach eil faclair stàlaichte agad."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "Dearbh an litreachadh"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Facal air a dhroch litreachadh:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "facal"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "Atharraich _gu:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "Dearbh am _facal"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_Molaidhean:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "Le_ig seachad"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "Leig seachad na h-_uile"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "Atha_rraich"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "Atharraich na h-ui_le"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "Faclair a’ chleachdaiche:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "Cuir ris f_acal"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "Suidhich an cànan"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Tagh cànan an dearbhaidh-_litreachaidh."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_Sguir dheth"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Tagh"
