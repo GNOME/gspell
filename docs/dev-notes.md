@@ -11,4 +11,6 @@ Using hunspell directly instead of Enchant?
 Other links
 -----------
 
+- GNOME: [Platform-wide Spell Checking](https://wiki.gnome.org/Initiatives/SpellChecking),
+  predates the creation of gspell.
 - https://zverok.github.io/blog/2021-05-06-how-to-spellcheck.html
