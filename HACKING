@@ -18,10 +18,3 @@ Notes
 
 gspell follows the same guidelines and code conventions as GtkSourceView (when
 GtkSourceView was still developed by Sébastien Wilmet).
-
-The gspell GitLab:
-
-    https://gitlab.gnome.org/GNOME/gspell
-
-See the text files in the docs/ directory (if you're looking to integrate
-gspell with *Flatpak*, it's there ;-) ).
