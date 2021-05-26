@@ -49,6 +49,12 @@ arguments as 'configure'.
 To build the latest version of gspell plus some of its dependencies,
 [Jhbuild](https://wiki.gnome.org/Projects/Jhbuild) can be used.
 
+Development resources
+---------------------
+
+- [Discourse](https://discourse.gnome.org/) (Platform category, gspell tag)
+- [Tarballs](https://download.gnome.org/sources/gspell/)
+
 Contributions
 -------------
 
