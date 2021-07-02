@@ -21,145 +21,169 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-27 17:32+0200\n"
-"PO-Revision-Date: 2015-09-17 13:45+0300\n"
-"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2020-10-07 21:23+0000\n"
+"PO-Revision-Date: 2021-07-02 15:43+0300\n"
+"Last-Translator: Alexey Rubtsov <rushills@gmail.com>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0\n"
 
-#: gspell/gspell-checker.c:460
+#: gspell/gspell-checker.c:419
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "Ошибка при проверке орфографии слова «%s»: %s"
 
-#: gspell/gspell-checker-dialog.c:152 gspell/gspell-inline-checker-gtv.c:572
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
 msgid "(no suggested words)"
 msgstr "(нет вариантов)"
 
-#: gspell/gspell-checker-dialog.c:237
+#: gspell/gspell-checker-dialog.c:235
 msgid "Error:"
 msgstr "Ошибка:"
 
-#: gspell/gspell-checker-dialog.c:274
+#: gspell/gspell-checker-dialog.c:271
 msgid "Completed spell checking"
 msgstr "Проверка завершена"
 
-#: gspell/gspell-checker-dialog.c:278
+#: gspell/gspell-checker-dialog.c:275
 msgid "No misspelled words"
 msgstr "Нет слов с ошибками"
 
-#: gspell/gspell-checker-dialog.c:507
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
 msgid "(correct spelling)"
 msgstr "(правильное написание)"
 
-#: gspell/gspell-checker-dialog.c:645
+#: gspell/gspell-checker-dialog.c:644
 msgid "Suggestions"
 msgstr "Варианты"
 
-#: gspell/gspell-inline-checker-gtv.c:595
-msgid "_More..."
-msgstr "Показать бол_ьше…"
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "_Язык"
 
-#: gspell/gspell-inline-checker-gtv.c:635
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "_Ещё…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
 msgid "_Ignore All"
 msgstr "_Игнорировать всё"
 
-#: gspell/gspell-inline-checker-gtv.c:644
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
 msgid "_Add"
 msgstr "Доб_авить"
 
-#: gspell/gspell-inline-checker-gtv.c:681
-msgid "_Spelling Suggestions..."
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
 msgstr "Возмо_жные варианты…"
 
-#: gspell/gspell-language.c:354 gspell/gspell-language.c:360
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language.c:369
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:89
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Неизвестный (%s)"
 
-#: gspell/gspell-language.c:481
-msgctxt "language"
-msgid "Default"
-msgstr "По умолчанию"
-
-#: gspell/gspell-language-chooser-button.c:78
+#: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
-msgstr ""
+msgstr "Язык не выбран"
 
-#: gspell/resources/checker-dialog.ui:8
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Ошибка проверки правописания: не выбран язык. Возможно не установлено ни "
+"одного словаря."
+
+#: gspell/resources/checker-dialog.ui:7
 msgid "Check Spelling"
 msgstr "Проверить орфографию"
 
-#: gspell/resources/checker-dialog.ui:27
+#: gspell/resources/checker-dialog.ui:36
 msgid "Misspelled word:"
 msgstr "Слово с ошибкой:"
 
-#: gspell/resources/checker-dialog.ui:40
+#: gspell/resources/checker-dialog.ui:49
 msgid "word"
 msgstr "слово"
 
-#: gspell/resources/checker-dialog.ui:57
+#: gspell/resources/checker-dialog.ui:66
 msgid "Change _to:"
 msgstr "З_аменить на:"
 
-#: gspell/resources/checker-dialog.ui:82
+#: gspell/resources/checker-dialog.ui:91
 msgid "Check _Word"
 msgstr "Проверить сл_ово"
 
-#: gspell/resources/checker-dialog.ui:112
+#: gspell/resources/checker-dialog.ui:120
 msgid "_Suggestions:"
 msgstr "_Варианты:"
 
-#: gspell/resources/checker-dialog.ui:125
+#: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
 msgstr "_Игнорировать"
 
-#: gspell/resources/checker-dialog.ui:139
+#: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
 msgstr "Игнорировать в_се"
 
-#: gspell/resources/checker-dialog.ui:153
+#: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
 msgstr "_Изменить"
 
-#: gspell/resources/checker-dialog.ui:169
+#: gspell/resources/checker-dialog.ui:174
 msgid "Change A_ll"
 msgstr "Изменить вс_е"
 
-#: gspell/resources/checker-dialog.ui:187
+#: gspell/resources/checker-dialog.ui:191
 msgid "User dictionary:"
 msgstr "Пользовательский словарь:"
 
-#: gspell/resources/checker-dialog.ui:199
+#: gspell/resources/checker-dialog.ui:203
 msgid "Add w_ord"
 msgstr "Добавить с_лово"
 
-#: gspell/resources/language-dialog.ui:8
+#: gspell/resources/language-dialog.ui:7
 msgid "Set Language"
 msgstr "Установить язык"
 
-#: gspell/resources/language-dialog.ui:22
-msgid "Select the _language of the current document."
-msgstr "Выбрать _язык текущего документа."
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Выбрать язык для _проверки правописания."
 
-#: gspell/resources/language-dialog.ui:63
+#: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
 msgstr "_Отмена"
 
-#: gspell/resources/language-dialog.ui:70
+#: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "_Выбрать"
+
+#~ msgctxt "language"
+#~ msgid "%s (%s)"
+#~ msgstr "%s (%s)"
+
+#~ msgctxt "language"
+#~ msgid "Default"
+#~ msgstr "По умолчанию"
+
+#~ msgid "Select the _language of the current document."
+#~ msgstr "Выбрать _язык текущего документа."
