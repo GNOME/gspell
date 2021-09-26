@@ -2,8 +2,7 @@ gspell.next
 ===========
 
 What would a gspell.next project look like? (Apart from porting to the latest
-major version of GTK). Note, I don't plan to work on it. Insert here elves,
-wisdom, rainbows, unicorns, …
+major version of GTK). Note, I don't plan to work on it.
 
 Expose more of the internals
 ----------------------------
