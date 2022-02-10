@@ -5,24 +5,25 @@
 # Rui Gouveia <rui.gouveia@gmail.com>, 2011.
 # Ricardo Cruz <rpmcruz@alunos.dcc.fc.up.pt>, 2011.
 # António Lima <amrlima@gmail.com>, 2013.
-# Tiago Santos <tiagofsantos81@sapo.pt>, 2014 - 2016.
+# Tiago Santos <tiagofsantos81@sapo.pt>, 2014, 2015, 2016.
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2014, 2015.
 # Juliano de Souza Camargo <julianosc@protonmail.com>, 2020.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 3.14\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
-"POT-Creation-Date: 2020-07-17 09:50+0000\n"
-"PO-Revision-Date: 2020-09-11 20:23-0300\n"
-"Last-Translator: Juliano de Souza Camargo <julianosc@protonmail.com>\n"
-"Language-Team: Portuguese <>\n"
+"POT-Creation-Date: 2020-10-07 21:23+0000\n"
+"PO-Revision-Date: 2022-02-10 12:59+0000\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+"Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Project-Style: gnome\n"
 "X-Language: pt_PT\n"
 "X-Source-Language: C\n"
@@ -70,9 +71,8 @@ msgid "_Language"
 msgstr "_Idioma"
 
 #: gspell/gspell-context-menu.c:240
-#| msgid "_More..."
 msgid "_More…"
-msgstr "_Mais..."
+msgstr "_Mais…"
 
 #. Ignore all
 #: gspell/gspell-context-menu.c:285
@@ -85,39 +85,26 @@ msgid "_Add"
 msgstr "_Adicionar"
 
 #: gspell/gspell-context-menu.c:340
-#| msgid "_Spelling Suggestions..."
 msgid "_Spelling Suggestions…"
-msgstr "_Sugestões de ortografia..."
+msgstr "_Sugestões de ortografia…"
 
 #. Translators: %s is the language ISO code.
-#: gspell/gspell-language.c:256
+#: gspell/gspell-language.c:89
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Desconhecido (%s)"
 
-#. Translators: The first %s is the language name, and the
-#. * second is the country name. Example: "French (France)".
-#.
-#: gspell/gspell-language.c:273 gspell/gspell-language.c:282
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
 #: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
-msgstr "Sem idioma selecionado"
+msgstr "Nenhum idioma selecionado"
 
 #: gspell/gspell-navigator-text-view.c:310
-#| msgid ""
-#| "Spell checker error: no language set. It's maybe because no dictionaries "
-#| "are installed."
 msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
 msgstr ""
-"Erro do corretor ortográfico: sem idioma definido. Poderá ser por não ter "
+"Erro do corretor ortográfico: nenhum idioma definido. É talvez porque não há "
 "dicionários instalados."
 
 #: gspell/resources/checker-dialog.ui:7
@@ -174,7 +161,7 @@ msgstr "Definir idioma"
 
 #: gspell/resources/language-dialog.ui:20
 msgid "Select the spell checking _language."
-msgstr "Selecione a linguagem da correção ortográfica"
+msgstr "Selecione o idioma da correção ortográfica."
 
 #: gspell/resources/language-dialog.ui:61
 msgid "_Cancel"
@@ -182,7 +169,11 @@ msgstr "_Cancelar"
 
 #: gspell/resources/language-dialog.ui:68
 msgid "_Select"
-msgstr "_Seleção"
+msgstr "_Selecionar"
+
+#~ msgctxt "language"
+#~ msgid "%s (%s)"
+#~ msgstr "%s (%s)"
 
 #~ msgctxt "language"
 #~ msgid "Default"
