@@ -50,7 +50,7 @@ GSPELL_API_VERSION=1
 AC_SUBST(GSPELL_API_VERSION)
 
 # Dependencies
-enchant_req=2.2.12
+enchant_req=2.1.3
 glib_req=2.44
 gtk_req=3.20
 
