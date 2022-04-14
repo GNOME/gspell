@@ -4,18 +4,18 @@ gspell - more information
 About versions
 --------------
 
-gspell follows the GNOME release schedule and uses the same
-[versioning scheme](https://developer.gnome.org/programming-guidelines/stable/versioning.html.en).
+gspell follows the even/odd minor version scheme.
 
-For example the 1.7.x versions are unstable, and the 1.8.x versions are stable.
+For example the `1.7.x` versions are unstable (development versions), and the
+`1.8.x` versions are stable.
 
 Dependencies
 ------------
 
-* GLib
-* GTK
-* Enchant
-* [ICU](http://site.icu-project.org/)
+- GLib
+- GTK 3
+- Enchant
+- [ICU](http://site.icu-project.org/)
 
 Notes for packagers
 -------------------
@@ -46,17 +46,13 @@ From the Git repository, the 'configure' script and the 'INSTALL' file are not
 yet generated, so you need to run 'autogen.sh' instead, which takes the same
 arguments as 'configure'.
 
-To build the latest version of gspell plus some of its dependencies,
-[Jhbuild](https://wiki.gnome.org/Projects/Jhbuild) can be used.
-
 Development resources
 ---------------------
 
 - [Discourse](https://discourse.gnome.org/) (Platform category, gspell tag)
 - [Tarballs](https://download.gnome.org/sources/gspell/)
 
-Contributions
--------------
+Development and maintenance
+---------------------------
 
-Contributions are no longer accepted for this project. See the `HACKING` file
-for more information.
+The project is in low-maintenance state.
