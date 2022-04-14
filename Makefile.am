@@ -4,7 +4,11 @@ include $(top_srcdir)/aminclude_static.am
 clean-local: code-coverage-clean
 distclean-local: code-coverage-dist-clean
 
-AM_DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc --enable-introspection --enable-vala
+AM_DISTCHECK_CONFIGURE_FLAGS = \
+	--enable-gtk-doc \
+	--enable-introspection \
+	--enable-vala \
+	--disable-code-coverage
 
 pkgconfig_DATA = gspell-$(GSPELL_API_VERSION).pc
 DISTCLEANFILES = $(pkgconfig_DATA)

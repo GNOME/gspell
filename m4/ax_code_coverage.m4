@@ -175,7 +175,7 @@ code-coverage-clean:
 
 code-coverage-dist-clean:
 
-A][M_DISTCHECK_CONFIGURE_FLAGS := \$(A][M_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
+# A][M_DISTCHECK_CONFIGURE_FLAGS := \$(A][M_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
  else # ifneq (\$(abs_builddir), \$(abs_top_builddir))
 check-code-coverage:
 
