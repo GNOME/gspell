@@ -18,4 +18,6 @@ Features
 More information
 ----------------
 
+The gspell 1.x versions target **GTK 3**.
+
 [More information about gspell](docs/more-information.md).
