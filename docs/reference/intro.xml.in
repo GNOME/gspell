@@ -12,7 +12,7 @@
 
   <para>
     gspell provides a flexible API to add spell checking to a GTK application.
-    See the <ulink url="https://wiki.gnome.org/Projects/gspell">gspell website</ulink>.
+    See the <ulink url="https://gitlab.gnome.org/GNOME/gspell">gspell home page</ulink>.
   </para>
 
   <refsect1>

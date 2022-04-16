@@ -9,7 +9,7 @@ AC_INIT([gspell],
 	[gspell_package_version],
 	[https://gitlab.gnome.org/GNOME/gspell/issues],
 	[gspell],
-	[https://wiki.gnome.org/Projects/gspell])
+	[https://gitlab.gnome.org/GNOME/gspell])
 
 AX_REQUIRE_DEFINED([AX_IS_RELEASE])
 AX_IS_RELEASE([git-directory])
