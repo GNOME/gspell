@@ -2,15 +2,25 @@ gspell.next
 ===========
 
 What would a gspell.next project look like? (Apart from porting to the latest
-major version of GTK). Note, I don't plan to work on it.
+major version of GTK). Note, there are currently no plans in gspell to work on
+these items.
 
 Expose more of the internals
 ----------------------------
 
-To have an even more flexible toolkit. Like Tepl.
+To have an even more flexible toolkit.
 
-But it would require to bump the major/API version more frequently, when the
-implementation changes.
+Providing only a high-level API doesn't suit the needs of _all_ applications. So
+by providing an API for some of the building blocks, it would ease the
+implementation of a more customized spell-checker feature in a more complex
+application.
+
+But when more and more APIs are exposed, during the development phase, it's
+important to be able to iterate on the API design, _and_ testing these APIs in
+real-world applications. So basically it would require to bump the major/API
+version more frequently, when improving the APIs. Like the Tepl library. Or
+having a long period during which the API is unstable, and the apps need to
+bundle the library.
 
 Choice for the dependency used for `gspell_language_get_name()`
 ---------------------------------------------------------------
