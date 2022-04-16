@@ -13,10 +13,12 @@ AM_DISTCHECK_CONFIGURE_FLAGS = \
 pkgconfig_DATA = gspell-$(GSPELL_API_VERSION).pc
 DISTCLEANFILES = $(pkgconfig_DATA)
 
-EXTRA_DIST =		\
-	gspell.doap	\
-	gspell.pc.in	\
-	HACKING
+EXTRA_DIST = \
+	autogen.sh \
+	gspell.doap \
+	gspell.pc.in \
+	HACKING \
+	README.md
 
 MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
