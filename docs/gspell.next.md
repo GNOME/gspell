@@ -35,6 +35,9 @@ configure/compile time.
 To have a smaller package size for certain apps (if gspell is bundled), or for
 Linux distros to have a smaller set of packages installed by default, etc.
 
+BUT, of course this would have a drawback, because there can be different sets
+of bugs depending on which build option is used.
+
 Interfaces
 ----------
 
