@@ -1,5 +1,7 @@
-News in 1.9.2, 2022-xx-yy (not yet released)
--------------------------
+News in 1.10.0, 2022-04-16
+--------------------------
+* Build from git: some updates, take newer version of autoconf-archive.
+* Build: distribute more files in tarballs.
 * Documentation improvements.
 * Translation updates.
 
