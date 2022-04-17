@@ -52,7 +52,7 @@ arguments as 'configure'.
 Development resources
 ---------------------
 
-- [Discourse](https://discourse.gnome.org/) (Platform category, gspell tag)
+- [Discourse](https://discourse.gnome.org/tag/gspell) (Platform category, gspell tag)
 - [Tarballs](https://download.gnome.org/sources/gspell/)
 
 Development and maintenance
