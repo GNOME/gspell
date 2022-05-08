@@ -105,7 +105,11 @@ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Define to the gette
 AX_REQUIRE_DEFINED([GTK_DOC_CHECK])
 GTK_DOC_CHECK([1.25], [--flavour=no-tmpl])
 
-# Installed Tests for gnome continuous integration
+# Installed Tests
+#
+# Initially done for Gnome Continuous, but also useful on Windows with MSYS2
+# because with Autotools the executables need to be installed there in order to
+# see the hunspell dictionaries.
 AC_ARG_ENABLE(installed_tests,
 	      AS_HELP_STRING([--enable-installed-tests],
 			     [Install test programs (default: no)]),,
