@@ -136,10 +136,10 @@ gspell-resources.c: $(xml_res) $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(s
 
 ENUM_TYPES = $(gspell_public_headers)
 
-gspell-enum-types.h: gspell-enum-types.h.in $(ENUM_TYPES) $(GLIB_MKENUMS)
+gspell-enum-types.h: gspell-enum-types.h.in $(ENUM_TYPES)
 	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.h.in $(ENUM_TYPES)) > $@
 
-gspell-enum-types.c: gspell-enum-types.c.in $(ENUM_TYPES) $(GLIB_MKENUMS)
+gspell-enum-types.c: gspell-enum-types.c.in $(ENUM_TYPES)
 	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.c.in $(ENUM_TYPES)) > $@
 
 EXTRA_DIST = \
