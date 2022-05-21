@@ -136,15 +136,15 @@ gspell-resources.c: $(xml_res) $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(s
 
 ENUM_TYPES = $(gspell_public_headers)
 
-gspell-enum-types.h: gspell-enum-types.h.template $(ENUM_TYPES) $(GLIB_MKENUMS)
-	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.h.template $(ENUM_TYPES)) > $@
+gspell-enum-types.h: gspell-enum-types.h.in $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.h.in $(ENUM_TYPES)) > $@
 
-gspell-enum-types.c: gspell-enum-types.c.template $(ENUM_TYPES) $(GLIB_MKENUMS)
-	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.c.template $(ENUM_TYPES)) > $@
+gspell-enum-types.c: gspell-enum-types.c.in $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template gspell-enum-types.c.in $(ENUM_TYPES)) > $@
 
-EXTRA_DIST =				\
-	gspell-enum-types.c.template	\
-	gspell-enum-types.h.template
+EXTRA_DIST = \
+	gspell-enum-types.c.in \
+	gspell-enum-types.h.in
 
 CLEANFILES = $(BUILT_SOURCES)
 
