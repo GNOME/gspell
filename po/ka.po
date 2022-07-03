@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2022-06-13 02:42+0000\n"
+"PO-Revision-Date: 2022-07-03 06:20+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: \n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1\n"
+
+#: gspell/gspell-checker.c:419
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "შეცდომა სიტყვის (\"%s\") მართლწერის შემოწმებისას: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(ნარჩევი სიტყვების გარეშე)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "შეცდომა:"
+
+#: gspell/gspell-checker-dialog.c:271
+msgid "Completed spell checking"
+msgstr "მართლწერის შემოწმება დასრულებულია"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "მართლწერის შეცდომების გარეშე)"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(მართლწერის შესწორება)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "რჩევები"
+
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "ე_ნა"
+
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "_მეტი…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+msgid "_Ignore All"
+msgstr "_ყველას იგნორი"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "დამატება"
+
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
+msgstr "_მართლწერის შეთავაზებები…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:89
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "უცნობი (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "ენა არჩეული არაა"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "მართლწერის შემოწმება"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "არასწორად დაწერილი სიტყვა:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "სიტყვა"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "შეცვლა:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "სიტყვის _შემოწმება"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_რჩევები:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "_იგნორი"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "ყველას იგნორი"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "შე_ცვლა"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "ყვ_ელას შეცვლა"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "მომხმარებლის ლექსიკონი:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "სიტყვის _დამატება"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "ენის ამორჩევა"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "აირჩიეთ მართლწერის შესამოწმებელი ენა."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_გაუქმება"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_აირჩიეთ"
