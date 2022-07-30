@@ -55,7 +55,7 @@ glib_req=2.44
 gtk_req=3.20
 
 AC_CONFIG_SRCDIR([gspell/gspell-checker.c])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 # gnu strictness to generate the INSTALL file
