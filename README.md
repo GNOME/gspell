@@ -20,4 +20,6 @@ More information
 
 The gspell 1.x versions target **GTK 3**.
 
+gspell for GTK 4 is available [here](https://gitlab.gnome.org/otrocodigo/gspell).
+
 [More information about gspell](docs/more-information.md).
