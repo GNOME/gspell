@@ -4,7 +4,8 @@
          xmlns:foaf="http://xmlns.com/foaf/0.1/"
          xmlns:gnome="http://api.gnome.org/doap-extensions#"
          xmlns="http://usefulinc.com/ns/doap#">
-  <name xml:lang="en">gspell</name>
+
+  <name>gspell</name>
   <shortdesc xml:lang="en">Spell-checking library for GTK applications</shortdesc>
   <description xml:lang="en">
 gspell provides a flexible API to add spell-checking to a GTK application.
@@ -13,7 +14,6 @@ gspell provides a flexible API to add spell-checking to a GTK application.
   <homepage rdf:resource="https://gitlab.gnome.org/GNOME/gspell" />
   <download-page rdf:resource="https://download.gnome.org/sources/gspell/" />
   <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/gspell/issues" />
-  <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
 
   <programming-language>C</programming-language>
 
