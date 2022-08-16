@@ -42,5 +42,3 @@ gboolean	_gspell_text_iter_inside_word		(const GtkTextIter *iter);
 G_END_DECLS
 
 #endif /* GSPELL_TEXT_ITER_H */
-
-/* ex:set ts=8 noet: */

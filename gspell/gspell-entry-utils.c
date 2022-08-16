@@ -248,5 +248,3 @@ _gspell_entry_utils_get_char_position_at_event (GtkEntry       *entry,
 	buffer_text = gtk_entry_get_text (entry);
 	return g_utf8_pointer_to_offset (buffer_text, buffer_text + text_index);
 }
-
-/* ex:set ts=8 noet: */

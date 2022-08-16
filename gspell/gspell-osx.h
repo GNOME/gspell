@@ -34,5 +34,3 @@ gchar *	_gspell_osx_get_resource_path			(void);
 G_END_DECLS
 
 #endif /* _GSPELL_OSX_H */
-
-/* ex:set ts=8 noet: */

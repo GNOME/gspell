@@ -130,5 +130,3 @@ EnchantDict *	gspell_checker_get_enchant_dict		(GspellChecker *checker);
 G_END_DECLS
 
 #endif  /* GSPELL_CHECKER_H */
-
-/* ex:set ts=8 noet: */

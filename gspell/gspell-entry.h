@@ -55,5 +55,3 @@ void		gspell_entry_set_inline_spell_checking	(GspellEntry *gspell_entry,
 G_END_DECLS
 
 #endif /* GSPELL_ENTRY_H */
-
-/* ex:set ts=8 noet: */

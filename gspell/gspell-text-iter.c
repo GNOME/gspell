@@ -189,5 +189,3 @@ _gspell_text_iter_inside_word (const GtkTextIter *iter)
 
 	return FALSE;
 }
-
-/* ex:set ts=8 noet: */

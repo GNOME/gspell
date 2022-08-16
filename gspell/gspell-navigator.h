@@ -74,5 +74,3 @@ void		gspell_navigator_change_all	(GspellNavigator *navigator,
 G_END_DECLS
 
 #endif /* GSPELL_NAVIGATOR_H */
-
-/* ex:set ts=8 noet: */

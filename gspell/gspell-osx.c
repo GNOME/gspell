@@ -64,5 +64,3 @@ _gspell_osx_get_preferred_spell_language ()
 	[pool release];
 	return ret;
 }
-
-/* ex:set ts=8 noet: */

@@ -249,5 +249,3 @@ gspell_entry_buffer_set_spell_checker (GspellEntryBuffer *gspell_buffer,
 		g_object_notify (G_OBJECT (gspell_buffer), "spell-checker");
 	}
 }
-
-/* ex:set ts=8 noet: */

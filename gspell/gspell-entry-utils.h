@@ -58,5 +58,3 @@ gint		 _gspell_entry_utils_get_char_position_at_event	(GtkEntry       *entry,
 G_END_DECLS
 
 #endif /* GSPELL_ENTRY_UTILS_H */
-
-/* ex:set ts=8 noet: */

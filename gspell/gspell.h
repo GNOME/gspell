@@ -41,5 +41,3 @@
 #undef GSPELL_H_INSIDE
 
 #endif /* GSPELL_H */
-
-/* ex:set ts=8 noet: */

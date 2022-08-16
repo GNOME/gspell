@@ -65,5 +65,3 @@ GtkTextTag *
 G_END_DECLS
 
 #endif  /* GSPELL_INLINE_CHECKER_TEXT_BUFFER_H */
-
-/* ex:set ts=8 noet: */

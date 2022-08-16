@@ -167,5 +167,3 @@ gspell_navigator_change_all (GspellNavigator *navigator,
 
 	GSPELL_NAVIGATOR_GET_IFACE (navigator)->change_all (navigator, word, change_to);
 }
-
-/* ex:set ts=8 noet: */

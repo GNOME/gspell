@@ -70,5 +70,3 @@ void			gspell_text_view_set_enable_language_menu	(GspellTextView *gspell_view,
 G_END_DECLS
 
 #endif /* GSPELL_TEXT_VIEW_H */
-
-/* ex:set ts=8 noet: */

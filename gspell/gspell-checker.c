@@ -659,5 +659,3 @@ gspell_checker_get_enchant_dict (GspellChecker *checker)
 	priv = gspell_checker_get_instance_private (checker);
 	return priv->dict;
 }
-
-/* ex:set ts=8 noet: */

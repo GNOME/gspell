@@ -56,5 +56,3 @@ GspellNavigator *	gspell_checker_dialog_get_spell_navigator	(GspellCheckerDialog
 G_END_DECLS
 
 #endif  /* GSPELL_CHECKER_DIALOG_H */
-
-/* ex:set ts=8 noet: */

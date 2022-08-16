@@ -31,5 +31,3 @@ void		_gspell_checker_force_set_language	(GspellChecker        *checker,
 G_END_DECLS
 
 #endif  /* GSPELL_CHECKER_PRIVATE_H */
-
-/* ex:set ts=8 noet: */

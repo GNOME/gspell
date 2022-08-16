@@ -549,5 +549,3 @@ gspell_navigator_text_view_get_view (GspellNavigatorTextView *navigator)
 	priv = gspell_navigator_text_view_get_instance_private (navigator);
 	return priv->view;
 }
-
-/* ex:set ts=8 noet: */

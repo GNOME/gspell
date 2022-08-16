@@ -494,5 +494,3 @@ gspell_language_chooser_dialog_new (GtkWindow            *parent,
 			     "use-header-bar", (flags & GTK_DIALOG_USE_HEADER_BAR) != 0,
 			     NULL);
 }
-
-/* ex:set ts=8 noet: */

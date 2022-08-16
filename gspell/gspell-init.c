@@ -166,5 +166,3 @@ gspell_constructor (void)
 #else
 #  error Your platform/compiler is missing constructor support
 #endif
-
-/* ex:set ts=8 noet: */

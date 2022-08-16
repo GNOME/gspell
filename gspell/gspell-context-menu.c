@@ -343,5 +343,3 @@ _gspell_context_menu_get_suggestions_menu_item (GspellChecker                   
 
 	return menu_item;
 }
-
-/* ex:set ts=8 noet: */

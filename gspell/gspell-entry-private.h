@@ -30,5 +30,3 @@ const GSList *	_gspell_entry_get_misspelled_words	(GspellEntry *gspell_entry);
 G_END_DECLS
 
 #endif /* GSPELL_ENTRY_PRIVATE_H */
-
-/* ex:set ts=8 noet: */

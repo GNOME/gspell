@@ -54,5 +54,3 @@ GtkWidget *	gspell_language_chooser_dialog_new		(GtkWindow            *parent,
 G_END_DECLS
 
 #endif  /* GSPELL_LANGUAGE_CHOOSER_DIALOG_H */
-
-/* ex:set ts=8 noet: */

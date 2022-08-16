@@ -51,5 +51,3 @@ GtkWidget *	gspell_language_chooser_button_new	(const GspellLanguage *current_la
 G_END_DECLS
 
 #endif /* GSPELL_LANGUAGE_CHOOSER_BUTTON_H */
-
-/* ex:set ts=8 noet: */

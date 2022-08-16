@@ -55,5 +55,3 @@ GtkTextView *		gspell_navigator_text_view_get_view	(GspellNavigatorTextView *nav
 G_END_DECLS
 
 #endif /* GSPELL_NAVIGATOR_TEXT_VIEW_H */
-
-/* ex:set ts=8 noet: */

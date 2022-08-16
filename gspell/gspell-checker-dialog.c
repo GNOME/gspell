@@ -740,5 +740,3 @@ gspell_checker_dialog_get_spell_navigator (GspellCheckerDialog *dialog)
 	priv = gspell_checker_dialog_get_instance_private (dialog);
 	return priv->navigator;
 }
-
-/* ex:set ts=8 noet: */

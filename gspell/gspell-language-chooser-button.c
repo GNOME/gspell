@@ -324,5 +324,3 @@ gspell_language_chooser_button_new (const GspellLanguage *current_language)
 			     "language", current_language,
 			     NULL);
 }
-
-/* ex:set ts=8 noet: */

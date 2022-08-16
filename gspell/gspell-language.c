@@ -308,5 +308,3 @@ gspell_language_free (GspellLanguage *language)
 {
 	g_return_if_fail (language != NULL);
 }
-
-/* ex:set ts=8 noet: */

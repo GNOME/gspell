@@ -68,5 +68,3 @@ void		_gspell_utils_improve_word_boundaries	(const gchar  *text,
 G_END_DECLS
 
 #endif /* GSPELL_UTILS_H */
-
-/* ex:set ts=8 noet: */

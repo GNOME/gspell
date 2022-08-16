@@ -611,5 +611,3 @@ gspell_text_view_set_enable_language_menu (GspellTextView *gspell_view,
 		g_object_notify (G_OBJECT (gspell_view), "enable-language-menu");
 	}
 }
-
-/* ex:set ts=8 noet: */

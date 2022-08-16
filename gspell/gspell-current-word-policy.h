@@ -83,5 +83,3 @@ void		_gspell_current_word_policy_text_deleted		(GspellCurrentWordPolicy *policy
 G_END_DECLS
 
 #endif /* GSPELL_CURRENT_WORD_POLICY_H */
-
-/* ex:set ts=8 noet: */

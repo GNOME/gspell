@@ -1481,5 +1481,3 @@ _gspell_inline_checker_text_buffer_get_highlight_tag (GspellInlineCheckerTextBuf
 
 	return spell->highlight_tag;
 }
-
-/* ex:set ts=8 noet: */

@@ -46,5 +46,3 @@ GtkMenuItem *	_gspell_context_menu_get_suggestions_menu_item	(GspellChecker     
 G_END_DECLS
 
 #endif /* GSPELL_CONTEXT_MENU_H */
-
-/* ex:set ts=8 noet: */

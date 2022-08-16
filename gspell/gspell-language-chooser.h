@@ -68,5 +68,3 @@ void			gspell_language_chooser_set_language_code	(GspellLanguageChooser *chooser
 G_END_DECLS
 
 #endif /* GSPELL_LANGUAGE_CHOOSER_H */
-
-/* ex:set ts=8 noet: */

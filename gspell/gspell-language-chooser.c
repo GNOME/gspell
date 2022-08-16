@@ -173,5 +173,3 @@ gspell_language_chooser_set_language_code (GspellLanguageChooser *chooser,
 
 	GSPELL_LANGUAGE_CHOOSER_GET_IFACE (chooser)->set_language (chooser, lang);
 }
-
-/* ex:set ts=8 noet: */

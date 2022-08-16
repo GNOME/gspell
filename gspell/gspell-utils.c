@@ -280,5 +280,3 @@ _gspell_utils_improve_word_boundaries (const gchar  *text,
 		cur_text_pos = g_utf8_find_next_char (cur_text_pos, NULL);
 	}
 }
-
-/* ex:set ts=8 noet: */

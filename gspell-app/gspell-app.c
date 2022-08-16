@@ -313,5 +313,3 @@ main (int    argc,
 	g_object_unref (app);
 	return ret;
 }
-
-/* ex:set ts=8 noet: */

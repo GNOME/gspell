@@ -53,5 +53,3 @@ void			gspell_text_buffer_set_spell_checker		(GspellTextBuffer *gspell_buffer,
 G_END_DECLS
 
 #endif /* GSPELL_TEXT_BUFFER_H */
-
-/* ex:set ts=8 noet: */

@@ -264,5 +264,3 @@ main (gint    argc,
 
 	return 0;
 }
-
-/* ex:set ts=8 noet: */

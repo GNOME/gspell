@@ -1230,5 +1230,3 @@ _gspell_entry_get_misspelled_words (GspellEntry *gspell_entry)
 
 	return gspell_entry->misspelled_words;
 }
-
-/* ex:set ts=8 noet: */

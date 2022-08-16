@@ -73,5 +73,3 @@ void		gspell_language_free			(GspellLanguage *language);
 G_END_DECLS
 
 #endif /* GSPELL_LANGUAGE_H */
-
-/* ex:set ts=8 noet: */
