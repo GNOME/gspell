@@ -3,8 +3,8 @@
 /* Define to the gettext package name. */
 #define GETTEXT_PACKAGE "@GETTEXT_PACKAGE@"
 
-/* Defined if OS is Mac OSX. */
-#undef OS_OSX
+/* Define for Mac OSX. */
+#define OS_OSX 0
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "https://gitlab.gnome.org/GNOME/gspell/issues"
