@@ -7,10 +7,8 @@
 # G_GNUC_INTERNAL should protect us, but it could be a no-op with
 # some compilers.
 
-GSVURL=https://git.gnome.org/browse/gtksourceview/plain/gtksourceview
-
 update_file () {
-    _source="${GSVURL}/$1"
+    _source="$1"
     _dest="$2"
 
     echo "/* Do not edit: this file is generated from ${_source} */" > "${_dest}"
