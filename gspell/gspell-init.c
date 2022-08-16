@@ -23,10 +23,7 @@
  * Copyright (C) 1997, 1998, 1999, 2000 Free Software Foundation
  */
 
-#ifdef HAVE_CONFIG_H
 #include "config.h"
-#endif
-
 #include <glib/gi18n-lib.h>
 #include "gconstructor.h"
 

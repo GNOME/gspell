@@ -18,10 +18,7 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
 #include "config.h"
-#endif
-
 #include "gspell-utils.h"
 #include <string.h>
 #include "gspell-text-iter.h"
