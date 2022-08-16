@@ -17,3 +17,10 @@ set (GETTEXT_PACKAGE "gspell-${GSPELL_API_VERSION}")
 configure_file (
   "${PROJECT_SOURCE_DIR}/config.h.in"
   "${PROJECT_BINARY_DIR}/config.h")
+
+configure_file (
+  "${PROJECT_SOURCE_DIR}/gspell.pc.in"
+  "${PROJECT_BINARY_DIR}/gspell-${GSPELL_API_VERSION}.pc"
+  @ONLY)
+install (FILES "${PROJECT_BINARY_DIR}/gspell-${GSPELL_API_VERSION}.pc"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
