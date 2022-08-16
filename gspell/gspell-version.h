@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2017 - Sébastien Wilmet
+ * Copyright 2017, 2022 - Sébastien Wilmet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,18 +24,14 @@
 #error "Only <gspell/gspell.h> can be included directly."
 #endif
 
-#include <glib.h>
+#include <gmodule.h>
 
 G_BEGIN_DECLS
 
-#ifndef _GSPELL_EXTERN
-#define _GSPELL_EXTERN extern
-#endif
-
-#define GSPELL_AVAILABLE_IN_ALL _GSPELL_EXTERN
-#define GSPELL_AVAILABLE_IN_1_2 _GSPELL_EXTERN
-#define GSPELL_AVAILABLE_IN_1_4 _GSPELL_EXTERN
-#define GSPELL_AVAILABLE_IN_1_6 _GSPELL_EXTERN
+#define GSPELL_AVAILABLE_IN_ALL G_MODULE_EXPORT
+#define GSPELL_AVAILABLE_IN_1_2 G_MODULE_EXPORT
+#define GSPELL_AVAILABLE_IN_1_4 G_MODULE_EXPORT
+#define GSPELL_AVAILABLE_IN_1_6 G_MODULE_EXPORT
 
 G_END_DECLS
 
