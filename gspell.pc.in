@@ -5,7 +5,7 @@ includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
 Name: @PROJECT_NAME@
 Description: Spell-checking for GTK applications
 Version: @PROJECT_VERSION@
-Requires: @AX_PACKAGE_REQUIRES@
-Requires.private: @AX_PACKAGE_REQUIRES_PRIVATE@
+Requires: @PKG_REQUIRES@
+Requires.private: @PKG_REQUIRES_PRIVATE@
 Libs: -L${libdir} -lgspell-@GSPELL_API_VERSION@
 Cflags: -I${includedir}/gspell-@GSPELL_API_VERSION@
