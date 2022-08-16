@@ -235,23 +235,11 @@ app_command_line_cb (GApplication            *app,
 	return 0;
 }
 
-static gchar *
-get_locale_directory (void)
-{
-	return g_build_filename (GSPELL_DATADIR, "locale", NULL);
-}
-
 static void
 setup_i18n (void)
 {
-	gchar *locale_dir;
-
 	setlocale (LC_ALL, "");
-
-	locale_dir = get_locale_directory ();
-	bindtextdomain (GETTEXT_PACKAGE, locale_dir);
-	g_free (locale_dir);
-
+	bindtextdomain (GETTEXT_PACKAGE, GSPELL_LOCALE_DIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 }
