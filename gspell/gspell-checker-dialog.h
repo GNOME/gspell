@@ -27,13 +27,12 @@
 
 #include <gtk/gtk.h>
 #include <gspell/gspell-navigator.h>
-#include <gspell/gspell-version.h>
 
 G_BEGIN_DECLS
 
 #define GSPELL_TYPE_CHECKER_DIALOG (gspell_checker_dialog_get_type ())
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 G_DECLARE_DERIVABLE_TYPE (GspellCheckerDialog, gspell_checker_dialog,
 			  GSPELL, CHECKER_DIALOG,
 			  GtkDialog)
@@ -46,11 +45,11 @@ struct _GspellCheckerDialogClass
 	gpointer padding[8];
 };
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 GtkWidget *		gspell_checker_dialog_new			(GtkWindow       *parent,
 									 GspellNavigator *navigator);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 GspellNavigator *	gspell_checker_dialog_get_spell_navigator	(GspellCheckerDialog *dialog);
 
 G_END_DECLS

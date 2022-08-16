@@ -28,8 +28,7 @@ gspell_public_headers =				\
 	gspell-navigator.h			\
 	gspell-navigator-text-view.h		\
 	gspell-text-buffer.h			\
-	gspell-text-view.h			\
-	gspell-version.h
+	gspell-text-view.h
 
 gspell_public_c_files =				\
 	gspell-checker.c			\

@@ -36,7 +36,6 @@
 #include <gspell/gspell-text-view.h>
 
 #include <gspell/gspell-enum-types.h>
-#include <gspell/gspell-version.h>
 
 #undef GSPELL_H_INSIDE
 

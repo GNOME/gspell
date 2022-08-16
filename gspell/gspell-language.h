@@ -32,7 +32,7 @@
 #endif
 
 #include <glib-object.h>
-#include <gspell/gspell-version.h>
+#include <gmodule.h>
 
 G_BEGIN_DECLS
 
@@ -40,34 +40,34 @@ typedef struct _GspellLanguage GspellLanguage;
 
 #define GSPELL_TYPE_LANGUAGE (gspell_language_get_type ())
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 GType		gspell_language_get_type		(void) G_GNUC_CONST;
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 const GList *	gspell_language_get_available		(void);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 const GspellLanguage *
 		gspell_language_get_default		(void);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 const GspellLanguage *
 		gspell_language_lookup			(const gchar *language_code);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 const gchar *	gspell_language_get_code		(const GspellLanguage *language);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 const gchar *	gspell_language_get_name		(const GspellLanguage *language);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 gint		gspell_language_compare			(const GspellLanguage *language_a,
 							 const GspellLanguage *language_b);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 GspellLanguage *gspell_language_copy			(const GspellLanguage *language);
 
-GSPELL_AVAILABLE_IN_ALL
+G_MODULE_EXPORT
 void		gspell_language_free			(GspellLanguage *language);
 
 G_END_DECLS
