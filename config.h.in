@@ -7,4 +7,4 @@
 #undef OS_OSX
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT ""
+#define PACKAGE_BUGREPORT "https://gitlab.gnome.org/GNOME/gspell/issues"
