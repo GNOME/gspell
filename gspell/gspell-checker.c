@@ -28,10 +28,6 @@
 #include <string.h>
 #include "gspell-utils.h"
 
-#ifdef OS_OSX
-#include "gspell-osx.h"
-#endif
-
 /**
  * SECTION:checker
  * @Short_description: Spell checker
