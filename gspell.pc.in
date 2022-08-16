@@ -1,11 +1,10 @@
-prefix=@prefix@
-exec_prefix=@exec_prefix@
-libdir=@libdir@
-includedir=@includedir@
+prefix=@CMAKE_INSTALL_PREFIX@
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
 
-Name: @PACKAGE_NAME@
+Name: @PROJECT_NAME@
 Description: Spell-checking for GTK applications
-Version: @PACKAGE_VERSION@
+Version: @PROJECT_VERSION@
 Requires: @AX_PACKAGE_REQUIRES@
 Requires.private: @AX_PACKAGE_REQUIRES_PRIVATE@
 Libs: -L${libdir} -lgspell-@GSPELL_API_VERSION@
