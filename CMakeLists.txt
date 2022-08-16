@@ -5,4 +5,8 @@ project (gspell
 include (cmake/gsw.cmake)
 GswInitBasic ()
 
-pkg_check_modules (DEPS REQUIRED glib-2.0>=2.44)
+pkg_check_modules (DEPS REQUIRED
+  glib-2.0>=2.44
+  gtk+-3.0>=3.20
+  enchant-2>=2.1.3
+  icu-uc)
