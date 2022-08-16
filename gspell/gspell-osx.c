@@ -26,23 +26,6 @@
 #import <Cocoa/Cocoa.h>
 
 gchar *
-_gspell_osx_get_resource_path (void)
-{
-	gchar *id;
-	gchar *ret = NULL;
-
-	id = gtkosx_application_get_bundle_id ();
-
-	if (id != NULL)
-	{
-		ret = gtkosx_application_get_resource_path ();
-	}
-
-	g_free (id);
-	return ret;
-}
-
-gchar *
 _gspell_osx_get_preferred_spell_language ()
 {
 	gchar *ret = NULL;

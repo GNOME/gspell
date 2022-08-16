@@ -28,9 +28,6 @@ G_BEGIN_DECLS
 G_GNUC_INTERNAL
 gchar *	_gspell_osx_get_preferred_spell_language	(void);
 
-G_GNUC_INTERNAL
-gchar *	_gspell_osx_get_resource_path			(void);
-
 G_END_DECLS
 
 #endif /* _GSPELL_OSX_H */
