@@ -1,6 +1,7 @@
 # Turkish translation of gspell.
 # Copyright (C) 2002-2003, 2004, 2005 Free Software Foundation, Inc.
-#
+# Copyright (C) 2006-2022 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
 #
 # Nilgün Belma Bugüner <nilgun@fide.org>, 2001, 2002.
 # Fatih Demir <kabalak@gtranslator.org>, 2000.
@@ -15,9 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gspell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-22 19:27+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2022-07-26 06:48+0000\n"
 "PO-Revision-Date: 2017-09-06 09:51+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.7\n"
 "X-POOTLE-MTIME: 1433962102.000000\n"
 
-#: gspell/gspell-checker.c:418
+#: gspell/gspell-checker.c:419
 #, c-format
 msgid "Error when checking the spelling of word “%s”: %s"
 msgstr "“%s” sözcüğünün yazım denetimi yapılırken hata: %s"
@@ -39,19 +39,19 @@ msgstr "“%s” sözcüğünün yazım denetimi yapılırken hata: %s"
 #. * misspelled word.
 #.
 #. No suggestions. Put something in the menu anyway...
-#: gspell/gspell-checker-dialog.c:147 gspell/gspell-context-menu.c:214
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
 msgid "(no suggested words)"
 msgstr "(sözcük önerisi yok)"
 
-#: gspell/gspell-checker-dialog.c:232
+#: gspell/gspell-checker-dialog.c:235
 msgid "Error:"
 msgstr "Hata:"
 
-#: gspell/gspell-checker-dialog.c:268
+#: gspell/gspell-checker-dialog.c:271
 msgid "Completed spell checking"
 msgstr "Yazım denetimi tamamlandı"
 
-#: gspell/gspell-checker-dialog.c:272
+#: gspell/gspell-checker-dialog.c:275
 msgid "No misspelled words"
 msgstr "Hatalı yazılmış sözcük yok"
 
@@ -59,60 +59,48 @@ msgstr "Hatalı yazılmış sözcük yok"
 #. * Spelling" dialog if the current word
 #. * isn't misspelled.
 #.
-#: gspell/gspell-checker-dialog.c:499
+#: gspell/gspell-checker-dialog.c:502
 msgid "(correct spelling)"
 msgstr "(imla hatalarını düzelt)"
 
-#: gspell/gspell-checker-dialog.c:641
+#: gspell/gspell-checker-dialog.c:644
 msgid "Suggestions"
 msgstr "Öneriler"
 
-#: gspell/gspell-context-menu.c:149
-#| msgid "Set Language"
+#: gspell/gspell-context-menu.c:152
 msgid "_Language"
 msgstr "_Dil"
 
-#: gspell/gspell-context-menu.c:237
-#| msgid "_More..."
+#: gspell/gspell-context-menu.c:240
 msgid "_More…"
 msgstr "_Daha çok…"
 
 #. Ignore all
-#: gspell/gspell-context-menu.c:282
+#: gspell/gspell-context-menu.c:285
 msgid "_Ignore All"
 msgstr "Hepsini _Yoksay"
 
 #. Add to Dictionary
-#: gspell/gspell-context-menu.c:300
+#: gspell/gspell-context-menu.c:303
 msgid "_Add"
 msgstr "_Ekle"
 
-#: gspell/gspell-context-menu.c:337
-#| msgid "_Spelling Suggestions..."
+#: gspell/gspell-context-menu.c:340
 msgid "_Spelling Suggestions…"
 msgstr "_Yazım Önerileri…"
 
 #. Translators: %s is the language ISO code.
-#: gspell/gspell-language.c:253
+#: gspell/gspell-language.c:89
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
 msgstr "Bilinmeyen (%s)"
 
-#. Translators: The first %s is the language name, and the
-#. * second is the country name. Example: "French (France)".
-#.
-#: gspell/gspell-language.c:270 gspell/gspell-language.c:279
-#, c-format
-msgctxt "language"
-msgid "%s (%s)"
-msgstr "%s (%s)"
-
-#: gspell/gspell-language-chooser-button.c:81
+#: gspell/gspell-language-chooser-button.c:84
 msgid "No language selected"
 msgstr "Dil seçilmedi"
 
-#: gspell/gspell-navigator-text-view.c:307
+#: gspell/gspell-navigator-text-view.c:310
 msgid ""
 "Spell checker error: no language set. It’s maybe because no dictionaries are "
 "installed."
@@ -173,7 +161,6 @@ msgid "Set Language"
 msgstr "Dili Ayarla"
 
 #: gspell/resources/language-dialog.ui:20
-#| msgid "Completed spell checking"
 msgid "Select the spell checking _language."
 msgstr "Yazım denetimi _dilini seç."
 
@@ -184,10 +171,3 @@ msgstr "_İptal"
 #: gspell/resources/language-dialog.ui:68
 msgid "_Select"
 msgstr "_Seç"
-
-#~ msgctxt "language"
-#~ msgid "Default"
-#~ msgstr "Öntanımlı"
-
-#~ msgid "Select the _language of the current document."
-#~ msgstr "Geçerli belgenin _dilini seç."
