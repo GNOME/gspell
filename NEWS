@@ -1,3 +1,9 @@
+News in 1.12.0, xxxx-yy-zz (not yet released)
+--------------------------
+* Use G_MODULE_EXPORT instead of the custom _GSPELL_EXTERN macro.
+* Small maintenance tasks, some minor simplifications.
+* Translation updates.
+
 News in 1.11.1, 2022-06-10
 --------------------------
 * Build: minor improvements, small change to how enum-types are built.
