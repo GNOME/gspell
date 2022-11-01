@@ -14,11 +14,12 @@ Dependencies
 
 - GLib
 - GTK 3
-- Enchant
-- [ICU](http://site.icu-project.org/)
+- [Enchant](https://abiword.github.io/enchant/)
+- [ICU](https://icu.unicode.org/)
 
 If building from Git:
-- autoconf-archive (version 2021.02.19 or 2022.02.11, both work)
+- [autoconf-archive](https://www.gnu.org/software/autoconf-archive/)
+  (version 2021.02.19 or 2022.02.11, both work)
 
 Notes for packagers
 -------------------
