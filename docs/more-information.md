@@ -54,8 +54,3 @@ Development resources
 
 - [Discourse](https://discourse.gnome.org/tag/gspell) (Platform category, gspell tag)
 - [Tarballs](https://download.gnome.org/sources/gspell/)
-
-Development and maintenance
----------------------------
-
-The project is in low-maintenance state.
