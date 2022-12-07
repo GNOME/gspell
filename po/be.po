@@ -1,0 +1,162 @@
+# Belarusian translation for gspell.
+# Copyright (C) 2021 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+# 3abac <3abac@3a.by>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2022-11-06 06:55+0000\n"
+"PO-Revision-Date: 2022-12-08 02:56+0300\n"
+"Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
+"Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2\n"
+
+#: gspell/gspell-checker.c:415
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Памылка падчас праверкі правапісу слова «%s»: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(няма прапаноў)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "Памылка:"
+
+#: gspell/gspell-checker-dialog.c:271
+msgid "Completed spell checking"
+msgstr "Праверка правапісу завершана"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "Няма слоў з памылкамі"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(правільнае напісанне)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "Прапановы"
+
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "_Мова"
+
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "_Яшчэ…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+msgid "_Ignore All"
+msgstr "Іг_нараваць усе"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "_Дадаць"
+
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
+msgstr "_Прапанаваныя напісанні…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:89
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Невядомая (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "Мова не выбрана"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Памылка праверкі правапісу: мова не выбрана. Магчыма не ўсталяваны слоўнікі."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "Праверка правапісу"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Словы з памылкамі:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "слова"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "Замяніць _на:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "П_раверыць слова"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_Прапановы:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "І_гнараваць"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "Ігнараваць _усе"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "_Замяніць"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "Замяніць у_се"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "Карыстальніцкі слоўнік:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "Дадаць с_лова"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "Выбар мовы"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Выберыце _мову для праверкі правапісу."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_Скасаваць"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Выбраць"
