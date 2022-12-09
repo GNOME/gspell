@@ -1,0 +1,162 @@
+# Interlingue translation for gspell.
+# Copyright (C) 2016 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+# Fabio Tomat <f.t.public@gmail.com>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2022-12-10 01:06+0700\n"
+"PO-Revision-Date: 2022-12-10 01:10+0700\n"
+"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
+"Language-Team: IE\n"
+"Language: ie\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gspell/gspell-checker.c:415
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Errore controlante li ortografia del parol «%s»: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(null suggestet paroles)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "Errore:"
+
+#: gspell/gspell-checker-dialog.c:271
+msgid "Completed spell checking"
+msgstr "Control de ortografia es complet"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "Null misespelat paroles"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(ortografia correct)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "Suggestiones"
+
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "_Lingue"
+
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "_Plu..."
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+msgid "_Ignore All"
+msgstr "_Ignorar omni"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "_Adjunter"
+
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
+msgstr "_Suggestiones..."
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:89
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Ínconosset (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "Null lingue selectet"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Errore de controlero de ortografia: null lingue es assignat. To posse esser "
+"pro que null dictionariums es installat."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "Controlar ortografie"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Parol misespelat:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "parol"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "_Cambiar por:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "Controlar _parol"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_Suggestiones:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "_Ignorar"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "Ignorar _omni"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "Cam_biar"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "Cambiar o_mni"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "Dictionarium de usator:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "_Adjunter parol"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "Assignar li lingue"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Selecte li _lingue por control de ortografia."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_Anullar"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Selecter"
