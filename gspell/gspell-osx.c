@@ -22,7 +22,6 @@
 #endif
 
 #include "gspell-osx.h"
-#include <gtkosxapplication.h>
 #import <Cocoa/Cocoa.h>
 
 gchar *

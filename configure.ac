@@ -193,13 +193,6 @@ AM_CONDITIONAL(OS_OSX, test "$os_osx" = "yes")
 
 if test "$os_osx" = "yes"; then
 	AC_DEFINE([OS_OSX], [1], [Defined if OS is Mac OSX])
-
-	AX_PKG_CHECK_MODULES([GTK_MAC],
-			     [],
-			     [gtk-mac-integration-gtk3 >= 2.0.8])
-
-	AC_SUBST(GTK_MAC_CFLAGS)
-	AC_SUBST(GTK_MAC_LIBS)
 fi
 
 # Output files
