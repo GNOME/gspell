@@ -1,14 +1,12 @@
 AM_CPPFLAGS = 			\
 	-I$(top_srcdir) 	\
 	$(WARN_CFLAGS) 		\
-	$(DEP_CFLAGS)		\
-	$(GTK_MAC_CFLAGS)
+	$(DEP_CFLAGS)
 
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
-LDADD =	$(top_builddir)/gspell/libgspell-@GSPELL_API_VERSION@.la	\
-	$(DEP_LIBS)							\
-	$(GTK_MAC_LIBS)
+LDADD =	$(top_builddir)/gspell/libgspell-@GSPELL_API_VERSION@.la \
+	$(DEP_LIBS)
 
 TEST_PROGS =
 

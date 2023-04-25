@@ -12,8 +12,7 @@ AM_CPPFLAGS =				\
 	-I$(top_srcdir)			\
 	$(WARN_CFLAGS)			\
 	$(CODE_COVERAGE_CPPFLAGS)	\
-	$(DEP_CFLAGS)			\
-	$(GTK_MAC_CFLAGS)
+	$(DEP_CFLAGS)
 
 gspell_public_headers =				\
 	gspell.h				\
@@ -112,7 +111,6 @@ libgspell_@GSPELL_API_VERSION@_la_SOURCES =
 libgspell_@GSPELL_API_VERSION@_la_LIBADD =	\
 	libgspell-core.la			\
 	$(DEP_LIBS)				\
-	$(GTK_MAC_LIBS)				\
 	$(CODE_COVERAGE_LIBS)
 
 libgspell_@GSPELL_API_VERSION@_la_CFLAGS =	\
