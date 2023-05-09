@@ -1,4 +1,4 @@
-/* Do not edit: this file is generated from https://git.gnome.org/browse/gtksourceview/plain/gtksourceview/gtksourceregion.h */
+/* Do not edit: this file is generated from gtksourceregion.h */
 
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  * gspellregion.h - GtkTextMark-based region utility
@@ -17,9 +17,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef GSPELL_REGION_H
@@ -41,7 +40,7 @@ struct _GspellRegionClass
 	GObjectClass parent_class;
 
 	/* Padding for future expansion */
-	gpointer padding[8];
+	gpointer padding[10];
 };
 
 /*

@@ -1,4 +1,4 @@
-/* Do not edit: this file is generated from https://git.gnome.org/browse/gtksourceview/plain/gtksourceview/gtksourceregion.c */
+/* Do not edit: this file is generated from gtksourceregion.c */
 
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  * gspellregion.c - GtkTextMark-based region utility
@@ -17,13 +17,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif
 
 #include "gspellregion.h"
@@ -278,7 +277,7 @@ _gspell_region_dispose (GObject *object)
 			gtk_text_buffer_delete_mark (priv->buffer, sr->end);
 		}
 
-		g_slice_free (Subregion, sr);
+		g_free (sr);
 		priv->subregions = g_list_delete_link (priv->subregions, priv->subregions);
 	}
 
@@ -382,7 +381,7 @@ _gspell_region_clear_zero_length_subregions (GspellRegion *region)
 		{
 			gtk_text_buffer_delete_mark (priv->buffer, sr->start);
 			gtk_text_buffer_delete_mark (priv->buffer, sr->end);
-			g_slice_free (Subregion, sr);
+			g_free (sr);
 
 			if (node == priv->subregions)
 			{
@@ -458,7 +457,7 @@ _gspell_region_add_subregion (GspellRegion   *region,
 	if (start_node == NULL || end_node == NULL || end_node == start_node->prev)
 	{
 		/* Create the new subregion. */
-		Subregion *sr = g_slice_new0 (Subregion);
+		Subregion *sr = g_new0 (Subregion, 1);
 		sr->start = gtk_text_buffer_create_mark (priv->buffer, NULL, &start, TRUE);
 		sr->end = gtk_text_buffer_create_mark (priv->buffer, NULL, &end, FALSE);
 
@@ -496,14 +495,14 @@ _gspell_region_add_subregion (GspellRegion   *region,
 				q = l->data;
 				gtk_text_buffer_delete_mark (priv->buffer, q->start);
 				gtk_text_buffer_delete_mark (priv->buffer, q->end);
-				g_slice_free (Subregion, q);
+				g_free (q);
 				l = g_list_delete_link (l, l);
 			}
 
 			q = l->data;
 			gtk_text_buffer_delete_mark (priv->buffer, q->start);
 			sr->end = q->end;
-			g_slice_free (Subregion, q);
+			g_free (q);
 			l = g_list_delete_link (l, l);
 		}
 
@@ -659,7 +658,7 @@ _gspell_region_subtract_subregion (GspellRegion   *region,
 			/* The ending point is also inside the first
 			 * subregion: we need to split.
 			 */
-			Subregion *new_sr = g_slice_new0 (Subregion);
+			Subregion *new_sr = g_new0 (Subregion, 1);
 			new_sr->end = sr->end;
 			new_sr->start = gtk_text_buffer_create_mark (priv->buffer,
 								     NULL,
@@ -740,7 +739,7 @@ _gspell_region_subtract_subregion (GspellRegion   *region,
 			sr = node->data;
 			gtk_text_buffer_delete_mark (priv->buffer, sr->start);
 			gtk_text_buffer_delete_mark (priv->buffer, sr->end);
-			g_slice_free (Subregion, sr);
+			g_free (sr);
 			priv->subregions = g_list_delete_link (priv->subregions, node);
 			node = l;
 		}
@@ -978,7 +977,7 @@ _gspell_region_intersect_subregion (GspellRegion   *region,
 	/* Starting node. */
 	if (gtk_text_iter_in_range (&start, &sr_start_iter, &sr_end_iter))
 	{
-		new_sr = g_slice_new0 (Subregion);
+		new_sr = g_new0 (Subregion, 1);
 		new_priv->subregions = g_list_prepend (new_priv->subregions, new_sr);
 
 		new_sr->start = gtk_text_buffer_create_mark (new_priv->buffer,
@@ -1032,7 +1031,7 @@ _gspell_region_intersect_subregion (GspellRegion   *region,
 			gtk_text_buffer_get_iter_at_mark (priv->buffer, &sr_start_iter, sr->start);
 			gtk_text_buffer_get_iter_at_mark (priv->buffer, &sr_end_iter, sr->end);
 
-			new_sr = g_slice_new0 (Subregion);
+			new_sr = g_new0 (Subregion, 1);
 			new_priv->subregions = g_list_prepend (new_priv->subregions, new_sr);
 
 			new_sr->start = gtk_text_buffer_create_mark (new_priv->buffer,
@@ -1054,7 +1053,7 @@ _gspell_region_intersect_subregion (GspellRegion   *region,
 		gtk_text_buffer_get_iter_at_mark (priv->buffer, &sr_start_iter, sr->start);
 		gtk_text_buffer_get_iter_at_mark (priv->buffer, &sr_end_iter, sr->end);
 
-		new_sr = g_slice_new0 (Subregion);
+		new_sr = g_new0 (Subregion, 1);
 		new_priv->subregions = g_list_prepend (new_priv->subregions, new_sr);
 
 		new_sr->start = gtk_text_buffer_create_mark (new_priv->buffer,
