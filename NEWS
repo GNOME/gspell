@@ -1,3 +1,7 @@
+News in 1.12.2, 2023-07-28
+--------------------------
+* Small code maintenance: don't use g_slice_*().
+
 News in 1.12.1, 2023-04-30
 --------------------------
 * Build: remove gtk-mac-integration dependency.
