@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gspell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
-"POT-Creation-Date: 2023-08-08 10:46+0000\n"
-"PO-Revision-Date: 2023-10-14 10:40+0300\n"
+"POT-Creation-Date: 2023-10-14 12:27+0000\n"
+"PO-Revision-Date: 2024-02-08 01:24+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-POOTLE-MTIME: 1433962102.000000\n"
 
 #: gspell/gspell-checker.c:415
@@ -78,7 +78,7 @@ msgstr "_Daha çok…"
 #. Ignore all
 #: gspell/gspell-context-menu.c:285
 msgid "_Ignore All"
-msgstr "Hepsini _Yoksay"
+msgstr "Tümünü _Yok Say"
 
 #. Add to Dictionary
 #: gspell/gspell-context-menu.c:303
@@ -134,11 +134,11 @@ msgstr "_Öneriler:"
 
 #: gspell/resources/checker-dialog.ui:133
 msgid "_Ignore"
-msgstr "_Yoksay"
+msgstr "_Yok Say"
 
 #: gspell/resources/checker-dialog.ui:146
 msgid "Ignore _All"
-msgstr "Tü_münü Yoksay"
+msgstr "Tü_münü Yok Say"
 
 #: gspell/resources/checker-dialog.ui:159
 msgid "Cha_nge"
