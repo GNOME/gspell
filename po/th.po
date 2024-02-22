@@ -1,0 +1,159 @@
+# Thai translation for gspell.
+# Copyright (C) 2024 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+# Aefgh Threenine <aefgh39622@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2024-02-10 10:59+0000\n"
+"PO-Revision-Date: 2024-02-23 00:34+0700\n"
+"Last-Translator: \n"
+"Language-Team: Thai <thai-l10n@googlegroups.com>\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#: gspell/gspell-checker.c:415
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "เกิดข้อผิดพลาดขณะตรวจตัวสะกดของคำว่า “%s”: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:150 gspell/gspell-context-menu.c:217
+msgid "(no suggested words)"
+msgstr "(ไม่มีคำแนะนำ)"
+
+#: gspell/gspell-checker-dialog.c:235
+msgid "Error:"
+msgstr "ข้อผิดพลาด:"
+
+#: gspell/gspell-checker-dialog.c:271
+msgid "Completed spell checking"
+msgstr "ตรวจตัวสะกดเรียบร้อยแล้ว"
+
+#: gspell/gspell-checker-dialog.c:275
+msgid "No misspelled words"
+msgstr "ไม่มีคำสะกดผิด"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:502
+msgid "(correct spelling)"
+msgstr "(การสะกดที่ถูกต้อง)"
+
+#: gspell/gspell-checker-dialog.c:644
+msgid "Suggestions"
+msgstr "คำแนะนำ"
+
+#: gspell/gspell-context-menu.c:152
+msgid "_Language"
+msgstr "_ภาษา"
+
+#: gspell/gspell-context-menu.c:240
+msgid "_More…"
+msgstr "_เพิ่มเติม…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:285
+msgid "_Ignore All"
+msgstr "เ_พิกเฉยทั้งหมด"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:303
+msgid "_Add"
+msgstr "เพิ่_ม"
+
+#: gspell/gspell-context-menu.c:340
+msgid "_Spelling Suggestions…"
+msgstr "คำแนะนำในการ_สะกด…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:89
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "ไม่ทราบ (%s)"
+
+#: gspell/gspell-language-chooser-button.c:84
+msgid "No language selected"
+msgstr "ไม่ได้เลือกภาษา"
+
+#: gspell/gspell-navigator-text-view.c:310
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr "ตัวตรวจตัวสะกดผิดพลาด: ไม่ได้กำหนดภาษาไว้ อาจเป็นเพราะไม่ได้ติดตั้งพจนานุกรมใดไว้เลย"
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "ตรวจตัวสะกด"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "คำสะกดผิด:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "คำ"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "เปลี่ยนเ_ป็น:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "เป_ลี่ยนคำ"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "คำแ_นะนำ:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "เ_พิกเฉย"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "เพิกเฉย_ทั้งหมด"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "เปลี่_ยน"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "เปลี่ยนทั้_งหมด"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "พจนานุกรมผู้ใช้:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "เพิ่ม_คำ"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "กำหนดภาษา"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "เลือก_ภาษาที่ต้องการให้ตรวจตัวสะกด"
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_ยกเลิก"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "เ_ลือก"
