@@ -1,5 +1,0 @@
-#pragma once
-
-#define GETTEXT_PACKAGE "@GETTEXT_PACKAGE@"
-#define DATADIR "@CMAKE_INSTALL_FULL_DATADIR@"
-#define PACKAGE_BUGREPORT "https://gitlab.gnome.org/GNOME/gspell/issues"
