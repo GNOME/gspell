@@ -1,0 +1,29 @@
+option(
+  'gobject_introspection',
+  type: 'boolean', value: true,
+  description: 'Build GObject Introspection data (requires gobject-introspection)'
+)
+
+option(
+  'gspell_app',
+  type: 'boolean', value: true,
+  description: 'Build gspell-app'
+)
+
+option(
+  'gtk_doc',
+  type: 'boolean', value: true,
+  description: 'Build API reference (requires gtk-doc)'
+)
+
+option(
+  'tests',
+  type: 'boolean', value: true,
+  description: 'Build tests'
+)
+
+option(
+  'vapi',
+  type: 'boolean', value: true,
+  description: 'Build vapi, for Vala (requires vapigen)'
+)
