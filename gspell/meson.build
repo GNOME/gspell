@@ -84,7 +84,6 @@ gspell_static_lib = static_library(
   dependencies: GSPELL_DEPS,
   c_args: [
     '-DGSPELL_COMPILATION',
-    '-DHAVE_CONFIG_H', # TODO: remove once Autotools removed.
   ],
 )
 
