@@ -63,11 +63,10 @@ install_headers(
   install_dir: headers_install_dir
 )
 
-# TODO: try to simplify and use GNOME.mkenums_simple(), without breaking the API.
-gspell_enum_types = GNOME.mkenums(
+gspell_enum_types = GNOME.mkenums_simple(
   'gspell-enum-types',
-  c_template: 'gspell-enum-types.c.in',
-  h_template: 'gspell-enum-types.h.in',
+  decorator: 'G_MODULE_EXPORT',
+  header_prefix: '#include <gmodule.h>',
   sources: gspell_public_headers,
   install_header: true,
   install_dir: headers_install_dir,
