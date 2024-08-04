@@ -34,13 +34,11 @@ config_data = configuration_data()
 GETTEXT_PACKAGE_NAME = '@0@-@1@'.format(meson.project_name(), GSPELL_API_VERSION)
 config_data.set_quoted('GETTEXT_PACKAGE', GETTEXT_PACKAGE_NAME)
 config_data.set_quoted('PACKAGE_BUGREPORT', 'https://gitlab.gnome.org/GNOME/gspell/issues')
+config_data.set10('OS_MACOS', host_machine.system() == 'darwin')
 
 # TODO: take the localedir instead, and have only one macroconstant for that.
 config_data.set_quoted('DATADIR', get_option('prefix') / get_option('datadir'))
 config_data.set_quoted('GSPELL_DATADIR', get_option('prefix') / get_option('datadir'))
-
-# TODO: change it to set10() OS_MACOS.
-config_data.set('OS_OSX', host_machine.system() == 'darwin')
 
 configure_file(
   output: 'config.h',

@@ -26,7 +26,7 @@
 #include <enchant.h>
 #include "gspell-icu.h"
 
-#ifdef OS_OSX
+#if OS_MACOS
 #include "gspell-osx.h"
 #endif
 
@@ -153,7 +153,7 @@ gspell_language_get_default (void)
 	}
 
 	/* Another try specific to Mac OS X */
-#ifdef OS_OSX
+#if OS_MACOS
 	{
 		gchar *code = _gspell_osx_get_preferred_spell_language ();
 

@@ -33,7 +33,7 @@
 static HMODULE gspell_dll;
 #endif
 
-#ifdef OS_OSX
+#if OS_MACOS
 #include <Cocoa/Cocoa.h>
 
 static gchar *
@@ -84,14 +84,14 @@ dirs_os_x_get_locale_dir (void)
 
 	return ret;
 }
-#endif /* OS_OSX */
+#endif /* OS_MACOS */
 
 static gchar *
 get_locale_dir (void)
 {
 	gchar *locale_dir;
 
-#if defined (G_OS_WIN32)
+#ifdef G_OS_WIN32
 	gchar *win32_dir;
 
 	win32_dir = g_win32_get_package_installation_directory_of_module (gspell_dll);
@@ -99,7 +99,7 @@ get_locale_dir (void)
 	locale_dir = g_build_filename (win32_dir, "share", "locale", NULL);
 
 	g_free (win32_dir);
-#elif defined (OS_OSX)
+#elif OS_MACOS
 	locale_dir = dirs_os_x_get_locale_dir ();
 #else
 	locale_dir = g_build_filename (DATADIR, "locale", NULL);
