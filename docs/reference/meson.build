@@ -1,6 +1,6 @@
 subdir('xml')
 
-gtkdoc_module_name = '@0@-@1@.0'.format(meson.project_name(), GSPELL_API_VERSION)
+gtkdoc_module_name = '@0@-@1@'.format(meson.project_name(), GSPELL_API_VERSION)
 
 FS.copyfile(
   '@0@-sections.txt'.format(meson.project_name()),
