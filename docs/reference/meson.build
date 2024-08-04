@@ -2,6 +2,11 @@ subdir('xml')
 
 gtkdoc_module_name = '@0@-@1@.0'.format(meson.project_name(), GSPELL_API_VERSION)
 
+FS.copyfile(
+  '@0@-sections.txt'.format(meson.project_name()),
+  '@0@-sections.txt'.format(gtkdoc_module_name)
+)
+
 html_dir = get_option('prefix') / GNOME.gtkdoc_html_dir(gtkdoc_module_name)
 
 GNOME.gtkdoc(
