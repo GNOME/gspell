@@ -74,7 +74,7 @@ dirs_os_x_get_locale_dir (void)
 
 	if (res_dir == NULL)
 	{
-		ret = g_build_filename (DATADIR, "locale", NULL);
+		ret = g_strdup (GSPELL_LOCALEDIR);
 	}
 	else
 	{
@@ -102,7 +102,7 @@ get_locale_dir (void)
 #elif OS_MACOS
 	locale_dir = dirs_os_x_get_locale_dir ();
 #else
-	locale_dir = g_build_filename (DATADIR, "locale", NULL);
+	locale_dir = g_strdup (GSPELL_LOCALEDIR);
 #endif
 
 	return locale_dir;
