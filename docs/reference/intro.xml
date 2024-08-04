@@ -18,14 +18,14 @@
   <refsect1>
     <title>pkg-config name</title>
     <para>
-      The pkg-config name of the gspell library is: <code>gspell-@GSPELL_API_VERSION@</code>
+      The pkg-config name of the gspell library is: <code>gspell-&package_api_version;</code>
     </para>
     <para>
       To compile a program that uses gspell, you can for example use the
       following command:
     </para>
     <para>
-      <code>$ gcc hello.c `pkg-config --cflags --libs gspell-@GSPELL_API_VERSION@` -o hello</code>
+      <code>$ gcc hello.c `pkg-config --cflags --libs gspell-&package_api_version;` -o hello</code>
     </para>
   </refsect1>
 
