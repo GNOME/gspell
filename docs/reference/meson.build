@@ -1,3 +1,5 @@
+subdir('xml')
+
 # TODO: generate and use XML entities instead.
 gtkdoc_config_data = configuration_data()
 gtkdoc_config_data.set('GSPELL_API_VERSION', GSPELL_API_VERSION)
