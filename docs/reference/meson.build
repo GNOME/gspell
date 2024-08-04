@@ -31,6 +31,9 @@ GNOME.gtkdoc(
   content_files: [
     'intro.xml',
   ],
-  ignore_headers: GSPELL_PRIVATE_HEADERS,
+  ignore_headers: [
+    GSPELL_PRIVATE_HEADERS,
+    'gspell.h', # For ignoring GSPELL_H_INSIDE.
+  ],
   install: true,
 )
