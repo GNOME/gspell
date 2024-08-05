@@ -1,3 +1,15 @@
+News in 1.13.1, 2024-08-05 (beta version)
+-----------------------------------------
+This is a development snapshot (beta version). The stable versions will be the
+1.14.x.
+
+* Build systems:
+  - Add Meson.
+  - Remove Autotools.
+  - Add CMake experiment but reverted.
+* Bump soversion because a symbol was exported by mistake with the Autotools.
+* Translation updates.
+
 News in 1.12.2, 2023-07-28
 --------------------------
 * Small code maintenance: don't use g_slice_*().
