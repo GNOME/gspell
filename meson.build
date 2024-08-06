@@ -127,7 +127,6 @@ endif
 
 if get_option('tests')
   subdir('tests')
-  subdir('testsuite')
 endif
 
 if get_option('gtk_doc')
