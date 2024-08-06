@@ -9,7 +9,7 @@ Features
 - Access to basic spell-checking functionality with a GObject-based API.
 - An inline spell-checker for GtkEntry.
 - An inline spell-checker for GtkTextView (enhanced version of
-  [GtkSpell](http://gtkspell.sourceforge.net/)).
+  [GtkSpell](https://gtkspell.sourceforge.net/)).
 - A spell-checker dialog for GtkTextView.
 - Support of the no-spell-check tag defined by
   [GtkSourceView](https://wiki.gnome.org/Projects/GtkSourceView).
