@@ -18,7 +18,7 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#include "gspell-config.h"
 #include "gspell-language-chooser-dialog.h"
 #include "gspell-language-chooser.h"
 

@@ -28,7 +28,7 @@ gspell_private_deps = [
 ]
 GSPELL_DEPS = [GSPELL_PUBLIC_DEPS, gspell_private_deps]
 
-# config.h
+# gspell-config.h
 
 config_data = configuration_data()
 GETTEXT_PACKAGE_NAME = '@0@-@1@'.format(meson.project_name(), GSPELL_API_VERSION)
@@ -38,7 +38,7 @@ config_data.set10('OS_MACOS', host_machine.system() == 'darwin')
 config_data.set_quoted('GSPELL_LOCALEDIR', get_option('prefix') / get_option('localedir'))
 
 configure_file(
-  output: 'config.h',
+  output: 'gspell-config.h',
   configuration: config_data
 )
 

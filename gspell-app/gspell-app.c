@@ -24,7 +24,7 @@
  * (hopefully) well.
  */
 
-#include "config.h"
+#include "gspell-config.h"
 #include <locale.h>
 #include <libintl.h>
 #include <gspell/gspell.h>

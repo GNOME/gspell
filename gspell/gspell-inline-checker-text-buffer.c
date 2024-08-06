@@ -22,7 +22,7 @@
  * Copyright 2002 - Evan Martin
  */
 
-#include "config.h"
+#include "gspell-config.h"
 #include "gspell-inline-checker-text-buffer.h"
 #include <string.h>
 #include <glib/gi18n-lib.h>
