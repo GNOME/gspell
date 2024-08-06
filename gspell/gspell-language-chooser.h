@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_LANGUAGE_CHOOSER_H
-#define GSPELL_LANGUAGE_CHOOSER_H
+#pragma once
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -51,4 +50,3 @@ void			gspell_language_chooser_set_language_code	(GspellLanguageChooser *chooser
 
 G_END_DECLS
 
-#endif /* GSPELL_LANGUAGE_CHOOSER_H */

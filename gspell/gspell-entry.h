@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_ENTRY_H
-#define GSPELL_ENTRY_H
+#pragma once
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -38,4 +37,3 @@ void		gspell_entry_set_inline_spell_checking	(GspellEntry *gspell_entry,
 
 G_END_DECLS
 
-#endif /* GSPELL_ENTRY_H */

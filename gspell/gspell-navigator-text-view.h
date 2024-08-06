@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_NAVIGATOR_TEXT_VIEW_H
-#define GSPELL_NAVIGATOR_TEXT_VIEW_H
+#pragma once
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -38,4 +37,3 @@ GtkTextView *		gspell_navigator_text_view_get_view	(GspellNavigatorTextView *nav
 
 G_END_DECLS
 
-#endif /* GSPELL_NAVIGATOR_TEXT_VIEW_H */

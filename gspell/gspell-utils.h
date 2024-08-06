@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_UTILS_H
-#define GSPELL_UTILS_H
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -52,4 +51,3 @@ void		_gspell_utils_improve_word_boundaries	(const gchar  *text,
 
 G_END_DECLS
 
-#endif /* GSPELL_UTILS_H */

@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_TEXT_ITER_H
-#define GSPELL_TEXT_ITER_H
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -26,4 +25,3 @@ gboolean	_gspell_text_iter_inside_word		(const GtkTextIter *iter);
 
 G_END_DECLS
 
-#endif /* GSPELL_TEXT_ITER_H */

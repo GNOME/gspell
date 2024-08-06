@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_ENTRY_PRIVATE_H
-#define GSPELL_ENTRY_PRIVATE_H
+#pragma once
 
 #include "gspell/gspell-entry.h"
 
@@ -14,4 +13,3 @@ const GSList *	_gspell_entry_get_misspelled_words	(GspellEntry *gspell_entry);
 
 G_END_DECLS
 
-#endif /* GSPELL_ENTRY_PRIVATE_H */

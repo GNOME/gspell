@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_TEXT_VIEW_H
-#define GSPELL_TEXT_VIEW_H
+#pragma once
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -53,4 +52,3 @@ void			gspell_text_view_set_enable_language_menu	(GspellTextView *gspell_view,
 
 G_END_DECLS
 
-#endif /* GSPELL_TEXT_VIEW_H */

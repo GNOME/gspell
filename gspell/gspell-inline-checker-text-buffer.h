@@ -7,8 +7,7 @@
  * SPDX-FileCopyrightText: 2002 - Evan Martin
  */
 
-#ifndef GSPELL_INLINE_CHECKER_TEXT_BUFFER_H
-#define GSPELL_INLINE_CHECKER_TEXT_BUFFER_H
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -49,4 +48,3 @@ GtkTextTag *
 
 G_END_DECLS
 
-#endif  /* GSPELL_INLINE_CHECKER_TEXT_BUFFER_H */

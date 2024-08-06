@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_ENTRY_UTILS_H
-#define GSPELL_ENTRY_UTILS_H
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -42,4 +41,3 @@ gint		 _gspell_entry_utils_get_char_position_at_event	(GtkEntry       *entry,
 
 G_END_DECLS
 
-#endif /* GSPELL_ENTRY_UTILS_H */

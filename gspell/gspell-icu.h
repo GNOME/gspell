@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_ICU_H
-#define GSPELL_ICU_H
+#pragma once
 
 #include <glib.h>
 
@@ -21,4 +20,3 @@ char *	_gspell_icu_loc_getDisplayNameSimple	(const char *localeID,
 
 G_END_DECLS
 
-#endif /* GSPELL_ICU_H */

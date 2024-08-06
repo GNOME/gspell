@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_CURRENT_WORD_POLICY_H
-#define GSPELL_CURRENT_WORD_POLICY_H
+#pragma once
 
 #include <glib-object.h>
 
@@ -67,4 +66,3 @@ void		_gspell_current_word_policy_text_deleted		(GspellCurrentWordPolicy *policy
 
 G_END_DECLS
 
-#endif /* GSPELL_CURRENT_WORD_POLICY_H */

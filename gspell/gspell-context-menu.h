@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_CONTEXT_MENU_H
-#define GSPELL_CONTEXT_MENU_H
+#pragma once
 
 #include <gtk/gtk.h>
 #include "gspell-checker.h"
@@ -30,4 +29,3 @@ GtkMenuItem *	_gspell_context_menu_get_suggestions_menu_item	(GspellChecker     
 
 G_END_DECLS
 
-#endif /* GSPELL_CONTEXT_MENU_H */

@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_NAVIGATOR_H
-#define GSPELL_NAVIGATOR_H
+#pragma once
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -57,4 +56,3 @@ void		gspell_navigator_change_all	(GspellNavigator *navigator,
 
 G_END_DECLS
 
-#endif /* GSPELL_NAVIGATOR_H */

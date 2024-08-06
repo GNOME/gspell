@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_CHECKER_DIALOG_H
-#define GSPELL_CHECKER_DIALOG_H
+#pragma once
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -39,4 +38,3 @@ GspellNavigator *	gspell_checker_dialog_get_spell_navigator	(GspellCheckerDialog
 
 G_END_DECLS
 
-#endif  /* GSPELL_CHECKER_DIALOG_H */

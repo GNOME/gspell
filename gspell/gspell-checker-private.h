@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_CHECKER_PRIVATE_H
-#define GSPELL_CHECKER_PRIVATE_H
+#pragma once
 
 #include "gspell-checker.h"
 
@@ -15,4 +14,3 @@ void		_gspell_checker_force_set_language	(GspellChecker        *checker,
 
 G_END_DECLS
 
-#endif  /* GSPELL_CHECKER_PRIVATE_H */

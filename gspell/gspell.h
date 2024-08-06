@@ -2,8 +2,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#ifndef GSPELL_H
-#define GSPELL_H
+#pragma once
 
 #define GSPELL_H_INSIDE
 
@@ -24,4 +23,3 @@
 
 #undef GSPELL_H_INSIDE
 
-#endif /* GSPELL_H */

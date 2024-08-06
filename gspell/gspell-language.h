@@ -9,8 +9,7 @@
  * partly on Epiphany's code.
  */
 
-#ifndef GSPELL_LANGUAGE_H
-#define GSPELL_LANGUAGE_H
+#pragma once
 
 #if !defined (GSPELL_H_INSIDE) && !defined (GSPELL_COMPILATION)
 #error "Only <gspell/gspell.h> can be included directly."
@@ -57,4 +56,3 @@ void		gspell_language_free			(GspellLanguage *language);
 
 G_END_DECLS
 
-#endif /* GSPELL_LANGUAGE_H */
