@@ -1,7 +1,4 @@
-/*
- * This file is part of gspell, a spell-checking library.
- *
- * SPDX-FileCopyrightText: 2016 - Sébastien Wilmet
+/* SPDX-FileCopyrightText: 2016 - Sébastien Wilmet
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
