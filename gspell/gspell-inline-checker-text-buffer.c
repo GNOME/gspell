@@ -1,14 +1,14 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2002 - Paolo Maggi
- * Copyright 2015, 2016, 2017 - Sébastien Wilmet
+ * SPDX-FileCopyrightText: 2002 - Paolo Maggi
+ * SPDX-FileCopyrightText: 2015, 2016, 2017 - Sébastien Wilmet
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 /* This is a modified version of GtkSpell 2.0.5 (gtkspell.sf.net)
- * Copyright 2002 - Evan Martin
+ * SPDX-FileCopyrightText: 2002 - Evan Martin
  */
 
 #include "gspell-config.h"

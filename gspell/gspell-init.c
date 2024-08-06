@@ -1,7 +1,7 @@
 /*
  * This file is part of gspell, a spell-checking library.
  *
- * Copyright 2015, 2016, 2020 - Sébastien Wilmet <swilmet@gnome.org>
+ * SPDX-FileCopyrightText: 2015, 2016, 2020 - Sébastien Wilmet <swilmet@gnome.org>
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
@@ -9,7 +9,7 @@
 /* Init i18n */
 
 /* Part of the code taken from the GtkSourceView library (gtksourceview-i18n.c).
- * Copyright (C) 1997, 1998, 1999, 2000 Free Software Foundation
+ * SPDX-FileCopyrightText: (C) 1997, 1998, 1999, 2000 Free Software Foundation
  */
 
 #include "gspell-config.h"
