@@ -24,4 +24,3 @@ G_GNUC_INTERNAL
 gboolean	_gspell_text_iter_inside_word		(const GtkTextIter *iter);
 
 G_END_DECLS
-

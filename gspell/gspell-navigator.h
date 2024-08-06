@@ -55,4 +55,3 @@ void		gspell_navigator_change_all	(GspellNavigator *navigator,
 						 const gchar     *change_to);
 
 G_END_DECLS
-

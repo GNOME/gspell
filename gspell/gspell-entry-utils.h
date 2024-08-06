@@ -40,4 +40,3 @@ gint		 _gspell_entry_utils_get_char_position_at_event	(GtkEntry       *entry,
 								 GdkEventButton *event);
 
 G_END_DECLS
-

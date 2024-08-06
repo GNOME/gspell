@@ -51,4 +51,3 @@ void			gspell_text_view_set_enable_language_menu	(GspellTextView *gspell_view,
 									 gboolean        enable_language_menu);
 
 G_END_DECLS
-

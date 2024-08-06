@@ -37,4 +37,3 @@ G_MODULE_EXPORT
 GspellNavigator *	gspell_checker_dialog_get_spell_navigator	(GspellCheckerDialog *dialog);
 
 G_END_DECLS
-

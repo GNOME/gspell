@@ -28,4 +28,3 @@ GtkMenuItem *	_gspell_context_menu_get_suggestions_menu_item	(GspellChecker     
 								 gpointer                           user_data);
 
 G_END_DECLS
-

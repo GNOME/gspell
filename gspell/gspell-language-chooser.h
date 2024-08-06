@@ -49,4 +49,3 @@ void			gspell_language_chooser_set_language_code	(GspellLanguageChooser *chooser
 									 const gchar           *language_code);
 
 G_END_DECLS
-

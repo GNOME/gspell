@@ -50,4 +50,3 @@ void		_gspell_utils_improve_word_boundaries	(const gchar  *text,
 							 gint          n_attrs);
 
 G_END_DECLS
-

@@ -36,4 +36,3 @@ void		gspell_entry_set_inline_spell_checking	(GspellEntry *gspell_entry,
 							 gboolean     enable);
 
 G_END_DECLS
-

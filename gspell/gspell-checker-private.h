@@ -13,4 +13,3 @@ void		_gspell_checker_force_set_language	(GspellChecker        *checker,
 							 const GspellLanguage *language);
 
 G_END_DECLS
-

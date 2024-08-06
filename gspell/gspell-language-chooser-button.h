@@ -32,4 +32,3 @@ G_MODULE_EXPORT
 GtkWidget *	gspell_language_chooser_button_new	(const GspellLanguage *current_language);
 
 G_END_DECLS
-

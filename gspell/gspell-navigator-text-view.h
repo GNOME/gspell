@@ -36,4 +36,3 @@ G_MODULE_EXPORT
 GtkTextView *		gspell_navigator_text_view_get_view	(GspellNavigatorTextView *navigator);
 
 G_END_DECLS
-

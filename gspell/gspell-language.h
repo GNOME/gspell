@@ -55,4 +55,3 @@ G_MODULE_EXPORT
 void		gspell_language_free			(GspellLanguage *language);
 
 G_END_DECLS
-

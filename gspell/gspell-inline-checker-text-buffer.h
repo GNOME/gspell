@@ -47,4 +47,3 @@ GtkTextTag *
 	_gspell_inline_checker_text_buffer_get_highlight_tag	(GspellInlineCheckerTextBuffer *spell);
 
 G_END_DECLS
-

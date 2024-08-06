@@ -35,4 +35,3 @@ GtkWidget *	gspell_language_chooser_dialog_new		(GtkWindow            *parent,
 								 GtkDialogFlags        flags);
 
 G_END_DECLS
-

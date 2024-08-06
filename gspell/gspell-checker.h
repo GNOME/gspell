@@ -112,4 +112,3 @@ G_MODULE_EXPORT
 EnchantDict *	gspell_checker_get_enchant_dict		(GspellChecker *checker);
 
 G_END_DECLS
-

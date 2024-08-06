@@ -13,4 +13,3 @@ G_GNUC_INTERNAL
 gchar *	_gspell_osx_get_preferred_spell_language	(void);
 
 G_END_DECLS
-

@@ -12,4 +12,3 @@ G_GNUC_INTERNAL
 const GSList *	_gspell_entry_get_misspelled_words	(GspellEntry *gspell_entry);
 
 G_END_DECLS
-

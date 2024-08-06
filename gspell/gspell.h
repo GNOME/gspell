@@ -22,4 +22,3 @@
 #include <gspell/gspell-enum-types.h>
 
 #undef GSPELL_H_INSIDE
-

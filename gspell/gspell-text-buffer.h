@@ -34,4 +34,3 @@ void			gspell_text_buffer_set_spell_checker		(GspellTextBuffer *gspell_buffer,
 									 GspellChecker    *spell_checker);
 
 G_END_DECLS
-

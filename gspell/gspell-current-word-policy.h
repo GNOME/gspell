@@ -65,4 +65,3 @@ void		_gspell_current_word_policy_text_deleted		(GspellCurrentWordPolicy *policy
 									 gboolean                 end_ends_word);
 
 G_END_DECLS
-

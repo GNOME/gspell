@@ -19,4 +19,3 @@ char *	_gspell_icu_loc_getDisplayNameSimple	(const char *localeID,
 						 const char *inLocaleID);
 
 G_END_DECLS
-
