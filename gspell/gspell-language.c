@@ -4,7 +4,6 @@
  * SPDX-FileCopyrightText: 2006 - Paolo Maggi
  * SPDX-FileCopyrightText: 2008 - Novell, Inc.
  * SPDX-FileCopyrightText: 2015, 2016, 2020 - Sébastien Wilmet
- *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 

@@ -6,7 +6,6 @@
  *
  * SPDX-FileCopyrightText: (C) 2002 Gustavo Giráldez <gustavo.giraldez@gmx.net>
  * SPDX-FileCopyrightText: (C) 2016 Sébastien Wilmet <swilmet@gnome.org>
- *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 

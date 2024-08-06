@@ -2,7 +2,6 @@
  * This file is part of gspell, a spell-checking library.
  *
  * SPDX-FileCopyrightText: 2011, 2014 - Jesse van den Kieboom
- *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
