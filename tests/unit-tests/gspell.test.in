@@ -1,0 +1,5 @@
+[Test]
+Description=gspell @TEST_NAME@
+Exec=@UNIT_TESTS_INSTALL_DIR@/@TEST_NAME@
+Type=session-exclusive
+Output=TAP

@@ -22,6 +22,13 @@ option(
   description: 'Build tests'
 )
 
+# https://wiki.gnome.org/Initiatives/GnomeGoals/InstalledTests
+option(
+  'install_tests',
+  type: 'boolean', value: true,
+  description: 'Install unit test executables'
+)
+
 option(
   'vapi',
   type: 'boolean', value: true,
