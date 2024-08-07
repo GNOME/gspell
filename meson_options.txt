@@ -1,13 +1,19 @@
 option(
+  'gspell_app',
+  type: 'boolean', value: true,
+  description: 'Build gspell-app'
+)
+
+option(
   'gobject_introspection',
   type: 'boolean', value: true,
   description: 'Build GObject Introspection data (requires gobject-introspection)'
 )
 
 option(
-  'gspell_app',
+  'vapi',
   type: 'boolean', value: true,
-  description: 'Build gspell-app'
+  description: 'Build vapi, for Vala (requires vapigen)'
 )
 
 option(
@@ -27,10 +33,4 @@ option(
   'install_tests',
   type: 'boolean', value: true,
   description: 'Install unit test executables'
-)
-
-option(
-  'vapi',
-  type: 'boolean', value: true,
-  description: 'Build vapi, for Vala (requires vapigen)'
 )
