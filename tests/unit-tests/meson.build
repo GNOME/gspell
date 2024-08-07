@@ -34,7 +34,11 @@ foreach test_name : unit_tests
       output: '@0@.test'.format(test_name),
       configuration: unit_test_config_data,
       install: true,
-      install_dir: unit_tests_install_dir,
+      install_dir: join_paths(
+        get_option('datadir'),
+        'installed-tests',
+        '@0@-@1@'.format(meson.project_name(), GSPELL_API_VERSION)
+      ),
     )
   endif
 endforeach
