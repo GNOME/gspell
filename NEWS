@@ -1,3 +1,20 @@
+News in 1.13.2, 2024-08-29 (rc version)
+---------------------------------------
+This is a development snapshot (release candidate version). The stable versions
+will be the 1.14.x.
+
+* Re-add support for installed unit tests.
+
+Modernize a bit the codebase:
+* License headers: follow the REUSE way of applying licenses, with SPDX tags.
+* Convert #include guards to #pragma once
+
+Small improvements:
+* Rename config.h to gspell-config.h
+* Update gconstructor.h
+* Re-organize files within the repository: have tests/interactive-tests/ and
+  tests/unit-tests/
+
 News in 1.13.1, 2024-08-05 (beta version)
 -----------------------------------------
 This is a development snapshot (beta version). The stable versions will be the
