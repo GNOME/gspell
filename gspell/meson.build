@@ -57,6 +57,17 @@ gspell_private_c_files = [
   'gspell-utils.c',
 ]
 
+gspell_static_lib_c_args = ['-DGSPELL_COMPILATION']
+gspell_static_lib_link_args = []
+
+if host_machine.system() == 'darwin'
+  GSPELL_PRIVATE_HEADERS += ['gspell-osx.h']
+  gspell_private_c_files += ['gspell-osx.c']
+
+  gspell_static_lib_c_args += ['-xobjective-c']
+  gspell_static_lib_link_args += ['-framework', 'Cocoa']
+endif
+
 headers_install_dir = get_option('includedir') / '@0@-@1@/gspell/'.format(meson.project_name(), GSPELL_API_VERSION)
 install_headers(
   gspell_public_headers,
@@ -81,9 +92,8 @@ gspell_static_lib = static_library(
   pic: true, # gspell_static_lib is linked in a shared library.
   include_directories: ROOT_INCLUDE_DIR,
   dependencies: GSPELL_DEPS,
-  c_args: [
-    '-DGSPELL_COMPILATION',
-  ],
+  c_args: gspell_static_lib_c_args,
+  link_args: gspell_static_lib_link_args,
 )
 
 # For unit tests, to be able to test private functions.
