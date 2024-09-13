@@ -57,17 +57,6 @@ gspell_private_c_files = [
   'gspell-utils.c',
 ]
 
-gspell_static_lib_c_args = ['-DGSPELL_COMPILATION']
-gspell_static_lib_link_args = []
-
-if host_machine.system() == 'darwin'
-  GSPELL_PRIVATE_HEADERS += ['gspell-osx.h']
-  gspell_private_c_files += ['gspell-osx.c']
-
-  gspell_static_lib_c_args += ['-xobjective-c']
-  gspell_static_lib_link_args += ['-framework', 'Cocoa']
-endif
-
 headers_install_dir = get_option('includedir') / '@0@-@1@/gspell/'.format(meson.project_name(), GSPELL_API_VERSION)
 install_headers(
   gspell_public_headers,
@@ -82,6 +71,17 @@ gspell_enum_types = GNOME.mkenums_simple(
   install_header: true,
   install_dir: headers_install_dir,
 )
+
+gspell_static_lib_c_args = ['-DGSPELL_COMPILATION']
+gspell_static_lib_link_args = []
+
+if host_machine.system() == 'darwin'
+  GSPELL_PRIVATE_HEADERS += ['gspell-osx.h']
+  gspell_private_c_files += ['gspell-osx.c']
+
+  gspell_static_lib_c_args += ['-xobjective-c']
+  gspell_static_lib_link_args += ['-framework', 'Cocoa']
+endif
 
 gspell_static_lib = static_library(
   'gspell-static',
