@@ -6,7 +6,7 @@
 project(
   'gspell', 'c',
   meson_version: '>= 0.64',
-  version: '1.13.2',
+  version: '1.14.0',
   default_options: ['warning_level=2']
 )
 
