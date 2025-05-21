@@ -22,7 +22,7 @@
  * dictonaries are available, in which case the #GspellChecker is in a
  * “disabled” (but allowed) state.
  *
- * gspell uses the [Enchant](https://abiword.github.io/enchant/) library. The
+ * gspell uses the [Enchant](https://rrthomas.github.io/enchant/) library. The
  * use of Enchant is part of the gspell API, #GspellChecker exposes the
  * EnchantDict with the gspell_checker_get_enchant_dict() function.
  */

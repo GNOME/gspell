@@ -30,7 +30,7 @@ has a higher priority than `XDG_CONFIG_HOME`).
 Using hunspell directly instead of Enchant?
 -------------------------------------------
 
-- https://abiword.github.io/enchant/
+- https://rrthomas.github.io/enchant/
 - https://fedoraproject.org/wiki/Releases/FeatureDictionary
 - https://wiki.ubuntu.com/ConsolidateSpellingLibs
 

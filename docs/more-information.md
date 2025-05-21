@@ -14,7 +14,7 @@ Dependencies
 
 - GLib
 - GTK 3
-- [Enchant](https://abiword.github.io/enchant/)
+- [Enchant](https://rrthomas.github.io/enchant/)
 - [ICU](https://icu.unicode.org/)
 
 Notes for packagers
