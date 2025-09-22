@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2025-09-10 20:18+0000\n"
+"PO-Revision-Date: 2025-09-11 00:37-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
+"Language-Team: \n"
+"Language: ug\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.7\n"
+
+#: gspell/gspell-checker.c:397
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "«%s» سۆزنىڭ ئىملاسىنى تەكشۈرۈۋاتقاندا خاتالىق كۆرۈلدى: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:132 gspell/gspell-context-menu.c:199
+msgid "(no suggested words)"
+msgstr "(تەكلىپ سۆز يوق)"
+
+#: gspell/gspell-checker-dialog.c:217
+msgid "Error:"
+msgstr "خاتالىق:"
+
+#: gspell/gspell-checker-dialog.c:253
+msgid "Completed spell checking"
+msgstr "ئىملا تەكشۈرۈش تاماملاندى"
+
+#: gspell/gspell-checker-dialog.c:257
+msgid "No misspelled words"
+msgstr "ئىملاسى خاتا سۆز يوق"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:484
+msgid "(correct spelling)"
+msgstr "(توغرا ئىملا)"
+
+#: gspell/gspell-checker-dialog.c:626
+msgid "Suggestions"
+msgstr "نامزات"
+
+#: gspell/gspell-context-menu.c:134
+msgid "_Language"
+msgstr "تىل(_L)"
+
+#: gspell/gspell-context-menu.c:222
+msgid "_More…"
+msgstr "تېخىمۇ كۆپ(_M)…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:267
+msgid "_Ignore All"
+msgstr "ھەممىگە پەرۋا قىلما(_A)"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:285
+msgid "_Add"
+msgstr "قوش(_A)"
+
+#: gspell/gspell-context-menu.c:322
+msgid "_Spelling Suggestions…"
+msgstr "ئىملا تەۋسىيە(_S)…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:71
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "يوچۇن (%s)"
+
+#: gspell/gspell-language-chooser-button.c:66
+msgid "No language selected"
+msgstr "ھېچقانداق تىل تاللانمىغان"
+
+#: gspell/gspell-navigator-text-view.c:292
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr "ئىملا تەكشۈرگۈچ خاتالىقى: تىل تەڭشىكى يوق. بۇ بەلكىم ھېچقانداق لۇغەت ئورنىتىلمىغانلىقتىن بولۇشى مۇمكىن."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "ئىملا تەكشۈر"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "ئىملاسى خاتا سۆز:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "سۆز"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "ئالماشتۇرىدىغىنى(_T):"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "سۆزنى تەكشۈر(_W)"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "تەۋسىيە(_S)"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "پەرۋا قىلما(_I)"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "ھەممىگە پەرۋا قىلما(_A)"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "ئالماشتۇر(_N)"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "ھەممىنى ئالماشتۇر(_L)"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "ئىشلەتكۈچى لۇغىتى:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "سۆز قوش(_O)"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "تىل تەڭشەك"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "ئىملا تەكشۈرىدىغان تىل تاللىنىدۇ(_L)."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "ۋاز كەچ(_C)"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "تاللا(_S)"
