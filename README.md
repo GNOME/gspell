@@ -12,7 +12,8 @@ Features
   [GtkSpell](https://gtkspell.sourceforge.net/)).
 - A spell-checker dialog for GtkTextView.
 - Support of the no-spell-check tag defined by
-  [GtkSourceView](https://wiki.gnome.org/Projects/GtkSourceView).
+  [GtkSourceView](https://gitlab.gnome.org/GNOME/gtksourceview/) and
+  [libgedit-gtksourceview](https://gedit-text-editor.org/technology.html).
 - Language choosers (button and dialog).
 
 More information

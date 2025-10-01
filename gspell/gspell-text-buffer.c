@@ -15,10 +15,11 @@
  *
  * # Support of the no-spell-check tag defined by GtkSourceView
  *
- * The syntax highlighting engine of the [GtkSourceView
- * library](https://wiki.gnome.org/Projects/GtkSourceView) has a feature called
- * “context classes”. One of the standard context classes is
- * “<emphasis>no-spell-check</emphasis>”: it defines the regions in the
+ * The syntax highlighting engines of
+ * [GtkSourceView](https://gitlab.gnome.org/GNOME/gtksourceview/) and
+ * [libgedit-gtksourceview](https://gedit-text-editor.org/technology.html)
+ * have a feature called “context classes”. One of the standard context classes
+ * is “<emphasis>no-spell-check</emphasis>”: it defines the regions in the
  * #GtkTextBuffer that should not be spell-checked.
  *
  * GtkSourceView creates a #GtkTextTag named
@@ -32,7 +33,7 @@
  * On the other hand if the GtkSourceView library is not used, you can create a
  * #GtkTextTag with the same name to mark certain regions in the text that
  * gspell should skip. As it is not a great API, it is
- * [planned](https://bugzilla.gnome.org/show_bug.cgi?id=771582) to add an
+ * [planned](https://gitlab.gnome.org/GNOME/gspell/-/issues/25) to add an
  * explicit API in #GspellTextBuffer to set a #GtkTextTag that gspell should
  * skip.
  *
