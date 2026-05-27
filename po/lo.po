@@ -1,0 +1,158 @@
+# Lao translation for gspell.
+# Copyright (C) 2025 gspell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+# bone NI <bounkirdni@gmail.com>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2025-09-10 20:18+0000\n"
+"PO-Revision-Date: 2025-09-10 20:18+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Lao <lo@li.org>\n"
+"Language: lo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gspell/gspell-checker.c:397
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "ຂໍ້ຜິດພາດຕອນກວດການສະກົດຄຳວ່າ “%s”: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:132 gspell/gspell-context-menu.c:199
+msgid "(no suggested words)"
+msgstr "(ບໍ່ມີຄຳສັບແນະນຳ)"
+
+#: gspell/gspell-checker-dialog.c:217
+msgid "Error:"
+msgstr "ຂໍ້ຜິດພາດ:"
+
+#: gspell/gspell-checker-dialog.c:253
+msgid "Completed spell checking"
+msgstr "ການກວດການສະກົດຄຳສຳເລັດແລ້ວ"
+
+#: gspell/gspell-checker-dialog.c:257
+msgid "No misspelled words"
+msgstr "ບໍ່ມີຄຳທີ່ສະກົດຜິດ"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:484
+msgid "(correct spelling)"
+msgstr "(ສະກົດຖືກຕ້ອງ)"
+
+#: gspell/gspell-checker-dialog.c:626
+msgid "Suggestions"
+msgstr "ຄຳແນະນຳ"
+
+#: gspell/gspell-context-menu.c:134
+msgid "_Language"
+msgstr "_ພາສາ"
+
+#: gspell/gspell-context-menu.c:222
+msgid "_More…"
+msgstr "_ເພີ່ມເຕີມ…"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:267
+msgid "_Ignore All"
+msgstr "_ຂ້າມທັງໝົດ"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:285
+msgid "_Add"
+msgstr "_ເພີ່ມ"
+
+#: gspell/gspell-context-menu.c:322
+msgid "_Spelling Suggestions…"
+msgstr "_ຄຳແນະນຳການສະກົດຄຳ…"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:71
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "ບໍ່ຮູ້ຈັກ (%s)"
+
+#: gspell/gspell-language-chooser-button.c:66
+msgid "No language selected"
+msgstr "ຍັງບໍ່ໄດ້ເລືອກພາສາ"
+
+#: gspell/gspell-navigator-text-view.c:292
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr "ຂໍ້ຜິດພາດຂອງໂຕກວດການສະກົດຄຳ: ຍັງບໍ່ໄດ້ກຳນົດພາສາ. ອາດເປັນເພາະວ່າບໍ່ມີວັດຈະນານຸກົມຕິດຕັ້ງໄວ້."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "ກວດການສະກົດຄຳ"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "ຄຳທີ່ສະກົດຜິດ:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "ຄຳສັບ"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "ປ່ຽນເ_ປັນ:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "ກວດ_ຄຳສັບ"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_ຄຳແນະນຳ:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "_ຂ້າມ"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "ຂ້າມທັງ_ໝົດ"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "ປ່ຽ_ນ"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "ປ່ຽນທັງໝົ_ດ"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "ວັດຈະນານຸກົມຜູ້ໃຊ້:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "ເພີ່ມຄຳ_ສັບ"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "ຕັ້ງຄ່າພາສາ"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "ເລືອກ_ພາສາສຳລັບກວດການສະກົດຄຳ."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_ຍົກເລີກ"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_ເລືອກ"
