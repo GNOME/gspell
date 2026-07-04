@@ -25,7 +25,7 @@ typedef struct _GspellLanguage GspellLanguage;
 #define GSPELL_TYPE_LANGUAGE (gspell_language_get_type ())
 
 G_MODULE_EXPORT
-GType		gspell_language_get_type		(void) G_GNUC_CONST;
+GType		gspell_language_get_type		(void);
 
 G_MODULE_EXPORT
 const GList *	gspell_language_get_available		(void);
