@@ -60,6 +60,7 @@ C_COMPILER = meson.get_compiler('c')
 # The following warning_cflags suppose that warning_level=2.
 
 warning_cflags = []
+additional_cflags = []
 
 if C_COMPILER.get_id() == 'msvc'
   # Use GLib's msvc_recommended_pragmas.h to filter out
@@ -114,8 +115,17 @@ else
   ]
 endif
 
-supported_warning_cflags = C_COMPILER.get_supported_arguments(warning_cflags)
-add_project_arguments(supported_warning_cflags, language: 'c')
+if C_COMPILER.get_argument_syntax() == 'msvc'
+  # The system headers shipped with Visual Studio and the Windows SDK
+  # does not come with ssize_t. This includes clang-cl builds, as clang-cl
+  # use Visual Studio's and the Windows SDK's headers.
+  # This follows what is done in enchant-2.x's build system.
+  is_64bit_msvc = host_machine.cpu_family() in [ 'aarch64', 'x86_64' ]
+  additional_cflags += ['-Dssize_t=@0@'.format(is_64bit_msvc ? 'long long' : 'long')]
+endif
+
+supported_cflags = C_COMPILER.get_supported_arguments(warning_cflags + additional_cflags)
+add_project_arguments(supported_cflags, language: 'c')
 ##### end CFLAGS
 
 subdir('po')
