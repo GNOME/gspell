@@ -24,7 +24,7 @@ GSPELL_PUBLIC_DEPS = [
   dependency('enchant-2', version: '>= 2.2'),
 ]
 gspell_private_deps = [
-  dependency('icu-uc'),
+  dependency(['icu-uc','ICU'], components: ['uc']),
 ]
 GSPELL_DEPS = [GSPELL_PUBLIC_DEPS, gspell_private_deps]
 
