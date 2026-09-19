@@ -1,0 +1,160 @@
+# Norsk nynorsk translation of gspell
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gspell package.
+# Roy-Magne Mo <rmo@sunnmore.net>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gspell/issues\n"
+"POT-Creation-Date: 2025-10-01 07:46+0000\n"
+"PO-Revision-Date: 2026-09-18 14:02+0200\n"
+"Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
+"Language-Team: Norwegian Nynorsk <nn@li.org>\n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gspell/gspell-checker.c:397
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "Feil ved kontroll av stavemåten til ordet «%s»: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#.
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:132 gspell/gspell-context-menu.c:199
+msgid "(no suggested words)"
+msgstr "(ingen føreslåtte ord)"
+
+#: gspell/gspell-checker-dialog.c:217
+msgid "Error:"
+msgstr "Feil:"
+
+#: gspell/gspell-checker-dialog.c:253
+msgid "Completed spell checking"
+msgstr "Stavekontrollen er ferdig"
+
+#: gspell/gspell-checker-dialog.c:257
+msgid "No misspelled words"
+msgstr "Ingen feilstava ord"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#.
+#: gspell/gspell-checker-dialog.c:484
+msgid "(correct spelling)"
+msgstr "(rett stavemåte)"
+
+#: gspell/gspell-checker-dialog.c:626
+msgid "Suggestions"
+msgstr "Forslag"
+
+#: gspell/gspell-context-menu.c:134
+msgid "_Language"
+msgstr "_Språk"
+
+#: gspell/gspell-context-menu.c:222
+msgid "_More…"
+msgstr "_Meir …"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:267
+msgid "_Ignore All"
+msgstr "_Ignorer alle"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:285
+msgid "_Add"
+msgstr "_Legg til"
+
+#: gspell/gspell-context-menu.c:322
+msgid "_Spelling Suggestions…"
+msgstr "_Staveforslag …"
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:71
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Ukjend (%s)"
+
+#: gspell/gspell-language-chooser-button.c:66
+msgid "No language selected"
+msgstr "Ingen språk er valt"
+
+#: gspell/gspell-navigator-text-view.c:292
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Stavekontrollfeil: ingen språk er valt. Det kan vere fordi ingen ordbøker er"
+" installerte."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "Sjekk stavemåte"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Feilstava ord:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "ord"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "_Endre til:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "Sjekk _ord"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_Forslag:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "_Ignorer"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "Ignorer _alle"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "_Endre"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "Endre a_lle"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "Brukardefinert ordbok:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "_Legg til ord"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "Set språk"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "_Vel språket for stavekontroll."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Vel"
