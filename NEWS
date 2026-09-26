@@ -1,3 +1,8 @@
+News in 1.14.5, 2026-09-26 (stable version)
+-------------------------------------------
+* Don't annotate get_type() functions with G_GNUC_CONST.
+* Translation updates.
+
 News in 1.14.4, 2026-06-26 (stable version)
 -------------------------------------------
 * Translation updates.
