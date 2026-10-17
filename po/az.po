@@ -1,0 +1,161 @@
+# Azerbaijani translation for gspell
+# Copyright (c) 2026 Rosetta Contributors and Canonical Ltd 2026
+# This file is distributed under the same license as the gspell package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gspell\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2025-01-05 20:22+0000\n"
+"PO-Revision-Date: 2026-10-06 06:16+0000\n"
+"Last-Translator: Nicat Məmmədov <n1c4t97@gmail.com>\n"
+"Language-Team: Azerbaijani <az@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2026-10-08 12:29+0000\n"
+"X-Generator: Launchpad (build 46555f0dd369ca8a82bcfb94913ea540133323f9)\n"
+
+#: gspell/gspell-checker.c:397
+#, c-format
+msgid "Error when checking the spelling of word “%s”: %s"
+msgstr "\"%s\" sözünün orfoqrafiyası yoxlanılarkən xəta: %s"
+
+#. Translators: Displayed in the "Check Spelling"
+#. * dialog if there are no suggestions for the current
+#. * misspelled word.
+#. 
+#. No suggestions. Put something in the menu anyway...
+#: gspell/gspell-checker-dialog.c:132 gspell/gspell-context-menu.c:199
+msgid "(no suggested words)"
+msgstr "(təklif olunan söz yoxdur)"
+
+#: gspell/gspell-checker-dialog.c:217
+msgid "Error:"
+msgstr "Xəta:"
+
+#: gspell/gspell-checker-dialog.c:253
+msgid "Completed spell checking"
+msgstr "Orfoqrafiya yoxlaması tamamlandı"
+
+#: gspell/gspell-checker-dialog.c:257
+msgid "No misspelled words"
+msgstr "Səhv yazılmış söz yoxdur"
+
+#. Translators: Displayed in the "Check
+#. * Spelling" dialog if the current word
+#. * isn't misspelled.
+#. 
+#: gspell/gspell-checker-dialog.c:484
+msgid "(correct spelling)"
+msgstr "(düzgün orfoqrafiya)"
+
+#: gspell/gspell-checker-dialog.c:626
+msgid "Suggestions"
+msgstr "Təkliflər"
+
+#: gspell/gspell-context-menu.c:134
+msgid "_Language"
+msgstr "_Dil"
+
+#: gspell/gspell-context-menu.c:222
+msgid "_More…"
+msgstr "_Daha çox"
+
+#. Ignore all
+#: gspell/gspell-context-menu.c:267
+msgid "_Ignore All"
+msgstr "_Hamısını rədd et"
+
+#. Add to Dictionary
+#: gspell/gspell-context-menu.c:285
+msgid "_Add"
+msgstr "_Əlavə et"
+
+#: gspell/gspell-context-menu.c:322
+msgid "_Spelling Suggestions…"
+msgstr "_Orfoqrafiya təklifləri..."
+
+#. Translators: %s is the language ISO code.
+#: gspell/gspell-language.c:71
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Naməlum (%s)"
+
+#: gspell/gspell-language-chooser-button.c:66
+msgid "No language selected"
+msgstr "Dil seçilməyib"
+
+#: gspell/gspell-navigator-text-view.c:292
+msgid ""
+"Spell checker error: no language set. It’s maybe because no dictionaries are "
+"installed."
+msgstr ""
+"Orfiqrafiya yoxlama xətası: dil təyin edilməyib. Bu, ola bilsin ki, heç bir "
+"lüğətin quraşdırılmaması ilə bağlıdır."
+
+#: gspell/resources/checker-dialog.ui:7
+msgid "Check Spelling"
+msgstr "Orfoqrafiya yoxla"
+
+#: gspell/resources/checker-dialog.ui:36
+msgid "Misspelled word:"
+msgstr "Səhv yazılmış söz:"
+
+#: gspell/resources/checker-dialog.ui:49
+msgid "word"
+msgstr "söz"
+
+#: gspell/resources/checker-dialog.ui:66
+msgid "Change _to:"
+msgstr "_Buna dəyiş:"
+
+#: gspell/resources/checker-dialog.ui:91
+msgid "Check _Word"
+msgstr "Sözü yoxla"
+
+#: gspell/resources/checker-dialog.ui:120
+msgid "_Suggestions:"
+msgstr "_Təkliflər:"
+
+#: gspell/resources/checker-dialog.ui:133
+msgid "_Ignore"
+msgstr "_Nəzərə alma"
+
+#: gspell/resources/checker-dialog.ui:146
+msgid "Ignore _All"
+msgstr "_Heç birini nəzərə alma"
+
+#: gspell/resources/checker-dialog.ui:159
+msgid "Cha_nge"
+msgstr "_Dəyiş"
+
+#: gspell/resources/checker-dialog.ui:174
+msgid "Change A_ll"
+msgstr "_Hamısını dəyiş"
+
+#: gspell/resources/checker-dialog.ui:191
+msgid "User dictionary:"
+msgstr "İstifadəçi lüğəti:"
+
+#: gspell/resources/checker-dialog.ui:203
+msgid "Add w_ord"
+msgstr "_Söz əlavə et"
+
+#: gspell/resources/language-dialog.ui:7
+msgid "Set Language"
+msgstr "Dil təyin et"
+
+#: gspell/resources/language-dialog.ui:20
+msgid "Select the spell checking _language."
+msgstr "Orfoqrafiya yoxlama _dilini seçin."
+
+#: gspell/resources/language-dialog.ui:61
+msgid "_Cancel"
+msgstr "_İmtina"
+
+#: gspell/resources/language-dialog.ui:68
+msgid "_Select"
+msgstr "_Seç"
